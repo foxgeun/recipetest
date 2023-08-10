@@ -14,7 +14,10 @@ public class RecipeEntity {
     private Long id;
 
     private String title;
+    
+    @Column(length = 1000) // Adjust the length as needed
     private String description;
+
     private String imageUrl; // 이미지 URL 필드 추가
 
     // Getters and setters

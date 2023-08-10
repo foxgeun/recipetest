@@ -25,8 +25,8 @@ public class RecipeCrawlerService {
         
 
         for (Element recipe : recipes) {
-            String title = recipe.select(".LxJcT").text();
-            String description = recipe.select(".hpYiJK").text();
+            String description = recipe.select(".LxJcT").text();
+            String title = recipe.select(".hpYiJK").text();
             String imageUrl = recipe.select(".duQJWI").attr("src");
 
             System.out.println("=================================");
