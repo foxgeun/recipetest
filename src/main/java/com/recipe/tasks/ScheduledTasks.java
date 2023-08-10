@@ -19,10 +19,11 @@ public class ScheduledTasks {
     
     
    
-    @Scheduled(fixedRate = 3600000) // Run every hour
+    @Scheduled(fixedRate = 3600000) // 1시간 마다 업데이트
     public void crawlAndSaveScheduled() {
+    	
         try {
-        	System.out.println("dkdkdjansgkjasngkja");
+
             crawlerService.crawlAndSaveRecipes();
         } catch (IOException e) {
             // 예외 처리 및 로그 출력

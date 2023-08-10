@@ -15,6 +15,7 @@ public class RecipeEntity {
 
     private String title;
     private String description;
+    private String imageUrl; // 이미지 URL 필드 추가
 
     // Getters and setters
 }

@@ -21,15 +21,24 @@ public class RecipeCrawlerService {
     	System.out.println("222222222222222222222222222");
         String url = "https://wtable.co.kr/recipes";
         Document doc = Jsoup.connect(url).get();
-        Elements recipes = doc.select(".RecipeItemstyle__SubTitle-sc-1gt7vz8-2"); // Select elements with class "card-recipe"
+        Elements recipes = doc.select(".erZvWP");
+        
 
         for (Element recipe : recipes) {
-        	String title = recipe.select(".RecipeItemstyle__SubTitle-sc-1gt7vz8-2").html();
-        	System.out.println("=================================");
-        	System.out.println(title);
-        	System.out.println("=================================");
+            String title = recipe.select(".LxJcT").text();
+            String description = recipe.select(".hpYiJK").text();
+            String imageUrl = recipe.select(".duQJWI").attr("src");
+
+            System.out.println("=================================");
+            System.out.println("Title: " + title);
+            System.out.println("Description: " + description);
+            System.out.println("Image URL: " + imageUrl);
+            System.out.println("=================================");
+
             RecipeEntity recipeEntity = new RecipeEntity();
+            recipeEntity.setDescription(description);
             recipeEntity.setTitle(title);
+            recipeEntity.setImageUrl(imageUrl); // 이미지 URL 설정
           
             recipeRepository.save(recipeEntity);
         }
