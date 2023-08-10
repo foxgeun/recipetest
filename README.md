@@ -9,4 +9,7 @@
 ======================
 
 
+[**요구사항정의서**](https://docs.google.com/spreadsheets/d/1yVZskRGVN5y52etl3DYE6SMND_y7NWA3oJBQd_XhPIM/edit#gid=0
+)
+======================
 
