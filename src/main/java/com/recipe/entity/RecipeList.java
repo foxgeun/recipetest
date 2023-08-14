@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RecipeListEntity {
+public class RecipeList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -7,8 +7,8 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.recipe.entity.RecipeEntity;
-import com.recipe.entity.RecipeListEntity;
+import com.recipe.entity.Recipe;
+import com.recipe.entity.RecipeList;
 import com.recipe.repository.RecipeListRepository;
 import com.recipe.repository.RecipeRepository;
 
@@ -28,9 +28,7 @@ public class RecipeListCrawlerService {
         for (Element recipeLink : recipeElements) {
             String detailUrl = recipeLink.attr("href");
 
-            System.out.println("=================================");
-            System.out.println("Detail URL: " + detailUrl);
-            System.out.println("=================================");
+
 
             // Now, you can crawl and save the detail page
             crawlAndSaveDetailPage(detailUrl);
@@ -50,12 +48,9 @@ public class RecipeListCrawlerService {
         String title = detailDoc.select(".kIVrZW").text();
         String imageUrl = detailDoc.select("img").attr("src");
 
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Image URL: " + imageUrl);
 
         // Save the data to the database
-        RecipeListEntity recipeListEntity = new RecipeListEntity();
+        RecipeList recipeListEntity = new RecipeList();
         recipeListEntity.setTitle(title);
         recipeListEntity.setDescription(description);
         recipeListEntity.setImageUrl(imageUrl);

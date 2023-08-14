@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.recipe.entity.RecipeEntity;
+import com.recipe.entity.Recipe;
 import com.recipe.repository.RecipeRepository;
 
 import java.io.IOException;
@@ -29,13 +29,7 @@ public class RecipeCrawlerService {
             String title = recipe.select(".hpYiJK").text();
             String imageUrl = recipe.select(".duQJWI").attr("src");
 
-            System.out.println("=================================");
-            System.out.println("Title: " + title);
-            System.out.println("Description: " + description);
-            System.out.println("Image URL: " + imageUrl);
-            System.out.println("=================================");
-
-            RecipeEntity recipeEntity = new RecipeEntity();
+            Recipe recipeEntity = new Recipe();
             recipeEntity.setDescription(description);
             recipeEntity.setTitle(title);
             recipeEntity.setImageUrl(imageUrl); // 이미지 URL 설정
