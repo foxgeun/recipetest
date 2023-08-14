@@ -14,7 +14,7 @@ public class RecipeController {
 	public String recipe() {
 		
 		
-		return "recipe";
+		return "recipes/recipe";
 	}
 	
 	

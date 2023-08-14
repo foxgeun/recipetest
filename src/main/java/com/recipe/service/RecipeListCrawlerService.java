@@ -6,19 +6,27 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.recipe.entity.Recipe;
-import com.recipe.entity.RecipeList;
+import com.recipe.entity.DetailRecipe;
+import com.recipe.entity.Ingredient;
+import com.recipe.entity.RecipeListEntity;
+import com.recipe.repository.DetailRecipeRopository;
+import com.recipe.repository.IngredientRepository;
 import com.recipe.repository.RecipeListRepository;
-import com.recipe.repository.RecipeRepository;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class RecipeListCrawlerService {
     @Autowired
-
-    private RecipeListRepository recipeListRepository;
+    private final RecipeListRepository recipeListRepository;
+    private final IngredientRepository ingredientRepository;
+    private final DetailRecipeRopository detailRecipeRopository;
+    private int count = 1;
 
     public void crawlAndSaveRecipes() throws IOException {
         String url = "https://wtable.co.kr/recipes";
@@ -43,18 +51,43 @@ public class RecipeListCrawlerService {
 
         Document detailDoc = Jsoup.connect(detailUrl).get();
 
-        // Extract data from the detail page using CSS selectors
+       
         String description = detailDoc.select(".IdQIJ").text();
+        String basic = detailDoc.select(".fCbbYE").text();
+        Elements recipeImgs = detailDoc.select(".ihCzrN img");
+        
+        for (Element img : recipeImgs) {
+        
+        	String recipeImg =  img.attr("src");
+        	DetailRecipe detailRecipe = new DetailRecipe();
+        	detailRecipe.setRecipes(Integer.toString(count));
+        	detailRecipe.setRecipeImg(recipeImg);
+        	detailRecipeRopository.save(detailRecipe);
+        	
+        }
+        count++;
+        	
+        	
+        
+        
+        
         String title = detailDoc.select(".kIVrZW").text();
         String imageUrl = detailDoc.select("img").attr("src");
 
-
-        // Save the data to the database
-        RecipeList recipeListEntity = new RecipeList();
-        recipeListEntity.setTitle(title);
+        
+        System.out.println(basic);
+        RecipeListEntity recipeListEntity = new RecipeListEntity();
+        Ingredient ingredient = new Ingredient();
+        
+        ingredient.setBasic(basic);
+        
+        
+        
+        
         recipeListEntity.setDescription(description);
         recipeListEntity.setImageUrl(imageUrl);
-
+        ingredientRepository.save(ingredient);
         recipeListRepository.save(recipeListEntity);
+
     }
 }
