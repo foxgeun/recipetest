@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.recipe.entity.DetailRecipe;
-import com.recipe.entity.Ingredient;
-import com.recipe.entity.RecipeListEntity;
+import com.recipe.entity.RecipeOrder;
+import com.recipe.entity.RecipeIngre;
+import com.recipe.entity.Recipe;
 import com.recipe.repository.DetailRecipeRopository;
 import com.recipe.repository.IngredientRepository;
 import com.recipe.repository.RecipeListRepository;
@@ -58,8 +58,9 @@ public class RecipeListCrawlerService {
         
         for (Element img : recipeImgs) {
         
+        	
         	String recipeImg =  img.attr("src");
-        	DetailRecipe detailRecipe = new DetailRecipe();
+        	RecipeOrder detailRecipe = new RecipeOrder();
         	detailRecipe.setRecipes(Integer.toString(count));
         	detailRecipe.setRecipeImg(recipeImg);
         	detailRecipeRopository.save(detailRecipe);
@@ -76,10 +77,10 @@ public class RecipeListCrawlerService {
 
         
         System.out.println(basic);
-        RecipeListEntity recipeListEntity = new RecipeListEntity();
-        Ingredient ingredient = new Ingredient();
+        Recipe recipeListEntity = new Recipe();
+        RecipeIngre ingredient = new RecipeIngre();
         
-        ingredient.setBasic(basic);
+       
         
         
         

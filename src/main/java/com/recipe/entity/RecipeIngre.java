@@ -12,17 +12,20 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Ingredient {
+public class RecipeIngre {
 	
 	@Id
 	@Column(name="ingredient_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String ingreImg;
+	
 	@Column(length = 1000) // Adjust the length as needed
-	private String basic;
-	
-	private String seasoning;
-	
+	private String ingreName;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipe_id")
+	private Recipe recipe;
 	
 }

@@ -2,7 +2,10 @@ package com.recipe.entity;
 
 
 
+import com.recipe.constant.PrivateOk;
+import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
+import com.recipe.constant.ServiceOk;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,12 +37,22 @@ public class Member extends BaseEntity {
 	
 	private String password;
 	
+	private String nickname;
+	
+	private int phoneNumber;
+	
+	
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	@Enumerated(EnumType.STRING)
+	private ServiceOk serviceOk;
 	
+	@Enumerated(EnumType.STRING)
+	private PrivateOk privateOk;
 	
-	
+	@Enumerated(EnumType.STRING)
+	private PromotionOk promotionOk;
 	
 	
 }
