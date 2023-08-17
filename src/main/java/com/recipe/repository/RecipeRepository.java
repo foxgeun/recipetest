@@ -7,7 +7,7 @@ import com.recipe.entity.Recipe;
 
 
 
-public interface RecipeListRepository extends JpaRepository<Recipe, Long> {
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	
 
 	

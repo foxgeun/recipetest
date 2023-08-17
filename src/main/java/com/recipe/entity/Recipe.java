@@ -34,9 +34,9 @@ public class Recipe {
     
     private String intro;
     
-    private Date durTime;
+    private String durTime;
     
-    private int level;
+    private String level;
     
     private int count;
     

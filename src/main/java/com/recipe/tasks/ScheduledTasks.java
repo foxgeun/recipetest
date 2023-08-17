@@ -28,7 +28,7 @@ public class ScheduledTasks {
     	
         try {
 
-            crawlerListService.crawlAndSaveRecipes();
+   
             crawlerService.crawlAndSaveRecipes();
         } catch (IOException e) {
             // 예외 처리 및 로그 출력
