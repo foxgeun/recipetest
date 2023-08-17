@@ -9,18 +9,6 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  margin: 0;
-  background-color: #f5f6f7;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
 
 ul {
   list-style: none;
@@ -28,33 +16,11 @@ ul {
   margin: 0;
 }
 
-.wrap {
-  margin: auto;
-}
 
-.wrap .logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.wrap .logo h1 {
-  margin: 0;
-  font-size: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.wrap .contents {
-  padding: 50px;
-  background-color: #ffffff;
-  border: 1px solid #dadada;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-}
 
 #form__wrap {
   margin: 0 auto;
-  width: 460px;
+  width: 500px;
   font-size: 14px;
 }
 
@@ -105,6 +71,7 @@ label.required::after {
   border: none;
   border-radius: 5px;
   transition-duration: 0.2s;
+  margin-bottom: 30px;
 }
 
 .next-button:hover:enabled {
@@ -127,12 +94,17 @@ label.required::after {
     width: auto;
   }
 }
+
+h3{
+	text-align: center;
+	margin: 30px;
+}
 	</style>
 </th:block>
 
 <div layout:fragment="content">
 	    <div class="wrap">
-      <div class="logo"><h1>이젠해먹자</h1></div>
+      <div class="logo"><h3>회원가입 약관동의</h3></div>
       <div class="contents">
         <form action="/" method="POST" id="form__wrap">
           <div class="terms__check__all">
@@ -212,7 +184,7 @@ label.required::after {
               </div>
             </li>
           </ul>
-          <button type="submit" class="next-button" disabled onclick="location.href='/members/newMemberForm'">확인</button>
+          <button type="submit" class="next-button" disabled onclick="location.href='/members/newMember'">확인</button>
         </form>
       </div>
     </div>
