@@ -39,8 +39,7 @@ public class Member extends BaseEntity {
 	
 	private String nickname;
 	
-	private int phoneNumber;
-	
+	private String phoneNumber;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
