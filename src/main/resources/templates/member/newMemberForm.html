@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+	<style>
+			:root {
+	--green-color: #98FB98;
+}
+	.newForm {
+	margin: auto;
+	width: 500px;
+	border-radius: 5px;
+	padding: 20px;
+	
+}
+
+.in {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 25px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 10px;
+	height: 50px;
+	font-size: 14px;
+	
+}
+
+.in2 {
+	width: 420px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	height: 50px;
+	font-size: 14px;
+	margin : auto;
+}
+
+.in:focus {
+	outline: 1px solid var(--green-color);
+}
+
+.in2:focus {
+	outline: 1px solid var(--green-color);
+}
+
+#btn {
+	background-color: #1BBC9B;
+	margin-bottom: 30px;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.5s;
+	border: none;
+}
+
+#btn:hover{
+	background-color: gold;
+}
+
+
+.id_save {
+	margin-bottom: 15px;
+	text-align: left;
+}
+
+h2 {
+ text-align: center;
+ color: black;	
+}
+
+p{
+	color: black;
+	font-size: 15px;
+}
+
+.emailMain{
+	display: flex;
+	margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.emailConfirmMain{
+	display: flex;
+	margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.emailbtn{
+	margin : auto;
+	width: 65px;
+	height: 50px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid;
+		border-color: #dee2e6;
+		border-radius: 5px;
+}
+
+.emailbtn:hover {
+	background-color: var(--green-color);
+}
+	</style>
+</th:block>
+
+<div layout:fragment="content">
+	<h2>회원가입</h2>
+	<div class="newForm">
+		<form action="">
+				<label for="email" class="email">이메일</label>
+				<div class="emailMain">
+					<input type="email" placeholder="이메일을 입력해주세요" class="in2" id="email">
+					<button class="emailbtn">확인</button> 
+				</div>
+			    <label for="emailConfirm" class="emailConfirm">인증번호</label>
+				<div class="emailConfirmMain">
+					<input type="text" placeholder="인증번호를 입력해주세요" class="in2" id="emailConfirm"> 
+					<button class="emailbtn">확인</button> 
+				</div>
+			<div>
+				<label for="password" class="password">비밀번호</label>
+				<input type="password" placeholder="비밀번호를 입력해주세요" class="in" id="password">
+			</div>
+			<div>
+				<label for="passwordConfirm" class="passwordConfirm">비밀번호 확인</label>
+				<input type="password" placeholder="비밀번호를 한번더 입력해주세요" class="in" id="passwordConfirm">
+			</div>
+			<div>
+				<label for="phoneNum" class="phoneNum">휴대폰 번호</label>
+				<input type="tel" placeholder="휴대폰 번호를 입력해주세요" class="in" id="phoneNum"> 
+			</div>
+			<div>
+				<label for="username" class="username">닉네임</label>
+				<input type="text" placeholder="닉네임을 입력해주세요" class="in" id="username"> 
+			</div>
+		</form>
+		<button type="submit" id="btn" class="in">가입하기</button>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	
+	</script>
+</th:block>
+</html>
