@@ -69,6 +69,103 @@
 ### 자신의 브랜치에만 push 합시다 (main에 하면 50만원)
 
 
+##### 로컬 저장소(내 컴퓨터) 에서 브랜치 생성하는 법
+```git
+프로젝트 루트 폴더에서
+git branch {브랜치명} // 브랜치 생성
+git checkout {브랜치명} // 브랜치 이동
+```
+##### 개발한 브랜치를 push 하고 싶어요
+```git
+git branch // 현재 작업중인 브랜치 확인
+
+  develope
+  main
+* feature/#1-member-login   // *이 붙어있는 곳이 현재 작업중인 브랜치
+
+
+git add .                                 // 트래킹 중이지 않은 파일 추가
+git commit -m ":cyclone:ing : 로그인 기능 완료 / redirect url 미완료"       // 커밋 메시지 작성
+git push origin feature/#1-member-login   // 작업이 끝나지 않았다면
+git push origin feature/develop           // 작업이 끝났다면
+```
+##### push 한 후 쓰지 않는 로컬 브랜치를 지우고 싶어요
+```git
+git branch -d {브랜치명}
+```
+##### 깃허브에 있는 브랜치를 내려받고 싶어요
+```git
+git branch // 현재 작업중인 브랜치 확인
+
+  develope
+  main
+* feature/#1-member-login   // *이 붙어있는 곳이 현재 작업중인 브랜치
+
+git pull origin {내려받을 브랜치명}
+```
+<hr>
+
+
+
+### 코드 네이밍 룰
+
+#### 모든 자바 메소드명, 변수명은 카멜 케이스를 따릅니다. 
+
+#### 또한 누구나 알기 쉬운 단어를 사용합니다.
+
+메소드명은 동사로 네이밍합니다.
+
+:+1:
+```java
+private String personName; 
+
+public void getUserId() {
+
+}
+```
+
+:-1:
+```java
+private String PersonName;
+private String personname; 
+
+public void userid() {
+
+}
+```
+
+#### 클래스 명은 파스칼 케이스를 따릅니다.
+
+:+1:
+```text
+SampleCode.java
+SampleCodeDto.java
+```
+
+:-1:
+```text
+samplecode.java
+sampleCodeDto.java
+```
+
+#### HTML 파일 명, 패키지명 은 모두 소문자를 사용합니다.
+
+:+1:
+```text
+samplecode.html
+```
+
+:-1:
+```text
+sample_code.html
+sampleCode.html
+```
+#### 패키지명은 모두 소문자를 사용합니다.
+#### ENUM이나 상수는 대문자로 네이밍합니다.
+
 
 </div>
+
+
+
 
