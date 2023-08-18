@@ -6,6 +6,7 @@ import com.recipe.constant.PrivateOk;
 import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
 import com.recipe.constant.ServiceOk;
+import com.recipe.dto.MyPageDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,7 +40,11 @@ public class Member extends BaseEntity {
 	
 	private String nickname;
 	
-	private int phoneNumber;
+	private String phoneNumber;
+	
+	private String name;
+	
+	private String address;
 	
 	
 	@Enumerated(EnumType.STRING)
@@ -53,6 +58,13 @@ public class Member extends BaseEntity {
 	
 	@Enumerated(EnumType.STRING)
 	private PromotionOk promotionOk;
+	
+	
+	
+	//member 엔티티 수정
+	public void editMember(MyPageDto myPageDto) {
+		this.phoneNumber = myPageDto.getPhoneNumber();
+	}
 	
 	
 }
