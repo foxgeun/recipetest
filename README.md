@@ -45,10 +45,9 @@
 ### 팀원: 천용규
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=alive1020&show_icons=true&theme=radical)
 
-</div>
 
-참조 링크
-======================
+
+  <h2>:speech_balloon:Link</h2>
 
 [**erdcloud**](https://www.erdcloud.com/d/QrJuwy2sJ9iWFPZNp)
 
@@ -65,4 +64,11 @@
 )
 
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer" />
+
+
+
+
+
+</div>
+
+
