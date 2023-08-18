@@ -2,10 +2,14 @@ package com.recipe.entity;
 
 
 
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.recipe.constant.PrivateOk;
 import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
 import com.recipe.constant.ServiceOk;
+import com.recipe.dto.MemberDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,6 +57,22 @@ public class Member extends BaseEntity {
 	
 	@Enumerated(EnumType.STRING)
 	private PromotionOk promotionOk;
+	
+	//MemberFormDto를 -> Member 엔티티 객체로 변환 
+		public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+			//패스워드 암호화
+			String password = passwordEncoder.encode(memberDto.getPassword());
+				
+			Member member = new Member();
+			member.setNickname(memberDto.getNickname());
+			member.setEmail(memberDto.getEmail());
+			member.setPhoneNumber(memberDto.getPhoneNumber());
+			member.setPassword(password);
+			//member.setRole(Role.ADMIN); //관리자로 가입할때
+			member.setRole(Role.USER);   //일반 사용자로 가입할때
+			
+			return member;
+		}
 	
 	
 }

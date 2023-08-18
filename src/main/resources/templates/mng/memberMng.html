@@ -134,14 +134,18 @@
 
 
 <div layout:fragment="content" class="content">
-	<nav class="navbar bg-body-tertiary">
+	<nav class="navbar bg-body-tertiary" th:object="${memberSearchDto}">
 		<div class="container-fluid" style="justify-content: center;">
 			<form class="d-flex" role="search" style="align-items: center">
 				<h2>회원관리</h2>
-				<input class="form-control me-2" type="search"
-					placeholder="아이디나 이름을 입력하세요" aria-label="Search"
+				<!-- 상품명, 등록자 선택 -->
+				<select th:field="*{searchBy}" class="form-control">
+					<option value="nickname">이름</option>
+					<option value="email">이메일</option>
+				</select> <input class="form-control me-2" th:field="*{searchQuery}"
+					type="search" placeholder="아이디나 이름을 입력하세요" aria-label="Search"
 					style="width: 1000px;" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
+				<button id="searchBtn" class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 		</div>
 	</nav>
@@ -170,38 +174,34 @@
 													<th scope="col">No.</th>
 													<th scope="col">이름</th>
 													<th scope="col">아이디</th>
-													<th scope="col">레시피 이름</th>
-													<th scope="col">레시피 작성자</th>
-													<th scope="col">댓글 내용</th>
+													<th scope="col">레시피 등록수</th>
+													<th scope="col">작성한 댓글수</th>
+													<th scope="col">가입날짜</th>
 
 													<th scope="col">수정</th>
 													<th scope="col">삭제</th>
 												</tr>
 											</thead>
-											<th:block>
+											<th:block th:each="member : ${members}">
 												<tbody>
 													<tr>
-														<td></td>
-														<td><a href="">
-														</a></td>
-														<td></td>
+														<td>[[${member.id}]]</td>
+														<td>[[${member.nickname}]]<a href=""> </a></td>
+														<td>[[${member.email}]]</td>
 
-														<td class="str_yes">대출가능</td>
+														<td class="str_yes">-</td>
 														<td>-</td>
 
 
 
 
 
-														<td
-															text=""></td>
+														<td text=""></td>
 														<td><button type="button" class="update_bt"
 																onclick="">수정하기</button></td>
 														<td>
-															<form id="delete_form"
-																action="" th:method="delete">
-																<button type="button" class="update_bt"
-																	onclick="">삭제하기
+															<form id="delete_form" action="" th:method="delete">
+																<button type="button" class="update_bt" onclick="">삭제하기
 																</button>
 																<input type="hidden" th:name="${_csrf.parameterName}"
 																	th:value="${_csrf.token}">
@@ -209,7 +209,6 @@
 														</td>
 													</tr>
 												</tbody>
-											</th:block>
 											</th:block>
 										</table>
 									</div>
@@ -230,4 +229,25 @@
 		</div>
 	</div>
 </div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+		});
+
+		//페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다
+		function page(page) {
+			var searchBy = $("#searchBy").val();
+			var searchQuery = $("#searchQuery").val();
+
+			//주소 이동
+			location.href = "/admin/members/" + page + "?searchBy=" + searchBy
+					+ "&searchQuery=" + searchQuery;
+		}
+	</script>
+</th:block>
 </html>
