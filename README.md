@@ -1,3 +1,6 @@
+
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=foxgeun&show_icons=true&theme=radical)
+
 3조 Recipe Github
 ======================
 
