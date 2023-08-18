@@ -15,6 +15,8 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @Configuration //Bean 객체를 싱글톤으로 공유할 수 있게 해준다.
 @EnableWebSecurity //spring security filterChain이 자동으로 포함되게 한다
 public class SecurityConfig {
+	
+	
 	@Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
