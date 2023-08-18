@@ -69,7 +69,7 @@
 [**Html템플릿**](https://themewagon.com/themes/free-bootstrap-4-html5-food-blog-website-template-yummy/
 )
 
-
+</div>
   <h2>:two_women_holding_hands:git</h2>
 
 ### 자신의 브랜치에만 push 합시다 (main에 하면 50만원)
@@ -171,7 +171,7 @@ sampleCode.html
 
 
 
-</div>
+
 
 
 
