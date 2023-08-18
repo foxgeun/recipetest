@@ -1,5 +1,6 @@
 package com.recipe.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -34,7 +35,7 @@ public class Recipe {
     
     private String intro;
     
-    private Date durTime;
+    private LocalDateTime durTime;
     
     private int level;
     

@@ -223,58 +223,68 @@
 		<div class="best_box">
 			<h2 class="def_title">BEST 레시피<a href="/" class="fr">더보기></a></h2>
 			<div class="rec_list">
-				<ul class="clr">
+				<ul class="clr d-flex">
+				
+				<th:block th:each="recipe , status:${mainBestList}">
+				
 									<li class="ml_none">
 						<a href="recipe.php?id=view&amp;idx=1347">
 							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
 							<div class="text_box">
-								<p class="s_title">소고기 장조림보다 더 맛있는</p>
-								<p class="b_title" title="문어 장조림">문어 장조림</p>
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.title}]] 조회수 : [[${recipe.count}]]</p>
 							</div>
 						</a>
 					</li>
-									<li class="">
-						<a href="recipe.php?id=view&amp;idx=1037">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
-							<div class="text_box">
-								<p class="s_title">한번 만들어 2주 내내 즐기는</p>
-								<p class="b_title" title="닭고기달걀장조림">닭고기달걀장조림</p>
-							</div>
-						</a>
-					</li>
-									<li class="">
-						<a href="recipe.php?id=view&amp;idx=54">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
-							<div class="text_box">
-								<p class="s_title">바로 조려 따끈하게 먹는</p>
-								<p class="b_title" title="감자간장조림">감자간장조림</p>
-							</div>
-						</a>
-					</li>
-									<li class="">
-						<a href="recipe.php?id=view&amp;idx=1751">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
-							<div class="text_box">
-								<p class="s_title">떠오르는 밥도둑!</p>
-								<p class="b_title" title="두부 장조림">두부 장조림</p>
-							</div>
-						</a>
-					</li>
-									<li class="">
-						<a href="recipe.php?id=view&amp;idx=1757">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
-							<div class="text_box">
-								<p class="s_title">촉촉하게 맛있다!</p>
-								<p class="b_title" title="밥솥장조림">밥솥장조림</p>
-							</div>
-						</a>
-					</li>
+				
+				</th:block>
 								</ul>
 			</div>
 		</div>
 		
+		<div class="best_box">
+			<h2 class="def_title">NEW 레시피<a href="/" class="fr">더보기></a></h2>
+			<div class="rec_list">
+				<ul class="clr d-flex">
+				
+				<th:block th:each="recipe , status:${mainNewList}">
+				
+									<li class="ml_none">
+						<a href="recipe.php?id=view&amp;idx=1347">
+							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="text_box">
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.durTime}]]</p>
+							</div>
+						</a>
+					</li>
+				
+				</th:block>
+								</ul>
+			</div>
+		</div>
 		
-		
+		<div class="best_box">
+			<h2 class="def_title">모든 레시피<a href="/" class="fr">더보기></a></h2>
+			<div class="rec_list">
+				
+				<ul class="clr d-flex">
+				<th:block th:each="recipe , status:${mainTotalList}">
+				
+									<li class="ml_none">
+						<a href="recipe.php?id=view&amp;idx=1347">
+							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="text_box">
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.durTime}]]</p>
+							</div>
+						</a>
+					</li>
+				
+				</th:block>
+								</ul>
+			</div>
+		</div>
 		
 			
 			

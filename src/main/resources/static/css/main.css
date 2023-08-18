@@ -354,12 +354,6 @@
 .rec_list li.ml_none {
     margin-left: 0;
 }
-.rec_list li {
-    float: left;
-    width: 208px;
-    margin-left: 10px;
-    margin-bottom: 12px;
-}
 
 .rec_list li a {
     display: block;
@@ -394,7 +388,6 @@
 }
 
 .rec_list li {
-    float: left;
     width: 208px;
     margin-left: 10px;
     margin-bottom: 12px;
