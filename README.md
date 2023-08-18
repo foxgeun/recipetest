@@ -1,5 +1,10 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=header" />
 
+
+![Html]([https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white](https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white))
+![Css](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white))
+![Js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white))
+
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=foxgeun&show_icons=true&theme=radical)
 
 3조 Recipe Github
