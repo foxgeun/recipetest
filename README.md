@@ -46,6 +46,9 @@
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=alive1020&show_icons=true&theme=radical)
 ### 팀원: 김민규
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=kmingyuyu&show_icons=true&theme=radical)
+### 팀원: 이현서
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=eenql0529&show_icons=true&theme=radical)
+
 
 
   <h2>:speech_balloon:Link</h2>
