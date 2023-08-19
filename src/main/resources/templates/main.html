@@ -1,17 +1,390 @@
-<a href="https://colorlib.com/wp/templates/"><img src="https://colorlib.com/wp/wp-content/uploads/sites/2/colorlib-push-logo.png" alt="Colorlib logo"></a>
-<h1 style="text-align:center;">Thank you for using our template!</h1>
-<p style="text-align:center;">For more awesome templates please visit <strong><a href="https://colorlib.com/wp/templates/">Colorlib</a></strong>.</p>
-<br>
-<p style="text-align:center; color:red;"><strong>Copyright information for the template can't be altered/removed unless you purchase a license.</strong>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+	<div layout:fragment="content">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	
+	<th:block layout:fragment="css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+	</th:block>
+	
+	<div class="main_box pb-5">
+          <div class="banner_slider slider-wrap">
+          <div class="slider-items">
+        	<div class="main_box_in2" >
+			<img alt="배너이미지1" src="img/장어덮밥.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">보약이 따로 필요없는</p>
+			<p class="banner_title">장어덮밥</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+	          
+         </div>
+             <div class="slider-items">
+          	<div class="main_box_in2">
+			<img alt="배너이미지1" src="img/배너이미지2.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">부담스럽지 않은 면요리</p>
+			<p class="banner_title">김치쌀국수</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+         </div>
+             <div class="slider-items">
+          	<div class="main_box_in2">
+			<img alt="배너이미지1" src="img/배너이미지3.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">허한 속을 든든하게</p>
+			<p class="banner_title">굴국밥</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+         </div>
+          </div>
 
-<p style="text-align:center;"><strong>Removing copyright information without the license will result in suspension of your hosting and/or domain name(s).</strong>
-
-<p style="text-align:center;"><strong>More information about the license is available <a href="https://colorlib.com/wp/licence/">here</a></strong>.</p>
-
-<style>
-img {
-  margin: 0 auto;
-  display: block;
-  margin-top: 20%;
-}
-</style>
+	</div>
+	
+	<div class="container">
+			<div class="best_recipe_box">
+				
+				<h2 class="def_title">베스트 레시피 
+	<a href="/" class="fr">더보기></a>
+	</h2>
+	<div class="best_recipe_slider slider-wrap rec_list">
+	 
+	
+    	
+    <div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+	<div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+	<div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+   	<div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+	<div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+	<div class="slider-items">
+		
+      <div class="item item-related-book">
+		  
+		  <div class="collection-item book">
+		  <div class="item-cover">
+				<a href="/">
+		  <img src="img/recipe-1.jpg" alt="1"  class="item-cover-image">
+				</a>
+		  </div>
+		    <div class="item-meta">
+		<div class="item-title">
+			<h4>
+				<a href="/" tabindex="0">제목</a>
+			</h4>
+		</div>
+		<div class="item-author">
+			작성자명
+		</div>
+		</div>
+		  </div>
+	  </div>
+		
+	</div>
+    	
+    </div>
+			
+			
+			
+				
+				
+				
+			</div>
+			
+		
+		<div class="best_box">
+			<h2 class="def_title">BEST 레시피<a href="/" class="fr">더보기></a></h2>
+			<div class="rec_list">
+				<ul class="clr d-flex">
+				
+				<th:block th:each="recipe , status:${mainBestList}">
+				
+									<li class="ml_none">
+						<a href="recipe.php?id=view&amp;idx=1347">
+							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="text_box">
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.title}]] 조회수 : [[${recipe.count}]]</p>
+							</div>
+						</a>
+					</li>
+				
+				</th:block>
+								</ul>
+			</div>
+		</div>
+		
+		<div class="best_box">
+			<h2 class="def_title">NEW 레시피<a href="/" class="fr">더보기></a></h2>
+			<div class="rec_list">
+				<ul class="clr d-flex">
+				
+				<th:block th:each="recipe , status:${mainNewList}">
+				
+									<li class="ml_none">
+						<a href="recipe.php?id=view&amp;idx=1347">
+							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="text_box">
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.durTime}]]</p>
+							</div>
+						</a>
+					</li>
+				
+				</th:block>
+								</ul>
+			</div>
+		</div>
+		
+		<div class="best_box">
+			<h2 class="def_title">모든 레시피<a href="/" class="fr">더보기></a></h2>
+			<div class="rec_list">
+				
+				<ul class="clr d-flex">
+				<th:block th:each="recipe , status:${mainTotalList}">
+				
+									<li class="ml_none">
+						<a href="recipe.php?id=view&amp;idx=1347">
+							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="text_box">
+								<p class="s_title">[[${recipe.subTitle}]]</p>
+								<p class="b_title" title="문어 장조림">[[${recipe.durTime}]]</p>
+							</div>
+						</a>
+					</li>
+				
+				</th:block>
+								</ul>
+			</div>
+		</div>
+		
+			
+			
+			
+	</div>
+	
+	</div>
+	
+	<th:block layout:fragment="script">
+ 
+<!-- Slick 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+	<script>
+	$(document).ready(function(){
+		  $('.banner_slider').slick({    
+		    infinite: true ,      // 무한반복
+		     slidesToShow: 1,     // 보여지는 슬라이드 개수
+		     slidesToScroll: 1,   // 넘어가는 슬라이드 개수
+		     dots: true           // 점 네비게이션 표시
+		    // arrows: false,        화살표 표시
+		    // fade:true             페이드 효과
+		    // autoplay: true,       자동스크롤
+		    // autoplaySpeed: 4000   자동스크롤 속도
+		    /* 반응형
+		    responsive: [
+		      {
+		        breakpoint: 1024,
+		        settings: {
+		          slidesToShow: 3,
+		          slidesToScroll: 3,
+		          infinite: true,
+		          dots: true
+		        }
+		      },
+		      {
+		        breakpoint: 600,
+		        settings: {
+		          slidesToShow: 2,
+		          slidesToScroll: 2
+		        }
+		      },
+		      {
+		        breakpoint: 480,
+		        settings: {
+		          slidesToShow: 1,
+		          slidesToScroll: 1
+		        }
+		      }
+		    ]
+		    */
+		  });
+		});
+       
+	$(document).ready(function(){
+		  $('.best_recipe_slider').slick({    
+		    infinite: false ,      // 무한반복
+		     slidesToShow: 5,     // 보여지는 슬라이드 개수
+		     slidesToScroll: 1,   // 넘어가는 슬라이드 개수
+		     dots: false           // 점 네비게이션 표시
+		    // arrows: false,        화살표 표시
+		    // fade:true             페이드 효과
+		    // autoplay: true,       자동스크롤
+		    // autoplaySpeed: 4000   자동스크롤 속도
+		    /* 반응형
+		    responsive: [
+		      {
+		        breakpoint: 1024,
+		        settings: {
+		          slidesToShow: 3,
+		          slidesToScroll: 3,
+		          infinite: true,
+		          dots: true
+		        }
+		      },
+		      {
+		        breakpoint: 600,
+		        settings: {
+		          slidesToShow: 2,
+		          slidesToScroll: 2
+		        }
+		      },
+		      {
+		        breakpoint: 480,
+		        settings: {
+		          slidesToShow: 1,
+		          slidesToScroll: 1
+		        }
+		      }
+		    ]
+		    */
+		  });
+		});
+	
+	
+          
+    </script>
+	
+	</th:block>
+	
+	
+</html>

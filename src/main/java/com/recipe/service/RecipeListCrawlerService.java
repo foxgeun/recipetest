@@ -6,19 +6,27 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.recipe.entity.RecipeEntity;
-import com.recipe.entity.RecipeListEntity;
+import com.recipe.entity.RecipeOrder;
+import com.recipe.entity.RecipeIngre;
+import com.recipe.entity.Recipe;
+import com.recipe.repository.DetailRecipeRopository;
+import com.recipe.repository.IngredientRepository;
 import com.recipe.repository.RecipeListRepository;
-import com.recipe.repository.RecipeRepository;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class RecipeListCrawlerService {
     @Autowired
-
-    private RecipeListRepository recipeListRepository;
+    private final RecipeListRepository recipeListRepository;
+    private final IngredientRepository ingredientRepository;
+    private final DetailRecipeRopository detailRecipeRopository;
+    private int count = 1;
 
     public void crawlAndSaveRecipes() throws IOException {
         String url = "https://wtable.co.kr/recipes";
@@ -28,9 +36,7 @@ public class RecipeListCrawlerService {
         for (Element recipeLink : recipeElements) {
             String detailUrl = recipeLink.attr("href");
 
-            System.out.println("=================================");
-            System.out.println("Detail URL: " + detailUrl);
-            System.out.println("=================================");
+
 
             // Now, you can crawl and save the detail page
             crawlAndSaveDetailPage(detailUrl);
@@ -45,21 +51,44 @@ public class RecipeListCrawlerService {
 
         Document detailDoc = Jsoup.connect(detailUrl).get();
 
-        // Extract data from the detail page using CSS selectors
+       
         String description = detailDoc.select(".IdQIJ").text();
+        String basic = detailDoc.select(".fCbbYE").text();
+        Elements recipeImgs = detailDoc.select(".ihCzrN img");
+        
+        for (Element img : recipeImgs) {
+        
+        	
+        	String recipeImg =  img.attr("src");
+        	RecipeOrder detailRecipe = new RecipeOrder();
+        	detailRecipe.setRecipes(Integer.toString(count));
+        	detailRecipe.setRecipeImg(recipeImg);
+        	detailRecipeRopository.save(detailRecipe);
+        	
+        }
+        count++;
+        	
+        	
+        
+        
+        
         String title = detailDoc.select(".kIVrZW").text();
         String imageUrl = detailDoc.select("img").attr("src");
 
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Image URL: " + imageUrl);
-
-        // Save the data to the database
-        RecipeListEntity recipeListEntity = new RecipeListEntity();
-        recipeListEntity.setTitle(title);
+        
+        System.out.println(basic);
+        Recipe recipeListEntity = new Recipe();
+        RecipeIngre ingredient = new RecipeIngre();
+        
+       
+        
+        
+        
+        
         recipeListEntity.setDescription(description);
         recipeListEntity.setImageUrl(imageUrl);
-
+        ingredientRepository.save(ingredient);
         recipeListRepository.save(recipeListEntity);
+
     }
 }
