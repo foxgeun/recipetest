@@ -480,9 +480,9 @@ p{
 				<div class="pictureRecipe">
 					<label for="ingredients" class="ingredients">조리 이미지</label>
 					<div id='image_preview'>
-					    <input type='file' id='btnAtt' multiple='multiple' />
+					    <input type='file' id='btnAtt' multiple='multiple' accept="image/*"/>
 					    <div id='att_zone'
-					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭해주세요'></div>
 					  </div>
 				</div>
 				<button type="submit" id="newbtn" class="newbtns">등록하기</button>
@@ -526,7 +526,6 @@ p{
 	}
 	
 	//이미지 추가
-	
 		( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
 	  imageView = function imageView(att_zone, btn){
 	
@@ -550,32 +549,24 @@ p{
 	      var files = e.target.files;
 	      var fileArr = Array.prototype.slice.call(files);
 	      
-	      var attFileCnt = document.querySelectorAll('#att_zone').length;
-	      //var max = fileArr.length;
-	      //var b
-	      var i = document.querySelectorAll(".imgs").length;
+	      var a = document.querySelectorAll(".imgs").length;
 	      var j = fileArr.length;
 	     
 	      
 	      var maxFileCnt = 6;   // 첨부파일 최대 개수
 	      
-	      var remainFileCnt = maxFileCnt - i;    // 추가로 첨부가능한 개수
-	      var curFileCnt = files.length;   // 추가로 첨부가능한 개수
-	      console.log(curFileCnt);
-	      +
-	      
-	      if(j < 7 && curFileCnt > remainFileCnt){
-		      if(i < 6 ){
+	      if(j < 4 ){
+		      if(a < 6 ){
 		    	  for(f of fileArr){
 		    		  imageLoader(f);
 		    	  }
 		    		  
 		      } else {
-		    	  alert("이미지 첨부 개수 최대는 6장입니다!")
+		    	  alert("이미지 첨부 개수 최대는 6장입니다!");
 		    	  return;
 		      }
 	      } else {
-	    	  alert("첨부파일은 최대 " + maxFileCnt + "개 까지 첨부 가능합니다.");
+	    	  alert("한번에 넣을수 있는 이미지는 최대 3장입니다");
 	    	  return;
 	      }
 			

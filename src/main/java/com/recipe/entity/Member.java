@@ -2,10 +2,13 @@ package com.recipe.entity;
 
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.recipe.constant.PrivateOk;
 import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
 import com.recipe.constant.ServiceOk;
+import com.recipe.dto.MemberDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,10 +38,13 @@ public class Member extends BaseEntity {
 	@Column(unique = true) //중복된 값이 들어올 수 없다
 	private String email;
 	
+	@Column(nullable = false)
 	private String password;
 	
+	@Column(nullable = false)
 	private String nickname;
 	
+	@Column(nullable = false)
 	private String phoneNumber;
 	
 	@Enumerated(EnumType.STRING)
@@ -53,5 +59,19 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private PromotionOk promotionOk;
 	
+	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
+		
+		String password = passwordEncoder.encode(memberDto.getPassword());
+		
+		member.setEmail(memberDto.getEmail());
+		member.setPassword(memberDto.getPassword());
+		member.setNickname(memberDto.getNickname());
+		member.setPhoneNumber(memberDto.getPhoneNumber());
+		member.setPassword(password);
+		member.setRole(Role.ADMIN);
+		
+		return member;
+	}
 	
 }

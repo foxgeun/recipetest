@@ -20,8 +20,8 @@
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </li>
-                        <li><a href="recipe.html">Recipes</a></li>
-                        <li><a href="categories.html">Best Of</a></li>
+                        <li><a href="/members/login" sec:authorize="isAnonymous()">유저로그인</a></li>
+                        <li><a href="/recipe/new" sec:authorize="isAnonymous()">레시피등록</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
