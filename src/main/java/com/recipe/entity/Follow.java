@@ -1,7 +1,5 @@
 package com.recipe.entity;
 
-import com.recipe.constant.ImgMainOk;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,28 +14,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="member_img")
+@Table(name="Follow")
 @Getter
 @Setter
 @ToString
-public class MemberImg {
-
+public class Follow extends BaseTimeEntity {
 	
 	@Id
-	@Column(name="member_img_id")
+	@Column(name="follow_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String imgUrl;
-	
-	private String imgName;
-	
-	private String imgOriName;
-	
-	private ImgMainOk imgMainOk;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	private Long toMember;
 	
 }
