@@ -2,7 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-	
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+<!-- ajax를 이용해서 정보를 넘기기위해사용 , 보안관련-->
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
 <th:block layout:fragment="css">
 	<style>
 			* {
@@ -18,7 +26,7 @@ ul {
 
 
 
-#form__wrap {
+.form__wrap {
   margin: 0 auto;
   width: 500px;
   font-size: 14px;
@@ -106,7 +114,7 @@ h3{
 	    <div class="wrap">
       <div class="logo"><h3>회원가입 약관동의</h3></div>
       <div class="contents">
-        <form action="/member/newMemberForm" method="POST" id="form__wrap">
+        <form action="/member/newMemberForm" method="POST" id="agreementForm" class="form__wrap">
           <div class="terms__check__all">
             <input type="checkbox" name="checkAll" id="checkAll" />
             <label for="checkAll"
@@ -184,7 +192,7 @@ h3{
               </div>
             </li>
           </ul>
-          <button type="submit" class="next-button" disabled onclick="location.href='/members/newMember'">확인</button>
+          <button type="submit" class="next-button" disabled id="submitButton" >확인</button> <!--onclick="location.href='/members/newMember'"  -->
         </form>
       </div>
     </div>
@@ -192,7 +200,9 @@ h3{
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	const form = document.querySelector("#form__wrap");
+		
+	
+	const form = document.querySelector(".form__wrap");
 	const checkAll = document.querySelector(".terms__check__all input");
 	const checkBoxes = document.querySelectorAll(".input__check input");
 	const submitButton = document.querySelector("button");
@@ -250,6 +260,56 @@ h3{
 	  }
 	  toggleSubmitButton();
 	});
+	
+	//체크박스 여부(동의)전송
+	$(document).ready(function () {
+	    // 동의 버튼 클릭 시
+	    $("#submitButton").click(function () {
+	    	/* var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content"); */
+	        // 체크박스 상태 확인
+	        var allowPromotions = $("#allowPromotions").is(":checked");
+	        var a ;
+	        if(allowPromotions == true){
+	        	a = 'Y';
+	        	
+	        } else {
+	        	a = 'N';
+	        }
+	        
+	        var paramData = {
+	        		answer : a,
+	        }
+	        
+	        console.log(paramData);
+	        /* 
+	        var param = JSON.stringify(paramData); */
+	        
+	        // Ajax 요청
+	        $.ajax({
+	            type: "GET", // 또는 GET, 요청 방식 설정
+	            url: "/members/newMember", // 처리할 URL 설정
+	            data: paramData, //전송할 데이터
+	           /*  beforeSend : function(xhr) { //데이터를 전송하기 전 헤더에 csrf값을 설정
+					xhr.setRequestHeader(header, token);
+				}, */
+	            dataType : "text",
+	            contentType : "application/json",
+	            cache : false,
+	            success: function (data) {
+	                // 요청 성공 시 처리
+	                alert("동의완료");
+	                location.href='/members/newMember';
+	            },
+	            error: function (data) {
+	                // 요청 실패 시 처리
+	                alert("에러");
+	            }
+	        });
+	    });
+	});
+	
+		
 	</script>
 </th:block>
 

@@ -64,12 +64,16 @@ public class Member extends BaseEntity {
 		
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		
+		System.out.println(memberDto.getAllowPromotions());
+		
 		member.setEmail(memberDto.getEmail());
 		member.setPassword(memberDto.getPassword());
 		member.setNickname(memberDto.getNickname());
 		member.setPhoneNumber(memberDto.getPhoneNumber());
 		member.setPassword(password);
-		member.setRole(Role.ADMIN);
+		member.setServiceOk(ServiceOk.Y);
+		member.setPrivateOk(PrivateOk.Y);
+		member.setRole(Role.USER);
 		
 		return member;
 	}

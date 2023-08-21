@@ -20,6 +20,10 @@ public class MemberDto {
 	@Length(min = 9, max = 15, message = "비밀번호는 9 ~ 15자 사이로 입력해주세요")
 	private String password;
 	
+	private String passwordConfirm;
+	
+	private String allowPromotions;
+	
 	@NotEmpty
 	@Length(min = 2, max = 8, message = "닉네임은 2~8자 사이로 입력해주세요")
 	private String nickname;
@@ -27,6 +31,5 @@ public class MemberDto {
 	@NotEmpty
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
-	
-	
+
 }

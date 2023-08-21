@@ -34,9 +34,11 @@ public class Recipe {
     
     private String intro;
     
-    private Date durTime;
+    //소요시간
+    private String durTime;
     
-    private int level;
+    //난이도
+    private String level;
     
     private int count;
     
