@@ -21,7 +21,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Recipe {
+public class Recipe extends BaseTimeEntity {
 	
 	
     @Id
@@ -35,9 +35,9 @@ public class Recipe {
     
     private String intro;
     
-    private LocalDateTime durTime;
+    private String durTime;
     
-    private int level;
+    private String level;
     
     private int count;
     
