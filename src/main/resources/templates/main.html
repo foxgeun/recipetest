@@ -11,7 +11,59 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 	</th:block>
-	
+		
+		<!--
+			배너 슬라이드 (예정)
+			
+			   <div class="banner_slider slider-wrap">
+          <div class="slider-items">
+        	<div class="main_box_in2" >
+			<img alt="배너이미지1" src="img/장어덮밥.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">보약이 따로 필요없는</p>
+			<p class="banner_title">장어덮밥</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+	          
+         </div>
+             <div class="slider-items">
+          	<div class="main_box_in2">
+			<img alt="배너이미지1" src="img/배너이미지2.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">부담스럽지 않은 면요리</p>
+			<p class="banner_title">김치쌀국수</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+         </div>
+             <div class="slider-items">
+          	<div class="main_box_in2">
+			<img alt="배너이미지1" src="img/배너이미지3.jpg" class="main_img">
+		</div>
+		<div class="main_box_in1">
+			<p class="banner_sub_title">허한 속을 든든하게</p>
+			<p class="banner_title">굴국밥</p>
+			<a href="#" class="banner_info">
+			레시피보기 >>
+			</a>
+		</div>	
+         </div>
+          </div>
+			
+			
+		-->
+		
+		
+		
+		
+		
+		
+		
 	<div class="main_box pb-5">
           <div class="banner_slider slider-wrap">
           <div class="slider-items">
@@ -218,7 +270,45 @@
 				
 				
 			</div>
-			
+		<div class="main_box main_hit">
+			<h2 class="def_title">베스트 쉐프!</h2>
+			<ul class="clr">
+				
+				<th:block th:each="bestMember , status:${mainMemberlList}">
+							<li class="rec_list" style="display:block">
+					<div class="num">[[${bestMember.num}]]</div>
+					<a href="#" class="clr">
+						<div class="img_box">
+							<th:block th:if=" ${bestMember.imgMainOk.toString()} == 'Y' ">
+							<img th:src="${bestMember.imgUrl}" th:alt="${bestMember.imgName}">
+							</th:block>
+							<th:block th:if=" ${bestMember.imgMainOk.toString()} == 'NONE' ">
+							<img src="img/장어덮밥.jpg" alt="등록된 이미지가 없습니다">
+							</th:block>
+							</div>
+						<div class="text_box">
+							<p class="s_title">자개소개 칸</p>
+							<p class="b_title" title="배추김치">[[${bestMember.nickname}]]</p>
+						</div>
+					</a>
+						<div class="like"> 팔로워 수 : [[${bestMember.followCount}]] / 레시피수 : [[${bestMember.recipeCount}]] </div>
+				</li>
+				</th:block>
+										<li class="rec_list" style="display:block">
+					<div class="num">2</div>
+					<a href="recipe.php?id=view&amp;idx=1041" class="clr">
+						<div class="img_box"><img src="../../data/recipe/20170521104711-K8QOB.jpg" alt=""></div>
+						<div class="text_box">
+							<p class="s_title">꼭 맛보아야할 별미</p>
+							<p class="b_title" title="콩나물고추전">콩나물고추전</p>
+						</div>
+					</a>
+									<a href="javascript:recipe_ggim(1041);" class="like"><img id="ggim_1041" src="/skin/nodskin_argio/images/main_like_off.jpg" alt=""></a>
+				</li>
+								
+							</ul>
+			<a href="javascript:more_recipe();" class="more more_rec">더보기</a>
+		</div>	
 		
 		<div class="best_box">
 			<h2 class="def_title">BEST 레시피<a href="/" class="fr">더보기></a></h2>
