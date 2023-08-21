@@ -19,4 +19,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
 	@Query(value = "select * from recipe where recipe_id = ?1", nativeQuery = true)
 	Recipe getRecipeDetailByid(Long id);
+	
+	
+	
 }

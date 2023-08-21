@@ -22,7 +22,12 @@ public class RecipeIngre {
 	private String ingreImg;
 	
 	@Column(length = 1000) // Adjust the length as needed
-	private String ingreName;
+	private String basicIngreName;
+	
+	@Column(length = 1000) // Adjust the length as needed
+	private String seasonIngreName;
+	
+	private int RecipeCount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")

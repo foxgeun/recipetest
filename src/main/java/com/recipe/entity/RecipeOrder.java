@@ -27,6 +27,8 @@ public class RecipeOrder {
 	
 	private int order_number;
 	
+	
+	@Column(length = 1000) // Adjust the length as needed
 	private String content;
 	
 	private String imgUrl;
