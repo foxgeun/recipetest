@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.entity.Recipe;
 
-public interface RecipeRepositoryCustom {
+public interface RecipeListRepositoryCustom {
 	Page<Recipe> getAdminRecipePage(MemberSearchDto memberSearchDto, Pageable pageable);
 }

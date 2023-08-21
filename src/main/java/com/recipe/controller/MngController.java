@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.entity.Member;
+import com.recipe.entity.Recipe;
 import com.recipe.service.MemberService;
+import com.recipe.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class MngController {
 
 	private final MemberService memberService;
+	private final RecipeService recipeService;
 
 	// 회원관리 페이지
 	@GetMapping(value = { "/admin/memberMng", "/admin/memberMng/{page}" })
@@ -41,12 +44,12 @@ public class MngController {
 	public String recipeMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
 			Model model) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Member> members = memberService.getAdminMemberPage(memberSearchDto, pageable);
+		Page<Recipe> recipes = recipeService.getAdminRecipePage(memberSearchDto, pageable);
 
-		model.addAttribute("members", members);
+		model.addAttribute("recipes", recipes);
 		model.addAttribute("memberSearchDto", memberSearchDto);
 		model.addAttribute("maxPage", 5);
 
-		return "mng/memberMng";
+		return "mng/recipeMng";
 	}
 }

@@ -11,16 +11,17 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.recipe.dto.MemberSearchDto;
-import com.recipe.entity.Member;
 import com.recipe.entity.QMember;
+import com.recipe.entity.QRecipe;
+import com.recipe.entity.Recipe;
 
 import jakarta.persistence.EntityManager;
 
-public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
+public class RecipeListRepositoryCustomImpl implements RecipeListRepositoryCustom {
 
 	private JPAQueryFactory queryFactory;
 
-	public MemberRepositoryCustomImpl(EntityManager em) {
+	public RecipeListRepositoryCustomImpl(EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
@@ -36,23 +37,21 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 	}
 
 	@Override
-	public Page<Member> getAdminMemberPage(MemberSearchDto memberSearchDto, Pageable pageable) {
-
+	public Page<Recipe> getAdminRecipePage(MemberSearchDto memberSearchDto, Pageable pageable) {
 		/*
 		 * select * from item where item_nm like %검색어% order by item_id desc;
 		 */
 
-		List<Member> content = queryFactory.selectFrom(QMember.member)
+		List<Recipe> content = queryFactory.selectFrom(
+				QRecipe.recipe)
 				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery()))
-				.orderBy(QMember.member.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+				.orderBy(QRecipe.recipe.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
-		/*
-		 * select count(*) from item where reg_time = ? and item_sell_status = ? and
-		 * item_nm like %검색어% order by item_id desc;
-		 */
-		long total = queryFactory.select(Wildcard.count).from(QMember.member)
-				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery())).fetchOne();
+		long total = queryFactory.select(Wildcard.count).from(QMember.member).where(
+
+				searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery())).fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
+
 	}
 }
