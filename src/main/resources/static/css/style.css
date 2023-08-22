@@ -31,11 +31,17 @@
 
 /* Template default CSS
 /*----------------------------------------*/
+*{
+	
+	font-family: "SUIT", sans-serif !important;
+	
+}
+
 
 html,
 body {
 	height: 100%;
-	font-family: "PT Sans", sans-serif;
+	font-family: "SUIT", sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 	background: none;
@@ -50,7 +56,7 @@ h6 {
 	margin: 0;
 	color: #353535;
 	font-weight: 400;
-	font-family: "PT Sans", sans-serif;
+	font-family: "SUIT", sans-serif !important;
 }
 
 h1 {

@@ -31,6 +31,7 @@ public class RecipeController {
 		
 		Recipe recipeDetail = recipeRepository.getRecipeDetailByid(Id);
 		
+		recipeRepository.setaddview(Id);
 		List<RecipeOrder> recipeOrderList = recipeOrderRepository.getRecipeOrderByid(Id);
 		List<RecipeIngre> recipeIngreList = recipeIngreRepository.getRecipeIngreByid(Id);
 		
@@ -41,7 +42,4 @@ public class RecipeController {
 		
 		return "recipes/recipe";
 	}
-	
-	
-	
 }
