@@ -114,7 +114,7 @@ h3{
 	    <div class="wrap">
       <div class="logo"><h3>회원가입 약관동의</h3></div>
       <div class="contents">
-        <form action="/member/newMemberForm" method="POST" id="agreementForm" class="form__wrap">
+        <form action="/members/newMembers" method="GET" id="agreementForm" class="form__wrap">
           <div class="terms__check__all">
             <input type="checkbox" name="checkAll" id="checkAll" />
             <label for="checkAll"
@@ -176,11 +176,10 @@ h3{
               <div class="input__check">
                 <input
                   type="checkbox"
-                  name="agreement"
+                  name="promotionOk"
                   id="allowPromotions"
-                  value="allowPromotions"
                 />
-                <label for="allowPromotions">프로모션 정보 수신 동의</label>
+                <label for="allowPromotions" class="required">프로모션 정보 수신 동의</label>
               </div>
               <div class="terms__content">
                 이젠해먹자에서 제공하는 이벤트/혜택 등 다양한 정보를 휴대전화
@@ -192,7 +191,7 @@ h3{
               </div>
             </li>
           </ul>
-          <button type="submit" class="next-button" disabled id="submitButton" >확인</button> <!--onclick="location.href='/members/newMember'"  -->
+          <button type="submit" class="next-button" disabled id="submitButton" onclick="location.href='/members/newMember'" >확인</button> <!--onclick="location.href='/members/newMember'"  -->
         </form>
       </div>
     </div>
@@ -200,7 +199,9 @@ h3{
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-		
+	/* $("#submitButton").click(function(){
+		alert($("#promotionOk").is(":checked"));
+	}); */
 	
 	const form = document.querySelector(".form__wrap");
 	const checkAll = document.querySelector(".terms__check__all input");
@@ -235,8 +236,8 @@ h3{
 	}
 
 	function toggleSubmitButton() {
-	  const { termsOfService, privacyPolicy } = agreements;
-	  if (termsOfService && privacyPolicy) {
+	  const { termsOfService, privacyPolicy , allowPromotions } = agreements;
+	  if (termsOfService && privacyPolicy && allowPromotions) {
 	    submitButton.disabled = false;
 	  } else {
 	    submitButton.disabled = true;
@@ -262,11 +263,11 @@ h3{
 	});
 	
 	//체크박스 여부(동의)전송
-	$(document).ready(function () {
+	/* $(document).ready(function () {
 	    // 동의 버튼 클릭 시
 	    $("#submitButton").click(function () {
-	    	/* var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content"); */
+	    	var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 	        // 체크박스 상태 확인
 	        var allowPromotions = $("#allowPromotions").is(":checked");
 	        var a ;
@@ -282,17 +283,17 @@ h3{
 	        }
 	        
 	        console.log(paramData);
-	        /* 
-	        var param = JSON.stringify(paramData); */
+	        
+	        var param = JSON.stringify(paramData);
 	        
 	        // Ajax 요청
 	        $.ajax({
 	            type: "GET", // 또는 GET, 요청 방식 설정
 	            url: "/members/newMember", // 처리할 URL 설정
 	            data: paramData, //전송할 데이터
-	           /*  beforeSend : function(xhr) { //데이터를 전송하기 전 헤더에 csrf값을 설정
+	            beforeSend : function(xhr) { //데이터를 전송하기 전 헤더에 csrf값을 설정
 					xhr.setRequestHeader(header, token);
-				}, */
+				},
 	            dataType : "text",
 	            contentType : "application/json",
 	            cache : false,
@@ -305,9 +306,9 @@ h3{
 	                // 요청 실패 시 처리
 	                alert("에러");
 	            }
-	        });
+	        }); 
 	    });
-	});
+	}); */
 	
 		
 	</script>

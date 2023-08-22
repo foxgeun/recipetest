@@ -181,6 +181,8 @@ p{
 		$("#btn").click(function(){
 			var pw = $('#password').val();
 		    var pwck = $('#passwordConfirm').val();
+		    var nicknames = $('#nickname').val();
+		    console.log(nicknames);
 		    var regexp = new RegExp("^010-\\d{4}-\\d{4}$");
 		    var phone = $('#phoneNumber').val();
 			 if(pw === pwck && pw != "" && regexp.test(phone) == true){

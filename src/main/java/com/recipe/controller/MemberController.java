@@ -5,14 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.recipe.dto.MemberDto;
 import com.recipe.entity.Member;
 import com.recipe.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -47,11 +51,11 @@ public class MemberController {
 		model.addAttribute("memberDto", new MemberDto());
 		return "member/newMemberForm";
 	}
-
+	
 	// 회원가입 기능
 	@PostMapping(value = "/members/newMember")
-	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
-
+	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model ,String promotionOks) {
+		
 		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm())) {
 			return "member/newMemberForm";
 		}
@@ -59,8 +63,8 @@ public class MemberController {
 		if (bindingResult.hasErrors()) {
 			return "member/newMemberForm";
 		}
-
 		try {
+			
 			Member member = Member.createMember(memberDto, passwordEncoder);
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
@@ -84,18 +88,5 @@ public class MemberController {
 	public String findIDPW(Model model) {
 		return "member/findIDPW";
 	}
-	
-	@RequestMapping(value = "/members/new")
-	@ResponseBody
-	public String ajax() {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("kor", "Korea");
-	        map.put("us", "United States");
-
-		return null;
-	}
-	
 	
 }

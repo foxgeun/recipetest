@@ -2,8 +2,11 @@ package com.recipe.dto;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.recipe.entity.Member;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +25,6 @@ public class MemberDto {
 	
 	private String passwordConfirm;
 	
-	private String allowPromotions;
-	
 	@NotEmpty
 	@Length(min = 2, max = 8, message = "닉네임은 2~8자 사이로 입력해주세요")
 	private String nickname;
@@ -31,5 +32,5 @@ public class MemberDto {
 	@NotEmpty
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
-
+	
 }

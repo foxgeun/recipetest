@@ -18,6 +18,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -64,7 +65,6 @@ public class Member extends BaseEntity {
 		
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		
-		System.out.println(memberDto.getAllowPromotions());
 		
 		member.setEmail(memberDto.getEmail());
 		member.setPassword(memberDto.getPassword());
@@ -73,9 +73,12 @@ public class Member extends BaseEntity {
 		member.setPassword(password);
 		member.setServiceOk(ServiceOk.Y);
 		member.setPrivateOk(PrivateOk.Y);
+		member.setPromotionOk(PromotionOk.Y);
+		
 		member.setRole(Role.USER);
 		
 		return member;
 	}
+	
 	
 }

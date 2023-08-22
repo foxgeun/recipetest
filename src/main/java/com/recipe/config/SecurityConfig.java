@@ -12,6 +12,8 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+
+
 @Configuration //Bean 객체를 싱글톤으로 공유할 수 있게 해준다.
 @EnableWebSecurity //spring security filterChain이 자동으로 포함되게 한다
 public class SecurityConfig {
@@ -36,6 +38,7 @@ public class SecurityConfig {
 				//그 외의 페이지는 모두 로그인(인증을 받아야 한다)
 				.anyRequest().authenticated() 
 				) 
+		
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/members/login") //로그인 페이지 URL 설정
 				.defaultSuccessUrl("/") //로그인 성공시 이동할 페이지
