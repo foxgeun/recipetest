@@ -2,6 +2,8 @@ package com.recipe.entity;
 
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.recipe.constant.PrivateOk;
 import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
@@ -44,7 +46,18 @@ public class Member extends BaseEntity {
 	
 	private String name;
 	
-	private String address;
+	private String postCode;
+	private String roadAddress;
+	private String jibunAddress;
+	private String detailAddress;
+	
+	private String introduce;
+	
+	private String imgUrl;
+	
+	private String oriImgName;
+	
+	private String imgName;
 	
 	
 	@Enumerated(EnumType.STRING)
@@ -63,7 +76,20 @@ public class Member extends BaseEntity {
 	
 	//member 엔티티 수정
 	public void editMember(MyPageDto myPageDto) {
+		this.nickname = myPageDto.getNickname();
 		this.phoneNumber = myPageDto.getPhoneNumber();
+		this.name = myPageDto.getName();
+		this.address = myPageDto.getAddress();
+		this.password = myPageDto.getPassword();
+		this.introduce = myPageDto.getIntroduce();
+
+	}
+	
+	//이미지 업데이트
+	public void updateImg(String oriImgName, String imgName, String imgUrl) {
+		this.imgUrl = imgUrl;
+		this.imgName = imgName;
+		this.oriImgName = oriImgName;
 	}
 	
 	

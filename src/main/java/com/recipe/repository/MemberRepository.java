@@ -15,4 +15,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>
 	
 //	@Query("select o from member o where o.member.member_id = :id")
 //	Member getmember(@Param("id") Long id);
+	
+	
+	@Query(value = "select * from member where member_id = ?1", nativeQuery = true)
+	Member getfindmemberbyid(Long id);
 }

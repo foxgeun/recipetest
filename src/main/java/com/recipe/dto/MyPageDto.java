@@ -1,6 +1,7 @@
 package com.recipe.dto;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.entity.BookMark;
 import com.recipe.entity.Comment;
@@ -24,6 +25,16 @@ public class MyPageDto {
 
 	private Long id;
 	private String phoneNumber;
+	private String nickname;
+	private String name;
+	private String address;
+
+	private String password;
+	private String imgUrl;
+	private String imgName;
+	private String oriImgName;
+	private String introduce;
+	
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
