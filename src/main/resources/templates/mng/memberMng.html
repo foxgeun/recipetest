@@ -227,8 +227,33 @@
 			</div>
 
 		</div>
+
 	</div>
 </div>
+
+<!-- 페이징버튼 -->
+<!-- start = (현재 페이지 번호/보여줄 페이지수) + 1, 페이지 시작번호 -->
+<!-- end = start + (보여줄 페이지수 - 1), 페이지 끝번호 -->
+<!-- 끝번호가 전체페이지보다 작으면 ◀ 1 2 3 4 5 ▶ -->
+<nav
+	th:with="start=${(members.number/maxPage)*maxPage + 1}
+			,end=(${(members.totalPages == 0) ? 1 : (start + (maxPage - 1) < members.totalPages ? start + (maxPage - 1) : members.totalPages)})"
+	aria-label="Page navigation example">
+	<ul class="pagination d-flex justify-content-center">
+		<li class="page-item" th:classappend="${members.first}?'disabled'">
+			<a class="page-link"
+			th:onclick="'javascript:page(' + ${members.number - 1} +')'">이전</a>
+		</li>
+		<li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
+			th:classappend="${members.number eq page-1}?'active':''"><a
+			class="page-link" th:inline="text"
+			th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a></li>
+		<li class="page-item" th:classappend="${members.last}?'disabled'">
+			<a class="page-link"
+			th:onclick="'javascript:page(' + ${members.number + 1} +')'">다음</a>
+		</li>
+	</ul>
+</nav>
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">

@@ -25,6 +25,17 @@
 <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 
+<th:block layout:fragment="css">
+	<style>
+.ellipsis {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; /* 말줄임 적용 */
+}
+</style>
+</th:block>
+
 <div layout:fragment="content" class="content">
 	<!-- Page Preloder -->
 	<div id="preloder">
@@ -37,7 +48,7 @@
 	<div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
 		<div class="container">
 			<div class="filter-table">
-				<form action="#" class="filter-search">
+				<form action="#" class="filter-search" th:object="${commentDto}">
 					<input type="text" placeholder="Search recipe" />
 
 					<button type="submit">Search</button>
@@ -68,8 +79,8 @@
 						</div>
 					</div>
 
-					<th:block th:each="member : ${members}">
-						<div class="card mb-3 border-3" style="max-width: 540px">
+					<th:block th:each="recipe : ${recipes}">
+						<div class="card mb-3 border-3">
 							<div class="row g-0">
 								<div class="col-md-4">
 									<div style="max-width: 80%">
@@ -78,11 +89,13 @@
 								</div>
 								<div class="col-md-8">
 									<div class="card-body">
-										<h5 class="card-title">이름: [[${member.nickname}]]</h5>
-										<h5 class="card-title">제목: [[${member.nickname}]]</h5>
-										<p class="card-text">This is a wider card with supporting
-											text below as a natural lead-in to additional content. This
-											content is a little bit longer.</p>
+										<h5 class="card-title">이름:</h5>
+										<h5 class="card-title">제목: [[${recipe.title}]]</h5>
+										<h5 class="card-title ellipsis">내용:
+											[[${recipe.description}]]</h5>
+										<h5 class="card-title">댓글: [[${commentCounts}]]</h5>
+										<h5 class="card-title">별점:</h5>
+										<p class="card-text"></p>
 										<p class="card-text">
 											<small class="text-muted">Last updated 3 mins ago</small>
 										</p>

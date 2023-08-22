@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
+import com.recipe.service.CommentService;
 import com.recipe.service.MemberService;
 import com.recipe.service.RecipeService;
 
@@ -24,6 +25,7 @@ public class MngController {
 
 	private final MemberService memberService;
 	private final RecipeService recipeService;
+	private final CommentService commentService;
 
 	// 회원관리 페이지
 	@GetMapping(value = { "/admin/memberMng", "/admin/memberMng/{page}" })
@@ -42,14 +44,21 @@ public class MngController {
 	// 멤버별 레시피 관리 페이지
 	@GetMapping(value = { "/admin/recipeMng", "/admin/recipeMng/{page}" })
 	public String recipeMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
-			Model model) {
+			Model model, Long memberId, Long recipeId) {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 		Page<Recipe> recipes = recipeService.getAdminRecipePage(memberSearchDto, pageable);
-
+		Member member = recipeService.get
+		Recipe recipe = new Recipe();
+		
+			Long commentCount = commentService.getCommentCountForMemberAndRecipe(member.getId(),
+					recipe.getId());System.out.println("dsfsadfasdsfasdfasdfa=" + commentCount);
+			
 		model.addAttribute("recipes", recipes);
 		model.addAttribute("memberSearchDto", memberSearchDto);
 		model.addAttribute("maxPage", 5);
+		model.addAttribute("commentCounts", commentCount);
 
 		return "mng/recipeMng";
 	}
+
 }

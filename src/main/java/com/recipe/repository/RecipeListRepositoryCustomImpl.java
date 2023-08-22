@@ -42,8 +42,7 @@ public class RecipeListRepositoryCustomImpl implements RecipeListRepositoryCusto
 		 * select * from item where item_nm like %검색어% order by item_id desc;
 		 */
 
-		List<Recipe> content = queryFactory.selectFrom(
-				QRecipe.recipe)
+		List<Recipe> content = queryFactory.selectFrom(QRecipe.recipe)
 				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery()))
 				.orderBy(QRecipe.recipe.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 

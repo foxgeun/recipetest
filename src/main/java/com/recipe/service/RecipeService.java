@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeDto;
 import com.recipe.entity.Recipe;
 import com.recipe.repository.RecipeListRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
