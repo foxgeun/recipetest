@@ -2,7 +2,6 @@ package com.recipe.controller;
 
 import java.util.Optional;
 
-import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeSearchDto;
-import com.recipe.repository.RecipeRepository;
+import com.recipe.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CategoryController {
 	
-	private final RecipeRepository recipeRepository;
+	private final RecipeService recipeService;
 	
 	@GetMapping(value = {"/category" , "/category/{page}"})
 	public String categoryOrder(RecipeSearchDto recipeSearchDto ,
@@ -29,26 +28,39 @@ public class CategoryController {
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
+		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryBestList2(pageable, recipeSearchDto);
 		
-		if("order".equals(recipeSearchDto.getType()) || recipeSearchDto.getType() == null) {
-			System.out.println("type :" + recipeSearchDto.getType() );
-			
-			
-			Page<RecipeCategoryDto> category = recipeRepository.getRecipeCategoryOrderList(pageable , recipeSearchDto);
-			model.addAttribute("category" , category);
-			model.addAttribute("recipeSearchDto" , recipeSearchDto);
-			model.addAttribute("maxpage" , 5);
+		for (RecipeCategoryDto c : category) {
+			System.out.println("recipe_id" + c.getRetingAvg());
 		}
 		
-		else if ("best".equals(recipeSearchDto.getType())) {
-			System.out.println("type :" + recipeSearchDto.getType());
-			
-			Page<RecipeCategoryDto> category = recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
-			model.addAttribute("category" , category);
-			model.addAttribute("recipeSearchDto" , recipeSearchDto);
-			model.addAttribute("maxpage" , 5);
-			
-		}
+		
+		
+		model.addAttribute("category" , category);
+		model.addAttribute("recipeSearchDto" , recipeSearchDto);
+		model.addAttribute("maxPage" , 5);
+		/*
+		 * if("order".equals(recipeSearchDto.getType()) || recipeSearchDto.getType() ==
+		 * null) { System.out.println("type :" + recipeSearchDto.getType() );
+		 * 
+		 * 
+		 * Page<RecipeCategoryDto> category =
+		 * recipeRepository.getRecipeCategoryOrderList(pageable , recipeSearchDto);
+		 * model.addAttribute("category" , category);
+		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
+		 * model.addAttribute("maxpage" , 5); }
+		 * 
+		 * else if ("best".equals(recipeSearchDto.getType())) {
+		 * System.out.println("type :" + recipeSearchDto.getType());
+		 * 
+		 * Page<RecipeCategoryDto> category =
+		 * recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
+		 * model.addAttribute("category" , category);
+		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
+		 * model.addAttribute("maxpage" , 5);
+		 * 
+		 * }
+		 */
 		
 		return "category";
 	}
@@ -58,14 +70,16 @@ public class CategoryController {
 	public String categoryBest(RecipeSearchDto recipeSearchDto ,
 			@PathVariable("page") Optional<Integer> page , Model model) {
 		
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
+//		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
-		Page<RecipeCategoryDto> category = recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
-		
-		model.addAttribute("category" , category);
-		model.addAttribute("recipeSearchDto" , recipeSearchDto);
-		model.addAttribute("maxpage" , 5);
-		
+		/*
+		 * Page<RecipeCategoryDto> category =
+		 * recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
+		 * 
+		 * model.addAttribute("category" , category);
+		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
+		 * model.addAttribute("maxpage" , 5);
+		 */
 	
 		
 		

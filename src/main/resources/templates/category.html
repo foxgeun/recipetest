@@ -15,7 +15,7 @@
 	<div class="container">
 		<div class="thmb_list02 pt60">
 		<div class="search_sort">
-			<p>검색결과 <strong>[[${category.getContent().size()}]]</strong>건 조회</p>
+			<p>검색결과 <strong>[[${category.getTotalElements()}]]</strong>건 조회</p>
 			<ul class="sort_util">
 				<li class="active" id="order"><a href="/category?type=order">최신순</a></li>
 				<li class="active" id="best"><a href="/category?type=best">조회순</a></li>
@@ -50,7 +50,32 @@
 			</div>
 			</th:block>
 			
-			
+			<div class="book_page">
+						<nav
+							th:with="start=${(category.number/maxPage)*maxPage + 1}
+			                 ,end=(${(category.totalPages == 0) ? 1 : (start + (maxPage - 1) < category.totalPages ? start + (maxPage - 1) : category.totalPages)})"
+							aria-label="Page navigation example">
+							<ul class="pagination d-flex justify-content-center">
+
+								<li class="page-item" th:classappend="${category.first}?'disabled'">
+									<a class="page-link"
+									th:onclick="'javascript:page(' + ${category.number - 1} +')'"><<</a>
+								</li>
+
+								<li class="page-item"
+									th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${category.number eq page-1}?'active':''"><a
+									class="page-link" th:inline="text"
+									th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
+								</li>
+
+								<li class="page-item" th:classappend="${category.last}?'disabled'">
+									<a class="page-link"
+									th:onclick="'javascript:page(' + ${category.number + 1} +')'">>></a>
+								</li>
+							</ul>
+						</nav>
+					</div>
 			
 		</div>
 		</div>
@@ -65,7 +90,16 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+	
+	$(document).ready(function() {
 		
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+			
+	 });
+	
 	function page(page) {
 		//입력한 값을 전부 가지고 온다.
 		
@@ -80,11 +114,9 @@
 				+ "&mainCategory=" + mainCategory 
 				+ "&subCategory=" + subCategory
 				+ "&searchBy=" + searchBy
-				+ "&searchQuery=" + searchQuery;
+				+ "&searchQuery=" + searchQuery + "";
 	}
 		
-	
-	
 	</script>
 	</th:block>
 
