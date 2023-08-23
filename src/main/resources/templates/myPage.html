@@ -90,15 +90,8 @@
 	margin-bottom: 40px;
 }
 
-    /* 선택된 탭 메뉴의 스타일 설정 */
-    .mypage-list:active {
-
-    }
-    
-    .mypage-list:active {
-    /* 원하는 스타일을 여기에 입력하세요 */
-            background-color: #f8f9fa; /* 원하는 배경색으로 변경 */
-        color: #000000; /* 원하는 글자색으로 변경 */
+.mypage-list.active {
+	background-color: #808000 !important;
 }
 </style>
 
@@ -216,34 +209,25 @@
 							style="display: flex; justify-content: center; font-size: 20px; font-weight: 600; padding-bottom: 12px; padding-top: 15px; border-bottom: 3px solid #858585b8;">
 							MY PAGE</p>
 					</div>
-<div class="list-group list-group-light"
-    style="padding-bottom: 40px; border-bottom: 3px solid #959595 !important;">
-    <a onclick="showContent('recipe')"
-        class="list-group-item list-group-item-action list-group-item-light mypage-list"
-        style="font-size: 15px; cursor: pointer"
-        data-menu="recipe"
-        > 레시피</a>
-    <a onclick="showContent('favorite')"
-        class="list-group-item list-group-item-action list-group-item-light mypage-list"
-        style="font-size: 15px; cursor: pointer"
-        data-menu="favorite"
-        > 찜한 레시피</a>
-    <a onclick="showContent('comments')"
-        class="list-group-item list-group-item-action list-group-item-light mypage-list"
-        style="font-size: 15px; cursor: pointer"
-        data-menu="comments"
-        > 댓글</a>
-    <a onclick="showContent('reviews')"
-        class="list-group-item list-group-item-action list-group-item-light mypage-list"
-        style="font-size: 15px; cursor: pointer"
-        data-menu="reviews"
-        > 요리후기</a>
-    <a onclick="showContent('edit')"
-        class="list-group-item list-group-item-action list-group-item-light mypage-list"
-        style="font-size: 15px; cursor: pointer"
-        data-menu="edit"
-        > 회원 정보 수정</a>
-</div>
+					<div class="list-group list-group-light"
+						style="padding-bottom: 40px; border-bottom: 3px solid #959595 !important;">
+						<a onclick="showContent('recipe')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 15px; cursor: pointer" data-menu="recipe">
+							레시피</a> <a onclick="showContent('favorite')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 15px; cursor: pointer" data-menu="favorite">
+							찜한 레시피</a> <a onclick="showContent('comments')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 15px; cursor: pointer" data-menu="comments">
+							댓글</a> <a onclick="showContent('reviews')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 15px; cursor: pointer" data-menu="reviews">
+							요리후기</a> <a onclick="showContent('edit')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 15px; cursor: pointer" data-menu="edit">
+							회원 정보 수정</a>
+					</div>
 				</div>
 			</div>
 			<div class="col-9" id="content">
@@ -272,6 +256,9 @@
 								레시피를 직접 올려보세요!</p>
 							<p style="font-size: 15px; font-weight: 500">자랑하고 싶은 나만의 레시피!
 								공유하고 싶은 멋진 레시피를 올려 주세요.</p>
+								<br>
+						<button type="submit" class="btn btn-outline-danger"
+									style="width: 180px; height: 42px;">레시피 등록</button>
 						</div>
 					</div>
 				</div>
@@ -374,8 +361,9 @@
 					</div>
 
 					<fieldset>
-						<form role="form" th:action="@{'/myPage/' + ${myPageDto.id}}"
-							method="post" enctype="multipart/form-data" name="memberForm"
+						<form style="margin-left: 20px;" role="form"
+							th:action="@{'/myPage/' + ${myPageDto.id}}" method="post"
+							enctype="multipart/form-data" name="memberForm"
 							th:object="${myPageDto}">
 
 
@@ -497,9 +485,13 @@ svg {
 									class="form-control" type="text" id="sample6_extraAddress"
 									placeholder="참고항목" style="display: none;">
 							</div>
-
-							<button type="submit" class="btn btn-outline-danger">변경하기</button>
-
+							<div
+								style="display: flex; flex-direction: column; align-items: center; margin-top: 160px;">
+								<button type="submit" class="btn btn-outline-danger"
+									style="width: 180px; height: 42px;">회원정보 수정</button>
+								<a th:value="${myPageDto.id}"
+								th:onclick="deleteRoomType([[${myPageDto.id}]])"style="border-bottom: 1px solid; cursor:pointer;">회원탈퇴</a>
+							</div>
 						</form>
 					</fieldset>
 
@@ -589,8 +581,9 @@ svg {
         $('.content').hide();
         $('#' + contentId).show();
 
-        $('.mypage-list').removeClass('mypage-list.active');
-        $('.mypage-list[data-menu="' + contentId + '"]').addClass('mypage-list.active');
+        $('.mypage-list').removeClass('active');
+        $('.mypage-list[data-menu="' + contentId + '"]').addClass('active');
+        
     }
 
     
@@ -707,6 +700,35 @@ svg {
             .replace(/[^0-9]/g, '')
             .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
     }
+    
+    
+    function deleteRoomType(memberId) {
+		const deleteConf = confirm("탈퇴하시겠습니까?");
+		if (!deleteConf)
+			return; //취소버튼 누르면
+
+		//request URL
+		var url = "/myPage/delete/" + memberId;
+
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajax({
+			url : url, //request URL
+			type : "DELETE", //전송방식
+			contentType : "application/json",
+			beforeSend : function(xhr) {
+				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+				xhr.setRequestHeader(header, token);
+			},
+			dataType : "json",
+			cache : false,
+			success : function(result, status) {
+				location.href = '/';
+			}
+
+		});
+	}
     </script>
 </body>
 </html>

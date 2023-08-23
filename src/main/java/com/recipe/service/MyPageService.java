@@ -150,5 +150,15 @@ public class MyPageService {
 	}
 	
 	
+	//회원탈퇴
+	public void deleteMember(Long memberId) {
+		Member member = memberRepository.findById(memberId)
+										.orElseThrow(EntityNotFoundException::new);
+		
+		//delete
+		memberRepository.delete(member);
+		
+	}
+	
 	
 }
