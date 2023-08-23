@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeDto {
-	private String id;
+	private Long id;
 
 	private String title;
 
@@ -25,6 +25,8 @@ public class RecipeDto {
 	private int level;
 
 	private int count;
+	
+	private int commentCount;
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
@@ -33,7 +35,9 @@ public class RecipeDto {
 		return modelMapper.map(this, Recipe.class);
 	}
 
+	// entity -> dto로 바꿈
 	public static RecipeDto of(Recipe recipe) {
 		return modelMapper.map(recipe, RecipeDto.class);
 	}
+
 }

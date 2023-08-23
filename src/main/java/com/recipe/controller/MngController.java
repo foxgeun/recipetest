@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeDto;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.service.CommentService;
@@ -43,20 +45,16 @@ public class MngController {
 
 	// 멤버별 레시피 관리 페이지
 	@GetMapping(value = { "/admin/recipeMng", "/admin/recipeMng/{page}" })
-	public String recipeMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
-			Model model, Long memberId, Long recipeId) {
+	public String recipeMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page, Model model,
+			Long memberId, Long recipeId) {
+
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Recipe> recipes = recipeService.getAdminRecipePage(memberSearchDto, pageable);
-		Member member = recipeService.get
-		Recipe recipe = new Recipe();
-		
-			Long commentCount = commentService.getCommentCountForMemberAndRecipe(member.getId(),
-					recipe.getId());System.out.println("dsfsadfasdsfasdfasdfa=" + commentCount);
-			
-		model.addAttribute("recipes", recipes);
+
+		Page<RecipeDto> recipeDtoList = recipeService.getAdminRecipePage(memberSearchDto, pageable, recipeId);
+
+		model.addAttribute("recipes", recipeDtoList);
 		model.addAttribute("memberSearchDto", memberSearchDto);
 		model.addAttribute("maxPage", 5);
-		model.addAttribute("commentCounts", commentCount);
 
 		return "mng/recipeMng";
 	}

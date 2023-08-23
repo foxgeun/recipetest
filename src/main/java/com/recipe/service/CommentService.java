@@ -14,8 +14,4 @@ public class CommentService {
 
 	private final CommentRepository commentRepository;
 
-	public Long getCommentCountForMemberAndRecipe(Long memberId, Long recipeId) {
-		return commentRepository.getCommentCountForMemberAndRecipe(memberId, recipeId);
-	}
-
 }

@@ -1,7 +1,5 @@
 package com.recipe.entity;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,7 +31,7 @@ public class Recipe {
 
 	private String intro;
 
-	private Date durTime;
+	private String durTime;
 
 	private int level;
 
