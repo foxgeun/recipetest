@@ -3,10 +3,11 @@ package com.recipe.dto;
 import java.time.LocalDateTime;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.ImgMainOk;
 
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -50,63 +51,45 @@ public class RecipeCategoryDto {
 	 * double getRetingAvg(); //레시피에 등록된 리뷰 평점
 	 */
 
-     private Long memberId;
-	
-	 private Long recipeId;
-	
-	 private int bookmarkCount;
-	
-	 private int count;
-	
-	 private String durTime;
-	
-	 private String Level;
-	
-	 private String title;
-	
-	 private String subTitle;
+	private Long id;
+	private int count;
+	private String durTime;
+	private String imageUrl;
+	private String level;
+	private String subTitle;
+	private String title;
+	private Long memberId;
+	private LocalDateTime regTime;
+	private String intro;
+	private String nickname;
+	private String imgUrl;
+	private ImgMainOk imgMainOk;
+	private CategoryEnum categoryEnum;
+	private Long bookmarkCount;
+	private Long reviewCount;
+	private double retingAvg;
 
-	 private String intro;
-	
-	 private String imageUrl;
-	
-	 private LocalDateTime regTime;
-	
-	 private String nickname;
-	 private String memberImg;
-	 private String imgMainOk;
-	 private String categoryEnum;
-	 private int reviewCount;
-	 
-	 private double retingAvg;
-
-	
-	  @QueryProjection 
-	  public RecipeCategoryDto
-	  (Long memberId, Long recipeId,  int bookmarkCount, int count, 
-	  String durTime, String Level, String title, String subTitle, 
-	  String intro, String imageUrl,
-	  LocalDateTime regTime , String nickname , String memberImg , 
-	  String imgMainOk , String categoryEnum , int reviewCount , double retingAvg){ 
-	  this.memberId = memberId; 
-	  this.recipeId = recipeId;
-	  this.bookmarkCount = bookmarkCount; 
-	  this.count = count;
-	  this.durTime = durTime; 
-	  this.Level = Level; 
-	  this.title = title; 
-	  this.subTitle = subTitle; 
-	  this.intro = intro;
-	  this.imageUrl = imageUrl; 
-	  this.regTime = regTime;
-	  this.memberImg = memberImg;
-	  this.imgMainOk = imgMainOk;
-	  this.categoryEnum = categoryEnum;
-	  this.reviewCount = reviewCount;
-	  this.retingAvg = retingAvg;
-	  }
-	  
-	  
-	 
+	@QueryProjection
+	public RecipeCategoryDto(Long id, int count, String durTime, String imageUrl, String level, String subTitle,
+			String title, Long memberId, LocalDateTime regTime, String intro, String nickname, String imgUrl,
+			ImgMainOk imgMainOk, CategoryEnum categoryEnum, Long bookmarkCount, Long reviewCount, double retingAvg) {
+		this.id = id;
+		this.count = count;
+		this.durTime = durTime;
+		this.imageUrl = imageUrl;
+		this.level = level;
+		this.subTitle = subTitle;
+		this.title = title;
+		this.memberId = memberId;
+		this.regTime = regTime;
+		this.intro = intro;
+		this.nickname = nickname;
+		this.imgUrl = imgUrl;
+		this.imgMainOk = imgMainOk;
+		this.categoryEnum = categoryEnum;
+		this.bookmarkCount = bookmarkCount;
+		this.reviewCount = reviewCount;
+		this.retingAvg = retingAvg;
+	}
 
 }
