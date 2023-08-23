@@ -37,10 +37,7 @@
 }
 
 .thmb_list02 .list_area {
-	margin-top:10px;
-	margin-bottom:10px;
-	border-top:1px solid #dedede;
-	border-bottom:1px solid #dedede;
+
     width: 100%;
     display: table;
 }
@@ -136,4 +133,70 @@
 	margin-right: 10px;
 }
 
+.book_page {
+	margin-bottom:20px;
+}
 
+.list_box {
+	border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+
+.search_form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.form_select {
+    font-size: .8rem;
+    width: 85px;
+    height: 35px;
+    border-radius: 0px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(246, 246, 246);
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.form-control {
+    border: 1px solid #e8e8e8;
+}
+
+.form_search {
+    width: 271px;
+    height: 35px;
+    border-radius: 0px;
+    border: 1px solid #dee2e6;
+}
+
+.form_search_bt:not(:hover) {
+    transition: 0.2s ease-out;
+}
+
+.form_search_bt:not(:hover) {
+    transition: 0.2s ease-out;
+}
+
+.form_search_bt {
+    width: 68px;
+    height: 35px;
+    border: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color:RGB(160, 191, 107);
+    color: white;
+    font-weight: bold;
+}
+
+.category_form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.category_form a {
+	margin:0 10px;
+}

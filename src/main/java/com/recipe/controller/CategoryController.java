@@ -28,64 +28,21 @@ public class CategoryController {
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
-		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryBestList2(pageable, recipeSearchDto);
+		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
 		
-		for (RecipeCategoryDto c : category) {
-			System.out.println("recipe_id" + c.getRetingAvg());
-		}
-		
+	
+		System.out.println(recipeSearchDto.getType());
 		
 		
 		model.addAttribute("category" , category);
 		model.addAttribute("recipeSearchDto" , recipeSearchDto);
 		model.addAttribute("maxPage" , 5);
-		/*
-		 * if("order".equals(recipeSearchDto.getType()) || recipeSearchDto.getType() ==
-		 * null) { System.out.println("type :" + recipeSearchDto.getType() );
-		 * 
-		 * 
-		 * Page<RecipeCategoryDto> category =
-		 * recipeRepository.getRecipeCategoryOrderList(pageable , recipeSearchDto);
-		 * model.addAttribute("category" , category);
-		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
-		 * model.addAttribute("maxpage" , 5); }
-		 * 
-		 * else if ("best".equals(recipeSearchDto.getType())) {
-		 * System.out.println("type :" + recipeSearchDto.getType());
-		 * 
-		 * Page<RecipeCategoryDto> category =
-		 * recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
-		 * model.addAttribute("category" , category);
-		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
-		 * model.addAttribute("maxpage" , 5);
-		 * 
-		 * }
-		 */
+	
 		
 		return "category";
 	}
 	
 	
-	@GetMapping(value = {"/category/best" , "/category/best/{page}"})
-	public String categoryBest(RecipeSearchDto recipeSearchDto ,
-			@PathVariable("page") Optional<Integer> page , Model model) {
-		
-//		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
-		
-		/*
-		 * Page<RecipeCategoryDto> category =
-		 * recipeRepository.getRecipeCategoryBestList(pageable , recipeSearchDto);
-		 * 
-		 * model.addAttribute("category" , category);
-		 * model.addAttribute("recipeSearchDto" , recipeSearchDto);
-		 * model.addAttribute("maxpage" , 5);
-		 */
-	
-		
-		
-		
-		return "category";
-	}
 	
 	
 }

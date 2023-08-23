@@ -17,7 +17,7 @@ public interface RecipeMainDto {
 	
 	String getIntro();
 	
-	LocalDateTime getDurTime();
+	String getDurTime();
 	
     int getLevel();
 	

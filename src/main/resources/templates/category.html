@@ -13,16 +13,38 @@
 	
 	<div class="site-section mt-5 mb-5">
 	<div class="container">
+		
+			<div class="search_form pb-3">
+		<th:block th:object="${recipeSearchDto}">
+					<select th:field="*{searchBy}" class="form_select form-control">
+						<option value="title">레시피명</option>
+						<option value="nickname">쉐프명</option>
+					</select> <input type="text" class="form-control form_search"
+						th:field="*{searchQuery}" placeholder="검색어를 입력해주세요">
+					<button id="searchBtn" type="submit" class="form_search_bt">검색</button>
+		</th:block>
+				</div>
+			<div class="category_form">
+				<a href="/category">전체</a>
+				<a href="/category?type=order">중식</a>
+				<a href="/category?type=order">일식</a>
+			</div>
+	
+	
 		<div class="thmb_list02 pt60">
 		<div class="search_sort">
 			<p>검색결과 <strong>[[${category.getTotalElements()}]]</strong>건 조회</p>
 			<ul class="sort_util">
-				<li class="active" id="order"><a href="/category?type=order">최신순</a></li>
-				<li class="active" id="best"><a href="/category?type=best">조회순</a></li>
+				<li class="active" id="type"><a href="/category?type=order">최신순</a></li>
+				<li class="active" id="type"><a href="/category?type=bookMarkBest">북마크많은순</a></li>
+				<li class="active" id="type"><a href="/category?type=reviewCount">리뷰많은순</a></li>
+				<li class="active" id="type"><a href="/category?type=reviewAvg">평점순</a></li>
 			</ul>
 				<input type="hidden" th:value="${recipeSearchDto.type}" id="type"> 
 		</div>
+			<div class="list_box">
 		<div class="list_area">
+			
 			
 			<th:block th:each="recipe , status:${category}">
 			<div class="item">
@@ -50,6 +72,8 @@
 			</div>
 			</th:block>
 			
+			
+		</div>
 			<div class="book_page">
 						<nav
 							th:with="start=${(category.number/maxPage)*maxPage + 1}
@@ -76,7 +100,6 @@
 							</ul>
 						</nav>
 					</div>
-			
 		</div>
 		</div>
     	

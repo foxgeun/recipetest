@@ -23,6 +23,8 @@ public class RecipeService {
 	private final RecipeRepository recipeRepository;
 	
 	
+	
+	
 	@Transactional(readOnly = true)
 	public List<RecipeMainDto> getRecipeNewList() {
 		List<RecipeMainDto> getRecipeNewList = recipeRepository.getRecipeNewList();
@@ -42,9 +44,9 @@ public class RecipeService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<RecipeCategoryDto> getRecipeCategoryBestList2(Pageable pageable , RecipeSearchDto recipeSearchDto) {
-		Page<RecipeCategoryDto> getRecipeCategoryBestList2 = recipeRepository.getRecipeCategoryBestList2(pageable ,recipeSearchDto);
-		return getRecipeCategoryBestList2;
+	public Page<RecipeCategoryDto> getRecipeCategoryReviewBestList(Pageable pageable , RecipeSearchDto recipeSearchDto) {
+		Page<RecipeCategoryDto> getRecipeCategoryReviewBestList = recipeRepository.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
+	    return getRecipeCategoryReviewBestList;
 	}
 	
 	
