@@ -47,8 +47,7 @@ public class Member extends BaseEntity {
 	private String name;
 	
 	private String postCode;
-	private String roadAddress;
-	private String jibunAddress;
+	private String address;
 	private String detailAddress;
 	
 	private String introduce;
@@ -79,9 +78,11 @@ public class Member extends BaseEntity {
 		this.nickname = myPageDto.getNickname();
 		this.phoneNumber = myPageDto.getPhoneNumber();
 		this.name = myPageDto.getName();
-		this.address = myPageDto.getAddress();
 		this.password = myPageDto.getPassword();
 		this.introduce = myPageDto.getIntroduce();
+		this.detailAddress = myPageDto.getDetailAddress();
+		this.postCode = myPageDto.getPostCode();
+		this.address = myPageDto.getAddress();
 
 	}
 	
