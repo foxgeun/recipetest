@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.recipe.dto.MemberBestDto;
 import com.recipe.dto.MemberMainDto;
 import com.recipe.repository.MemberRepository;
 
@@ -22,6 +23,12 @@ public class MemberService {
 		List<MemberMainDto> getMemberBestList = memberRepository.getMemberBestList();
 		return getMemberBestList;
 		
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MemberBestDto> getRankMemberList() {
+		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
+		return getRankMemberList;
 	}
 	
 }

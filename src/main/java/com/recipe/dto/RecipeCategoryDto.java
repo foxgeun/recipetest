@@ -6,6 +6,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.ImgMainOk;
 
+import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -65,14 +66,17 @@ public class RecipeCategoryDto {
 	private String imgUrl;
 	private ImgMainOk imgMainOk;
 	private CategoryEnum categoryEnum;
-	private Long bookmarkCount;
 	private Long reviewCount;
 	private double retingAvg;
-
+	private Long bookmarkCount;
+	
 	@QueryProjection
 	public RecipeCategoryDto(Long id, int count, String durTime, String imageUrl, String level, String subTitle,
 			String title, Long memberId, LocalDateTime regTime, String intro, String nickname, String imgUrl,
-			ImgMainOk imgMainOk, CategoryEnum categoryEnum, Long bookmarkCount, Long reviewCount, double retingAvg) {
+			ImgMainOk imgMainOk, CategoryEnum categoryEnum , Long reviewCount, double retingAvg) {
+		
+		// , Long bookmarkCount, Long reviewCount, double retingAvg
+		
 		this.id = id;
 		this.count = count;
 		this.durTime = durTime;
@@ -87,9 +91,11 @@ public class RecipeCategoryDto {
 		this.imgUrl = imgUrl;
 		this.imgMainOk = imgMainOk;
 		this.categoryEnum = categoryEnum;
-		this.bookmarkCount = bookmarkCount;
 		this.reviewCount = reviewCount;
 		this.retingAvg = retingAvg;
+	
 	}
+	
 
+	
 }

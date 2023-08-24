@@ -65,6 +65,7 @@
 }
 
 .thmb_list02 .img img {
+	border: 1px solid #dedede;
     width: 270px;
     height: 215px;
 }
@@ -199,4 +200,41 @@
 
 .category_form a {
 	margin:0 10px;
+}
+
+.common_sp_caption_rv_name {
+    color: #999;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    vertical-align: 0;
+    padding: 0 1px 7px 0;
+    font-weight: 300;
+}
+
+.common_sp_caption_rv_name img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin: 0 4px -2px 0;
+    vertical-align: text-bottom;
+}
+
+.item-ranking {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: block;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 3px 0;
+    width: 20px;
+    height: 20px;
+    background-color: RGB(160, 191, 107);
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
 }

@@ -23,20 +23,18 @@ public class CategoryController {
 	private final RecipeService recipeService;
 	
 	@GetMapping(value = {"/category" , "/category/{page}"})
-	public String categoryOrder(RecipeSearchDto recipeSearchDto ,
+	public String category(RecipeSearchDto recipeSearchDto ,
 			@PathVariable("page") Optional<Integer> page , Model model) {
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
 		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
 		
-	
-		System.out.println(recipeSearchDto.getType());
-		
 		
 		model.addAttribute("category" , category);
 		model.addAttribute("recipeSearchDto" , recipeSearchDto);
 		model.addAttribute("maxPage" , 5);
+		model.addAttribute("page" , page);
 	
 		
 		return "category";

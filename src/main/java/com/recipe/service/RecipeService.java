@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.querydsl.core.Tuple;
 import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeMainDto;
 import com.recipe.dto.RecipeSearchDto;
@@ -48,6 +49,5 @@ public class RecipeService {
 		Page<RecipeCategoryDto> getRecipeCategoryReviewBestList = recipeRepository.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
 	    return getRecipeCategoryReviewBestList;
 	}
-	
 	
 }
