@@ -33,4 +33,5 @@ public class MemberDto {
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
 	
+	private String name;
 }

@@ -18,11 +18,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name="member")
 @Getter
@@ -60,15 +63,20 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private PromotionOk promotionOk;
 	
+	private String name;
+	
+	private String provider; //google
+ 
+	private String providerId; //google 기본키 id값 
+	
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		
-		
+		member.setNickname(memberDto.getNickname());
 		member.setEmail(memberDto.getEmail());
 		member.setPassword(memberDto.getPassword());
-		member.setNickname(memberDto.getNickname());
 		member.setPhoneNumber(memberDto.getPhoneNumber());
 		member.setPassword(password);
 		member.setServiceOk(ServiceOk.Y);
@@ -79,6 +87,25 @@ public class Member extends BaseEntity {
 		
 		return member;
 	}
+	
+	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
+    public Member(String name, String password, String email, Role role) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
+    public Member(String name, String password, String email, Role role, String provider, String providerId) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
 	
 	
 }
