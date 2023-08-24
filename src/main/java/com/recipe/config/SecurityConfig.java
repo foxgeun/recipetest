@@ -23,19 +23,15 @@ import com.recipe.oauth.PrincipalOauth2UserService;
 public class SecurityConfig {
 	
 	@Autowired
-	private final PrincipalOauth2UserService principalOauth2UserService;
+	private PrincipalOauth2UserService principalOauth2UserService;
 	@Autowired
-	private final LoginSuccessHandler loginSuccessHandler;
+	private LoginSuccessHandler loginSuccessHandler;
 	
 	@Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
 	
-	public SecurityConfig(PrincipalOauth2UserService principalOauth2UserService, LoginSuccessHandler loginSuccessHandler) {
-		this.principalOauth2UserService = principalOauth2UserService;
-		this.loginSuccessHandler = loginSuccessHandler;
-	}
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http,  MvcRequestMatcher.Builder mvc ) throws Exception {
@@ -53,11 +49,10 @@ public class SecurityConfig {
 				) 
 		.oauth2Login(oauth2 -> oauth2 
 				.loginPage("/members/login")
-				.successHandler(loginSuccessHandler)
-				.defaultSuccessUrl("/")
-				.failureUrl("/members/login/error")
 				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
 				.userService(principalOauth2UserService))
+				.successHandler(loginSuccessHandler)
+				.failureUrl("/members/login/error")
 				)
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/members/login") //로그인 페이지 URL 설정

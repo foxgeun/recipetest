@@ -7,18 +7,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.recipe.entity.Member;
 import com.recipe.oauth.PrincipalDetails;
 import com.recipe.repository.MemberRepository;
 
+import groovy.util.logging.Slf4j;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class LoginSuccessHandler implements AuthenticationSuccessHandler{
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 		
 	  private final MemberRepository memberRepository;
 
@@ -27,28 +29,30 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	        this.memberRepository = memberRepository;
 	    }
 		
-		@Override
+	    @Override
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
 			
-			
-			PrincipalDetails userDetails = (PrincipalDetails) authentication.getPrincipal();
-			String username = userDetails.getUsername();
-			
-			
-			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
-		    OAuth2User oauthUser = oauthToken.getPrincipal();
-		    String email = (String) oauthUser.getAttributes().get("email");
-		    
-		    
-		    Member member = memberRepository.findByEmail(email);
-		    
-		    if (member == null) {
-		        // 로그인한 이메일이 DB에 없는 경우
-		        response.sendRedirect("/members/newMember");
-		    } else {
-		        // 로그인한 이메일이 DB에 있는 경우
-		        response.sendRedirect("/"); // 로그인 성공 후 이동할 페이지
-		    }
-		}
+	    	   System.out.println("LoginSuccessHandler is called.");
+
+	    	    if (authentication instanceof OAuth2AuthenticationToken) {
+	    	        OAuth2User oauthUser = ((OAuth2AuthenticationToken) authentication).getPrincipal();
+	    	        System.out.println("oauthUser===" + oauthUser);
+	    	        if (oauthUser instanceof PrincipalDetails) {
+	    	            PrincipalDetails userDetails = (PrincipalDetails) oauthUser;
+	    	            String email = userDetails.getEmail(); // Use getEmail from PrincipalDetails
+	    	            System.out.println("email====" + email);
+	    	            Member member = memberRepository.findByEmail(email);
+	    	            System.out.println("member====" + member);
+	    	            if (member != null) {
+	    	                // 간편 로그인 성공시 추가 정보를 받기위해
+	    	                response.sendRedirect("/members/newMember");
+	    	            } else {
+	    	                // 실패시
+	    	                response.sendRedirect("/"); 
+	    	            }
+	    	        }
+
+	    	    }
+	    }
 }
