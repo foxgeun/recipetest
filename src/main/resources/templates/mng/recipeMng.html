@@ -48,10 +48,16 @@
 	<div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
 		<div class="container">
 			<div class="filter-table">
-				<form action="#" class="filter-search" th:object="${commentDto}">
-					<input type="text" placeholder="Search recipe" />
+				<form action="#" class="filter-search"
+					th:object="${recipeSearchDto}">
+					<h2>레시피 관리</h2>
+					<select th:field="*{searchBy}" class="form-control">
+						<option value="nickname">이름</option>
+						<option value="description">내용</option>
+					</select> <input class="form-control me-2" th:field="*{searchQuery}"
+						type="text" placeholder="Search recipe" />
 
-					<button type="submit">Search</button>
+					<button id="searchBtn" type="submit">Search</button>
 				</form>
 			</div>
 		</div>
@@ -84,17 +90,18 @@
 							<div class="row g-0">
 								<div class="col-md-4">
 									<div style="max-width: 80%">
-										<img src="..." class="img-fluid rounded-start" alt="..." />
+										<img th:src="${recipe.imageUrl}"
+											class="img-fluid rounded-start" alt="..." />
 									</div>
 								</div>
 								<div class="col-md-8">
 									<div class="card-body">
-										<h5 class="card-title">이름:</h5>
+										<h5 class="card-title">이름: [[${recipe.nickname}]]</h5>
 										<h5 class="card-title">제목: [[${recipe.title}]]</h5>
 										<h5 class="card-title ellipsis">내용:
 											[[${recipe.description}]]</h5>
-										<h5 class="card-title">댓글: </h5>
-										<h5 class="card-title">별점:</h5>
+										<h5 class="card-title">댓글: [[${recipe.commentCount}]]</h5>
+										<h5 class="card-title">별점: [[${recipe.rating}]]</h5>
 										<p class="card-text"></p>
 										<p class="card-text">
 											<small class="text-muted">Last updated 3 mins ago</small>
@@ -184,19 +191,28 @@
 		</div>
 	</div>
 
-	<nav class="navbar bg-body-tertiary">
-		<div class="container-fluid">
-			<form class="d-flex" role="search" style="align-items: center">
-				<h2
-					style="display: inline-block; width: 1000px; white-space: nowrap">
-					박수근님의 레시피</h2>
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
-		</div>
-	</nav>
+
 </div>
 
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+		});
+
+		//페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다
+		function page(page) {
+			var searchBy = $("#searchBy").val();
+			var searchQuery = $("#searchQuery").val();
+
+			//주소 이동
+			location.href = "/admin/recipeMng/" + page + "?searchBy="
+					+ searchBy + "&searchQuery=" + searchQuery;
+		}
+	</script>
+</th:block>
 
 </html>

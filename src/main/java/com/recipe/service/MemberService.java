@@ -9,7 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.recipe.dto.MemberDto;
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.Member;
 import com.recipe.repository.MemberRepository;
 
@@ -37,8 +39,8 @@ public class MemberService implements UserDetailsService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Member> getAdminMemberPage(MemberSearchDto memberSearchDto, Pageable pageable) {
-		Page<Member> memberPage = memberRepository.getAdminMemberPage(memberSearchDto, pageable);
+	public Page<MemberDto> getAdminMemberPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+		Page<MemberDto> memberPage = memberRepository.getAdminMemberPage(recipeSearchDto, pageable);
 		return memberPage;
 
 	}

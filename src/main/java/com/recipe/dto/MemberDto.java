@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class MemberDto {
 
-	private String id;
+	private Long id;
 
 	private String nickname;
 
@@ -24,14 +24,18 @@ public class MemberDto {
 	private String password;
 
 	private String phoneNumber;
+	
+	
+	private Long allCommentCount;
 
 	@QueryProjection
-	public MemberDto(String id, String nickname, String email, String password, String phoneNumber) {
+	public MemberDto(Long id, String nickname, String email, String password, String phoneNumber, Long allCommentCount) {
 		this.id = id;
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
+		this.allCommentCount = allCommentCount;
 	}
 
 	// 상품 이미지 정보를 저장

@@ -134,21 +134,25 @@
 
 
 <div layout:fragment="content" class="content">
-	<nav class="navbar bg-body-tertiary" th:object="${memberSearchDto}">
-		<div class="container-fluid" style="justify-content: center;">
-			<form class="d-flex" role="search" style="align-items: center">
-				<h2>회원관리</h2>
-				<!-- 상품명, 등록자 선택 -->
-				<select th:field="*{searchBy}" class="form-control">
-					<option value="nickname">이름</option>
-					<option value="email">이메일</option>
-				</select> <input class="form-control me-2" th:field="*{searchQuery}"
-					type="search" placeholder="아이디나 이름을 입력하세요" aria-label="Search"
-					style="width: 1000px;" />
-				<button id="searchBtn" class="btn btn-outline-success" type="submit">Search</button>
-			</form>
+	<!-- Hero Search Section Begin -->
+	<div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
+		<div class="container">
+			<div class="filter-table">
+				<form action="#" class="filter-search"
+					th:object="${recipeSearchDto}">
+					<h2>레시피 관리</h2>
+					<select th:field="*{searchBy}" class="form-control">
+						<option value="nickname">이름</option>
+						<option value="email">이메일</option>
+					</select> <input class="form-control me-2" th:field="*{searchQuery}"
+						type="text" placeholder="Search recipe" />
+
+					<button id="searchBtn" type="submit">Search</button>
+				</form>
+			</div>
 		</div>
-	</nav>
+	</div>
+	<!-- Hero Search Section End -->
 
 	<div class="site-section">
 
@@ -185,12 +189,13 @@
 											<th:block th:each="member : ${members}">
 												<tbody>
 													<tr>
-														<td>[[${member.id}]]</td>
-														<td>[[${member.nickname}]]<a href=""> </a></td>
-														<td>[[${member.email}]]</td>
+														<td th:text="${member.id}"></td>
+														<td th:text="${member.nickname}"><a href=""> </a></td>
+														<td th:text="${member.email}"></td>
+														<td></td>
 
-														<td class="str_yes">-</td>
-														<td>-</td>
+														<td th:text="${member.allCommentCount}"></td>
+														<td th:text="${member.regTime}"></td>
 
 
 
@@ -270,7 +275,7 @@
 			var searchQuery = $("#searchQuery").val();
 
 			//주소 이동
-			location.href = "/admin/members/" + page + "?searchBy=" + searchBy
+			location.href = "/admin/memberMng/" + page + "?searchBy=" + searchBy
 					+ "&searchQuery=" + searchQuery;
 		}
 	</script>

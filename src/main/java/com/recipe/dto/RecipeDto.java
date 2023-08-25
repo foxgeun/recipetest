@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.modelmapper.ModelMapper;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.recipe.entity.Recipe;
 
 import lombok.Getter;
@@ -22,11 +23,19 @@ public class RecipeDto {
 
 	private Date durTime;
 
+	private String description;
+
 	private int level;
 
 	private int count;
+
+	private Long commentCount;
+
+	private String nickname;
+
+	private String imageUrl;
 	
-	private int commentCount;
+	private double rating; 
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
@@ -38,6 +47,17 @@ public class RecipeDto {
 	// entity -> dto로 바꿈
 	public static RecipeDto of(Recipe recipe) {
 		return modelMapper.map(recipe, RecipeDto.class);
+	}
+
+	@QueryProjection
+	public RecipeDto(Long id, String title, String description, String nickname, Long commentCount, String imageUrl, double rating) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.nickname = nickname;
+		this.commentCount = commentCount;
+		this.imageUrl = imageUrl;
+		this.rating = rating;
 	}
 
 }

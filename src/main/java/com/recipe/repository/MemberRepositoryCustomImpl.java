@@ -7,11 +7,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.recipe.dto.MemberDto;
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.Member;
+import com.recipe.entity.QComment;
 import com.recipe.entity.QMember;
 
 import jakarta.persistence.EntityManager;
@@ -24,11 +29,11 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	private BooleanExpression searchByLike(String searchBy, String searchQuery) {
+	private BooleanExpression searchByLike(QMember m, String searchBy, String searchQuery) {
 		if (StringUtils.equals("email", searchBy)) {
 			// 등록자로 검색시
 			return QMember.member.email.like("%" + searchQuery + "%"); // email like %검색어%
-		} else if (StringUtils.equals("nickName", searchBy)) {
+		} else if (StringUtils.equals("nickname", searchBy)) {
 			return QMember.member.nickname.like("%" + searchQuery + "%"); // nickName like %검색어%
 		}
 
@@ -36,22 +41,40 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 	}
 
 	@Override
-	public Page<Member> getAdminMemberPage(MemberSearchDto memberSearchDto, Pageable pageable) {
-
+	public Page<MemberDto> getAdminMemberPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+		QMember m = QMember.member;
+		QComment c = QComment.comment;
 		/*
 		 * select * from item where item_nm like %검색어% order by item_id desc;
 		 */
 
-		List<Member> content = queryFactory.selectFrom(QMember.member)
-				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery()))
-				.orderBy(QMember.member.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+		JPQLQuery<MemberDto> query = queryFactory
+	            .select(
+	                Projections.constructor(
+	                    MemberDto.class, 
+	                    m.id,
+	                    m.nickname,
+	                    m.email,
+	                    m.password,
+	                    m.phoneNumber,
+	                    c.count().as("allCommentCount")))
+	            .from(m)
+	            .leftJoin(c).on(c.member.eq(m))
+	            .where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
+                .groupBy(m.id, m.nickname, m.email, m.password, m.phoneNumber)
+                .orderBy(m.id.desc());
+		
+		List<MemberDto> content = query
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
 
 		/*
 		 * select count(*) from item where reg_time = ? and item_sell_status = ? and
 		 * item_nm like %검색어% order by item_id desc;
 		 */
-		long total = queryFactory.select(Wildcard.count).from(QMember.member)
-				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery())).fetchOne();
+		long total = query
+		        .fetchCount();
 
 		return new PageImpl<>(content, pageable, total);
 	}
