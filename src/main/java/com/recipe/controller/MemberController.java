@@ -16,6 +16,7 @@ import com.recipe.dto.MemberDto;
 import com.recipe.entity.Member;
 import com.recipe.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,16 +46,39 @@ public class MemberController {
 		return "recipe/new";
 	}
 
-	// 회원가입 화면
+	//일반 회원가입 화면
 	@GetMapping(value = "/members/newMember")
 	public String newMemberForm(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
 		return "member/newMemberForm";
 	}
 	
-	// 회원가입 기능
+	//sns 회원가입 화면
+	@PostMapping(value = "/members/snsMember")
+	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, 
+			@RequestParam("provider") String provider, @RequestParam("providerId") String providerId, Model model ) {
+		MemberDto memberDto = new MemberDto();
+		
+		memberDto.setEmail(email);
+	    memberDto.setPasswordConfirm(passwordConfirm);
+	    memberDto.setPassword(passwordConfirm);
+	    memberDto.setProvider(provider);
+	    memberDto.setProviderId(providerId);
+	    
+		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("email", memberDto.getEmail());
+		model.addAttribute("passwordConfirm", memberDto.getPasswordConfirm());
+		System.out.println("aaaaaaaaa111=" + memberDto.getEmail());
+		System.out.println("aaaaaaaaa222=" + memberDto.getPasswordConfirm());
+		System.out.println("aaaaaaaaa333=" + memberDto);
+		
+		return "member/snsMemberForm";
+	}
+	
+	
+	//일반 회원가입 기능
 	@PostMapping(value = "/members/newMember")
-	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model ,String promotionOks) {
+	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
 		
 		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm())) {
 			return "member/newMemberForm";
@@ -65,12 +89,41 @@ public class MemberController {
 		}
 		try {
 			
-			Member member = Member.createMember(memberDto, passwordEncoder);
-			memberService.saveMember(member);
+				Member member = Member.createMember(memberDto, passwordEncoder);
+				System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
+				memberService.saveMember(member);
+			
 		} catch (IllegalStateException e) {
 			// 회원가입 실패시
 			model.addAttribute("errorMessage", e.getMessage());
 			return "member/newMemberForm";
+		}
+		// 회원가입 성공시
+		return "redirect:/";
+	}
+	
+	
+	//sns 회원가입 기능
+	@PostMapping(value = "/members/snsMember")
+	public String snsMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
+		
+		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm())) {
+			return "member/snsMemberForm";
+		}
+		
+		if (bindingResult.hasErrors()) {
+			return "member/snsMemberForm";
+		}
+		try {
+			
+				Member member = Member.createMember(memberDto, passwordEncoder);
+				System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
+				memberService.saveMember(member);
+			
+		} catch (IllegalStateException e) {
+			// 회원가입 실패시
+			model.addAttribute("errorMessage", e.getMessage());
+			return "member/snsMemberForm";
 		}
 		// 회원가입 성공시
 		return "redirect:/";

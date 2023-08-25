@@ -25,7 +25,6 @@ public class MemberDto {
 	
 	private String passwordConfirm;
 	
-	@NotEmpty
 	@Length(min = 2, max = 8, message = "닉네임은 2~8자 사이로 입력해주세요")
 	private String nickname;
 	
@@ -34,4 +33,22 @@ public class MemberDto {
 	private String phoneNumber;
 	
 	private String name;
+	
+	private String provider;
+	
+	private String providerId;
+	
+	public static MemberDto memberDto() {
+		MemberDto memberDto = new MemberDto();
+		
+		if(memberDto.getName() != null) {
+			memberDto.setNickname(memberDto.getName());
+		} 
+		
+		if(memberDto.getNickname() == null) {
+			memberDto.setNickname(memberDto.getEmail());
+		}
+		return memberDto;
+		
+	}
 }

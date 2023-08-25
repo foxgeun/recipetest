@@ -72,6 +72,8 @@ public class Member extends BaseEntity {
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		
+		
+		
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		
 		member.setNickname(memberDto.getNickname());
@@ -82,6 +84,7 @@ public class Member extends BaseEntity {
 		member.setServiceOk(ServiceOk.Y);
 		member.setPrivateOk(PrivateOk.Y);
 		member.setPromotionOk(PromotionOk.Y);
+		member.setName(memberDto.getName());
 		
 		member.setRole(Role.USER);
 		
