@@ -33,4 +33,6 @@ public class RecipeIngre {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 	
+	
+	
 }

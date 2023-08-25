@@ -27,19 +27,7 @@ public class RecipeOrder {
 	
 	private int order_number;
 	
-	
-	@Column(length = 1000) // Adjust the length as needed
 	private String content;
 	
 	private String imgUrl;
-	
-	private String recipeImg;
-	
-	private String recipes;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipe_id")
-	private Recipe recipe;
-	
 }

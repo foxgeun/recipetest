@@ -25,6 +25,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	
 	
 
+
+
 	@Query(value = "select * from recipe where recipe_id = ?1", nativeQuery = true)
 	Recipe getRecipeDetailByid(Long id);
 	
@@ -37,6 +39,11 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	@Modifying
 	@Query(value = "update recipe set count = count + 1 where recipe_id = ?1", nativeQuery = true)
 	int setaddview(Long id);	
+	
+	
+	@Query(value = "select * from recipe where level = ?1", nativeQuery = true)
+	List<Recipe> getSearchValues(String searchKey);
+
 	
 	
 ////	조회수 가장 높은순으로 모든레시피 가져옴 (제한 5개)

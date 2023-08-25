@@ -14,7 +14,6 @@ import com.recipe.entity.RecipeOrder;
 import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
 import com.recipe.repository.RecipeRepository;
-
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -45,8 +44,7 @@ public class RecipeCrawlerService {
             String level = words.split(" ")[0];
             String time = words.split(" ")[1];
 
-         
-            
+                
             Recipe recipeObject = new Recipe();
             recipeObject.setSubTitle(subTitle);
             recipeObject.setTitle(title);
@@ -58,6 +56,7 @@ public class RecipeCrawlerService {
             recipeRepository.save(recipeObject);
           
             crawlAndSaveDetailPage(recipeObject, recipe.select("a").attr("href"));
+            
         }
     }
 
@@ -116,7 +115,6 @@ public class RecipeCrawlerService {
             recipeIngre.setRecipe(recipeObject);
             recipeIngreRepository.save(recipeIngre);
             
-
       
         }
         
@@ -139,11 +137,6 @@ public class RecipeCrawlerService {
 
         // 완성된 Recipe 객체 저장
         recipeRepository.save(recipeObject);
+        
     }
-        
-        
-        
-        
-        
-    
 }

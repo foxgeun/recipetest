@@ -1,6 +1,8 @@
 package com.recipe.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +26,18 @@ public class RecipeService {
 		return recipeRepository.getRecipeDetailByid(id);
 	}
 	
+
+	
 	public Page<Recipe> getRecipePage(Pageable pageable){
 		Page<Recipe> recipe = recipeRepository.findAll(pageable);
 		
 		return recipe;
+	}
+	
+	public List<Recipe> getSearchValues(String searchKey){
+		System.out.println(searchKey+"3333333333333333333333");
+		List<Recipe> searchValue = recipeRepository.getSearchValues(searchKey);
+		return searchValue;
 	}
 	
 	

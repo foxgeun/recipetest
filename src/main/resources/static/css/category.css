@@ -42,12 +42,12 @@
 	border-top:1px solid #dedede;
 	border-bottom:1px solid #dedede;
     width: 100%;
-    display: table;
+    
 }
 
 .thmb_list02 .item {
     float: left;
-    width: 260px;
+    width: 261px;
     min-height: 300px;
     margin-right: 20px;
     vertical-align: top;
@@ -134,4 +134,20 @@
 
 .back p:nth-child(1) {
 	margin-right: 10px;
+}
+
+.page_btn{
+	border: 1px solid black;
+	width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin: 10px 10px 10px 0;
+}
+
+
+.list_area{
+	    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }

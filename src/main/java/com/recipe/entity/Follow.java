@@ -14,20 +14,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="follower")
+@Table(name="Follow")
 @Getter
 @Setter
 @ToString
-public class Follower {
+public class Follow extends BaseTimeEntity {
 	
 	@Id
-	@Column(name="follower_id")
+	@Column(name="follow_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	private Long toMember;
+	
 }

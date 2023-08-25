@@ -1,8 +1,8 @@
 package com.recipe.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,7 +23,7 @@ import lombok.ToString;
 @Table(name="recipe") //테이블 이름 지정
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "ingredients")
 public class Recipe {
 	
 	
@@ -44,7 +44,7 @@ public class Recipe {
     
     private int count;
     
-    @Column(length = 1000) // Adjust the length as needed
+    @Column(length = 1000)
     private String description;
 
     private String imageUrl; // 이미지 URL 필드 추가
@@ -52,11 +52,21 @@ public class Recipe {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	
+	
+	private String category;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipeOrder_id")
+	private RecipeOrder recipeOrder;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngre> ingredients = new ArrayList<>();
 
-    // Other getters and setters...
+    
+    
 
     public List<RecipeIngre> getIngredients() {
         return ingredients;
@@ -65,4 +75,10 @@ public class Recipe {
     public void setIngredients(List<RecipeIngre> ingredients) {
         this.ingredients = ingredients;
     }
+    
+// ----민기형----
+    @OneToMany(mappedBy = "recipe")
+	private List<Comment> comments = new ArrayList<>();
+// ----민기형----   
+
 }

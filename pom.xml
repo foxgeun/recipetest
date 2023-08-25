@@ -92,6 +92,9 @@
      		 <artifactId>modelmapper</artifactId>
      		 <version>3.1.0</version>
 		</dependency>
+		
+
+
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 
     <!-- Spring Boot Starter Web -->
@@ -110,6 +113,10 @@
     <!-- MySQL Driver -->
 
 
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+    </dependency>
 
 </dependencies>
 

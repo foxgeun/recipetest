@@ -53,7 +53,12 @@
 				</div>
 			</div>
 			</th:block>
-			
+			<a class="page_btn">◀</a>
+			<a href="/category/0" class="page_btn">1</a>
+			<a href="/category/1" class="page_btn">2</a>
+			<a href="/category/2" class="page_btn">3</a>
+			<a href="/category/3" class="page_btn">4</a>
+			<a class="page_btn">▶</a>
 		</div>
 		</div>
     	
@@ -68,9 +73,17 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		
+
+	
 	function page(page) {
-		//입력한 값을 전부 가지고 온다.
 		
+		 window.onload = pageLoad;
+		    function pageLoad(){
+		    	alert(window.location.href);
+		    };
+		
+		//입력한 값을 전부 가지고 온다.
+		window.location.href
 		var mainCategory = $("#mainCategory").val();
 		var subCategory = $("#subCategory").val();
 		var type = $("#type").val();
