@@ -38,17 +38,4 @@ public class MemberDto {
 	
 	private String providerId;
 	
-	public static MemberDto memberDto() {
-		MemberDto memberDto = new MemberDto();
-		
-		if(memberDto.getName() != null) {
-			memberDto.setNickname(memberDto.getName());
-		} 
-		
-		if(memberDto.getNickname() == null) {
-			memberDto.setNickname(memberDto.getEmail());
-		}
-		return memberDto;
-		
-	}
 }

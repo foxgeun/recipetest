@@ -69,22 +69,37 @@ public class Member extends BaseEntity {
  
 	private String providerId; //google 기본키 id값 
 	
+	//일반로그인 회원가입 메소드
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
-		
-		
 		
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		
 		member.setNickname(memberDto.getNickname());
 		member.setEmail(memberDto.getEmail());
-		member.setPassword(memberDto.getPassword());
 		member.setPhoneNumber(memberDto.getPhoneNumber());
 		member.setPassword(password);
 		member.setServiceOk(ServiceOk.Y);
 		member.setPrivateOk(PrivateOk.Y);
 		member.setPromotionOk(PromotionOk.Y);
-		member.setName(memberDto.getName());
+		
+		member.setRole(Role.USER);
+		
+		return member;
+	}
+	
+	//sns회원가입 메소드
+	public static Member createSnsMember(MemberDto memberDto) {
+		Member member = new Member();
+		
+		member.setNickname(memberDto.getNickname());
+		member.setEmail(memberDto.getEmail());
+		member.setPassword(memberDto.getPassword());
+		member.setPhoneNumber(memberDto.getPhoneNumber());
+		member.setPassword(memberDto.getPassword());
+		member.setServiceOk(ServiceOk.Y);
+		member.setPrivateOk(PrivateOk.Y);
+		member.setPromotionOk(PromotionOk.Y);
 		
 		member.setRole(Role.USER);
 		

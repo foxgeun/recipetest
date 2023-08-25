@@ -42,7 +42,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	    	            PrincipalDetails userDetails = (PrincipalDetails) oauthUser;
 	    	            String email = userDetails.getEmail(); // Use getEmail from PrincipalDetails
 	    	            System.out.println("email====" + email);
-	    	            String name = userDetails.getName();
 	    	            String password = userDetails.getPassword();
 	    	            String provider = userDetails.getProvider();
 	    	            String providerId = userDetails.getProviderId();
@@ -53,7 +52,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	    	            //name password 추가
 	    	            //dto에 provide 등 추가
 	                    memberDto.setEmail(email);
-	                    memberDto.setName(name);
 	                    memberDto.setPassword(password);
 	                    memberDto.setPasswordConfirm(password);
 	                    memberDto.setProvider(provider);
@@ -61,11 +59,18 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	                    
 	                    System.out.println("provider=====" + provider);
 	                    System.out.println("providerId=====" + providerId);
+	                    System.out.println("name=====" + memberDto.getName());
 	                    
 	    	            if (member == null) {
 	    	                // 간편 로그인 성공시 추가 정보를 받기위해
 	    	            	request.setAttribute("memberDtos", memberDto);
-	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(memberDto.getEmail(), "UTF-8") + "&passwordConfirm=" + URLEncoder.encode(memberDto.getPasswordConfirm(), "UTF-8");
+	    	            	
+	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(memberDto.getEmail(), "UTF-8") 
+	    	            	+ "&passwordConfirm=" + URLEncoder.encode(memberDto.getPasswordConfirm(), "UTF-8")
+	    	            			+ "&provider=" + URLEncoder.encode(memberDto.getProvider(), "UTF-8" )
+	    	            			+ "&providerId=" + URLEncoder.encode(memberDto.getProviderId(), "UTF-8")
+	    	            			+ "&password=" + URLEncoder.encode(memberDto.getPassword(), "UTF-8");
+	    	            	
 	    	            	response.sendRedirect(redirectUrl);
 	    	            } else {
 	    	                // 실패시

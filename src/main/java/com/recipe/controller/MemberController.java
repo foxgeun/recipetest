@@ -54,20 +54,25 @@ public class MemberController {
 	}
 	
 	//sns 회원가입 화면
-	@PostMapping(value = "/members/snsMember")
+	@GetMapping(value = "/members/snsMember")
 	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, 
-			@RequestParam("provider") String provider, @RequestParam("providerId") String providerId, Model model ) {
+			@RequestParam("provider") String provider, @RequestParam("providerId") String providerId, 
+			 @RequestParam("password") String password, Model model ) {
 		MemberDto memberDto = new MemberDto();
 		
 		memberDto.setEmail(email);
 	    memberDto.setPasswordConfirm(passwordConfirm);
-	    memberDto.setPassword(passwordConfirm);
+	    memberDto.setPassword(password);
 	    memberDto.setProvider(provider);
 	    memberDto.setProviderId(providerId);
 	    
 		model.addAttribute("memberDto", memberDto);
 		model.addAttribute("email", memberDto.getEmail());
 		model.addAttribute("passwordConfirm", memberDto.getPasswordConfirm());
+		model.addAttribute("provider", memberDto.getProvider());
+		model.addAttribute("providerId", memberDto.getProviderId());
+		model.addAttribute("password", memberDto.getPassword());
+		
 		System.out.println("aaaaaaaaa111=" + memberDto.getEmail());
 		System.out.println("aaaaaaaaa222=" + memberDto.getPasswordConfirm());
 		System.out.println("aaaaaaaaa333=" + memberDto);
@@ -106,10 +111,6 @@ public class MemberController {
 	//sns 회원가입 기능
 	@PostMapping(value = "/members/snsMember")
 	public String snsMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
-		
-		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm())) {
-			return "member/snsMemberForm";
-		}
 		
 		if (bindingResult.hasErrors()) {
 			return "member/snsMemberForm";
