@@ -21,7 +21,19 @@
 	rel="stylesheet" />
 
 <style>
+.recipeList {
+	display: flex !important;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	flex-direction: column !important;
+	align-items: nomal !important;
+	margin-bottom: 50px;
+}
 
+.recipeList-th {
+	font-size: 14px;
+	font-weight: 600;
+}
 </style>
 
 <!-- Google Font -->
@@ -155,72 +167,105 @@
 							style="font-size: 15px; cursor: pointer" data-menu="reviews">
 							요리후기</a> <a onclick="showContent('edit')"
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="edit">
-							회원 정보 수정</a>
+							style="font-size: 15px; cursor: pointer" data-menu="edit"> 회원
+							정보 수정</a>
 					</div>
 				</div>
 			</div>
-<div class="col-9" id="content">
-    <div id="recipe" class="content" style="display: none;">
-        <div style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
-            <div style="display: flex; align-items: center">
-                <a onclick="filterRecipes('PUBLISHED')" data-menu="PUBLISHED"class="list-group-item list-group-item-action list-group-item-light mypage-top active"> 공개중</a>
-                <a onclick="filterRecipes('DRAFT')" data-menu="DRAFT"class="list-group-item list-group-item-action list-group-item-light mypage-top" > 작성중</a>
-            </div>
-            <div style="display: flex; flex-direction: row; align-items: center">
-                <div style="">
-                    <a>최신순</a> <a>조회순</a> <a>스크랩순</a>
-                </div>
-            </div>
-        </div>
-        <div class="mypage-content" th:if="${!recipeList.isEmpty()}">
-    <div class="row" th:data-writing-status="${recipe.writingStatus}" th:each="recipe : ${recipeList}" 
-         style="align-items: center; margin-bottom: 30px; border: solid 0.1px; border-color: #8f8f8f73; border-radius: 0.25rem !important;">
+			<div class="col-9" id="content">
+				<div id="recipe" class="content" style="display: none;">
+					<div
+						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
+						<div style="display: flex; align-items: center">
+							<a onclick="filterRecipes('PUBLISHED')" data-menu="PUBLISHED"
+								class="list-group-item list-group-item-action list-group-item-light mypage-top active">
+								공개중</a> <a onclick="filterRecipes('DRAFT')" data-menu="DRAFT"
+								class="list-group-item list-group-item-action list-group-item-light mypage-top">
+								작성중</a>
+						</div>
+						<div
+							style="display: flex; flex-direction: row; align-items: center">
+							<div style="">
+								<a>최신순</a> <a>조회순</a> <a>스크랩순</a>
+							</div>
+						</div>
+					</div>
+					<div class="mypage-content" th:if="${!recipeList.isEmpty()}">
+						<div
+							style="display: flex; flex-direction: column; align-items: center;">
+							<p style="font-size: 28px; font-weight: 500;">| RECIPE |</p>
+							<p style="font-size: 15px; font-weight: 500;">레시피 목록</p>
+						</div>
+						<div class="row" th:data-writing-status="${recipe.writingStatus}"
+							th:each="recipe : ${recipeList}">
+							<table style="border-bottom: 1px solid #dee2e6;">
+								<tbody>
+									<tr style="height: 45px; background-color: #f9fbf7;">
 
-         <div class="col-6">
-                <div class="col-lg-4 col-md-6" >
-                    <div class="room-item">
-                        <img alt="">
-                        <div class="ri-text">
-                            <h4 style="font-family: 'SUIT'  !important;">Premium King Room</h4>
-                            <h3 
-                            style="font-family: 'SUIT'  !important;font-weight: 500 !important;font-size: 17px !important;"></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o" style="font-family: 'SUIT'  !important;">전망:</td>
-                                        <td style="font-family: 'SUIT'  !important;">Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o" style="font-family: 'SUIT'  !important;">침대:</td>
-                                        <td style="font-family: 'SUIT'  !important;">King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o" style="font-family: 'SUIT'  !important;">객실크기:</td>
-                                        <td  style="font-family: 'SUIT'  !important;">30 ft</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a  class="primary-btn" style="font-family: 'SUIT'  !important;">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-        </div> 
+										<th class="col-7 recipeList-th" style="text-align: center;">레시피</th>
+										<th class="col-2 recipeList-th" style="text-align: center;">조회수</th>
+										<th class="col-1 recipeList-th" style="text-align: center;">찜</th>
+										<th class="col-2 recipeList-th" style="text-align: center;">수정/삭제</th>
+									</tr>
 
-    </div>
-</div>
- <div class="mypage-content" th:if="${recipeList.isEmpty()}">
+									<tr>
 
-        <img class="mypage-content-logo" src="/img/test1.png"/>
-        <div style="display: flex; flex-direction: column; align-items: center">
-            <p style="font-size: 24px; font-weight: 800; margin-bottom: 5px">레시피를 직접 올려보세요!</p>
-            <p style="font-size: 15px; font-weight: 500">자랑하고 싶은 나만의 레시피! 공유하고 싶은 멋진 레시피를 올려 주세요.</p>
-            <br>
-            <button type="submit" class="btn btn-outline-danger" style="width: 180px; height: 42px;">레시피 등록</button>
-        </div>
+										<th class="col-7"
+											style="text-align: center; margin-left: 0; padding: 0;">
+											<div
+												style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+												<img th:src="${recipe.imageUrl}"
+													style="width: 150px; height: 145px;">
+												<div>
+													<p th:text="${recipe.title}"
+														style="font-size: 17px; font-weight: 600; margin-bottom: 0;"></p>
 
-</div> 
-    </div>
+													<p th:text="${recipe.subTitle}"
+														style="font-size: 14px; font-weight: 600;"></p>
+													<p th:text="'#'+${recipe.intro}"
+														style="font-size: 14px; font-weight: 600;"></p>
+												</div>
+											</div>
+										</th>
+										<th class="col-2" style="text-align: center;"></th>
+										<th class="col-1" style="text-align: center;"></th>
+										<th class="col-2" style="text-align: center;">
+											<div
+												style="display: flex; flex-direction: column; align-items: center;">
+												<button type="submit"
+													style="width: 75px; height: 33px; display: flex; align-items: center; justify-content: center;"
+													class="btn btn-outline-danger">수정</button>
+												<button type="submit"
+													style="width: 75px; height: 33px; display: flex; align-items: center; justify-content: center; margin-top: 4px;"
+													class="btn btn-outline-danger">삭제</button>
+											</div>
+										</th>
+
+									</tr>
+
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="mypage-content" th:if="${recipeList.isEmpty()}"
+						style="align-items: center;">
+
+						<img class="mypage-content-logo" src="/img/test1.png" />
+						<div
+							style="display: flex; flex-direction: column; align-items: center">
+							<p style="font-size: 24px; font-weight: 800; margin-bottom: 5px">레시피를
+								직접 올려보세요!</p>
+							<p style="font-size: 15px; font-weight: 500">자랑하고 싶은 나만의 레시피!
+								공유하고 싶은 멋진 레시피를 올려 주세요.</p>
+							<br>
+							<button type="submit" class="btn btn-outline-danger"
+								style="width: 180px; height: 42px;">레시피 등록</button>
+						</div>
+
+					</div>
+				</div>
 
 
 
@@ -241,7 +286,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mypage-content">
+					<div class="mypage-content" style="align-items: center;">
 						<img class="mypage-content-logo" src="/img/test2.png" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">
@@ -270,7 +315,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mypage-content">
+					<div class="mypage-content" style="align-items: center;">
 						<img class="mypage-content-logo" src="/img/test3.svg" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">
@@ -299,7 +344,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="mypage-content">
+					<div class="mypage-content" style="align-items: center;">
 						<img class="mypage-content-logo" src="/img/test4.svg" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">
@@ -318,7 +363,7 @@
 								|</p>
 							<p style="font-size: 15px; font-weight: 500;">회원정보 수정</p>
 						</div>
-				
+
 					</div>
 
 					<fieldset>
@@ -451,7 +496,8 @@ svg {
 								<button type="submit" class="btn btn-outline-danger"
 									style="width: 180px; height: 42px;">회원정보 수정</button>
 								<a th:value="${myPageDto.id}"
-								th:onclick="deleteRoomType([[${myPageDto.id}]])"style="border-bottom: 1px solid; cursor:pointer;">회원탈퇴</a>
+									th:onclick="deleteRoomType([[${myPageDto.id}]])"
+									style="border-bottom: 1px solid; cursor: pointer;">회원탈퇴</a>
 							</div>
 						</form>
 					</fieldset>
@@ -459,7 +505,7 @@ svg {
 				</div>
 			</div>
 		</div>
-		
+
 	</section>
 	<!-- Contact Section End -->
 
@@ -537,7 +583,7 @@ svg {
 		th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 
 	<script th:inline="javascript">
-
-    </script>
+		
+	</script>
 </body>
 </html>
