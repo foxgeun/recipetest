@@ -1,5 +1,6 @@
 package com.recipe.service;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
@@ -11,18 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.entity.Member;
+import java.util.List;
+
+import com.recipe.dto.MemberBestDto;
+import com.recipe.dto.MemberMainDto;
 import com.recipe.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
-@Transactional // 쿼리문 수행시 에러가 발생하면 변경된 데이터를 이전상태로 콜백시켜줌
-@RequiredArgsConstructor // @Autowired를 사용하지 않고 필드의 의존성 주입을 시켜준다
-public class MemberService implements UserDetailsService {
 
+
+
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class MemberService {
+	
 	private final MemberRepository memberRepository;
 
-	@Override
+
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// 사용자가 입력한 email이 DB에 있는지 쿼리문을 사용한다.
 		Member member = memberRepository.findByEmail(email);
@@ -42,5 +50,19 @@ public class MemberService implements UserDetailsService {
 		return memberPage;
 
 	}
+	
+	@Transactional(readOnly = true)
+	public List<MemberMainDto> getMemberBestList() {
+		List<MemberMainDto> getMemberBestList = memberRepository.getMemberBestList();
+		return getMemberBestList;
+		
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MemberBestDto> getRankMemberList() {
+		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
+		return getRankMemberList;
+	}
+	
 
 }

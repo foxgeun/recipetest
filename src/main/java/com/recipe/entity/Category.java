@@ -3,7 +3,7 @@ package com.recipe.entity;
 
 
 
-import com.recipe.constant.Role;
+import com.recipe.constant.CategoryEnum;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Category {
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	private Role categoryEnum;
+	private CategoryEnum categoryEnum;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")

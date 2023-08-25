@@ -25,7 +25,7 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private int reting;
+	private double reting;
 	
 	private String content;
 	

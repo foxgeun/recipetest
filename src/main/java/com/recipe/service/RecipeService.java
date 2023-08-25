@@ -1,20 +1,24 @@
 package com.recipe.service;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.dto.RecipeDto;
+import com.recipe.dto.RecipeMainDto;
 import com.recipe.entity.Recipe;
 import com.recipe.repository.CommentRepository;
 import com.recipe.repository.RecipeListRepository;
@@ -29,9 +33,10 @@ import lombok.RequiredArgsConstructor;
 public class RecipeService {
 	
 	@Autowired
+	private final RecipeRepository recipeRepository;
 	private final RecipeListRepository recipeListRepository;
 	private final CommentRepository commentRepository;
-	private final RecipeRepository recipeRepository;
+
 	
 	public Recipe getRecipeDetailByid(Long id) {
 		return recipeRepository.getRecipeDetailByid(id);
@@ -72,8 +77,34 @@ public class RecipeService {
 		Long totalCount = recipeListRepository.count();
 
 		return new PageImpl<>(recipeDtoList, pageable, totalCount);
-
+		
+		
 	}
+		
+		@Transactional(readOnly = true)
+		public List<RecipeMainDto> getRecipeNewList() {
+			List<RecipeMainDto> getRecipeNewList = recipeRepository.getRecipeNewList();
+			return getRecipeNewList;
+		}
+		
+		@Transactional(readOnly = true)
+		public List<RecipeMainDto> getRecipeBestList() {
+			List<RecipeMainDto> getRecipeBestList = recipeRepository.getRecipeBestList();
+			return getRecipeBestList; 
+		}
+		
+		@Transactional(readOnly = true)
+		public List<RecipeMainDto> getRecipeTotalList() {
+			List<RecipeMainDto> getRecipeTotalList = recipeRepository.getRecipeTotalList();
+			return getRecipeTotalList; 
+		}
+		
+
+		
+		
+	}
+	
+	
 
 
-}
+

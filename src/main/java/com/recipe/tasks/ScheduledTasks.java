@@ -19,6 +19,7 @@ public class ScheduledTasks {
     
     
 
+
    
     @Scheduled(fixedRate = 3600000) // 1시간 마다 업데이트
     public void crawlAndSaveScheduled() {
@@ -32,6 +33,8 @@ public class ScheduledTasks {
             e.printStackTrace();
         }
     }
+
+
 }
 
 

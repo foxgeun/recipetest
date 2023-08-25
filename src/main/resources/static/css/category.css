@@ -37,17 +37,25 @@
 }
 
 .thmb_list02 .list_area {
+<<<<<<< HEAD
 	margin-top:10px;
 	margin-bottom:10px;
 	border-top:1px solid #dedede;
 	border-bottom:1px solid #dedede;
+=======
+
+>>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
     width: 100%;
     display: table;
 }
 
 .thmb_list02 .item {
     float: left;
+<<<<<<< HEAD
     width: 260px;
+=======
+    width: 270px;
+>>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
     min-height: 300px;
     margin-right: 20px;
     vertical-align: top;
@@ -68,6 +76,10 @@
 }
 
 .thmb_list02 .img img {
+<<<<<<< HEAD
+=======
+	border: 1px solid #dedede;
+>>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
     width: 270px;
     height: 215px;
 }
@@ -134,4 +146,112 @@
 
 .back p:nth-child(1) {
 	margin-right: 10px;
+<<<<<<< HEAD
+=======
+}
+
+.book_page {
+	margin-bottom:20px;
+}
+
+.list_box {
+	border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+
+.search_form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.form_select {
+    font-size: .8rem;
+    width: 85px;
+    height: 35px;
+    border-radius: 0px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(246, 246, 246);
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.form-control {
+    border: 1px solid #e8e8e8;
+}
+
+.form_search {
+    width: 271px;
+    height: 35px;
+    border-radius: 0px;
+    border: 1px solid #dee2e6;
+}
+
+.form_search_bt:not(:hover) {
+    transition: 0.2s ease-out;
+}
+
+.form_search_bt:not(:hover) {
+    transition: 0.2s ease-out;
+}
+
+.form_search_bt {
+    width: 68px;
+    height: 35px;
+    border: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color:RGB(160, 191, 107);
+    color: white;
+    font-weight: bold;
+}
+
+.category_form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.category_form a {
+	margin:0 10px;
+}
+
+.common_sp_caption_rv_name {
+    color: #999;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    vertical-align: 0;
+    padding: 0 1px 7px 0;
+    font-weight: 300;
+}
+
+.common_sp_caption_rv_name img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin: 0 4px -2px 0;
+    vertical-align: text-bottom;
+}
+
+.item-ranking {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    display: block;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 3px 0;
+    width: 20px;
+    height: 20px;
+    background-color: RGB(160, 191, 107);
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+>>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
 }

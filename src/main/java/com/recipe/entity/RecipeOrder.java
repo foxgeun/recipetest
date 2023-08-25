@@ -22,20 +22,24 @@ public class RecipeOrder {
 	@Id
 	@Column(name="recipe_order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long id; //아이디
 	
-	private int order_number;
+	private int order_number; //순서번호
 	
+
 	
 	@Column(length = 1000) // Adjust the length as needed
 	private String content;
+
 	
-	private String imgUrl;
+	private String imgUrl; //이미지 url
 	
-	private String recipeImg;
+
+	private String ImgName; //이미지 이름 
 	
-	private String recipes;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipe_id")
+	private Recipe recipe;
 
 	
 }
