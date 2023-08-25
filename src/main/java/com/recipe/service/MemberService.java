@@ -1,14 +1,14 @@
 package com.recipe.service;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.entity.Member;
@@ -16,9 +16,12 @@ import java.util.List;
 
 import com.recipe.dto.MemberBestDto;
 import com.recipe.dto.MemberMainDto;
+
+
 import com.recipe.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 
 
@@ -29,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 	
 	private final MemberRepository memberRepository;
+
 
 
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -63,6 +67,24 @@ public class MemberService {
 		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
 		return getRankMemberList;
 	}
+	
+	//회원가입 데이터를 DB에 저장한다
+	public Member saveMember(Member member) {
+		validateDuplicateMember(member); //중복체크
+		Member savedMember = memberRepository.save(member);
+		return savedMember;
+	}
+	
+	//이메일 중복체크
+	private void validateDuplicateMember(Member member) {
+		Member findMember = memberRepository.findByEmail(member.getEmail());
+		
+		if(findMember != null) {
+			throw new IllegalStateException("이미 가입된 회원입니다");
+		}
+	}
+
+
 	
 
 }

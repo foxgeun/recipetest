@@ -47,9 +47,11 @@ public class Recipe extends BaseTimeEntity {
     
     private String intro; //레시피소개
     
+
     private String durTime; //소요시간
     
     private String level; //난이도
+
     
     private int count; //조회수
     

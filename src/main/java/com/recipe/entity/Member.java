@@ -4,19 +4,21 @@ package com.recipe.entity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 import com.recipe.constant.PrivateOk;
 import com.recipe.constant.PromotionOk;
 import com.recipe.constant.Role;
 import com.recipe.constant.ServiceOk;
-
-import com.recipe.dto.MyPageDto;
-
 import com.recipe.dto.MemberDto;
 
+
+import com.recipe.dto.MyPageDto;
 import jakarta.persistence.*;
 import lombok.*;
 
+
+
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "member")
 @Getter
@@ -32,17 +34,23 @@ public class Member extends BaseEntity {
 	@Column(unique = true) // 중복된 값이 들어올 수 없다
 	private String email;
 
+
 	private String password;
 
+
+
+	
+	@Column(nullable = false)
 	private String nickname;
 
-	private String phoneNumber;
-	
-	private String name;
 	
 	private String postCode;
 	private String address;
 	private String detailAddress;
+
+	@Column(nullable = false)
+	private String phoneNumber;
+
 	
 	private String introduce;
 	
@@ -69,6 +77,53 @@ public class Member extends BaseEntity {
 	private PromotionOk promotionOk;
 
 	
+	private String name;
+	
+	private String provider; //google
+ 
+	private String providerId; //google 기본키 id값 
+	
+	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
+		
+		
+		
+		String password = passwordEncoder.encode(memberDto.getPassword());
+		
+		member.setNickname(memberDto.getNickname());
+		member.setEmail(memberDto.getEmail());
+		member.setPassword(memberDto.getPassword());
+		member.setPhoneNumber(memberDto.getPhoneNumber());
+		member.setPassword(password);
+		member.setServiceOk(ServiceOk.Y);
+		member.setPrivateOk(PrivateOk.Y);
+		member.setPromotionOk(PromotionOk.Y);
+		member.setName(memberDto.getName());
+		
+		member.setRole(Role.USER);
+		
+		return member;
+	}
+	
+	@Builder(builderClassName = "MemberDetailRegister", builderMethodName = "MemberDetailRegister")
+    public Member(String name, String password, String email, Role role) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
+    public Member(String name, String password, String email, Role role, String provider, String providerId) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
+	
 	
 	
 	//member 엔티티 수정
@@ -93,21 +148,6 @@ public class Member extends BaseEntity {
 	
 	
 
-	// MemberFormDto를 -> Member 엔티티 객체로 변환
-	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
-		// 패스워드 암호화
-		String password = passwordEncoder.encode(memberDto.getPassword());
-
-		Member member = new Member();
-		member.setNickname(memberDto.getNickname());
-		member.setEmail(memberDto.getEmail());
-		member.setPhoneNumber(memberDto.getPhoneNumber());
-		member.setPassword(password);
-		// member.setRole(Role.ADMIN); //관리자로 가입할때
-		member.setRole(Role.USER); // 일반 사용자로 가입할때
-
-		return member;
-	}
 
 
 }

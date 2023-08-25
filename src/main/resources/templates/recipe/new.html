@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<th:block layout:fragment="css">
+	<style>
+		:root {
+	--green-color: #98FB98;
+}
+
+	.newRecipe {
+	margin: auto;
+	width: 700px;
+	border-radius: 5px;
+	padding: 20px;
+	
+}
+
+.in {
+	width: 500px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 15px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 15px;
+	height: 50px;
+	font-size: 14px;
+	margin-left: 50px;
+	
+}
+
+.recipeMain{
+	display: flex;
+}
+
+.recipe{
+	margin-bottom: auto;
+	margin-top: auto;
+	width:100px;
+}
+
+.recipesubMain{
+	display: flex;
+}
+
+.recipeSubs{
+	margin-bottom: auto;
+	margin-top: auto;
+	width:100px;
+}
+
+.recipeSub{
+	width: 500px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 15px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 15px;
+	height: 50px;
+	font-size: 14px;
+	margin-left: 50px;
+}
+
+.pictureMain{
+	display: flex;
+}
+
+.picture{
+	width:100px;
+	margin-bottom: auto;
+	margin-top: auto;
+}
+
+.categoryMain{
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.category{
+	width:100px;
+	margin-bottom: auto;
+	margin-top: auto;
+	margin-right: 50px;
+}
+
+.form-select{
+	width: 150px;
+	margin-right: 50px;
+}
+
+h2{
+	text-align: left;
+	margin: 0 auto;
+}
+
+.in3{
+	width: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 5px;
+	height: 40px;
+	font-size: 14px;
+	margin-left: 50px;
+}
+
+.ingredientsMain{
+	display: flex;
+}
+
+.ingredients{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 100px;
+}
+
+.in4{
+	width: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 5px;
+	height: 40px;
+	font-size: 14px;
+	margin-left: 25px;
+}
+
+p{
+	margin: 0 auto;
+}
+
+.btn{
+	width: 65px;
+	height: 40px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid;
+		border-color: #dee2e6;
+		border-radius: 5px;
+		margin-bottom: 5px;
+		font-size: 13px;
+		
+}
+
+.btn:hover{
+	background-color: var(--green-color);
+	border: 1px solid;
+	border-color: #dee2e6;
+}
+
+.recipeTurnMain{
+display: flex;
+height: 70px;
+}
+
+.recipeTurns{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 100px;
+}
+
+.recipeTurn{
+	width: 430px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 5px;
+	height: 60px;
+	font-size: 14px;
+	margin-left: 50px;
+	resize: none;
+	margin-bottom: auto;
+}
+
+.btn2{
+width: 65px;
+	height: 55px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid;
+		border-color: #dee2e6;
+		border-radius: 5px;
+		font-size: 13px;
+		margin-left: 7px;
+		margin-top: auto;
+		margin-bottom: auto;
+}
+
+.btn2:hover{
+	background-color: var(--green-color);
+	border: 1px solid;
+	border-color: #dee2e6;
+}
+
+.recipePictureMain {
+	display: flex;
+}
+
+.recipePictures{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 100px;
+}
+
+.in5{
+	width: 150px;
+	height: 150px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 15px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 15px;
+	font-size: 14px;
+	margin-left: 50px;
+	display: none;
+	
+}
+
+.input-file-button{
+	width:130px;
+	height:130px;
+  border-radius: 4px;
+  background-color:#dee2e6;
+  color: black;
+  cursor: pointer;
+  margin-left: 50px;
+  	margin-top: 10px;
+
+}
+
+.input-file-button:hover{
+	border: 1px solid;
+	border-color: black;
+}
+
+.in10{
+	display: flex;
+}
+
+.recipeTurns{
+	width: 100px;
+}
+
+#btnAtt{
+	margin-left: 50px;
+}
+
+p{
+	display: flex;
+}
+
+.box3{
+	display: flex;
+}
+
+.newbtns{
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 25px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 10px;
+	height: 50px;
+	font-size: 14px;
+}
+
+#newbtn{
+	background-color: #1BBC9B;
+	margin-bottom: 30px;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.5s;
+	border: none;
+}
+
+#newbtn:hover{
+	background-color: gold;
+}
+
+.recipeTime{
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.recipeTimes{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 100px;
+	margin-right: 50px;
+}
+
+.time{
+	margin-right: 30px;
+}
+
+.recipeContent{
+	display: flex;
+}
+
+.recipeContents{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 100px;
+}
+
+.in6{
+	width: 500px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	margin-bottom: 15px;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	margin-top: 15px;
+	height: 80px;
+	font-size: 14px;
+	margin-left: 50px;
+	resize: none;
+}
+
+.form-select{
+	width: 150px;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	border: 1px solid;
+	/* border-color: var(--green-color); */
+	border-color: #dee2e6;
+	height: 40px;
+	font-size: 14px;
+}
+/* 이미지 추가버튼 css  */
+
+#att_zone {
+  width: 510px;
+  min-height: 150px;
+  padding-left:30px;
+  border: 1px solid #dee2e6;
+  margin-left: 50px;
+  border-radius: 5px;
+  margin-top: 5px;
+  
+}
+
+#att_zone:empty:before {
+  content: attr(data-placeholder);
+  color: #999;
+  font-size: .9em;
+}
+
+.pictureRecipe{
+	display: flex;
+	margin-top: 10px;
+}
+	</style>
+</th:block>
+
+<div layout:fragment="content">
+		<div>
+		<div class="newRecipe">
+		<h3>레시피 등록</h3>
+			<form action="">
+				<div class="recipeMain">
+					<label for="recipe" class="recipe">레시피 제목</label>
+					<input type="text" placeholder="레시피 제목을 입력해주세요" class="in" id="recipe"> 
+				</div>
+				<div class="recipesubMain">
+					<label for="recipeContent" class="recipeSubs">레시피부제목</label>
+					<input type="text" placeholder="레시피 부제목을 입력해주세요" class="recipeSub" id="recipeSub"> 
+				</div>
+				<div class="pictureMain">
+					<label for="picture" class="picture">요리완성사진</label>
+					<input type="file" class="in" id="picture"> 
+				</div>
+				<div class="categoryMain">
+					<label for="category" class="category">카테고리</label>
+						<select class="form-select" aria-label="select example">
+						  <option selected>종류별</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+						<select class="form-select" aria-label="select example">
+						  <option selected>조리별</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+				</div>
+				<div class="recipeTime">
+					<label for="recipeTime" class="recipeTimes">조리 시간</label>
+					<select class="form-select time" aria-label="select example">
+						  <option selected>시간</option>
+						  <option value="1">~10분</option>
+						  <option value="2">10~20분</option>
+						  <option value="3">20~30분</option>
+						  <option value="4">30~40분</option>
+						  <option value="5">40~50분</option>
+						  <option value="6">50분+</option>
+					</select>
+					<label for="recipeTime" class="recipeTimes">조리 인분수</label>
+					<select class="form-select time" aria-label="select example">
+						  <option selected>인분</option>
+						  <option value="1">1인분</option>
+						  <option value="2">2인분</option>
+						  <option value="3">3인분</option>
+						  <option value="4">4인분</option>
+						  <option value="5">5인분</option>
+						  <option value="6">5인분이상</option>
+					</select>
+				</div>
+				<div class="ingredientsMain">
+					<label for="ingredients" class="ingredients">재료 추가</label>
+					<div id="box">
+			            <input type="text" class="in3" placeholder="ex ) 감자3개" > 
+			            <input type="text" class="in4" placeholder="ex ) 돼지고기500g" > 
+			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
+			        </div> 
+				</div>
+				<!-- <div class="recipeContent">
+					<label for="recipe" class="recipeContents">조리 설명</label>
+					<textarea placeholder="조리 설명을 입력해주세요" class="in6"></textarea> 
+				</div> -->
+				<div class="ingredientsMain">
+					<label for="ingredients" class="ingredients">조리 설명</label>
+					<div id="box2">
+						<div class="box3">
+			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" ></textarea>
+				            <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
+						</div>
+			        </div> 
+				</div>
+				<!-- id값이 for값으로 영향이 간다 -->
+				<!-- <div class="recipePictureMain">
+					<label class="recipePictures">요리순서<br>이미지</label>
+					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
+					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
+					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
+					<input type="file" class="in5" id="recipePicture"> 
+				</div> -->
+				<!-- 이미지 업로드  -->
+				<div class="pictureRecipe">
+					<label for="ingredients" class="ingredients">조리 이미지</label>
+					<div id='image_preview'>
+					    <input type='file' id='btnAtt' multiple='multiple' accept="image/*"/>
+					    <div id='att_zone'
+					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭해주세요'></div>
+					  </div>
+				</div>
+				<button type="submit" id="newbtn" class="newbtns">등록하기</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	//input박스 추가버튼
+	const add_textbox = () => {
+	    const box = document.getElementById("box");
+	    const newP = document.createElement('div');
+	
+	    newP.innerHTML = 
+	    	"<input class='in3' type='text'> " +
+	    	"<input class='in4' type='text'> " +
+	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
+	    box.appendChild(newP);
+	}
+	const remove = (obj) => {
+	    document.getElementById('box').removeChild(obj.parentNode);
+	}
+	
+	
+	const add_textareabox = () => {
+	    const box2 = document.getElementById("box2");
+	    const newP = document.createElement('p');
+	    
+	    newP.innerHTML =
+	    	"<div>" +  "<textarea class='recipeTurn'>"
+	    	+"</textarea>" + "</div>" +
+	    	"<button class='btn2' type='button' onclick='remove2(this)'>삭제</button>" 
+	    	
+	    box2.appendChild(newP);
+	    	
+	}
+	const remove2 = (obj) => {
+	    document.getElementById('box2').removeChild(obj.parentNode);
+	}
+	
+	//이미지 추가
+		( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+	  imageView = function imageView(att_zone, btn){
+	
+	    var attZone = document.getElementById(att_zone);
+	    var btnAtt = document.getElementById(btn)
+	    var sel_files = [];
+	    
+	    // 이미지와 체크 박스를 감싸고 있는 div 속성
+	    var div_style = 'display:inline-block;position:relative;'
+	                  + 'width:140px;height:140px;margin:5px;z-index:1;';
+	    // 미리보기 이미지 속성
+	    var img_style = 'width:140px;height:140px;z-index:none;margin-bottom:20px;';
+	    // 이미지안에 표시되는 체크박스의 속성
+	    var chk_style = 'width:30px;height:30px;position:absolute;'
+	                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+		
+	    var div_class = 'imgs';
+	    	
+	    		
+	    btnAtt.onchange = function(e){
+	      var files = e.target.files;
+	      var fileArr = Array.prototype.slice.call(files);
+	      
+	      var a = document.querySelectorAll(".imgs").length;
+	      var j = fileArr.length;
+	     
+	      
+	      var maxFileCnt = 6;   // 첨부파일 최대 개수
+	      
+	      if(j < 4 ){
+		      if(a < 6 ){
+		    	  for(f of fileArr){
+		    		  imageLoader(f);
+		    	  }
+		    		  
+		      } else {
+		    	  alert("이미지 첨부 개수 최대는 6장입니다!");
+		    	  return;
+		      }
+	      } else {
+	    	  alert("한번에 넣을수 있는 이미지는 최대 3장입니다");
+	    	  return;
+	      }
+			
+	    }
+	  
+	    // 탐색기에서 드래그앤 드롭 사용
+	    attZone.addEventListener('dragenter', function(e){
+	      e.preventDefault();
+	      e.stopPropagation();
+	    }, false)
+	    
+	    attZone.addEventListener('dragover', function(e){
+	      e.preventDefault();
+	      e.stopPropagation();
+	      
+	    }, false)
+	  
+	    attZone.addEventListener('drop', function(e){
+	      var files = {};
+	      e.preventDefault();
+	      e.stopPropagation();
+	      var dt = e.dataTransfer;
+	      files = dt.files;
+	      for(f of files){
+	        imageLoader(f);
+	      }
+	      
+	    }, false)
+	    
+	
+	    
+	    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
+	    imageLoader = function(file){
+	      sel_files.push(file);
+	      var reader = new FileReader();
+	      reader.onload = function(ee){
+	        let img = document.createElement('img')
+	        img.setAttribute('style', img_style)
+	        img.src = ee.target.result;
+	        attZone.appendChild(makeDiv(img, file));
+	      }
+	      
+	      reader.readAsDataURL(file);
+	      
+	      //console.log(reader);
+	      
+	    }
+	    
+	    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+	    makeDiv = function(img, file){
+	      var div = document.createElement('div')
+	      div.setAttribute('style', div_style)
+	      div.setAttribute('class', div_class)
+	      var btn = document.createElement('input')
+	      btn.setAttribute('type', 'button')
+	      btn.setAttribute('value', 'x')
+	      btn.setAttribute('delFile', file.name);
+	      btn.setAttribute('style', chk_style);
+	      btn.onclick = function(ev){
+	        var ele = ev.srcElement;
+	        var delFile = ele.getAttribute('delFile');
+	        for(var i=0 ;i<sel_files.length; i++){
+	          if(delFile== sel_files[i].name){
+	            sel_files.splice(i, 1);      
+	          }
+	        }
+	        
+	        dt = new DataTransfer();
+	        for(f in sel_files) {
+	          var file = sel_files[f];
+	          dt.items.add(file);
+	        }
+	        btnAtt.files = dt.files;
+	        var p = ele.parentNode;
+	        attZone.removeChild(p)
+	      }
+	      div.appendChild(img)
+	      div.appendChild(btn)
+	      return div
+	    }
+	  }
+	)('att_zone', 'btnAtt')
+
+	</script>
+</th:block>
+</html>
