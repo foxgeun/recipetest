@@ -1,7 +1,11 @@
 package com.recipe.entity;
 
+import com.recipe.constant.CategoryEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,24 +28,24 @@ public class Recipe extends BaseTimeEntity {
     @Id
     @Column(name="recipe_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // id
 
-    private String title;
+    private String title; //제목
     
-    private String subTitle;
+    private String subTitle; //부제목
     
-    private String intro;
+    private String intro; //레시피소개
     
-    private String durTime;
+    private String durTime; //소요시간
     
-    private String level;
+    private String level; //난이도
     
-    private int count;
+    private int count; //조회수
     
-    @Column(length = 1000) // Adjust the length as needed
-    private String description;
-
-    private String imageUrl; // 이미지 URL 필드 추가
+    private String imageUrl; // 메인이미지 (이미지 URL 필드 추가) 
+    
+    @Enumerated(EnumType.STRING)
+	private CategoryEnum categoryEnum;
     
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")

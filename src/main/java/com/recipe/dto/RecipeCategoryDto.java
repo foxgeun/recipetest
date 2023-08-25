@@ -75,7 +75,6 @@ public class RecipeCategoryDto {
 			String title, Long memberId, LocalDateTime regTime, String intro, String nickname, String imgUrl,
 			ImgMainOk imgMainOk, CategoryEnum categoryEnum , Long reviewCount, double retingAvg) {
 		
-		// , Long bookmarkCount, Long reviewCount, double retingAvg
 		
 		this.id = id;
 		this.count = count;

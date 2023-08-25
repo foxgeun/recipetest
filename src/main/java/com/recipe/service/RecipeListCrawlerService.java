@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.entity.RecipeOrder;
-import com.recipe.entity.RecipeIngre;
 import com.recipe.entity.Recipe;
 import com.recipe.repository.DetailRecipeRopository;
 import com.recipe.repository.IngredientRepository;
 import com.recipe.repository.RecipeListRepository;
+
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -59,11 +59,11 @@ public class RecipeListCrawlerService {
         for (Element img : recipeImgs) {
         
         	
-        	String recipeImg =  img.attr("src");
-        	RecipeOrder detailRecipe = new RecipeOrder();
-        	detailRecipe.setRecipes(Integer.toString(count));
-        	detailRecipe.setRecipeImg(recipeImg);
-        	detailRecipeRopository.save(detailRecipe);
+//        	String recipeImg =  img.attr("src");
+//        	RecipeOrder detailRecipe = new RecipeOrder();
+//        	detailRecipe.setRecipes(Integer.toString(count));
+//        	detailRecipe.setRecipeImg(recipeImg);
+//        	detailRecipeRopository.save(detailRecipe);
         	
         }
         count++;
@@ -78,16 +78,15 @@ public class RecipeListCrawlerService {
         
         System.out.println(basic);
         Recipe recipeListEntity = new Recipe();
-        RecipeIngre ingredient = new RecipeIngre();
+//        RecipeIngre ingredient = new RecipeIngre();
         
        
         
         
         
         
-        recipeListEntity.setDescription(description);
         recipeListEntity.setImageUrl(imageUrl);
-        ingredientRepository.save(ingredient);
+//        ingredientRepository.save(ingredient);
         recipeListRepository.save(recipeListEntity);
 
     }

@@ -34,8 +34,6 @@ public class MemberImg {
 	
 	private String imgName;
 	
-	private String imgOriName;
-	
 	@Enumerated(EnumType.STRING)
 	private ImgMainOk imgMainOk;
 	

@@ -1,5 +1,5 @@
 package com.recipe.constant;
 
 public enum ImgMainOk {
-  Y , N , NONE 
+  Y , N 
 }
