@@ -28,6 +28,8 @@ public class RecipeDto {
     
     private int count;
     
+    private int commentCount;
+    
     @Column(length = 1000) // Adjust the length as needed
     private String description;
 
@@ -42,4 +44,6 @@ public class RecipeDto {
     public static RecipeDto of(Recipe recipe) {
     	return modelMapper.map(recipe, RecipeDto.class);
     }
+
+
 }
