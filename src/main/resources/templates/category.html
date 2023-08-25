@@ -54,7 +54,7 @@
 				<div class="thmb">
 					<a href="#"><div class="img">
 					<div class="scale">
-					<img src="/img/장어덮밥.jpg" th:alt="${recipe.title}">
+					<img th:src="${recipe.imageUrl}" th:alt="${recipe.title}">
 					<span class="item-ranking">[[${status.index+1}]]</span>
 					<div class="back">
 						<p>조회수 : [[${recipe.count}]] </p> <p> 북마크수 : [[${recipe.bookmarkCount}]] </p>

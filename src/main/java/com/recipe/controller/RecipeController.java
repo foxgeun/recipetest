@@ -8,8 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.querydsl.core.Tuple;
+import com.recipe.dto.RecipeIngreDto;
 import com.recipe.dto.RecipeNewDto;
+import com.recipe.service.RecipeService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecipeController {
 
+	private final RecipeService recipeService;
 	
 	@GetMapping(value = "/recipe")
 	public String recipe( Model model ) {
@@ -30,21 +35,23 @@ public class RecipeController {
 	}
 	
 	@PostMapping(value = "/recipe/new")
-	public String recipeNew(@Valid RecipeNewDto recipeNewDto ,  
+	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile file ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
-			@RequestParam("RecipeIngreList") List<Object> RecipeIngreList ,
-			@RequestParam("recipeOrderDtoList") List<Object> recipeOrderDtoList ) {
+			@RequestParam("RecipeingreName") List<String> RecipeingreMaterialList ,
+			@RequestParam("RecipeingreMaterial") List<String> RecipeingreNameList ,
+			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList
+			) {
 			
-		for(Object d : RecipeIngreList) {
-			System.out.println("object1 = " + d);
+		System.out.println(file);
+		System.out.println(recipeNewDto.getTitle());
+		
+		try {
+			recipeService.saveRecipe(recipeNewDto, RecipeingreMaterialList, 
+					RecipeingreNameList , recipeOrderContentList , file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		for(Object d : recipeOrderDtoList) {
-			System.out.println("object2 = " + d);
-		}
-		
-		
-		
 		
 		
 		return "redirect:/";

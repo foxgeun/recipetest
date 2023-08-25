@@ -37,8 +37,8 @@
 					<input type="text" placeholder="레시피 소개를 입력해주세요" class="recipeSub" th:field="*{intro}"> 
 				</div>
 				<div class="pictureMain">
-					<label th:for="imageUrl" class="picture">요리 메인 사진</label>
-					<input type="file" class="in" th:field="*{imageUrl}"> 
+					<label  class="picture">요리 메인 사진</label>
+					<input type="file" class="in upload-hidden"  name="recipeImgFile" id="recipeImgFile"> 
 				</div>
 				<div class="categoryMain">
 					<label th:for="category" class="category">카테고리</label>
@@ -84,8 +84,8 @@
 				<div class="ingredientsMain">
 					<label for="ingredients" class="ingredients">재료 추가</label>
 					<div id="box">
-			            <input type="text" class="in3" placeholder="ex ) 감자3개"  id="RecipeIngreList" name="RecipeIngreList"> 
-			            <input type="text" class="in4" placeholder="ex ) 돼지고기500g" id="RecipeIngreList" name="RecipeIngreList"> 
+			            <input type="text" class="in3" placeholder="ex ) 감자3개"  id="RecipeingreName" name="RecipeingreName"> 
+			            <input type="text" class="in4" placeholder="ex ) 돼지고기500g" id="RecipeingreMaterial" name="RecipeingreMaterial"> 
 			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
 			        </div> 
 				</div>
@@ -97,7 +97,7 @@
 					<label for="ingredients" class="ingredients">조리 설명</label>
 					<div id="box2">
 						<div class="box3">
-			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" id="recipeOrderDtoList" name="recipeOrderDtoList"></textarea>
+			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" id="recipeOrderContent" name="recipeOrderContent"></textarea>
 				            <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
 						</div>
 			        </div> 
@@ -129,14 +129,40 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+	
+	$(document).ready(function(){
+   /*  	var errorMessage = [[${errorMessage}]];
+    	if(errorMessage != null){
+        	alert(errorMessage);
+    	} */
+    	
+		bindDomEvent(); //이벤트를 등록
+	});
+	
+	function bindDomEvent(){
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+            fileExt = fileExt.toLowerCase(); //소문자 변환
+
+            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+                alert("이미지 파일만 등록이 가능합니다.");
+                return;
+            }
+
+            $(this).siblings(".custom-file-label").html(fileName);
+        });
+    }
+	
+	
 	//input박스 추가버튼
 	const add_textbox = () => {
 	    const box = document.getElementById("box");
 	    const newP = document.createElement('div');
 	
 	    newP.innerHTML = 
-	    	"<input class='in3' type='text' id='RecipeIngreList' name='RecipeIngreList'> " +
-	    	"<input class='in4' type='text' id='RecipeIngreList' name='RecipeIngreList'> " +
+	    	"<input class='in3' type='text' id='RecipeingreName' name='RecipeingreName'> " +
+	    	"<input class='in4' type='text' id='RecipeingreMaterial' name='RecipeingreMaterial'> " +
 	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
 	    box.appendChild(newP);
 	}
@@ -150,7 +176,7 @@
 	    const newP = document.createElement('p');
 	    
 	    newP.innerHTML =
-	    	"<div>" +  "<textarea class='recipeTurn' id='recipeOrderDtoList' name='recipeOrderDtoList'>"
+	    	"<div>" +  "<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"
 	    	+"</textarea>" + "</div>" +
 	    	"<button class='btn2' type='button' onclick='remove2(this)'>삭제</button>" 
 	    	

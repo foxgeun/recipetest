@@ -44,12 +44,21 @@ public class Recipe extends BaseTimeEntity {
     
     private String imageUrl; // 메인이미지 (이미지 URL 필드 추가) 
     
+    private String imgName; // 이미지 이름
+    
     @Enumerated(EnumType.STRING)
 	private CategoryEnum categoryEnum;
     
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
-
+	
+	
+	public void updateRecipeImg(String imageUrl , String imgName) {
+		this.imageUrl = imageUrl;
+		this.imgName = imgName;
+	}
+	
+	
     // Getters and setters
 }
