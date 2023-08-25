@@ -17,7 +17,6 @@ import lombok.ToString;
 @Table(name="recipe_order")
 @Getter
 @Setter
-@ToString
 public class RecipeOrder {
 	
 	@Id
@@ -35,9 +34,6 @@ public class RecipeOrder {
 	
 	private String recipes;
 	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipe_id")
-	private Recipe recipe;
+
 	
 }

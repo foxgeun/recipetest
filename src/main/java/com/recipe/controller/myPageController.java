@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.MyPageDto;
 import com.recipe.entity.Member;
+import com.recipe.entity.Recipe;
 import com.recipe.repository.MemberRepository;
 import com.recipe.service.MyPageService;
 
@@ -31,15 +32,19 @@ public class myPageController {
 	private final MyPageService myPageService;
 	private final MemberRepository memberRepository;
 	
-	//수정페이지 보여주기
+	//마이페이지 보여주기
 	@GetMapping(value="/myPage/{id}")
 	public String myPage(@PathVariable("id") Long id,Model model) {
 		Member myPageDto = memberRepository.getfindmemberbyid(id);
-
+		
+		List<Recipe> recipeList =myPageService.getRecipeList(id);
+		
+		
+		model.addAttribute("recipeList" , recipeList);
 		model.addAttribute("myPageDto",myPageDto);
-		
-		System.out.println(myPageDto.getId());
-		
+
+
+	
 		return "myPage";
 		
 	}
@@ -74,6 +79,16 @@ public class myPageController {
 			myPageService.deleteMember(id);
 			
 			return new ResponseEntity<Long>(id, HttpStatus.OK);
+	}
+	
+	
+	//레시피목록 페이지 
+	@GetMapping("/submitRecipe/{id}")
+	public String submitRecipe(@PathVariable("id") Long id,Model model) {
+		Member myPageDto = memberRepository.getfindmemberbyid(id);
+
+		model.addAttribute("myPageDto",myPageDto);
+		return "/submitRecipe";
 	}
 	
 }

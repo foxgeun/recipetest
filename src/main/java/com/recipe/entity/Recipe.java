@@ -2,8 +2,12 @@ package com.recipe.entity;
 
 import java.util.Date;
 
+import com.recipe.constant.WritingStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,11 +38,14 @@ public class Recipe {
     
     private String intro;
     
-    private Date durTime;
+    private String durTime;
     
     private int level;
     
     private int count;
+    
+    @Enumerated(EnumType.STRING)
+    private WritingStatus writingStatus ;
     
     @Column(length = 1000) // Adjust the length as needed
     private String description;
@@ -48,6 +55,10 @@ public class Recipe {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recipeOrder_id")
+	private RecipeOrder recipeOrder;
 
     // Getters and setters
 }

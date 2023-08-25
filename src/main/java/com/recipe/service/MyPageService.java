@@ -3,6 +3,7 @@ package com.recipe.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.MyPageDto;
 import com.recipe.entity.Member;
+import com.recipe.entity.Recipe;
+import com.recipe.entity.RecipeOrder;
 import com.recipe.repository.MemberRepository;
+import com.recipe.repository.RecipeListRepository;
+import com.recipe.repository.RecipeRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +34,7 @@ public class MyPageService {
 
 	private final String imgLocation = "C:/recipe/";
 	private final MemberRepository memberRepository;
+	private final RecipeRepository recipeRepository;
 	
 	
 
@@ -160,5 +166,15 @@ public class MyPageService {
 		
 	}
 	
+	
+	//레시피리스트
+	@Transactional(readOnly = true)
+	public List<Recipe> getRecipeList(Long id){
+		List<Recipe> recipes = recipeRepository.findRecipe(id);
+		
+		return recipes;
+
+
+	}
 	
 }

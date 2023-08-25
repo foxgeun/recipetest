@@ -21,78 +21,7 @@
 	rel="stylesheet" />
 
 <style>
-.upload-icon {
-	cursor: pointer;
-	position: relative;
-	width: 100px;
-	height: 100px;
-	border: 1px solid #d9d9d9;
-	border-radius: 50%;
-	background-image: url(img/images.jpg);
-	background-size: cover;
-	background-position: center;
-}
 
-.circle {
-	position: absolute;
-	width: 98px;
-	height: 99px !important;
-	background-color: #34343478;
-	border-radius: 50%;
-	z-index: 0;
-	clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-	transform: scale(-1);
-}
-
-.upload-icon svg {
-	display: block;
-	margin: 0 auto;
-	transform: scale(-1);
-	margin-top: 9px;
-	height: 20px;
-}
-
-* {
-	font-family: "SUIT", sans-serif !important;
-}
-
-.mypage-list {
-	margin-bottom: 7px !important;
-	border: none !important;
-	border-radius: 0 !important;
-	display: flex !important;
-	justify-content: center !important;
-	font-size: 15px;
-}
-
-.mypage-top {
-	border: 1px solid #adb5bd !important;
-	width: 120px !important;
-	margin-right: 10px;
-	margin-bottom: 0px !important;
-	border-bottom: 0 !important;
-	top: 1px;
-	border-radius: 0 !important;
-	display: flex !important;
-	justify-content: center;
-}
-
-.mypage-content {
-	display: flex;
-	margin-top: 100px;
-	margin-bottom: 50px;
-	flex-direction: column;
-	align-items: center;
-}
-
-.mypage-content-logo {
-	width: 160px;
-	margin-bottom: 40px;
-}
-
-.mypage-list.active {
-	background-color: #808000 !important;
-}
 </style>
 
 <!-- Google Font -->
@@ -109,6 +38,7 @@
 <link rel="stylesheet" th:href="@{/css/slicknav.min.css}"
 	type="text/css" />
 <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/css/myPage.css}" type="text/css" />
 </head>
 
 <body>
@@ -230,38 +160,69 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-9" id="content">
-				<div id="recipe" class="content" style="display: none;">
-					<div
-						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
-						<div style="display: flex; align-items: center">
-							<a href="#"
-								class="list-group-item list-group-item-action list-group-item-light mypage-top"
-								style=""> 공개중</a> <a href="#"
-								class="list-group-item list-group-item-action list-group-item-light mypage-top"
-								style=""> 작성중</a>
-						</div>
-						<div
-							style="display: flex; flex-direction: row; align-items: center">
-							<div style="">
-								<a>최신순</a> <a>조회순</a> <a>스크랩순</a>
-							</div>
-						</div>
-					</div>
-					<div class="mypage-content">
-						<img class="mypage-content-logo" src="/img/test1.png" />
-						<div
-							style="display: flex; flex-direction: column; align-items: center">
-							<p style="font-size: 24px; font-weight: 800; margin-bottom: 5px">
-								레시피를 직접 올려보세요!</p>
-							<p style="font-size: 15px; font-weight: 500">자랑하고 싶은 나만의 레시피!
-								공유하고 싶은 멋진 레시피를 올려 주세요.</p>
-								<br>
-						<button type="submit" class="btn btn-outline-danger"
-									style="width: 180px; height: 42px;">레시피 등록</button>
-						</div>
-					</div>
-				</div>
+<div class="col-9" id="content">
+    <div id="recipe" class="content" style="display: none;">
+        <div style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
+            <div style="display: flex; align-items: center">
+                <a onclick="filterRecipes('PUBLISHED')" data-menu="PUBLISHED"class="list-group-item list-group-item-action list-group-item-light mypage-top active"> 공개중</a>
+                <a onclick="filterRecipes('DRAFT')" data-menu="DRAFT"class="list-group-item list-group-item-action list-group-item-light mypage-top" > 작성중</a>
+            </div>
+            <div style="display: flex; flex-direction: row; align-items: center">
+                <div style="">
+                    <a>최신순</a> <a>조회순</a> <a>스크랩순</a>
+                </div>
+            </div>
+        </div>
+        <div class="mypage-content" th:if="${!recipeList.isEmpty()}">
+    <div class="row" th:data-writing-status="${recipe.writingStatus}" th:each="recipe : ${recipeList}" 
+         style="align-items: center; margin-bottom: 30px; border: solid 0.1px; border-color: #8f8f8f73; border-radius: 0.25rem !important;">
+
+         <div class="col-6">
+                <div class="col-lg-4 col-md-6" >
+                    <div class="room-item">
+                        <img alt="">
+                        <div class="ri-text">
+                            <h4 style="font-family: 'SUIT'  !important;">Premium King Room</h4>
+                            <h3 
+                            style="font-family: 'SUIT'  !important;font-weight: 500 !important;font-size: 17px !important;"></h3>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o" style="font-family: 'SUIT'  !important;">전망:</td>
+                                        <td style="font-family: 'SUIT'  !important;">Wifi, Television, Bathroom,...</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o" style="font-family: 'SUIT'  !important;">침대:</td>
+                                        <td style="font-family: 'SUIT'  !important;">King Beds</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o" style="font-family: 'SUIT'  !important;">객실크기:</td>
+                                        <td  style="font-family: 'SUIT'  !important;">30 ft</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a  class="primary-btn" style="font-family: 'SUIT'  !important;">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+        </div> 
+
+    </div>
+</div>
+ <div class="mypage-content" th:if="${recipeList.isEmpty()}">
+
+        <img class="mypage-content-logo" src="/img/test1.png"/>
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <p style="font-size: 24px; font-weight: 800; margin-bottom: 5px">레시피를 직접 올려보세요!</p>
+            <p style="font-size: 15px; font-weight: 500">자랑하고 싶은 나만의 레시피! 공유하고 싶은 멋진 레시피를 올려 주세요.</p>
+            <br>
+            <button type="submit" class="btn btn-outline-danger" style="width: 180px; height: 42px;">레시피 등록</button>
+        </div>
+
+</div> 
+    </div>
+
+
 
 				<div id="favorite" class="content" style="display: none;">
 					<div
@@ -357,7 +318,7 @@
 								|</p>
 							<p style="font-size: 15px; font-weight: 500;">회원정보 수정</p>
 						</div>
-						<div></div>
+				
 					</div>
 
 					<fieldset>
@@ -498,6 +459,7 @@ svg {
 				</div>
 			</div>
 		</div>
+		
 	</section>
 	<!-- Contact Section End -->
 
@@ -570,165 +532,12 @@ svg {
 	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
 	<script th:src="@{/js/mixitup.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/myPage.js}"></script>
 	<script
 		th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 
 	<script th:inline="javascript">
-    // Initially show the '레시피' content
-    showContent('recipe');
 
-    function showContent(contentId) {
-        $('.content').hide();
-        $('#' + contentId).show();
-
-        $('.mypage-list').removeClass('active');
-        $('.mypage-list[data-menu="' + contentId + '"]').addClass('active');
-        
-    }
-
-    
-    function updateImagePreview(event) {
-        const fileInput = event.target;
-        const label = document.getElementById("imagePreviewLabel");
-
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                label.style.backgroundImage = `url(${e.target.result})`;
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-    
-    function checkNicknameAvailability() {
-        const nicknameInput = document.getElementById("nickname");
-        const nickname = nicknameInput.value;
-        const nicknameFeedback = document.getElementById("nicknameFeedback");
-
-        // Make an AJAX request to the server to check nickname availability
-        // You can use libraries like Axios or jQuery for the AJAX request
-
-        // Simulate a response from the server
-        const isAvailable = true; //Replace with actual response from the server
-
-        if (isAvailable) {
-            nicknameInput.classList.remove("is-invalid");
-            nicknameInput.classList.add("is-valid");
-            nicknameFeedback.innerHTML = `
-                <div class="valid-feedback">
-                    성공! 사용 가능한 닉네임입니다.
-                </div>`;
-        } else {
-            nicknameInput.classList.remove("is-valid");
-            nicknameInput.classList.add("is-invalid");
-            nicknameFeedback.innerHTML = `
-                <div class="invalid-feedback">
-                    죄송합니다. 해당 닉네임은 이미 사용 중입니다. 다른 것을 시도하시겠습니까?
-                </div>`;
-        }
-    }
-    // 아래 함수를 호출하여 주소 정보를 입력 폼에 설정합니다.
-    function fillAddressFields(addressData) {
-        document.getElementById('sample6_postcode').value = addressData.zonecode;
-        document.getElementById('sample6_roadAddress').value = addressData.roadAddress;
-        document.getElementById('sample6_jibunAddress').value = addressData.jibunAddress;
-        
-        // 예상 도로명 주소 또는 예상 지번 주소
-        var guideTextBox = document.getElementById("guide");
-        if (addressData.autoRoadAddress) {
-            guideTextBox.innerHTML = '(예상 도로명 주소: ' + addressData.autoRoadAddress + ')';
-            guideTextBox.style.display = 'block';
-        } else if (addressData.autoJibunAddress) {
-            guideTextBox.innerHTML = '(예상 지번 주소: ' + addressData.autoJibunAddress + ')';
-            guideTextBox.style.display = 'block';
-        } else {
-            guideTextBox.innerHTML = '';
-            guideTextBox.style.display = 'none';
-        }
-    }
-    
-    function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
-            }
-        }).open();
-    }
-    
-    function oninputPhone(target) {
-        target.value = target.value
-            .replace(/[^0-9]/g, '')
-            .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-    }
-    
-    
-    function deleteRoomType(memberId) {
-		const deleteConf = confirm("탈퇴하시겠습니까?");
-		if (!deleteConf)
-			return; //취소버튼 누르면
-
-		//request URL
-		var url = "/myPage/delete/" + memberId;
-
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-
-		$.ajax({
-			url : url, //request URL
-			type : "DELETE", //전송방식
-			contentType : "application/json",
-			beforeSend : function(xhr) {
-				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
-				xhr.setRequestHeader(header, token);
-			},
-			dataType : "json",
-			cache : false,
-			success : function(result, status) {
-				location.href = '/';
-			}
-
-		});
-	}
     </script>
 </body>
 </html>
