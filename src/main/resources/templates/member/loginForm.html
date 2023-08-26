@@ -14,6 +14,11 @@
 	--green-color: #98FB98;
 }
 
+.fieldError {
+		color: #bd2130;
+		font-size: 13px;
+		}
+
 .loginForm {
 	margin: auto;
 	width: 500px;
@@ -125,9 +130,11 @@ p{
 			</div>
 		<p>간편 로그인</p>
 		<div class="sublogin">
-			<button type="button" id="kakaoLogin" class="kakaoLogin">
-				<img src="/img/kakao_login_medium_narrow.png" alt="">
-			</button>
+			<a href="/oauth2/authorization/kakao">
+				<button type="button" id="kakaoLogin" class="kakaoLogin">
+					<img src="/img/kakao_login_medium_narrow.png" alt="">
+				</button>
+			</a>
 			<a href="/oauth2/authorization/google">
 				<button type="button" id="googleLogin" class="googleLogin">
 					<img src="/img/btn_google_signin_light_normal_web.png" alt="">
@@ -146,7 +153,11 @@ p{
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+		var errorMessage = [[${loginErrorMsg}]];
 		
+		if(errorMessage != null) {
+			alert(errorMessage);
+		}
 	</script>
 </th:block>
 </html>

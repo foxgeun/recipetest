@@ -82,7 +82,15 @@
 
 h3 {
  text-align: center;
+ color: black;
+  margin: 10px; 0;	
+
+}
+
+h6{
+	 text-align: center;
  color: black;	
+  margin: 30px; 0;	
 }
 
 p{
@@ -133,9 +141,10 @@ p{
 </th:block>
 
 <div layout:fragment="content">
-	<h3>간편로그인 추가 정보 입력</h3>
+	<h3>간편 로그인 회원 추가 정보 입력</h3>
+	<h6>회원가입을 완료하시면 간편로그인을 통해 이젠해먹자 사이트를 이용하실 수 있으십니다.</h6>
 	<div class="newForm">
-		<form role="joinform" id="joinform" action="/members/snsMember" method="post" th:object="${memberDto}" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
+		<form role="joinform" id="joinform" action="/members/snsMember" method="post" th:object="${socialMemberDto}" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
 			<!-- <div>
 				<label for="password" class="password">비밀번호</label>
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
@@ -160,11 +169,12 @@ p{
 			</div>
 			<input type="hidden" value="">
 		<button type="submit" id="btn" class="in">가입하기</button>
-		<input type="hidden" th:field="*{email}" th:value="${memberDto.email}">
-		<input type="hidden"th:field="*{passwordConfirm}" th:value="${memberDto.passwordConfirm}">
-		<input type="hidden"th:field="*{password}" th:value="${memberDto.password}">
-		<input type="hidden"th:field="*{provider}" th:value="${memberDto.provider}">
-		<input type="hidden"th:field="*{providerId}" th:value="${memberDto.providerId}">
+		<input type="hidden" th:field="*{email}" th:value="${socialMemberDto.email}">
+		<!-- <input type="hidden"th:field="*{passwordConfirm}" th:value="${memberDto.passwordConfirm}">
+		<input type="hidden"th:field="*{password}" th:value="${memberDto.password}"> -->
+		<input type="hidden"th:field="*{provider}" th:value="${socialMemberDto.provider}">
+		<input type="hidden"th:field="*{providerId}" th:value="${socialMemberDto.providerId}">
+		<input type="hidden"th:field="*{name}" th:value="${socialMemberDto.name}">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		</form>
 	</div>
@@ -176,16 +186,15 @@ p{
 		
 		$("#btn").click(function(){
 			var email = $("#email").val();
-			var pw = $('#password').val();
-		    var pwck = $('#passwordConfirm').val();
-		    var nicknames = $('#nickname').val();
-		    console.log(password);
-		    console.log(passwordConfirm);
+		    var nickname = $('#nickname').val();
+		    var name = $('#name').val(); 
 		    console.log(email);
-		    console.log(nicknames);
+		    console.log(nickname);
+		    console.log(phoneNumber);
+		    console.log(name);
 		    var regexp = new RegExp("^010-\\d{4}-\\d{4}$");
 		    var phone = $('#phoneNumber').val();
-			 if(pw != "" && regexp.test(phone) == true){
+			 if(nickname != "" && regexp.test(phone) == true){
 				alert("회원가입 완료")
 			} else {
 				alert("회원가입 불가능. 입력란을 다시 확인해주세요");

@@ -2,8 +2,6 @@ package com.recipe.dto;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.recipe.entity.Member;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,16 +24,28 @@ public class MemberDto {
 	private String passwordConfirm;
 	
 	@Length(min = 2, max = 8, message = "닉네임은 2~8자 사이로 입력해주세요")
-	private String nickname;
+	@NotNull
+	private String nickname; //사이트용 닉네임
 	
 	@NotEmpty
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
 	
-	private String name;
+	private String emailConfirm; //이메일로 받은 인증번호
 	
-	private String provider;
+	private String emailConfirm2; ////이메일로 받은 인증번호 확인용
 	
-	private String providerId;
+	private String postCode; //우편번호
 	
+	private String address; //주소
+	
+	private String detailAddress; //상세주소
+	
+	private String introduce; //우선 기본값만 세팅 수정해서 쓰게끔
+	
+	private String imgUrl; //프로필이미지
+	
+	private String oriImgName; //프로필이지미 원본이름
+	
+	private String imgName; //이미지 이름
 }

@@ -110,11 +110,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     </dependency>
     <!-- MySQL Driver -->
     <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-oauth2-client</artifactId>
-</dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-oauth2-client</artifactId>
+	</dependency>
 
-
+		<!--이메일로 인증번호 받기 회원가입용-->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-mail</artifactId>
+	</dependency>
 
 </dependencies>
 

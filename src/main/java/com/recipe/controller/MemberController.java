@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.recipe.dto.MemberDto;
+import com.recipe.dto.SocialMemberDto;
 import com.recipe.entity.Member;
 import com.recipe.service.MemberService;
 
@@ -55,27 +57,26 @@ public class MemberController {
 	
 	//sns 회원가입 화면
 	@GetMapping(value = "/members/snsMember")
-	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, 
-			@RequestParam("provider") String provider, @RequestParam("providerId") String providerId, 
-			 @RequestParam("password") String password, Model model ) {
-		MemberDto memberDto = new MemberDto();
+	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("provider") String provider, 
+			@RequestParam("providerId") String providerId, 
+			@RequestParam("name") String name, Model model ) {
+		SocialMemberDto socialMemberDto = new SocialMemberDto();
 		
-		memberDto.setEmail(email);
-	    memberDto.setPasswordConfirm(passwordConfirm);
-	    memberDto.setPassword(password);
-	    memberDto.setProvider(provider);
-	    memberDto.setProviderId(providerId);
+		socialMemberDto.setEmail(email);
+		socialMemberDto.setProvider(provider);
+		socialMemberDto.setProviderId(providerId);
+		socialMemberDto.setName(name);
 	    
-		model.addAttribute("memberDto", memberDto);
-		model.addAttribute("email", memberDto.getEmail());
-		model.addAttribute("passwordConfirm", memberDto.getPasswordConfirm());
-		model.addAttribute("provider", memberDto.getProvider());
-		model.addAttribute("providerId", memberDto.getProviderId());
-		model.addAttribute("password", memberDto.getPassword());
+		model.addAttribute("socialMemberDto", socialMemberDto);
+//		model.addAttribute("email", memberDto.getEmail());
+//		model.addAttribute("passwordConfirm", memberDto.getPasswordConfirm());
+//		model.addAttribute("provider", memberDto.getProvider());
+//		model.addAttribute("providerId", memberDto.getProviderId());
+//		model.addAttribute("password", memberDto.getPassword());
 		
-		System.out.println("aaaaaaaaa111=" + memberDto.getEmail());
-		System.out.println("aaaaaaaaa222=" + memberDto.getPasswordConfirm());
-		System.out.println("aaaaaaaaa333=" + memberDto);
+		System.out.println("aaaaaaaaa111=" + socialMemberDto.getEmail());
+		System.out.println("aaaaaaaaa222=" + socialMemberDto.getName());
+		System.out.println("aaaaaaaaa333=" + socialMemberDto);
 		
 		return "member/snsMemberForm";
 	}
@@ -83,10 +84,14 @@ public class MemberController {
 	
 	//일반 회원가입 기능
 	@PostMapping(value = "/members/newMember")
-	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
+	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model , RedirectAttributes redirectAttributes) {
 		
-		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm())) {
+		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2() == "") {
 			return "member/newMemberForm";
+		}
+		
+		if (memberDto.getIntroduce() == null || memberDto.getIntroduce() == "") {
+			memberDto.setIntroduce("자기소개가 없습니다.");
 		}
 		
 		if (bindingResult.hasErrors()) {
@@ -94,10 +99,9 @@ public class MemberController {
 		}
 		try {
 			
-				Member member = Member.createMember(memberDto, passwordEncoder);
-				System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
-				memberService.saveMember(member);
-			
+			Member member = Member.createMember(memberDto, passwordEncoder);
+			//System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
+			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			// 회원가입 실패시
 			model.addAttribute("errorMessage", e.getMessage());
@@ -110,14 +114,14 @@ public class MemberController {
 	
 	//sns 회원가입 기능
 	@PostMapping(value = "/members/snsMember")
-	public String snsMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
+	public String snsMemberForm(@Valid SocialMemberDto socialMemberDto, BindingResult bindingResult, Model model) {
 		
 		if (bindingResult.hasErrors()) {
 			return "member/snsMemberForm";
 		}
 		try {
 			
-				Member member = Member.createMember(memberDto, passwordEncoder);
+				Member member = Member.createSnsMember(socialMemberDto);
 				System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
 				memberService.saveMember(member);
 			
@@ -133,7 +137,7 @@ public class MemberController {
 	// 로그인 실패
 	@GetMapping(value = "/members/login/error")
 	public String loginError(Model model) {
-		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
+		model.addAttribute("loginErrorMsg", "로그인 실패 아이디 또는 비밀번호를 확인해주세요");
 		return "member/loginForm";
 	}
 

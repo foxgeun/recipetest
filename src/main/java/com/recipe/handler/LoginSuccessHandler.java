@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import com.recipe.dto.MemberDto;
+import com.recipe.dto.SocialMemberDto;
 import com.recipe.entity.Member;
 import com.recipe.oauth.PrincipalDetails;
 import com.recipe.repository.MemberRepository;
@@ -42,35 +43,35 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	    	            PrincipalDetails userDetails = (PrincipalDetails) oauthUser;
 	    	            String email = userDetails.getEmail(); // Use getEmail from PrincipalDetails
 	    	            System.out.println("email====" + email);
-	    	            String password = userDetails.getPassword();
+	    	            //String password = userDetails.getPassword();
 	    	            String provider = userDetails.getProvider();
 	    	            String providerId = userDetails.getProviderId();
+	    	            String name = userDetails.getUsername();
 	    	            
 	    	            Member member = memberRepository.findByEmail(email);
 	    	            System.out.println("member====" + member);
-	    	            MemberDto memberDto = new MemberDto();
+	    	            SocialMemberDto socialMemberDto = new SocialMemberDto();
 	    	            //name password 추가
 	    	            //dto에 provide 등 추가
-	                    memberDto.setEmail(email);
-	                    memberDto.setPassword(password);
-	                    memberDto.setPasswordConfirm(password);
-	                    memberDto.setProvider(provider);
-	                    memberDto.setProviderId(providerId);
+	    	            socialMemberDto.setEmail(email);
+//	    	            socialMemberDto.setPassword(password);
+//	    	            socialMemberDto.setPasswordConfirm(password);
+	    	            socialMemberDto.setProvider(provider);
+	    	            socialMemberDto.setProviderId(providerId);
+	    	            socialMemberDto.setName(name);
 	                    
 	                    System.out.println("provider=====" + provider);
 	                    System.out.println("providerId=====" + providerId);
-	                    System.out.println("name=====" + memberDto.getName());
+	                    System.out.println("name=====" + name);
 	                    
 	    	            if (member == null) {
 	    	                // 간편 로그인 성공시 추가 정보를 받기위해
-	    	            	request.setAttribute("memberDtos", memberDto);
 	    	            	
-	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(memberDto.getEmail(), "UTF-8") 
-	    	            	+ "&passwordConfirm=" + URLEncoder.encode(memberDto.getPasswordConfirm(), "UTF-8")
-	    	            			+ "&provider=" + URLEncoder.encode(memberDto.getProvider(), "UTF-8" )
-	    	            			+ "&providerId=" + URLEncoder.encode(memberDto.getProviderId(), "UTF-8")
-	    	            			+ "&password=" + URLEncoder.encode(memberDto.getPassword(), "UTF-8");
-	    	            	
+	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(socialMemberDto.getEmail(), "UTF-8") 
+	    	            	+ "&provider=" + URLEncoder.encode(socialMemberDto.getProvider(), "UTF-8" )
+	    	            	+ "&providerId=" + URLEncoder.encode(socialMemberDto.getProviderId(), "UTF-8")
+	    	            	+ "&name=" + URLEncoder.encode(socialMemberDto.getName(), "UTF-8");
+	    	            			
 	    	            	response.sendRedirect(redirectUrl);
 	    	            } else {
 	    	                // 실패시

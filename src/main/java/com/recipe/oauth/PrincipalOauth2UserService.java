@@ -35,10 +35,14 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		
 		  if(provider.equals("google")){
 			  oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
-			  } 
+		} else if("kakao".equals(provider)) { 
+    	    oAuth2UserInfo = new KaKaoUserInfo(oAuth2User.getAttributes()); 
+    	} else {
+    	    // 적절한 예외 처리 또는 로깅
+    	    throw new RuntimeException("지원하지 않는 OAuth 제공자입니다.");
+    	}
 		  
 		 
-     
      String providerId = oAuth2UserInfo.getProviderId();
      String username = oAuth2UserInfo.getName();  	
      String uuid = UUID.randomUUID().toString().substring(0, 6);
