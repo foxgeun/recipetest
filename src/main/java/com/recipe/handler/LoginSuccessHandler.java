@@ -30,6 +30,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	        this.memberRepository = memberRepository;
 	    }
 		
+	    //간편 로그인 성공시 정보를 sns전용 회원가입 페이지로 전달
 	    @Override
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {

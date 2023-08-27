@@ -16,7 +16,7 @@ public class MailService {
 	
 	 private final JavaMailSender javaMailSender; //메일을 발송 java메일 api를 이용
 	    private static final String senderEmail= "iptime102030@gmail.com"; //발신자메일
-	    private static final String senderName = "이젠 해먹자";
+	    private static final String senderName = "이젠 해먹자"; //이젠해먹자 <iptime102030@gmail.com>
 	    private static int number;
 
 	    public static void createNumber(){

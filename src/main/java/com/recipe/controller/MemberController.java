@@ -1,5 +1,10 @@
 package com.recipe.controller;
 
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,10 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.SocialMemberDto;
 import com.recipe.entity.Member;
+import com.recipe.repository.MemberRepository;
 import com.recipe.service.MemberService;
+import com.recipe.service.RamdomPassword;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +35,7 @@ public class MemberController {
 
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+	private final RamdomPassword randomPassword; 
 
 	// 로그인 화면
 	@GetMapping(value = "/members/login")
@@ -141,10 +148,67 @@ public class MemberController {
 		return "member/loginForm";
 	}
 
-	// 아이디/비밀번호찾기
+	// 아이디/비밀번호찾기 페이지
 	@GetMapping(value = "/members/findIDPW")
-	public String findIDPW(Model model) {
+	public String findIDPW() {
 		return "member/findIDPW";
 	}
 	
+	/*
+	 * 
+	 * 
+	 * @GetMapping(value = "/findpw") public String search_ps(Model model) {
+	 * model.addAttribute("loginFormDto", new MemberDto()); return
+	 * "login/findPwForm"; }
+	 */
+	
+	// 비밀번호 찾고 난수생성기로 랜덤비밀번호 생성 , 아이디/비밀번호 찾기
+	@PostMapping(value = "/findPw")
+	@ResponseBody
+	public HashMap<String, String> memberps(@RequestBody Map<String, Object> psdata, Principal principal) {
+		String email = (String) psdata.get("email");
+		HashMap<String, String> msg = new HashMap<>();
+		
+		String memberEmail = randomPassword.findMember(email);
+		
+		// email이 DB에 없는 경우
+	    if (memberEmail == null) {
+	        msg.put("error", "입력하신 이메일 주소가 존재하지 않습니다.");
+	        return msg;
+	    }
+		
+		String ramdomps = randomPassword.getRamdomPassword(12); // 임시 비밀번호 12자리생성
+		System.out.println("ramdomps===" + ramdomps);
+		
+		//임시 비밀번호를 DB에 저장해서 바꿈 => 임시 비밀번호로 저장해야 로그인성공
+		String password = randomPassword.updatePassword(ramdomps, email, passwordEncoder);
+		
+		String emailBody = 
+				"<h3>요청하신 임시 비밀번호입니다.</h3>" + 
+                "<h1>" + ramdomps + "</h1>" + 
+                "<h3>감사합니다.</h3>";
+		
+		randomPassword.sendEmail(email, "임시 비밀번호", emailBody);
+		
+		String asd1 = "이메일로 임시 비밀번호가 발송되었습니다.";
+		String asd2 = "임시 비밀번호를 사용해 로그인 해주십시오.";
+		msg.put("message1", asd1);
+		msg.put("message2", asd2);
+		return msg;
+	}
+	
+	//이메일 찾기
+	@PostMapping(value = "/findEmail")
+	public ResponseEntity<Map<String, String>> findEmail(@RequestBody MemberDto memberDto) {
+		
+		String memberEmail = memberService.findEmail(memberDto.getPhoneNumber());
+		System.out.println("memberEmail====" + memberEmail);
+		
+		Map<String, String> response = new HashMap<>();
+		response.put("memberEmail", memberEmail);
+		System.out.println("response====" + response);
+		
+		return ResponseEntity.ok(response);
+		
+	}
 }

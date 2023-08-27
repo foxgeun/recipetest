@@ -160,6 +160,20 @@ public class Member extends BaseEntity {
         this.providerId = providerId;
     }
 
+	public Member (String name , String email) {
+		this.name = name;
+		this.email = email;
+	}
 	
+	public  void updateMember(MemberDto memberDto) {
+		this.password = memberDto.getPassword();
+	}
+	
+	public String  updatePassword(String pass,PasswordEncoder passwordEncoder) {
+		String password = passwordEncoder.encode(pass);
+		this.password = password;
+
+		return password;
+	} 
 	
 }

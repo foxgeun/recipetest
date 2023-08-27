@@ -37,9 +37,8 @@ public class MemberService implements UserDetailsService{
 
 	@Override //시큐리티 ,DB에서 사용자의 정보를 확인
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		System.out.println("email=" + email);
 		Member member = memberRepository.findByEmail(email);
-		System.out.println(member);
+		
 		if(member == null) { //DB에 사용자가 없으면
 			throw new UsernameNotFoundException(email);
 		}
@@ -49,6 +48,14 @@ public class MemberService implements UserDetailsService{
 					.password(member.getPassword())
 					.roles(member.getRole().toString())
 					.build();
+	}
+	
+	//휴대폰 번호로 가입 이메일 찾기
+	public String findEmail(String phoneNumber) {
+		
+		String memberEmail = memberRepository.findEmailByPhoneNumber(phoneNumber);
+		
+		return memberEmail;
 	}
 	
 }

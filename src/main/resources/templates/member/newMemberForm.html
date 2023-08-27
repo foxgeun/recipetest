@@ -34,7 +34,7 @@
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
-	margin-bottom: 25px;
+	margin-bottom: 15px;
 	border: 1px solid;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
@@ -88,7 +88,8 @@
 
 h2 {
  text-align: center;
- color: black;	
+ color: black;
+ font-weight: bold;	
 }
 
 p{
@@ -124,7 +125,13 @@ p{
 	background-color: var(--green-color);
 }
 
+.col-form-label{
+	margin-top: 0 !important;
+}
 
+.form-control{
+	width: 460px !important;
+}
  
 /* 비밀번호 확인 일치 유효성검사 */
 .pwck_input_re_1{
@@ -135,6 +142,8 @@ p{
         color : red;
         display : none;    
 }    
+
+
 	</style>
 </th:block>
 
@@ -176,7 +185,7 @@ p{
 				<input type="text" placeholder="사용하실 닉네임을 2~8자 사이로 입력해주세요" class="in" th:field="*{nickname}" maxlength="8">
 			</div>
 			
-			<div class="form-group">
+			<div>
 				<label for="exampleTextarea" class="col-form-label mt-4">주소</label>
 					<br> 
 					<input type="text" id="sample6_postcode" placeholder="우편번호"  th:field="*{postCode}"> 
@@ -193,6 +202,7 @@ p{
 </div>
 
 <th:block layout:fragment="script">
+	<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script> 
 	<script th:inline="javascript">
  
 		// 중복이메일로 가입시도했을때 에러메세지를 보냄
@@ -290,12 +300,39 @@ p{
 		            alert("인증 실패. 인증번호가 다르거나 없습니다");
 		        }
 		    }
+		    
+		    
+			$(document).ready(function() {
+				var userInputId = getCookie("userInputId"); //쿠키값을가져온다
+				var setCookieYN = getCookie("setCookieYN"); //쿠기값(이메일)을 가져온다
+
+				if (setCookieYN == 'Y') { //이메일 저장여부가 y면
+					$("#id_save").prop("checked", true);  //이메일 저장 체크박스를 체크한다
+					$("#userId").val(userInputId);  //이메일 input창에는 쿠키에서 가져온 이메일 주소를 넣는다
+				} else {
+					$("#id_save").prop("checked", false);
+				}
+
+				//로그인 버튼 클릭시 쿠키에 이메일, 이메일 저장여부 저장
+				$('#loginbtn').click(function() { 
+					if ($("#id_save").is(":checked")) { //이메일 저장에 체크가 되어있다면
+						var userInputId = $("#userId").val(); //이메일 값을 가지고온다
+						//쿠키생성
+						setCookie("userInputId", userInputId, 60); //이메일 저장
+						setCookie("setCookieYN", "Y", 60); //이메일 저장여부 저장
+					} else {
+						//쿠기삭제
+						deleteCookie("userInputId"); 
+						deleteCookie("setCookieYN");
+					}
+				});
+			});
 		
 		    
 		    //주소
-		    var script = document.createElement('script');
+		    /* var script = document.createElement('script');
 	        script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-	        document.head.appendChild(script);
+	        document.head.appendChild(script); */
 	        
 	      	//아래 함수를 호출하여 주소 정보를 입력 폼에 설정합니다.
 	        function fillAddressFields(addressData) {
