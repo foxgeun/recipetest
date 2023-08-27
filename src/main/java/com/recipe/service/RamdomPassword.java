@@ -47,7 +47,7 @@ public class RamdomPassword {
 		return sb.toString();
 	}
 	
-	//비번 업데이트
+	//임시 비밀번호로 비번 업데이트
 	public String updatePassword(String pass, String email, PasswordEncoder passwordEncoder) {
 		Member member = memberRepository.findByEmail(email);
 

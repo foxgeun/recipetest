@@ -81,9 +81,9 @@ public class Member extends BaseEntity {
 	//프로필이미지는 우선 null로 넘겨서 멤버수정을 통해 원하는 이미지 사용
 	private String imgUrl; //프로필이미지
 	
-	private String oriImgName; //프로필이지미 원본이름?
+	private String oriImgName; //프로필이지미 원본이름
 	
-	private String imgName; //이미지 이름
+	private String imgName; //바뀐 사진이름
 	
 	//일반로그인 회원가입 메소드
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
@@ -165,10 +165,7 @@ public class Member extends BaseEntity {
 		this.email = email;
 	}
 	
-	public  void updateMember(MemberDto memberDto) {
-		this.password = memberDto.getPassword();
-	}
-	
+	//가지고옴 비번을 임시 비밀번호로 업데이트
 	public String  updatePassword(String pass,PasswordEncoder passwordEncoder) {
 		String password = passwordEncoder.encode(pass);
 		this.password = password;
