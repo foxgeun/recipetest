@@ -37,4 +37,11 @@ public class RecipeOrder {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 	
+	
+	public void updateRecipeOrderImg(String imgUrl , String ImgName) {
+			this.imgUrl = imgUrl;
+			this.ImgName = ImgName;
+	}
+	
+	
 }

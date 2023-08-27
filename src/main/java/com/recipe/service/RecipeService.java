@@ -15,9 +15,11 @@ import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeMainDto;
 import com.recipe.dto.RecipeNewDto;
 import com.recipe.dto.RecipeSearchDto;
+import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeIngre;
 import com.recipe.entity.RecipeOrder;
+import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
 import com.recipe.repository.RecipeRepository;
@@ -35,47 +37,73 @@ public class RecipeService {
 	
 	private final RecipeOrderRepository recipeOrderRepository;
 	
+//	private final MemberRepository memberRepository;
+	
 	private final FileService fileService;
 	
 	private String itemImgLocation = "C:/yummy/recipe";
 	
-	public Long saveRecipe(RecipeNewDto recipeNewDto , 
+	public Long saveRecipe(RecipeNewDto recipeNewDto , MultipartFile recipeImgFile , 
 			List<String> RecipeingreMaterialList , List<String> RecipeingreNameList,
-			List<String> recipeOrderContentList ,  MultipartFile file) throws Exception{
+			List<String> recipeOrderContentList , List<MultipartFile> recipeOrderImgFile ) 
+					throws Exception{ // , String email
+		
+//		String email = null;
+//		
+//		Member member = memberRepository.findbyEmail(email);
 		
 			Recipe recipe = recipeNewDto.createRecipe();
 			
-			String imgName = file.getOriginalFilename();
+			String imgName = recipeImgFile.getOriginalFilename();
 			String imgUrl = "";
 			
-			//1.파일을 itemImgLocation에 저장
 			if(!StringUtils.isEmpty(imgName)) {
-				//oriImgName이 빈문자열이 아니라면 이미지 파일 업로드
 				imgName = fileService.uploadFile(itemImgLocation, 
-						imgName, file.getBytes());
+						imgName, recipeImgFile.getBytes());
 				imgUrl = "/img/recipe/" + imgName;
 				
 				recipe.updateRecipeImg(imgUrl, imgName);
+//				recipe.setMember(member);
 				recipeRepository.save(recipe);
 			}
 			
 		for(int i=0; i<RecipeingreMaterialList.size(); i++) {
 			
 			RecipeIngre recipeIngre = new RecipeIngre();
+			
 			recipeIngre.setRecipe(recipe);
 			recipeIngre.setIngreMaterial(RecipeingreMaterialList.get(i));
 			recipeIngre.setIngreName(RecipeingreNameList.get(i));
 			recipeIngreRepository.save(recipeIngre);
 		}
 		
+		RecipeOrder recipeOrder = new RecipeOrder();
 		for(int i=0; i<recipeOrderContentList.size(); i++) {
 			
-			RecipeOrder recipeOrder = new RecipeOrder();
 			recipeOrder.setRecipe(recipe);
 			recipeOrder.setContent(recipeOrderContentList.get(i));
 			recipeOrder.setOrder_number(i+1);
-			recipeOrderRepository.save(recipeOrder);
+			
 		}
+		
+		
+		for(int i=0; i<recipeOrderImgFile.size(); i++) {
+			
+			String imgName2 = recipeOrderImgFile.get(i).getOriginalFilename();
+			String imgUrl2 = "";
+			
+			if(!StringUtils.isEmpty(imgName2)) {
+				imgName2 = fileService.uploadFile(itemImgLocation, 
+						imgName2, recipeOrderImgFile.get(i).getBytes());
+				imgUrl2 = "/img/recipe/" + imgName2;
+				
+				recipeOrder.updateRecipeOrderImg(imgUrl2, imgName2);
+			}
+			
+		}
+		recipeOrderRepository.save(recipeOrder);
+		
+		
 		
 			
 			return recipe.getId();

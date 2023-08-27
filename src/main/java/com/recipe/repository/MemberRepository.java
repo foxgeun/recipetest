@@ -13,6 +13,9 @@ import com.recipe.entity.Recipe;
 
 public interface MemberRepository extends JpaRepository<Member, Long>  {
 	
+//	Member findbyEmail(String email);
+	
+	
 //	모든 회원의 팔로워수 / 팔로잉수 / 레시피수 /닉네임 / 자기소개 / id (팔로워 많은순으로 정렬)  
 //	메인화면
 	@Query ( value = "SELECT " +

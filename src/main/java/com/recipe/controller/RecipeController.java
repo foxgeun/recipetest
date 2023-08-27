@@ -1,5 +1,6 @@
 package com.recipe.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -35,21 +36,29 @@ public class RecipeController {
 	}
 	
 	@PostMapping(value = "/recipe/new")
-	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile file ,  @Valid RecipeNewDto recipeNewDto ,  
+	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
 			@RequestParam("RecipeingreName") List<String> RecipeingreMaterialList ,
 			@RequestParam("RecipeingreMaterial") List<String> RecipeingreNameList ,
-			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList
+			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
+			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile //,Principal principal
 			) {
 			
-		System.out.println(file);
-		System.out.println(recipeNewDto.getTitle());
 		
-		try {
-			recipeService.saveRecipe(recipeNewDto, RecipeingreMaterialList, 
-					RecipeingreNameList , recipeOrderContentList , file);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+//		String email = principal.getName();
+		
+		System.out.println("레시피 정보 1" + recipeNewDto.getTitle());
+		System.out.println("레시피 정보 1" + recipeNewDto.getIntro());
+		System.out.println("레시피 정보 1" + recipeNewDto.getSubTitle());
+		System.out.println("레시피 정보 1" + recipeNewDto.getLevel());
+		System.out.println("레시피 정보 1" + recipeNewDto.getCategory());
+		
+		System.out.println(recipeOrderImgFile.size());
+		
+		try { 
+			recipeService.saveRecipe(recipeNewDto, recipeImgFile , RecipeingreMaterialList, 
+					RecipeingreNameList , recipeOrderContentList , recipeOrderImgFile   );
+		} catch (Exception e) {				//, email
 			e.printStackTrace();
 		}
 		
