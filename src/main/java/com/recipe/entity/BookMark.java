@@ -25,6 +25,8 @@ public class BookMark extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private Boolean isDelete = false;
+	
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)

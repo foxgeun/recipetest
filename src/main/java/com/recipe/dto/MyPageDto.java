@@ -51,10 +51,26 @@ public class MyPageDto {
 	//레시피목록
 	private Recipe recipeId;
 	private RecipeOrder recipeOrderId;
-	private List<MyPageDto> recipeList = new ArrayList<>();
+
 	
-	public void addRecipe(MyPageDto recipeList) {
-		this.recipeList.add(recipeList);
+	//찜목록
+	private Member member;
+	private BookMark bookmark;
+
+	//찜목록
+	public MyPageDto(Member member, Recipe recipe, BookMark bookmark) {
+		this.member = member;
+		this.recipeId = recipe;
+		this.bookmark = bookmark;
+
+		
 	}
-	
+
+	private Comment comment;
+	//내댓글
+	public MyPageDto(Member member, Comment comment) {
+		this.member = member;
+		this.comment = comment;
+	}
+
 }

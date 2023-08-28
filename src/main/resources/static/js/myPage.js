@@ -18,16 +18,16 @@ function showContent(contentId) {
     
 	function filterRecipes(filterType) {
 	    // 모든 레시피 목록 숨기기
-	    $('.mypage-content .row').hide();
+	    $('.mypage-content .recipe1').hide();
 
 	    if (filterType === 'PUBLISHED') {
 	        // 공개중인 레시피만 보이도록 설정
-	        $('.mypage-content .row[data-writing-status="PUBLISHED"]').show();
+	        $('.mypage-content .recipe1[data-writing-status="PUBLISHED"]').show();
 	        $('.mypage-top').removeClass('active');
 	        $('.mypage-top[data-menu="' + filterType + '"]').addClass('active');
 	    } else if (filterType === 'DRAFT') {
 	        // 작성중인 레시피만 보이도록 설정
-	        $('.mypage-content .row[data-writing-status="DRAFT"]').show();
+	        $('.mypage-content .recipe1[data-writing-status="DRAFT"]').show();
 	        $('.mypage-top').removeClass('active');
 	        $('.mypage-top[data-menu="' + filterType + '"]').addClass('active');
 	    }
@@ -151,13 +151,13 @@ function showContent(contentId) {
     }
     
     
-    function deleteRoomType(memberId) {
+    function deleteMember(memberId) {
 		const deleteConf = confirm("탈퇴하시겠습니까?");
 		if (!deleteConf)
 			return; //취소버튼 누르면
 
 		//request URL
-		var url = "/myPage/delete/" + memberId;
+		var url = "/myPage/deleteMember/" + memberId;
 
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
@@ -177,4 +177,72 @@ function showContent(contentId) {
 			}
 
 		});
+	}
+    
+    function deleteRecipe(recipeId) {
+		const deleteConf = confirm("레시피를 삭제하시겠습니까?");
+		if (!deleteConf)
+			return; //취소버튼 누르면
+
+		//request URL
+		var url = "/myPage/deleteRecipe/" + recipeId;
+
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajax({
+			url : url, //request URL
+			type : "DELETE", //전송방식
+			contentType : "application/json",
+			beforeSend : function(xhr) {
+				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+				xhr.setRequestHeader(header, token);
+			},
+			dataType : "json",
+			cache : false,
+			success : function(result, status) {
+				 location.reload();
+			}
+
+		});
+	}
+function deleteBookmark(bookmarkId, imgElement) {
+    var action = imgElement.getAttribute('data-action') || 'delete';
+
+    var newAction, newImageSrc;
+
+    if (action === 'delete') {
+        url = "/myPage/deleteBookmark/" + bookmarkId;
+        newAction = 'undelete';
+        newImageSrc = "/img/favoriteNull.png"; // "삭제" 상태의 이미지
+    } else {
+        url = "/myPage/undeleteBookmark/" + bookmarkId; // "삭제 취소" API의 URL을 설정해야 합니다.
+        newAction = 'delete';
+        newImageSrc = "/img/favorite.png"; // 원래 상태의 이미지
+    }
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    var methodType; // 요청 타입 설정
+    if (action === 'delete') {
+        methodType = "DELETE";
+    } else {
+        methodType = "POST"; // 복원 작업은 POST로 처리
+    }
+
+    $.ajax({
+        url: url,
+        type: methodType,
+        contentType: "application/json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        dataType: "json",
+        cache: false,
+        success: function(result, status) {
+            imgElement.src = newImageSrc;
+            imgElement.setAttribute('data-action', newAction);
+        }
+    });
 	}
