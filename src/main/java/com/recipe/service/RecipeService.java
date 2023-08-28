@@ -21,7 +21,6 @@ public class RecipeService {
 	private final RecipeListRepository recipeListRepository;
 
 	@Transactional(readOnly = true)
-
 	public Page<RecipeDto> getAdminRecipePage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		Page<RecipeDto> getAdminRecipePage = recipeListRepository.getAdminRecipePage(recipeSearchDto, pageable);
 		return getAdminRecipePage;

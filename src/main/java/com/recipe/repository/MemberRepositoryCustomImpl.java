@@ -9,15 +9,13 @@ import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.recipe.dto.MemberDto;
-import com.recipe.dto.MemberSearchDto;
 import com.recipe.dto.RecipeSearchDto;
-import com.recipe.entity.Member;
 import com.recipe.entity.QComment;
 import com.recipe.entity.QMember;
+import com.recipe.entity.QRecipe;
 
 import jakarta.persistence.EntityManager;
 
@@ -44,38 +42,28 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 	public Page<MemberDto> getAdminMemberPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		QMember m = QMember.member;
 		QComment c = QComment.comment;
+		QRecipe r = QRecipe.recipe;
 		/*
 		 * select * from item where item_nm like %검색어% order by item_id desc;
 		 */
 
 		JPQLQuery<MemberDto> query = queryFactory
-	            .select(
-	                Projections.constructor(
-	                    MemberDto.class, 
-	                    m.id,
-	                    m.nickname,
-	                    m.email,
-	                    m.password,
-	                    m.phoneNumber,
-	                    c.count().as("allCommentCount")))
-	            .from(m)
-	            .leftJoin(c).on(c.member.eq(m))
-	            .where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
-                .groupBy(m.id, m.nickname, m.email, m.password, m.phoneNumber)
-                .orderBy(m.id.desc());
-		
-		List<MemberDto> content = query
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+				.select(Projections.constructor(MemberDto.class, m.id, m.nickname, m.email, m.password, m.phoneNumber,
+						c.count().as("allCommentCount"), r.count().as("allRecipeCount"), m.regTime))
+
+				.from(m).leftJoin(c).on(c.member.eq(m)).leftJoin(r).on(r.member.eq(m))
+				.where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
+				.groupBy(m.id, m.nickname, m.email, m.password, m.phoneNumber, m.regTime).orderBy(m.id.desc());
+
+		List<MemberDto> content = query.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
 		/*
 		 * select count(*) from item where reg_time = ? and item_sell_status = ? and
 		 * item_nm like %검색어% order by item_id desc;
 		 */
-		long total = query
-		        .fetchCount();
+		long total = query.fetchCount();
 
 		return new PageImpl<>(content, pageable, total);
 	}
+
 }
