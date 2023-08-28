@@ -78,12 +78,11 @@ public class Member extends BaseEntity {
 	
 	private String introduce; //자기소개
 	
-	//프로필이미지는 우선 null로 넘겨서 멤버수정을 통해 원하는 이미지 사용
-	private String imgUrl; //프로필이미지
+	private String imgUrl; //업로드한 프로필 이미지 url
 	
-	private String oriImgName; //프로필이지미 원본이름
+	private String oriImgName; //원본이미지 이름
 	
-	private String imgName; //바뀐 사진이름
+	private String imgName; //바뀐 사진이름(보안을위해)
 	
 	//일반로그인 회원가입 메소드
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {

@@ -43,9 +43,9 @@ public class MemberDto {
 	
 	private String introduce; //자기소개 ,우선 기본값만 세팅 수정해서 쓰게끔
 	
-	private String imgUrl; //프로필이미지
+	private String imgUrl; //업로드한 프로필 이미지 url
 	
-	private String oriImgName; //프로필이지미 원본이름
+	private String oriImgName; //원본이미지 이름
 	
-	private String imgName; //바뀐 이미지 이름
+	private String imgName; //바뀐 사진이름(보안을위해)
 }

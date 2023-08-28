@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.SocialMemberDto;
 import com.recipe.entity.Member;
+import com.recipe.service.FileService;
 import com.recipe.service.MemberService;
 import com.recipe.service.RamdomPassword;
 
@@ -32,6 +34,8 @@ public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
 	private final RamdomPassword randomPassword; 
+	private final FileService fileService;
+	private String profileImgLocation = "C:/recipe/profile";
 
 	// 로그인 화면
 	@GetMapping(value = "/members/login")
@@ -98,11 +102,27 @@ public class MemberController {
 			memberDto.setIntroduce("자기소개가 없습니다.");
 		}
 		
-		/*
-		 * if (memberDto.getImgUrl() == null || memberDto.getImgUrl()) {
-		 * 
-		 * }
-		 */
+		String oriImgName = memberDto.getImgUrl();
+		memberDto.setOriImgName(oriImgName);
+		
+		System.out.println("oriImgName====" + oriImgName);
+		String imgUrl = "";
+		String imgName = "";
+		
+		if(!StringUtils.isEmpty(oriImgName)) {
+			try {
+				imgName = fileService.profileImgFile(profileImgLocation, oriImgName ,oriImgName.getBytes());
+				System.out.println("imgName========" + imgName);
+				imgUrl = "/img/profile/" + imgName;
+				System.out.println("imgName====" + imgUrl);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			memberDto.setImgName(imgName);
+			memberDto.setImgUrl(imgUrl);
+			
+		}
 		
 		if (bindingResult.hasErrors()) {
 			return "member/newMemberForm";

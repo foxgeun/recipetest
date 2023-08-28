@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.recipe.dto.MemberDto;
 import com.recipe.entity.Member;
 import com.recipe.repository.MemberRepository;
 
@@ -21,7 +22,10 @@ public class MemberService implements UserDetailsService{
 	
 	//회원가입 데이터를 DB에 저장한다
 	public Member saveMember(Member member) {
+		
 		validateDuplicateMember(member); //중복체크
+		
+		
 		Member savedMember = memberRepository.save(member);
 		return savedMember;
 	}
@@ -35,7 +39,7 @@ public class MemberService implements UserDetailsService{
 		}
 	}
 
-	@Override //시큐리티 ,DB에서 사용자의 정보를 확인
+	@Override //시큐리티 ,DB에서 사용자의 정보를 확인해서 로그인
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Member member = memberRepository.findByEmail(email);
 		
