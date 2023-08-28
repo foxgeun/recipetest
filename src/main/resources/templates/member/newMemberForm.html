@@ -143,7 +143,10 @@ p{
         display : none;    
 }    
 
-
+.profileImgMain{
+	margin-bottom: 0;
+	margin-top: 10px;
+}
 	</style>
 </th:block>
 
@@ -166,7 +169,6 @@ p{
 				<label for="password" class="password">비밀번호</label>
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
 				<input type="password" placeholder="사용하실 비밀번호를 9~15자 사이로 입력해주세요" class="in" th:field="*{password}" maxlength="15">
-				
 			</div>
 			<div>
 				<label for="passwordConfirm" class="passwordConfirm">비밀번호 확인</label>
@@ -193,6 +195,10 @@ p{
 					<input style="width: 315px; margin-top: 13px;" class="form-control" type="text" id="sample6_address" placeholder="주소"  th:field="*{address}"> 
 					<input style="width: 315px; margin-top: 13px;" class="form-control" type="text" id="sample6_detailAddress" placeholder="상세주소" th:field="*{detailAddress}"> 
 					<input class="form-control" type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;">
+			</div>
+			<div>
+				<label for="profileImgMain" class="profileImgMain">프로필 이미지(프로필로 사용하실 이미지를 넣어주세요)</label>
+				<input type="file" class="in" id="profileImgFile" name="profileImgFile" accept="image/*">
 			</div>
 			<input type="hidden" th:field="*{introduce}">
 		<button type="submit" id="btn" class="in" disabled>가입하기</button>

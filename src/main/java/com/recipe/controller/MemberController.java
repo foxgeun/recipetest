@@ -88,6 +88,7 @@ public class MemberController {
 	//일반 회원가입 기능
 	@PostMapping(value = "/members/newMember")
 	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model , RedirectAttributes redirectAttributes) {
+		System.out.println("aaaaaaaaaaaaa==== " + memberDto.getImgUrl());
 		
 		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2() == "") {
 			return "member/newMemberForm";
@@ -96,6 +97,12 @@ public class MemberController {
 		if (memberDto.getIntroduce() == null || memberDto.getIntroduce() == "") {
 			memberDto.setIntroduce("자기소개가 없습니다.");
 		}
+		
+		/*
+		 * if (memberDto.getImgUrl() == null || memberDto.getImgUrl()) {
+		 * 
+		 * }
+		 */
 		
 		if (bindingResult.hasErrors()) {
 			return "member/newMemberForm";
