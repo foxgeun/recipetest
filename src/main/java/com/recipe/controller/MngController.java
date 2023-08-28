@@ -29,19 +29,19 @@ public class MngController {
 	private final RecipeService recipeService;
 	private final CommentService commentService;
 
-	// 회원관리 페이지
-	@GetMapping(value = { "/admin/memberMng", "/admin/memberMng/{page}" })
-	public String memberMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
-			Model model) {
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<Member> members = memberService.getAdminMemberPage(memberSearchDto, pageable);
-
-		model.addAttribute("members", members);
-		model.addAttribute("memberSearchDto", memberSearchDto);
-		model.addAttribute("maxPage", 5);
-
-		return "mng/memberMng";
-	}
+//	// 회원관리 페이지
+//	@GetMapping(value = { "/admin/memberMng", "/admin/memberMng/{page}" })
+//	public String memberMng(MemberSearchDto memberSearchDto, @PathVariable("page") Optional<Integer> page,
+//			Model model) {
+//		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+//		Page<Member> members = memberService.getAdminMemberPage(memberSearchDto, pageable);
+//
+//		model.addAttribute("members", members);
+//		model.addAttribute("memberSearchDto", memberSearchDto);
+//		model.addAttribute("maxPage", 5);
+//
+//		return "mng/memberMng";
+//	}
 
 	// 멤버별 레시피 관리 페이지
 	@GetMapping(value = { "/admin/recipeMng", "/admin/recipeMng/{page}" })

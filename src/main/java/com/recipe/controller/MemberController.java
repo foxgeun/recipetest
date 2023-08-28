@@ -54,7 +54,7 @@ public class MemberController {
 	}
 	
 	//sns 회원가입 화면
-	@PostMapping(value = "/members/snsMember")
+	@GetMapping(value = "/members/snsMember")
 	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("passwordConfirm") String passwordConfirm, 
 			@RequestParam("provider") String provider, @RequestParam("providerId") String providerId, Model model ) {
 		MemberDto memberDto = new MemberDto();

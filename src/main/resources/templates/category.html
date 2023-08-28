@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-!DOCTYPE html>
-=======
+
 <!DOCTYPE html>
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
@@ -17,7 +14,7 @@
 	
 	<div class="site-section mt-5 mb-5">
 	<div class="container">
-<<<<<<< HEAD
+
 		<div class="thmb_list02 pt60">
 		<div class="search_sort">
 			<p>검색결과 <strong>[[${category.getContent().size()}]]</strong>5천억건 조회</p>
@@ -29,7 +26,7 @@
 		</div>
 		<div class="list_area">
 			
-=======
+
 		
 			<div class="search_form pb-3">
 		<th:block th:object="${recipeSearchDto}">
@@ -66,18 +63,18 @@
 		<div class="list_area">
 			
 			
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 			<th:block th:each="recipe , status:${category}">
 			<div class="item">
 				<div class="thmb">
 					<a href="#"><div class="img">
 					<div class="scale">
-<<<<<<< HEAD
+
 					<img src="/img/장어덮밥.jpg" alt="레시피명">
-=======
+
 					<img src="/img/장어덮밥.jpg" th:alt="${recipe.title}">
 					<span class="item-ranking">[[${status.index+1}]]</span>
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 					<div class="back">
 						<p>조회수 : [[${recipe.count}]] </p> <p> 북마크수 : [[${recipe.bookmarkCount}]] </p>
 					</div> 
@@ -93,9 +90,9 @@
 					
 					</div>
 					<div class="info_title ellip"> <p>[[${recipe.title}]]</p></div>
-<<<<<<< HEAD
+
 					<div class="info_title ellip challange"> <p>난이도 : [[${recipe.level}]]</p> <p>소요시간 : [[${recipe.durTime}]]분</p>  </div>
-=======
+
 					<div class="common_sp_caption_rv_name d-flex justify-content-center">
                 <a href="/"  style="display: inline-block; vertical-align: bottom;">
 					<th:block th:if="${recipe.imgUrl} == null">
@@ -108,15 +105,10 @@
             </div>
 					<div class="info_title ellip challange"> <p>난이도 : [[${recipe.level}]]</p> <p>소요시간 : [[${recipe.durTime}]]분</p>  </div>
 					<div class="info_title ellip challange"> <p>평점 : [[${recipe.retingAvg}]]([[${recipe.reviewCount}]])</p>  </div>
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 				</div>
 			</div>
 			</th:block>
-			
-			
-<<<<<<< HEAD
-			
-=======
 		</div>
 			<div class="book_page">
 						<nav
@@ -144,29 +136,26 @@
 							</ul>
 						</nav>
 					</div>
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 		</div>
 		</div>
     	
 	</div>
 </div>
 	
-<<<<<<< HEAD
-=======
+
 	  <input type="hidden" th:value="${recipeSearchDto.mainCategory}" id="mainCategory"> 
 	  <input type="hidden" th:value="${recipeSearchDto.type}" id="type"> 
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 	
 </div>
 
 
-
+</div>
+</div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-<<<<<<< HEAD
-		
-=======
-	
+
 	$(document).ready(function() {
 		
 			$("#searchBtn").on("click", function(e) {
@@ -208,36 +197,6 @@
 	}
 	
 	
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
-	function page(page) {
-		//입력한 값을 전부 가지고 온다.
-		
-		var mainCategory = $("#mainCategory").val();
-<<<<<<< HEAD
-		var subCategory = $("#subCategory").val();
-=======
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
-		var type = $("#type").val();
-		var searchBy = $("#searchBy").val();
-		var searchQuery = $("#searchQuery").val();
-
-		//주소 이동
-		location.href = "/category/" + page + "?type=" + type 
-				+ "&mainCategory=" + mainCategory 
-<<<<<<< HEAD
-				+ "&subCategory=" + subCategory
-				+ "&searchBy=" + searchBy
-				+ "&searchQuery=" + searchQuery;
-	}
-		
-	
-	
-=======
-				+ "&searchBy=" + searchBy
-				+ "&searchQuery=" + searchQuery + "";
-	}
-		
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
 	</script>
 	</th:block>
 

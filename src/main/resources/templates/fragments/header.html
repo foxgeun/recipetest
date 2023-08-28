@@ -1,44 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-<<<<<<< HEAD
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <div class="site-navbar bg-white py-2" th:fragment="header">
-        <header class="header-section">
-        <div class="container">
-            <div class="logo">
-                <a href="/"><img src="/img/logo.png" alt=""></a>
-            </div>
-            <div class="nav-menu">
-                <nav class="main-menu mobile-menu">
-                    <ul>
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about-me.html">About Me</a></li>
-                                <li><a href="categories.html">Categories</a></li>
-                                <li><a href="recipe.html">Recipe</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="contact.html">나는 요리가 싫어요</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/members/login" sec:authorize="isAnonymous()">유저로그인</a></li>
-                        <li><a href="/recipe/new" sec:authorize="isAnonymous()">레시피등록</a></li>
-                        <li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="nav-right search-switch">
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </header>
-    </div>
-=======
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <header th:fragment="header">
 
 	<!--
@@ -76,7 +38,7 @@
 			<div  class="d-flex justify-content-end col-4">
 				<a href="/recipe" class="mr-2 nav_member_category">레시피 등록</a>
 				<a href="#" class="mr-2 nav_member_category">로그인</a>
-				<a href="#" class="mr-2 nav_member_category">회원가입</a>
+				<a href="/" class="mr-2 nav_member_category">회원가입</a>
 				<a href="#" class="nav_member_category">마이페이지</a>
 			</div>
 
@@ -131,5 +93,5 @@
 
 
 </header>
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 </html>

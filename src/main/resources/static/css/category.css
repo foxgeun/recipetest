@@ -37,25 +37,19 @@
 }
 
 .thmb_list02 .list_area {
-<<<<<<< HEAD
+
 	margin-top:10px;
 	margin-bottom:10px;
 	border-top:1px solid #dedede;
 	border-bottom:1px solid #dedede;
-=======
 
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
     width: 100%;
     display: table;
 }
 
 .thmb_list02 .item {
     float: left;
-<<<<<<< HEAD
-    width: 260px;
-=======
     width: 270px;
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
     min-height: 300px;
     margin-right: 20px;
     vertical-align: top;
@@ -76,10 +70,9 @@
 }
 
 .thmb_list02 .img img {
-<<<<<<< HEAD
-=======
+
 	border: 1px solid #dedede;
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
     width: 270px;
     height: 215px;
 }
@@ -146,8 +139,7 @@
 
 .back p:nth-child(1) {
 	margin-right: 10px;
-<<<<<<< HEAD
-=======
+
 }
 
 .book_page {
@@ -253,5 +245,5 @@
     font-weight: 700;
     text-align: center;
     vertical-align: middle;
->>>>>>> 2fa622060804b6dd9af6ce499c0521d8f9d20fa3
+
 }

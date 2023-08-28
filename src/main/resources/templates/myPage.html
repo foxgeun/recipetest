@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-<meta name="description" content="Yoga Studio Template" />
-<meta name="keywords" content="Yoga, unica, creative, html" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>Yummy | Template</title>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
-<link rel="stylesheet"
+<div layout:fragment="content" class="layout">
+
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/css/myPage.css">
+		<link rel="stylesheet"
 	th:href="@{https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css}"
 	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
 	crossorigin="anonymous" />
@@ -19,65 +16,29 @@
 <link
 	th:href="@{https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css}"
 	rel="stylesheet" />
+	
+	<style>
+.recipeList {
+	display: flex !important;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	flex-direction: column !important;
+	align-items: nomal !important;
+	margin-bottom: 50px;
+}
 
-<style>
-
+.recipeList-th {
+	font-size: 14px;
+	font-weight: 600;
+}
 </style>
 
-<!-- Google Font -->
-<link
-	th:href="@{https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap}"
-	rel="stylesheet" />
-
-<!-- Css Styles -->
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
-	type="text/css" />
-<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}"
-	type="text/css" />
-<link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css" />
-<link rel="stylesheet" th:href="@{/css/slicknav.min.css}"
-	type="text/css" />
-<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" />
-<link rel="stylesheet" th:href="@{/css/myPage.css}" type="text/css" />
-</head>
-
-<body>
-	<!-- Page Preloder -->
+	</th:block>
+	
+		<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
-	<!-- Header Section Begin -->
-	<header class="header-section-other">
-		<div class="container-fluid">
-			<div class="logo">
-				<a href="./index.html"><img src="img/little-logo.png" alt="" /></a>
-			</div>
-			<div class="nav-menu">
-				<nav class="main-menu mobile-menu">
-					<ul>
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Pages</a>
-							<ul class="sub-menu">
-								<li><a href="about-me.html">About Me</a></li>
-								<li><a href="categories.html">Categories</a></li>
-								<li><a href="recipe.html">Recipe</a></li>
-								<li><a href="blog.html">Blog</a></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul></li>
-						<li><a href="recipe.html">Recipes</a></li>
-						<li><a href="categories.html">Best Of</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</nav>
-				<div class="nav-right search-switch">
-					<i class="fa fa-search"></i>
-				</div>
-			</div>
-			<div id="mobile-menu-wrap"></div>
-		</div>
-	</header>
-	<!-- Header End -->
 
 	<!-- Hero Search Section Begin -->
 	<div class=""
@@ -523,21 +484,16 @@ svg {
 			</form>
 		</div>
 	</div>
+</div>	
+
+
 	<!-- Search model end -->
-
-	<!-- Js Plugins -->
-	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<script th:src="@{/js/jquery.slicknav.js}"></script>
-	<script th:src="@{/js/jquery.nice-select.min.js}"></script>
-	<script th:src="@{/js/mixitup.min.js}"></script>
-	<script th:src="@{/js/main.js}"></script>
-	<script th:src="@{/js/myPage.js}"></script>
-	<script
-		th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
-
+<th:block layout:fragment="script">
+		<script th:src="@{/js/myPage.js}"></script> 
 	<script th:inline="javascript">
+	
 
-    </script>
-</body>
+	</script>
+	</th:block>
+
 </html>

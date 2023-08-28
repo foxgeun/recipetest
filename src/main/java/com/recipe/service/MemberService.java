@@ -8,13 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.Member;
 import java.util.List;
 
 import com.recipe.dto.MemberBestDto;
+import com.recipe.dto.MemberDto;
 import com.recipe.dto.MemberMainDto;
 
 
@@ -27,46 +29,14 @@ import lombok.RequiredArgsConstructor;
 
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class MemberService {
+@RequiredArgsConstructor
+public class MemberService implements UserDetailsService{
+	
+	
+	//-----------------용규형님------------------------
 	
 	private final MemberRepository memberRepository;
-
-
-
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		// 사용자가 입력한 email이 DB에 있는지 쿼리문을 사용한다.
-		Member member = memberRepository.findByEmail(email);
-
-		if (member == null) { // 사용자가 없다면
-			throw new UsernameNotFoundException(email);
-		}
-
-		// 사용자가 있다면 DB에서 가져온 값으로 userDetails 객체를 만들어서 반환
-		return User.builder().username(member.getEmail()).password(member.getPassword())
-				.roles(member.getRole().toString()).build();
-	}
-
-	@Transactional(readOnly = true)
-	public Page<Member> getAdminMemberPage(MemberSearchDto memberSearchDto, Pageable pageable) {
-		Page<Member> memberPage = memberRepository.getAdminMemberPage(memberSearchDto, pageable);
-		return memberPage;
-
-	}
-	
-	@Transactional(readOnly = true)
-	public List<MemberMainDto> getMemberBestList() {
-		List<MemberMainDto> getMemberBestList = memberRepository.getMemberBestList();
-		return getMemberBestList;
-		
-	}
-	
-	@Transactional(readOnly = true)
-	public List<MemberBestDto> getRankMemberList() {
-		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
-		return getRankMemberList;
-	}
 	
 	//회원가입 데이터를 DB에 저장한다
 	public Member saveMember(Member member) {
@@ -84,7 +54,63 @@ public class MemberService {
 		}
 	}
 
-
+	@Override //시큐리티 ,DB에서 사용자의 정보를 확인
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Member member = memberRepository.findByEmail(email);
+		
+		if(member == null) { //DB에 사용자가 없으면
+			throw new UsernameNotFoundException(email);
+		}
+		
+		return User.builder()
+					.username(member.getEmail())
+					.password(member.getPassword())
+					.roles(member.getRole().toString())
+					.build();
+	}
+	
+	//휴대폰 번호로 가입 이메일 찾기
+	public String findEmail(String phoneNumber) {
+		
+		String memberEmail = memberRepository.findEmailByPhoneNumber(phoneNumber);
+		
+		return memberEmail;
+	}
+	
+	
+	//----------------용규형님-----------------
+	
+	
+	
+	//----------------민규형님------------------------
+	
+	@Transactional(readOnly = true)
+	public List<MemberMainDto> getMemberBestList() {
+		List<MemberMainDto> getMemberBestList = memberRepository.getMemberBestList();
+		return getMemberBestList;
+		
+	}
+	
+	@Transactional(readOnly = true)
+	public List<MemberBestDto> getRankMemberList() {
+		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
+		return getRankMemberList;
+	}
+	
+	//----------------민규형님------------------------
+	
+	
+	//----------------민기형-------------------------
 	
 
+
+//	@Transactional(readOnly = true)
+//	public Page<MemberDto> getAdminMemberPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+//		Page<MemberDto> memberPage = memberRepository.getAdminMemberPage(recipeSearchDto, pageable);
+//		return memberPage;
+//
+//	}
+	//----------------민기형-------------------------
+	
+	
 }

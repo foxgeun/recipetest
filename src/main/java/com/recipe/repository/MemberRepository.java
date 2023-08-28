@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.recipe.dto.MemberBestDto;
 import com.recipe.dto.MemberMainDto;
@@ -106,7 +107,13 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 		List<MemberBestDto> getRankMemberList();
 		
 		
-
+		//이메일 찾기
+		@Query("SELECT m.email FROM Member m WHERE m.phoneNumber = :phoneNumber")
+		String findEmailByPhoneNumber(@Param("phoneNumber") String phoneNumber);
+	
 		
-}
+
+
+	}
+
 

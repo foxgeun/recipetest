@@ -4,16 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.recipe.entity.BookMark;
-import com.recipe.entity.Comment;
 import com.recipe.entity.Member;
-import com.recipe.entity.Post;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeOrder;
-import com.recipe.entity.Review;
-
 import lombok.Getter;
 import lombok.Setter;
 
