@@ -176,6 +176,7 @@ p{
 		<input type="hidden"th:field="*{providerId}" th:value="${socialMemberDto.providerId}">
 		<input type="hidden"th:field="*{name}" th:value="${socialMemberDto.name}">
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		<input type="hidden" th:field="*{introduce}">
 		</form>
 	</div>
 </div>

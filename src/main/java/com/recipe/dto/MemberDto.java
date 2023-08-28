@@ -41,11 +41,11 @@ public class MemberDto {
 	
 	private String detailAddress; //상세주소
 	
-	private String introduce; //우선 기본값만 세팅 수정해서 쓰게끔
+	private String introduce; //자기소개 ,우선 기본값만 세팅 수정해서 쓰게끔
 	
 	private String imgUrl; //프로필이미지
 	
 	private String oriImgName; //프로필이지미 원본이름
 	
-	private String imgName; //이미지 이름
+	private String imgName; //바뀐 이미지 이름
 }

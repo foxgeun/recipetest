@@ -101,7 +101,7 @@ public class Member extends BaseEntity {
 		member.setAddress(memberDto.getAddress());
 		member.setDetailAddress(memberDto.getDetailAddress());
 		
-		//자기소개이미지 등등
+		//자기소개, 프로필 이미지 등등
 		member.setIntroduce(memberDto.getIntroduce());
 		member.setImgUrl(memberDto.getImgUrl());
 		member.setOriImgName(memberDto.getOriImgName());
@@ -129,6 +129,12 @@ public class Member extends BaseEntity {
 		member.setName(socialMemberDto.getName()); //간편로그인시 소셜회사마다 주는 회원이름값
 		member.setProvider(socialMemberDto.getProvider()); //구글인지 카카오인지 구별값
 		member.setProviderId(socialMemberDto.getProviderId()); //소셜 기본id값
+		
+		//자기소개, 프로필 이미지 등등
+		member.setIntroduce(socialMemberDto.getIntroduce());
+		member.setImgUrl(socialMemberDto.getImgUrl());
+		member.setOriImgName(socialMemberDto.getOriImgName());
+		member.setImgName(socialMemberDto.getImgName());
 		
 		//약관동의
 		member.setServiceOk(ServiceOk.Y);

@@ -25,9 +25,23 @@ public class SocialMemberDto {
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
 	
-	private String name; //google에서 주는 구글닉네임 
+	private String name; //구글,카카오에서 주는 구글닉네임 
 	
-	private String provider; //google
+	private String provider; //구글,카카오 분류
  
-	private String providerId; //google 기본키 id값 
+	private String providerId; //구글 카카오 기본키 id값 
+	
+	private String postCode; //우편번호
+	
+	private String address; //주소
+	
+	private String detailAddress; //상세주소
+	
+	private String introduce; //자기소개 ,우선 기본값만 세팅 수정해서 쓰게끔
+	
+	private String imgUrl; //프로필이미지
+	
+	private String oriImgName; //프로필이지미 원본이름
+	
+	private String imgName; //바뀐 이미지 이름
 }

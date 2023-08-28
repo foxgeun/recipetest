@@ -148,9 +148,6 @@ h2{
 	margin-left: 25px;
 }
 
-p{
-	margin: 0 auto;
-}
 
 .btn{
 	width: 65px;
@@ -192,11 +189,11 @@ height: 70px;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
 	margin-top: 5px;
-	height: 60px;
+	height: 100px;
 	font-size: 14px;
-	margin-left: 50px;
+	margin-left: 55px;
 	resize: none;
-	margin-bottom: auto;
+	margin-bottom: 5px;
 }
 
 .btn2{
@@ -214,6 +211,26 @@ width: 65px;
 }
 
 .btn2:hover{
+	background-color: var(--green-color);
+	border: 1px solid;
+	border-color: #dee2e6;
+}
+
+.btn3{
+	width: 65px;
+	height: 55px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid;
+		border-color: #dee2e6;
+		border-radius: 5px;
+		font-size: 13px;
+		position: relative; /* 위치를 상대적으로 설정 */
+    	bottom: 50px; /* Y축으로 20px 아래로 이동 */
+    	margin-left: 7px;
+}
+
+.btn3:hover{
 	background-color: var(--green-color);
 	border: 1px solid;
 	border-color: #dee2e6;
@@ -274,10 +291,6 @@ width: 65px;
 
 #btnAtt{
 	margin-left: 50px;
-}
-
-p{
-	display: flex;
 }
 
 .box3{
@@ -390,6 +403,24 @@ p{
 	display: flex;
 	margin-top: 10px;
 }
+
+.recipeImg{
+	margin-left: 55px;
+}
+
+.recipeMain2{
+}
+
+.ingredientTextMain{
+	display: flex;
+	margin-right: 8px;
+}
+	
+.ingredientText{
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 155px;
+}
 	</style>
 </th:block>
 
@@ -459,32 +490,29 @@ p{
 					<label for="recipe" class="recipeContents">조리 설명</label>
 					<textarea placeholder="조리 설명을 입력해주세요" class="in6"></textarea> 
 				</div> -->
-				<div class="ingredientsMain">
-					<label for="ingredients" class="ingredients">조리 설명</label>
+				<div class="ingredientTextMain">
+					<label for="ingredientText" class="ingredientText">조리 설명</label>
 					<div id="box2">
+							<input type="file" class="recipeImg">
 						<div class="box3">
-			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" ></textarea>
+			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" >
+			            	</textarea>
 				            <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
 						</div>
 			        </div> 
 				</div>
 				<!-- id값이 for값으로 영향이 간다 -->
-				<!-- <div class="recipePictureMain">
-					<label class="recipePictures">요리순서<br>이미지</label>
-					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
-					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
-					<label for="recipePicture" class="input-file-button">이미지 업로드</label>
-					<input type="file" class="in5" id="recipePicture"> 
-				</div> -->
+				
 				<!-- 이미지 업로드  -->
-				<div class="pictureRecipe">
+				
+			<!-- 	<div class="pictureRecipe">
 					<label for="ingredients" class="ingredients">조리 이미지</label>
 					<div id='image_preview'>
 					    <input type='file' id='btnAtt' multiple='multiple' accept="image/*"/>
 					    <div id='att_zone'
 					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭해주세요'></div>
 					  </div>
-				</div>
+				</div> -->
 				<button type="submit" id="newbtn" class="newbtns">등록하기</button>
 			</form>
 		</div>
@@ -509,147 +537,33 @@ p{
 	}
 	
 	
+	//조리이미지 설명과 이미지 추가 js
 	const add_textareabox = () => {
 	    const box2 = document.getElementById("box2");
-	    const newP = document.createElement('p');
+	    const newDiv = document.createElement('div');
 	    
-	    newP.innerHTML =
-	    	"<div>" +  "<textarea class='recipeTurn'>"
-	    	+"</textarea>" + "</div>" +
-	    	"<button class='btn2' type='button' onclick='remove2(this)'>삭제</button>" 
+	    newDiv.innerHTML =
 	    	
-	    box2.appendChild(newP);
-	    	
+	    	"<div style='height: 145px;'>" +
+	    	"<input type='file' class='recipeImg'>" +
+	    	"<textarea class='recipeTurn'>"
+	    	+"</textarea>" +
+	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
+	    	"</div>"
+	    box2.appendChild(newDiv);
 	}
+	
+	//삭제
 	const remove2 = (obj) => {
-	    document.getElementById('box2').removeChild(obj.parentNode);
+	    const newDiv = obj.closest('div'); // "삭제" 버튼의 가장 가까운 부모 div 요소를 찾습니다.
+	    
+	    if (newDiv) {
+	        newDiv.parentNode.removeChild(newDiv); // newDiv와 그 내용을 삭제합니다.
+	        console.log("요소 삭제");
+	    }
 	}
 	
-	//이미지 추가
-		( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
-	  imageView = function imageView(att_zone, btn){
 	
-	    var attZone = document.getElementById(att_zone);
-	    var btnAtt = document.getElementById(btn)
-	    var sel_files = [];
-	    
-	    // 이미지와 체크 박스를 감싸고 있는 div 속성
-	    var div_style = 'display:inline-block;position:relative;'
-	                  + 'width:140px;height:140px;margin:5px;z-index:1;';
-	    // 미리보기 이미지 속성
-	    var img_style = 'width:140px;height:140px;z-index:none;margin-bottom:20px;';
-	    // 이미지안에 표시되는 체크박스의 속성
-	    var chk_style = 'width:30px;height:30px;position:absolute;'
-	                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
-		
-	    var div_class = 'imgs';
-	    	
-	    		
-	    btnAtt.onchange = function(e){
-	      var files = e.target.files;
-	      var fileArr = Array.prototype.slice.call(files);
-	      
-	      var a = document.querySelectorAll(".imgs").length;
-	      var j = fileArr.length;
-	     
-	      
-	      var maxFileCnt = 6;   // 첨부파일 최대 개수
-	      
-	      if(j < 4 ){
-		      if(a < 6 ){
-		    	  for(f of fileArr){
-		    		  imageLoader(f);
-		    	  }
-		    		  
-		      } else {
-		    	  alert("이미지 첨부 개수 최대는 6장입니다!");
-		    	  return;
-		      }
-	      } else {
-	    	  alert("한번에 넣을수 있는 이미지는 최대 3장입니다");
-	    	  return;
-	      }
-			
-	    }
-	  
-	    // 탐색기에서 드래그앤 드롭 사용
-	    attZone.addEventListener('dragenter', function(e){
-	      e.preventDefault();
-	      e.stopPropagation();
-	    }, false)
-	    
-	    attZone.addEventListener('dragover', function(e){
-	      e.preventDefault();
-	      e.stopPropagation();
-	      
-	    }, false)
-	  
-	    attZone.addEventListener('drop', function(e){
-	      var files = {};
-	      e.preventDefault();
-	      e.stopPropagation();
-	      var dt = e.dataTransfer;
-	      files = dt.files;
-	      for(f of files){
-	        imageLoader(f);
-	      }
-	      
-	    }, false)
-	    
-	
-	    
-	    /*첨부된 이미리즐을 배열에 넣고 미리보기 */
-	    imageLoader = function(file){
-	      sel_files.push(file);
-	      var reader = new FileReader();
-	      reader.onload = function(ee){
-	        let img = document.createElement('img')
-	        img.setAttribute('style', img_style)
-	        img.src = ee.target.result;
-	        attZone.appendChild(makeDiv(img, file));
-	      }
-	      
-	      reader.readAsDataURL(file);
-	      
-	      //console.log(reader);
-	      
-	    }
-	    
-	    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
-	    makeDiv = function(img, file){
-	      var div = document.createElement('div')
-	      div.setAttribute('style', div_style)
-	      div.setAttribute('class', div_class)
-	      var btn = document.createElement('input')
-	      btn.setAttribute('type', 'button')
-	      btn.setAttribute('value', 'x')
-	      btn.setAttribute('delFile', file.name);
-	      btn.setAttribute('style', chk_style);
-	      btn.onclick = function(ev){
-	        var ele = ev.srcElement;
-	        var delFile = ele.getAttribute('delFile');
-	        for(var i=0 ;i<sel_files.length; i++){
-	          if(delFile== sel_files[i].name){
-	            sel_files.splice(i, 1);      
-	          }
-	        }
-	        
-	        dt = new DataTransfer();
-	        for(f in sel_files) {
-	          var file = sel_files[f];
-	          dt.items.add(file);
-	        }
-	        btnAtt.files = dt.files;
-	        var p = ele.parentNode;
-	        attZone.removeChild(p)
-	      }
-	      div.appendChild(img)
-	      div.appendChild(btn)
-	      return div
-	    }
-	  }
-	)('att_zone', 'btnAtt')
-
 	</script>
 </th:block>
 </html>
