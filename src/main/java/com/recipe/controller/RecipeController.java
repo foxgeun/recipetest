@@ -1,6 +1,5 @@
 package com.recipe.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,9 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.querydsl.core.Tuple;
-import com.recipe.dto.RecipeIngreDto;
 import com.recipe.dto.RecipeNewDto;
 import com.recipe.service.RecipeService;
 
@@ -54,6 +50,7 @@ public class RecipeController {
 		System.out.println("레시피 정보 1" + recipeNewDto.getCategory());
 		
 		System.out.println(recipeOrderImgFile.size());
+		System.out.println(recipeOrderContentList.size());
 		
 		try { 
 			recipeService.saveRecipe(recipeNewDto, recipeImgFile , RecipeingreMaterialList, 

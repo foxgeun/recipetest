@@ -1,5 +1,8 @@
 package com.recipe.entity;
 
+import com.recipe.constant.PointEnum;
+
+import groovy.transform.ToString;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,30 +14,26 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity
-@Table(name="review")
 @Getter
 @Setter
 @ToString
-public class Review extends BaseEntity {
-
+@Entity
+@Table(name="point")
+public class Point {
+	
 	@Id
-	@Column(name="review_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="point_id")
 	private Long id;
 	
-	private double reting;
+	private int point;
 	
-	private String content;
-	
-	
+	private PointEnum pointEnum;
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipe_id")
-	private Recipe recipe;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name="member_id")
 	private Member member;
+	
+	
 }

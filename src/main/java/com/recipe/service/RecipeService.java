@@ -77,17 +77,12 @@ public class RecipeService {
 			recipeIngreRepository.save(recipeIngre);
 		}
 		
-		RecipeOrder recipeOrder = new RecipeOrder();
 		for(int i=0; i<recipeOrderContentList.size(); i++) {
+			RecipeOrder recipeOrder = new RecipeOrder();
 			
 			recipeOrder.setRecipe(recipe);
 			recipeOrder.setContent(recipeOrderContentList.get(i));
 			recipeOrder.setOrder_number(i+1);
-			
-		}
-		
-		
-		for(int i=0; i<recipeOrderImgFile.size(); i++) {
 			
 			String imgName2 = recipeOrderImgFile.get(i).getOriginalFilename();
 			String imgUrl2 = "";
@@ -98,13 +93,10 @@ public class RecipeService {
 				imgUrl2 = "/img/recipe/" + imgName2;
 				
 				recipeOrder.updateRecipeOrderImg(imgUrl2, imgName2);
+				recipeOrderRepository.save(recipeOrder);
 			}
 			
 		}
-		recipeOrderRepository.save(recipeOrder);
-		
-		
-		
 			
 			return recipe.getId();
 	}

@@ -10,38 +10,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.recipe.dto.RecipeCategoryDto;
-import com.recipe.dto.RecipeSearchDto;
-import com.recipe.service.RecipeService;
+import com.recipe.dto.ItemCategoryDto;
+import com.recipe.dto.ItemSearchDto;
+import com.recipe.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class CategoryController {
+public class ItemController {
 	
-	private final RecipeService recipeService;
+	private final ItemService itemService;
 	
-	@GetMapping(value = {"/category" , "/category/{page}"})
-	public String category(RecipeSearchDto recipeSearchDto ,
-			@PathVariable("page") Optional<Integer> page , Model model) {
+//	상품페이지
+	@GetMapping(value= {"/item" , "/item/{page}"})
+	public String Item(ItemSearchDto itemSearchDto , @PathVariable("page") Optional<Integer> page ,
+			Model model) {
 		
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
-		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
+		Page<ItemCategoryDto> category = itemService.getItemCategoryList(pageable , itemSearchDto);
 		
-		
-		model.addAttribute("category" , category);
-		model.addAttribute("recipeSearchDto" , recipeSearchDto);
+		model.addAttribute("itemSearchDto" , itemSearchDto);
+		model.addAttribute("category",category);
 		model.addAttribute("maxPage" , 5);
 		model.addAttribute("page" , page);
-	
 		
-		return "category";
+		return "item";
 	}
 	
 	
+	
 }
-	
-	
-
