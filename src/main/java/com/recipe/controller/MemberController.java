@@ -94,10 +94,12 @@ public class MemberController {
 	public String newMemberForm(@Valid MemberDto memberDto, BindingResult bindingResult, Model model , RedirectAttributes redirectAttributes) {
 		System.out.println("aaaaaaaaaaaaa==== " + memberDto.getImgUrl());
 		
+		//회원가입 에러처리
 		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2() == "") {
 			return "member/newMemberForm";
 		}
 		
+		//자기소개 기본값 넣기
 		if (memberDto.getIntroduce() == null || memberDto.getIntroduce() == "") {
 			memberDto.setIntroduce("자기소개가 없습니다.");
 		}
@@ -109,6 +111,7 @@ public class MemberController {
 		String imgUrl = "";
 		String imgName = "";
 		
+		//프로필 사진처리
 		if(!StringUtils.isEmpty(oriImgName)) {
 			try {
 				imgName = fileService.profileImgFile(profileImgLocation, oriImgName ,oriImgName.getBytes());
@@ -122,8 +125,18 @@ public class MemberController {
 			memberDto.setImgName(imgName);
 			memberDto.setImgUrl(imgUrl);
 			
+		} else {
+			
+			// oriImgName이 비어있거나 null일 때 처리 고양이 이미지 추가
+		    imgName = "이젠 해먹자.svg"; 
+		    imgUrl = "/img/profile/" + imgName;
+		    System.out.println("기본값 name-----" + imgName);
+		    System.out.println("기본값 프로필 이미지===" + imgUrl);
+		    memberDto.setImgName(imgName);
+		    memberDto.setImgUrl(imgUrl);
 		}
 		
+		//에러처리
 		if (bindingResult.hasErrors()) {
 			return "member/newMemberForm";
 		}
