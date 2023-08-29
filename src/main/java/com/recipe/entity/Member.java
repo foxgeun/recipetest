@@ -124,6 +124,7 @@ public class Member extends BaseEntity {
 		//기본정보
 		member.setNickname(socialMemberDto.getNickname());
 		member.setEmail(socialMemberDto.getEmail());
+		//member.setPassword(socialMemberDto.getPassword());
 		member.setPhoneNumber(socialMemberDto.getPhoneNumber());
 		member.setName(socialMemberDto.getName()); //간편로그인시 소셜회사마다 주는 회원이름값
 		member.setProvider(socialMemberDto.getProvider()); //구글인지 카카오인지 구별값

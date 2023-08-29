@@ -39,7 +39,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	    	            PrincipalDetails userDetails = (PrincipalDetails) oauthUser;
 	    	            String email = userDetails.getEmail(); // Use getEmail from PrincipalDetails
 	    	            System.out.println("email====" + email);
-	    	            //String password = userDetails.getPassword();
+	    	            String password = userDetails.getPassword();
 	    	            String provider = userDetails.getProvider();
 	    	            String providerId = userDetails.getProviderId();
 	    	            String name = userDetails.getUsername();
@@ -50,7 +50,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	    	            //name password 추가
 	    	            //dto에 provide 등 추가
 	    	            socialMemberDto.setEmail(email);
-//	    	            socialMemberDto.setPassword(password);
+	    	            socialMemberDto.setPassword(password);
 //	    	            socialMemberDto.setPasswordConfirm(password);
 	    	            socialMemberDto.setProvider(provider);
 	    	            socialMemberDto.setProviderId(providerId);
@@ -59,14 +59,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	                    System.out.println("provider=====" + provider);
 	                    System.out.println("providerId=====" + providerId);
 	                    System.out.println("name=====" + name);
-	                    
+	                    System.out.println("paswood======" + password);
 	    	            if (member == null) {
 	    	                // 간편 로그인 성공시 추가 정보를 받기위해
 	    	            	
 	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(socialMemberDto.getEmail(), "UTF-8") 
 	    	            	+ "&provider=" + URLEncoder.encode(socialMemberDto.getProvider(), "UTF-8" )
 	    	            	+ "&providerId=" + URLEncoder.encode(socialMemberDto.getProviderId(), "UTF-8")
-	    	            	+ "&name=" + URLEncoder.encode(socialMemberDto.getName(), "UTF-8");
+	    	            	+ "&name=" + URLEncoder.encode(socialMemberDto.getName(), "UTF-8")
+	    	            	+ "&password=" + URLEncoder.encode(socialMemberDto.getPassword(), "UTF-8");
 	    	            			
 	    	            	response.sendRedirect(redirectUrl);
 	    	            } else {

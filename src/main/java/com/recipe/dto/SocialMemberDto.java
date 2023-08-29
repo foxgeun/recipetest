@@ -27,6 +27,8 @@ public class SocialMemberDto {
 	
 	private String name; //구글,카카오에서 주는 구글닉네임 
 	
+	private String password;
+	
 	private String provider; //구글,카카오 분류
  
 	private String providerId; //구글 카카오 기본키 id값 
