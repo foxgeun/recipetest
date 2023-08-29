@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.recipe.dto.MemberDto;
 import com.recipe.dto.SocialMemberDto;
 import com.recipe.entity.Member;
 import com.recipe.oauth.PrincipalDetails;
@@ -21,14 +20,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
-		
-	  private final MemberRepository memberRepository;
+public class LoginSuccessHandler implements AuthenticationSuccessHandler{
+		@Autowired
+	  private MemberRepository memberRepository;
 
-	    @Autowired
-	    public LoginSuccessHandler(MemberRepository memberRepository) {
-	        this.memberRepository = memberRepository;
-	    }
 		
 	    //간편 로그인 성공시 정보를 sns전용 회원가입 페이지로 전달
 	    @Override

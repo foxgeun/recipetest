@@ -51,11 +51,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+	
 		<dependency>
      		<groupId>nz.net.ultraq.thymeleaf</groupId>
      		<artifactId>thymeleaf-layout-dialect</artifactId>
@@ -70,16 +66,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			<version>5.0.0</version>
 			<classifier>jakarta</classifier>
 		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<version>5.0.0</version>
-			<classifier>jakarta</classifier>
-		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -92,6 +82,16 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		     <groupId>org.modelmapper</groupId>
      		 <artifactId>modelmapper</artifactId>
      		 <version>3.1.0</version>
+		</dependency>
+		<!--oauth로그인용-->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-oauth2-client</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 

@@ -21,7 +21,7 @@
                             </ul>
                         </li>
                         <li><a href="/members/login" sec:authorize="isAnonymous()">유저로그인</a></li>
-                        <li><a href="/recipe/new" sec:authorize="isAnonymous()">레시피등록</a></li>
+                        <li><a href="/recipe/new" sec:authorize="isAuthenticated()">레시피등록</a></li>
                         <li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
