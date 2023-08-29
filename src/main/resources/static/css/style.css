@@ -2570,3 +2570,8 @@ ol {
 		right: calc(50% - 131px);
 	}
 }
+
+
+.mypage-list.active{
+	background: #222;
+}

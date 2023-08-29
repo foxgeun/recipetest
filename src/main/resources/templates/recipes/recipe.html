@@ -1,63 +1,16 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Yoga Studio Template">
-    <meta name="keywords" content="Yoga, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Yummy | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-</head>
-
-<body>
+<div layout:fragment="content">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
 
-    <!-- Header Section Begin -->
-    <header class="header-section-other">
-        <div class="container-fluid">
-            <div class="logo">
-                <a href="./index.html"><img src="img/little-logo.png" alt=""></a>
-            </div>
-            <div class="nav-menu">
-                <nav class="main-menu mobile-menu">
-                    <ul>
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about-me.html">About Me</a></li>
-                                <li><a href="categories.html">Categories</a></li>
-                                <li><a href="recipe.html">Recipe</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="recipe.html">Recipes</a></li>
-                        <li><a href="categories.html">Best Of</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="nav-right search-switch">
-                    <i class="fa fa-search"></i>
-                </div>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </header>
-    <!-- Header End -->
 
     <!-- Hero Search Section Begin -->
     <div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
@@ -187,6 +140,7 @@
                             <ul>
                                 <li>
                                     <span>01.</span>
+                                     <img src="img/recipe-single.jpg" alt="">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet. Donec in
                                     sodales dui, a blandit nunc. Pellentesque id eros venenatis, sollicitudin neque
@@ -197,6 +151,7 @@
                                 </li>
                                 <li>
                                     <span>02.</span>
+                                     <img src="img/recipe-single.jpg" alt="">
                                     Donec sit amet enim tortor. Sed egestas nulla nibh, vitae porta velit sagittis eget.
                                     Donec vitae tellus semper, cursus sem id, iaculis purus. Aenean ligula risus,
                                     maximus tristique eros vel, auctor ornare tortor. Aliquam vel augue sapien. Duis non
@@ -207,6 +162,7 @@
                                 </li>
                                 <li>
                                     <span>03.</span>
+                                     <img src="img/recipe-single.jpg" alt="">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet. Donec in
                                     sodales dui, a blandit nunc. Pellentesque id eros venenatis, sollicitudin neque
@@ -217,6 +173,7 @@
                                 </li>
                                 <li>
                                     <span>04.</span>
+                                     <img src="img/recipe-single.jpg" alt="">
                                     Donec sit amet enim tortor. Sed egestas nulla nibh, vitae porta velit sagittis eget.
                                     Donec vitae tellus semper, cursus sem id, iaculis purus. Aenean ligula risus,
                                     maximus tristique eros vel, auctor ornare tortor. Aliquam vel augue sapien. Duis non
@@ -352,13 +309,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 	<!-- Search model end -->
 
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+</div>
 
 </html>
