@@ -307,7 +307,15 @@ width: 65px;
 	font-size: 14px;
 }
 
-#newbtn{
+#newbtn1{
+	background-color: #1BBC9B;
+	margin-bottom: 30px;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.5s;
+	border: none;
+}
+#newbtn2{
 	background-color: #1BBC9B;
 	margin-bottom: 30px;
 	color: white;
@@ -316,9 +324,15 @@ width: 65px;
 	border: none;
 }
 
-#newbtn:hover{
+
+#newbtn1:hover{
 	background-color: gold;
 }
+
+#newbtn2:hover{
+	background-color: gold;
+}
+
 
 .recipeTime{
 	display: flex;
@@ -428,7 +442,7 @@ width: 65px;
 		<div>
 		<div class="newRecipe">
 		<h3>레시피 등록</h3>
-			<form role="form" action="/recipe/new" method="POST" enctype="multipart/form-data" th:object="${recipeNewDto}" >
+			<form role="recipeform" action="/recipe/new" method="POST" enctype="multipart/form-data" th:object="${recipeNewDto}" >
 			<input type="hidden" th:field="*{id}" />
 				<div class="recipeMain">
 					<label for="recipe" class="recipe">레시피 제목</label>
@@ -449,7 +463,7 @@ width: 65px;
 				<div class="categoryMain">
 					<label th:for="level" class="category">난이도</label>
 						<select class="form-select" aria-label="select example" th:field="*{level}">
-						  <option value="none" selected>선택</option>
+						   <option value="" disabled selected>난이도 선택</option>
 						  <option value="초급">초급</option>
 						  <option value="중급">중급</option>
 						  <option value="고급">고급</option>
@@ -458,7 +472,7 @@ width: 65px;
 				<div class="categoryMain">
 					<label th:for="category" class="category">카테고리</label>
 						<select class="form-select" aria-label="select example" th:field="*{categoryType}">
-						  <option value="none" selected>종류별</option>
+						  <option value="" disabled selected>종류별선택</option>
 						  <option value="메인요리">메인요리</option>
 						  <option value="밑반찬">밑반찬</option>
 						  <option value="간식">간식</option>
@@ -520,8 +534,8 @@ width: 65px;
 					  </div>
 				</div> -->
 				<div class="newbtnMain">
-					<button type="submit" th:field="*{published}" id="newbtn" class="newbtns" value="published">등록</button>
-					<button type="submit"  th:field="*{draft}" id="newbtn" class="newbtns" value="draft">임시저장</button>
+					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">등록</button>
+					<button type="submit"  name="writingStatus" id="newbtn2" class="newbtns" value="DRAFT" onclick="return confirmDraft()">임시저장</button>
 				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
@@ -533,7 +547,25 @@ width: 65px;
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:inline="javascript">
 	
+	//레시피 등록함수
+	function confirmPublish() {
+		//모든값이 입력되었는지 확인
+	    var elements = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
+	    for (var i = 0; i < elements.length-1; i++) {
+	    	 console.log(`Element ${i + 1}: ${elements[i].name}, Value: ${elements[i].value}`);
+	        if (elements[i].value === "") {  
+	            alert('모든 내용을 입력해주세요.');
+	            return false;  
+	        }
+	    }
+
+	    return confirm("레시피를 정말로 등록하시겠습니까?");
+	}
 	
+	//임시저장 함수
+	function confirmDraft() {
+	    return confirm("레시피를 임시저장 하시겠습니까?");
+	}
 	$(document).ready(function(){
 		bindDomEvent();
 		bindDomEvent2();
@@ -584,8 +616,8 @@ width: 65px;
 	    const newP = document.createElement('div');
 	
 	    newP.innerHTML = 
-	    	"<input class='in3' type='text'> " +
-	    	"<input class='in4' type='text'> " +
+	    	"<input class='in3' type='text' id='RecipeingreName' name='RecipeingreName'> " +
+	    	"<input class='in4' type='text' id='RecipeingreMaterial' name='RecipeingreMaterial'> " +
 	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
 	    box.appendChild(newP);
 	}
@@ -602,8 +634,8 @@ width: 65px;
 	    newDiv.innerHTML =
 	    	
 	    	"<div style='height: 145px;'>" +
-	    	"<input type='file' class='recipeImg'>" +
-	    	"<textarea class='recipeTurn'>"
+	    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
+	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"
 	    	+"</textarea>" +
 	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
 	    	"</div>"

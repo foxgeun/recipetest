@@ -20,6 +20,8 @@ import lombok.ToString;
 @ToString
 public class RecipeOrder {
 	
+	//레시피 조리순서,이미지
+	
 	@Id
 	@Column(name="recipe_order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

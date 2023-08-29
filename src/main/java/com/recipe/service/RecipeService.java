@@ -47,6 +47,8 @@ public class RecipeService {
 		Member member = memberRepository.findByEmail(email);
 		
 		Recipe recipe = recipeNewDto.createRecipe();
+		recipe.setMember(member);
+		recipeRepository.save(recipe);
 		
 		String imgName = recipeImgFile.getOriginalFilename();
 		String imgUrl = "";
@@ -58,12 +60,11 @@ public class RecipeService {
 			imgUrl = "/img/recipe/" + imgName;
 			
 			recipe.updateRecipeImg(imgUrl, imgName);
-			recipe.setMember(member);
 			recipeRepository.save(recipe);
 		}
 			
 		//레시피등록할때 넘긴 재료정보 가져오기 => 등록
-			for(int i=0; i<RecipeingreMaterialList.size(); i++) {
+		for(int i=0; i<RecipeingreMaterialList.size(); i++) {
 			
 			RecipeIngre recipeIngre = new RecipeIngre();
 			
@@ -73,7 +74,7 @@ public class RecipeService {
 			recipeIngreRepository.save(recipeIngre);
 		}
 			//레시피 조리순서 가져오기
-			for(int i=0; i<recipeOrderContentList.size(); i++) {
+		for(int i=0; i<recipeOrderContentList.size(); i++) {
 				RecipeOrder recipeOrder = new RecipeOrder();
 				
 				recipeOrder.setRecipe(recipe);

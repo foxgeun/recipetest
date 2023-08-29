@@ -14,6 +14,7 @@ import lombok.ToString;
 @ToString
 public class RecipeIngre {
 	
+	//레시피 재료 
 	@Id
 	@Column(name="ingredient_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

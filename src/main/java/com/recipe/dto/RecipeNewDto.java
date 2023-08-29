@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
+import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.WritingStatus;
 import com.recipe.entity.Recipe;
 
 import lombok.Getter;
@@ -16,27 +18,25 @@ public class RecipeNewDto {
 	
 	private Long id;
 	
-	private String title;
+	private String title; // 제목
 
-	private String subTitle;
+	private String subTitle; // 부제목
 	
-	private String intro;
+	private String intro; //레시피 소개
 
-	private String durTime;
+	private String durTime; //소요 시간
 
-	private String level;
+	private String level;//난이도
 	
-	private String categoryType;
+	private CategoryEnum categoryType; //카테고리
 
-	private String imageUrl;
+	private String imageUrl; //메인이미지
 
-	private String serving;
+	private String serving; //몇인분
 	
-	private String published;
+	private WritingStatus writingStatus;
 	
-	private String draft;
-	
-	private int count=0;
+	private int count=0; //조회수
 	
 	
 //	재료 정보 저장
