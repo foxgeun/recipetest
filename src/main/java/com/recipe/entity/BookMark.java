@@ -1,5 +1,8 @@
 package com.recipe.entity;
 
+
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +32,7 @@ public class BookMark extends BaseEntity {
 	
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 	

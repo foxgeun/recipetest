@@ -120,7 +120,14 @@ public class myPageController {
 	}
 	
 	
-
-	
-	
+	//댓글목록 -> 댓글삭제
+	@DeleteMapping("myPage/deleteComment/{commentId}")
+	public @ResponseBody ResponseEntity deleteComment(@PathVariable("commentId")Long commentId) {
+		myPageService.deleteComment(commentId);
+		
+		return new ResponseEntity<Long>(commentId, HttpStatus.OK);
+	}
 }
+	
+	
+

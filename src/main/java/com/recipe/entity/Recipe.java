@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.recipe.constant.WritingStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

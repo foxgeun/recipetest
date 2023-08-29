@@ -246,3 +246,30 @@ function deleteBookmark(bookmarkId, imgElement) {
         }
     });
 	}
+	    function deleteComment(commentId) {
+		const deleteConf = confirm("댓글을 삭제하시겠습니까?");
+		if (!deleteConf)
+			return; //취소버튼 누르면
+
+		//request URL
+		var url = "/myPage/deleteComment/" + commentId;
+
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+
+		$.ajax({
+			url : url, //request URL
+			type : "DELETE", //전송방식
+			contentType : "application/json",
+			beforeSend : function(xhr) {
+				//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+				xhr.setRequestHeader(header, token);
+			},
+			dataType : "json",
+			cache : false,
+			success : function(result, status) {
+				 location.reload();
+			}
+
+		});
+	}

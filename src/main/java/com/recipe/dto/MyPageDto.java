@@ -71,6 +71,7 @@ public class MyPageDto {
 	public MyPageDto(Member member, Comment comment) {
 		this.member = member;
 		this.comment = comment;
+		this.recipeId = comment.getRecipe();
 	}
 
 }

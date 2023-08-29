@@ -190,7 +190,6 @@ public class MyPageService {
 		
 		recipeRepository.delete(recipe);
 	}
-	
 	//찜목록 불러오기
 	@Transactional(readOnly = true)
 	public List<MyPageDto> getBookmark(Long id){
@@ -245,4 +244,11 @@ public class MyPageService {
 		
 		return commentDtos;
 	}
+	//댓글 삭제
+	public void deleteComment(Long commentId) {
+		Comment comment = commentRepository.findById(commentId)
+				.orElseThrow(EntityNotFoundException::new);
+		commentRepository.delete(comment);
+	}
 }
+

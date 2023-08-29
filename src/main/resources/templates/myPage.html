@@ -201,7 +201,7 @@
 							<p style="font-size: 15px; font-weight: 500;">레시피 목록</p>
 						</div>
 
-						<table style="border-bottom: 1px solid #dee2e6;margin-top: 30px;">
+						<table style="border-bottom: 1px solid #dee2e6; margin-top: 30px;">
 							<tbody>
 								<tr style="height: 45px; background-color: #f9fbf7;">
 
@@ -213,7 +213,8 @@
 
 								<tr class="recipe1"
 									th:data-writing-status="${recipe.writingStatus}"
-									th:each="recipe : ${recipeList}">
+									th:each="recipe : ${recipeList}"
+									style="border-bottom: 1px solid #dee2e6;">
 
 									<th class="col-7"
 										style="text-align: center; margin-left: 0; padding: 0;">
@@ -221,7 +222,7 @@
 											style="display: flex; flex-direction: row; align-items: center;">
 
 											<img th:src="${recipe.imageUrl}"
-												style="width: 150px; height: 145px;">
+												style="min-width: 150px !important; height: 145px !important; width: 150px;">
 											<div style="width: 100%;">
 												<p th:text="${recipe.title}"
 													style="font-size: 17px; font-weight: 600; margin-bottom: 0;"></p>
@@ -242,8 +243,8 @@
 											<button type="submit"
 												style="width: 75px; height: 33px; display: flex; align-items: center; justify-content: center;"
 												class="btn btn-outline-danger">수정</button>
-											<button type="submit" 
-								th:onclick="'deleteRecipe(' + ${recipe.id} + ')'"	
+											<button type="submit"
+												th:onclick="'deleteRecipe(' + ${recipe.id} + ')'"
 												style="width: 75px; height: 33px; display: flex; align-items: center; justify-content: center; margin-top: 4px;"
 												class="btn btn-outline-danger">삭제</button>
 										</div>
@@ -276,13 +277,11 @@
 				</div>
 
 
-
+				<!-- 찜 목록  -->
 				<div id="favorite" class="content" style="display: none;">
 					<div
-						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd; ">
-						<div style="display: flex; align-items: center">
-
-						</div>
+						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
+						<div style="display: flex; align-items: center"></div>
 						<div
 							style="display: flex; flex-direction: row; align-items: center; min-height: 49px;">
 							<div style="">
@@ -291,18 +290,16 @@
 						</div>
 					</div>
 					<div class="mypage-content" th:if="${!bookmarkList.isEmpty()}">
-					<div
+						<div
 							style="display: flex; flex-direction: column; align-items: center;">
 							<p style="font-size: 28px; font-weight: 500;">| BOOKMARK |</p>
 							<p style="font-size: 15px; font-weight: 500;">찜레시피 목록</p>
 						</div>
 
-						<table style="border-bottom: 1px solid #dee2e6;margin-top: 30px;">
-							<tbody style="
-    display: flex;
-    flex-direction: column;
-">
-								<tr style="height: 45px;background-color: #f9fbf7;display: flex;align-items: center;">
+						<table style="border-bottom: 1px solid #dee2e6; margin-top: 30px;">
+							<tbody style="display: flex; flex-direction: column;">
+								<tr
+									style="height: 45px; background-color: #f9fbf7; display: flex; align-items: center;">
 
 									<th class="col-7 recipeList-th" style="text-align: center;">레시피</th>
 									<th class="col-2 recipeList-th" style="text-align: center;"></th>
@@ -310,12 +307,8 @@
 									<th class="col-1 recipeList-th" style="text-align: center;">찜</th>
 								</tr>
 
-								<tr class=""
-									
-									th:each="bookmark : ${bookmarkList}" style="
-    display: flex;
-    align-items: center;
-">
+								<tr class="" th:each="bookmark : ${bookmarkList}"
+									style="display: flex; align-items: center;">
 
 									<th class="col-7"
 										style="text-align: center; margin-left: 0; padding: 0;">
@@ -335,15 +328,17 @@
 											</div>
 										</div>
 
-									</th> 
+									</th>
 									<th class="col-2" style="text-align: center;">
 										<div
 											style="display: flex; flex-direction: column; align-items: center;">
 
 										</div>
 									</th>
-<th class="col-2" style="display: flex;flex-direction: column;align-items: center;">
-<div th:style="'
+									<th class="col-2"
+										style="display: flex; flex-direction: column; align-items: center;">
+										<div
+											th:style="'
     width: 60px;
     height: 60px;
     border: 3px solid #dddddd;
@@ -353,15 +348,15 @@
      background-image: url(' + ${bookmark.recipeId.member.imgUrl}  + ');
      background-size: cover; background-position: center;
 '"></div>
-									<p style="
-    margin-top: 2px;
-    margin-bottom: 25px;
-     background: #f9fbf7;
-    padding: 0px 10px 0 10px;
-">현서</p>
-									
+										<p
+											style="margin-top: 2px; margin-bottom: 25px; background: #f9fbf7; padding: 0px 10px 0 10px;">현서</p>
+
 									</th>
-									<th class="col-1" style="text-align: center;"><img src="/img/favorite.png" th:onclick="deleteBookmark([[${bookmark.bookmark.id}]], this)"  data-action="delete" style="cursor:pointer;width: 30px;height: 30px;margin-bottom: 15px;"></th>
+									<th class="col-1" style="text-align: center;"><img
+										src="/img/favorite.png"
+										th:onclick="deleteBookmark([[${bookmark.bookmark.id}]], this)"
+										data-action="delete"
+										style="cursor: pointer; width: 30px; height: 30px; margin-bottom: 15px;"></th>
 
 								</tr>
 
@@ -370,9 +365,10 @@
 							</tbody>
 						</table>
 					</div>
-					
-					
-					<div class="mypage-content" th:if="${bookmarkList.isEmpty()}" style="align-items: center;">
+
+
+					<div class="mypage-content" th:if="${bookmarkList.isEmpty()}"
+						style="align-items: center;">
 						<img class="mypage-content-logo" src="/img/test2.png" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">
@@ -384,12 +380,11 @@
 					</div>
 				</div>
 
-				<div id="comments" class="content" style="display: none;" >
+				<!-- 댓글 목록  -->
+				<div id="comments" class="content" style="display: none;">
 					<div
-						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd; ">
-						<div style="display: flex; align-items: center">
-
-						</div>
+						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
+						<div style="display: flex; align-items: center"></div>
 						<div
 							style="display: flex; flex-direction: row; align-items: center; min-height: 49px;">
 							<div style="">
@@ -397,78 +392,62 @@
 							</div>
 						</div>
 					</div>
-						<div class="mypage-content" th:if="${!myCommentList.isEmpty()}">
-					<div
+					<div class="mypage-content" th:if="${!myCommentList.isEmpty()}">
+						<div
 							style="display: flex; flex-direction: column; align-items: center;">
-							<p style="font-size: 28px; font-weight: 500;">| BOOKMARK |</p>
-							<p style="font-size: 15px; font-weight: 500;">찜레시피 목록</p>
+							<p style="font-size: 28px; font-weight: 500;">| COMMENT |</p>
+							<p style="font-size: 15px; font-weight: 500;">댓글목록</p>
 						</div>
 
-						<table style="border-bottom: 1px solid #dee2e6;margin-top: 30px;">
-							<tbody style="
-    display: flex;
-    flex-direction: column;
-">
-								<tr style="height: 45px;background-color: #f9fbf7;display: flex;align-items: center;">
+						<table style="border-bottom: 1px solid #dee2e6; margin-top: 30px;">
+							<tbody style="display: flex; flex-direction: column;">
+								<tr
+									style="height: 45px; background-color: #f9fbf7; display: flex; align-items: center;">
 
-									<th class="col-7 recipeList-th" style="text-align: center;">레시피</th>
-									<th class="col-2 recipeList-th" style="text-align: center;"></th>
-									<th class="col-2 recipeList-th" style="text-align: center;">작성자</th>
-									<th class="col-1 recipeList-th" style="text-align: center;">찜</th>
+									<th class="col-1 recipeList-th" style="text-align: center;">번호</th>
+									<th class="col-7 recipeList-th" style="text-align: center;">내용</th>
+
+									<th class="col-3 recipeList-th" style="text-align: center;">등록일</th>
+									<th class="col-1 recipeList-th" style="text-align: center;">삭제</th>
 								</tr>
 
-								<tr class=""
-									
-									th:each="bookmark : ${bookmarkList}" style="
-    display: flex;
-    align-items: center;
-">
-
+								<tr class="" th:each="comments : ${myCommentList}"
+									style="display: flex; align-items: center;">
+									<th class="col-1" style="text-align: center;"><p
+											th:text="${comments.comment.id}"></th>
 									<th class="col-7"
 										style="text-align: center; margin-left: 0; padding: 0;">
 										<div
 											style="display: flex; flex-direction: row; align-items: center;">
 
-											<img th:src="${bookmark.recipeId.imageUrl}"
-												style="width: 150px; height: 145px;">
-											<div style="width: 100%;">
-												<p th:text="${bookmark.recipeId.title}"
-													style="font-size: 17px; font-weight: 600; margin-bottom: 0;"></p>
 
-												<p th:text="${bookmark.recipeId.subTitle}"
-													style="font-size: 14px; font-weight: 600;"></p>
-												<p th:text="'#'+${bookmark.recipeId.intro}"
-													style="font-size: 14px; font-weight: 600;"></p>
+											<div
+												style="width: 100%; display: flex; flex-direction: column; margin-left: 15px;">
+												<p th:text="${comments.recipeId.title}"
+													style="margin-bottom: 0; color: #888; font-size: 14px; font-weight: 600;"></p>
+
+												<p th:text="${comments.comment.content}"
+													style="font-weight: 600; color: #5a5a5a; font-size: 15px;"></p>
+
 											</div>
 										</div>
 
-									</th> 
-									<th class="col-2" style="text-align: center;">
-										<div
-											style="display: flex; flex-direction: column; align-items: center;">
+									</th>
 
+									<th class="col-3"
+										style="display: flex; flex-direction: column; align-items: center;">
+										<div>
+											<p th:text="${comments.comment.regTime}"></p>
 										</div>
-									</th>
-<th class="col-2" style="display: flex;flex-direction: column;align-items: center;">
-<div th:style="'
-    width: 60px;
-    height: 60px;
-    border: 3px solid #dddddd;
 
-    border-radius: 50%;
-    margin-top: 23px;
-     background-image: url(' + ${bookmark.recipeId.member.imgUrl}  + ');
-     background-size: cover; background-position: center;
-'"></div>
-									<p style="
-    margin-top: 2px;
-    margin-bottom: 25px;
-     background: #f9fbf7;
-    padding: 0px 10px 0 10px;
-">현서</p>
-									
+
 									</th>
-									<th class="col-1" style="text-align: center;"><img src="/img/favorite.png" th:onclick="deleteBookmark([[${bookmark.bookmark.id}]], this)"  data-action="delete" style="cursor:pointer;width: 30px;height: 30px;margin-bottom: 15px;"></th>
+									<th class="col-1" style="text-align: center;">
+										<button type="submit"
+											th:onclick="'deleteComment(' + ${comments.comment.id} + ')'"
+											style="width: 75px; height: 33px; display: flex; align-items: center; justify-content: center; margin-top: 4px;"
+											class="btn btn-outline-danger">삭제</button>
+									</th>
 
 								</tr>
 
@@ -477,7 +456,8 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="mypage-content" th:if="${myCommentList.isEmpty()}"style="align-items: center;">
+					<div class="mypage-content" th:if="${myCommentList.isEmpty()}"
+						style="align-items: center;">
 						<img class="mypage-content-logo" src="/img/test3.svg" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">
@@ -537,13 +517,8 @@
 
 
 							<div>
-								<p>
-									프로필 사진
-
-
-
-
-									<p />
+								<p>프로필 사진
+								<p />
 								<div>
 									<label id="imagePreviewLabel" for="fileInput"
 										class="upload-icon"
@@ -676,7 +651,7 @@ svg {
 	</section>
 	<!-- Contact Section End -->
 	<!-- Similar Recipe Section Begin -->
-									<section class="similar-recipe spad">
+	<section class="similar-recipe spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
@@ -725,8 +700,8 @@ svg {
 	<!-- Footer Section End -->
 
 	<!-- Search model -->
-	
-								<div class="search-model">
+
+	<div class="search-model">
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-switch">+</div>
 			<form class="search-model-form">
