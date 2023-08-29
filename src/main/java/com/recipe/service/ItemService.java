@@ -1,11 +1,13 @@
 package com.recipe.service;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.ItemCategoryDto;
+import com.recipe.dto.ItemDetailDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.repository.ItemRepository;
 
@@ -17,6 +19,13 @@ import lombok.RequiredArgsConstructor;
 public class ItemService {
 	
 	private final ItemRepository itemRepository;
+	
+	@Transactional(readOnly = true)
+	public ItemDetailDto getItemDetailList(Long itemId){
+		ItemDetailDto getItemDetailList = itemRepository.getItemDetailList(itemId);
+		return getItemDetailList;
+	}
+	
 	
 	@Transactional(readOnly = true)
 	public Page<ItemCategoryDto> getItemCategoryList(Pageable pageable , ItemSearchDto itemSearchDto){

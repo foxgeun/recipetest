@@ -49,7 +49,7 @@
 			<th:block th:each="item , status:${category}">
 			<div class="item">
 				<div class="thmb">
-					<a href="#"><div class="img">
+					<a th:href="'/item/' + ${item.id}"><div class="img">
 					<div class="scale">
 					<img src="/img/장어덮밥.jpg" >
 					<span class="item-ranking">[[${status.index+1}]]</span>

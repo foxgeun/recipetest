@@ -31,6 +31,7 @@ public class ItemCategoryDto {
 	private int sale;
 	
 	private double retingAvg;
+	
 	private Long reviewCount;
 	
 	@QueryProjection
