@@ -3,7 +3,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 <head>
-
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
 <title>Contact Form | Gentelella Alela! by Colorlib</title>
 
@@ -13,6 +14,14 @@
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <!-- NProgress -->
 <link href="/css/nprogress.css" rel="stylesheet">
+
+<!-- Datatables -->
+
+<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="/css/scroller.bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="/css/custom.min.css" rel="stylesheet">
@@ -318,7 +327,7 @@
 																	<strong class="ellipsis">내용:
 																		[[${recipe.description}]]</strong>
 																</p></li>
-															<li><i class="fa fa-phone"></i> Phone #:</li>
+
 														</ul>
 													</div>
 													<div class="right col-md-5 col-sm-5 text-center">
@@ -329,19 +338,20 @@
 												<div class=" profile-bottom text-center">
 													<div class=" col-sm-6 emphasis">
 														<p class="ratings">
-															<a>4.0</a> <a href="#"><span class="fa fa-star"></span></a>
-															<a href="#"><span class="fa fa-star"></span></a> <a
-																href="#"><span class="fa fa-star"></span></a> <a
-																href="#"><span class="fa fa-star"></span></a> <a
-																href="#"><span class="fa fa-star-o"></span></a>
+															<a>[[${recipe.rating}]]</a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star-o"></span></a>
 														</p>
 													</div>
 													<div class=" col-sm-6 emphasis">
-														<button type="button" class="btn btn-success btn-sm">
-															<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
-														</button>
-														<button type="button" class="btn btn-primary btn-sm">
-															<i class="fa fa-user"> </i> View Profile
+
+														<button type="button" th:value="${recipe.id}"
+															onclick="deleteRecipe(this.value)"
+															class="btn btn-primary btn-sm">
+															<i class="fa fa-user"> </i> 삭제
 														</button>
 													</div>
 												</div>
@@ -366,6 +376,39 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="dataTables_info" id="datatable_info" role="status"
+									aria-live="polite">Showing 1 to 10 of 57 entries</div>
+							</div>
+							<div class="col-sm-7">
+								<div
+									th:with="start=${(recipes.number/maxPage)*maxPage + 1}
+			                 ,end=(${(recipes.totalPages == 0) ? 1 : (start + (maxPage - 1) < recipes.totalPages ? start + (maxPage - 1) : recipes.totalPages)})"
+									class="dataTables_paginate paging_simple_numbers"
+									id="datatable_paginate">
+									<ul class="pagination">
+										<li class="paginate_button previous disabled"
+											th:classappend="${recipes.first}?'disabled'"
+											id="datatable_previous"><a
+											th:onclick="'javascript:page(' + ${recipes.number - 1} +')'"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0">이전</a></li>
+
+										<li class="paginate_button active"
+											th:each="page: ${#numbers.sequence(start, end)}"
+											th:classappend="${recipes.number eq page-1}?'active':''"><a
+											aria-controls="datatable" data-dt-idx="1" tabindex="0"
+											th:inline="text"
+											th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a></li>
+
+										<li class="paginate_button next" id="datatable_next"
+											th:classappend="${recipes.last}?'disabled'"><a
+											th:onclick="'javascript:page(' + ${recipes.number + 1} +')'"
+											aria-controls="datatable" data-dt-idx="7" tabindex="0">다음</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- /page content -->
@@ -386,15 +429,33 @@
 
 <th:block layout:fragment="script">
 	<!-- jQuery -->
-	<script src="/js/jquery.min.js">
-		
-	</script>
+	<script src="/js/jquery.min.js"></script>
+
 	<!-- Bootstrap -->
 	<script src="/js/bootstrap.bundle.min.js"></script>
+
 	<!-- FastClick -->
 	<script src="/js/fastclick.js"></script>
+
 	<!-- NProgress -->
 	<script src="/js/nprogress.js"></script>
+
+	<!-- Datatables -->
+	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="/js/dataTables.bootstrap.min.js"></script>
+	<script src="/js/dataTables.buttons.min.js"></script>
+	<script src="/js/buttons.bootstrap.min.js"></script>
+	<script src="/js/buttons.flash.min.js"></script>
+	<script src="/js/buttons.html5.min.js"></script>
+	<script src="/js/buttons.print.min.js"></script>
+	<script src="/js/dataTables.fixedHeader.min.js"></script>
+	<script src="/js/dataTables.keyTable.min.js"></script>
+	<script src="/js/dataTables.responsive.min.js"></script>
+	<script src="/js/responsive.bootstrap.js"></script>
+	<script src="/js/dataTables.scroller.min.js"></script>
+	<script src="/js/jszip.min.js"></script>
+	<script src="/js/pdfmake.min.js"></script>
+	<script src="/js/vfs_fonts.js"></script>
 
 	<!-- Custom Theme Scripts -->
 	<script src="/js/custom.min.js"></script>
@@ -415,6 +476,44 @@
 			//주소 이동
 			location.href = "/admin/recipeMng/" + page + "?searchBy="
 					+ searchBy + "&searchQuery=" + searchQuery;
+		}
+
+		//삭제하기
+		function deleteRecipe(recipeId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+
+			if (!deleteConf)
+				return; //취소버튼 누르면
+
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			//request URL
+			var url = "/recipe/" + recipeId + "/delete";
+
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					//주문취소 후에 해당 페이지로 이동시켜준다.
+					location.href = '/admin/recipeMng';
+				},
+				error : function(jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
 		}
 	</script>
 </th:block>

@@ -1,6 +1,9 @@
 package com.recipe.dto;
 
+import org.modelmapper.ModelMapper;
+
 import com.querydsl.core.annotations.QueryProjection;
+import com.recipe.entity.Comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +32,17 @@ public class CommentDto {
 		this.title = title;
 		this.writer = writer;
 		this.commentContent = commentContent;
+	}
+
+	private static ModelMapper modelMapper = new ModelMapper();
+
+	// dto -> entity로 바꿈
+	public Comment createComment() {
+		return modelMapper.map(this, Comment.class);
+	}
+
+	// entity -> dto로 바꿈
+	public static CommentDto of(Comment comment) {
+		return modelMapper.map(comment, CommentDto.class);
 	}
 }

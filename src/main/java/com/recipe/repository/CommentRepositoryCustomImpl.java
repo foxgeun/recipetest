@@ -3,6 +3,7 @@ package com.recipe.repository;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
@@ -18,10 +19,10 @@ import com.recipe.entity.QRecipe;
 
 import jakarta.persistence.EntityManager;
 
-public class CommentRepositoryICustomImpl implements CommentRepositoryCustom {
+public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
 	private JPAQueryFactory queryFactory;
 
-	public CommentRepositoryICustomImpl(EntityManager em) {
+	public CommentRepositoryCustomImpl(EntityManager em) {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
@@ -40,18 +41,33 @@ public class CommentRepositoryICustomImpl implements CommentRepositoryCustom {
 	public Page<CommentDto> getAdminCommentPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		QComment c = QComment.comment;
 		QRecipe r = QRecipe.recipe;
+		QMember m = QMember.member;
 
 		// QComment와 QRecipe를 이용하여 댓글 작성자, 댓글 작성자의 이메일, 댓글이 작성된 글의 제목, 글 작성자, 댓글 내용을
 		// 조회하는 쿼리 작성
-		JPQLQuery<CommentDto> comments = queryFactory
-				.select(Projections.constructor(CommentDto.class, c.id, c.member.nickname, c.member.email, r.title,
-						r.member.nickname, c.commentContent))
-				.from(c).leftJoin(r).on(r.id.eq(c.recipe.id)).offset(pageable.getOffset()).limit(pageable.getPageSize())
-				.fetch();
+		JPQLQuery<CommentDto> query = queryFactory
+				.select(Projections.constructor(
+						CommentDto.class, 
+						c.id, 
+						c.member.nickname, 
+						c.member.email, 
+						c.recipe.title,
+						c.writer,
+						c.commentContent))
+						.from(c)
+						.leftJoin(c.recipe, r)
+						.leftJoin(c.member, m)
+						.where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
+						.groupBy(c.id, c.member.nickname, c.member.email, c.recipe.title, c.writer, c.commentContent)
+						.orderBy(m.id.desc());
+						
+				
+
+		List<CommentDto> content = query.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 
 		// 전체 결과 개수를 구하는 쿼리를 작성
 		long total = query.fetchCount();
 
-		return new PageImpl<>(comments, pageable, total); // 총 개수(total)를 계산하여 사용해야 합니다.
+		return new PageImpl<>(content, pageable, total); // 총 개수(total)를 계산하여 사용해야 합니다.
 	}
 }

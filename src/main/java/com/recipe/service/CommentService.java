@@ -19,9 +19,9 @@ public class CommentService {
 	private final CommentRepository commentRepository;
 
 	@Transactional(readOnly = true)
-	public Page<CommentDto> getAdminRecipePage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
-		Page<CommentDto> getAdminCommentPage = commentRepository.getAdminCommentPage(recipeSearchDto, pageable);
-		return getAdminCommentPage;
+	public Page<CommentDto> getAdminCommentPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+		Page<CommentDto> commentPage = commentRepository.getAdminCommentPage(recipeSearchDto, pageable);
+		return commentPage;
 
 	}
 

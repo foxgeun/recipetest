@@ -48,10 +48,22 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
 		 */
 
 		JPQLQuery<MemberDto> query = queryFactory
-				.select(Projections.constructor(MemberDto.class, m.id, m.nickname, m.email, m.password, m.phoneNumber,
-						c.count().as("allCommentCount"), r.count().as("allRecipeCount"), m.regTime))
+				.select(Projections.constructor(
+						MemberDto.class, 
+						m.id, 
+						m.nickname, 
+						m.email, 
+						m.password, 
+						m.phoneNumber,
+						c.count().as("allCommentCount"), 
+						r.count().as("allRecipeCount"),
+						m.regTime))
 
-				.from(m).leftJoin(c).on(c.member.eq(m)).leftJoin(r).on(r.member.eq(m))
+				.from(m)
+				.leftJoin(c)
+				.on(c.member.eq(m))
+				.leftJoin(r)
+				.on(r.member.eq(m))
 				.where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
 				.groupBy(m.id, m.nickname, m.email, m.password, m.phoneNumber, m.regTime).orderBy(m.id.desc());
 
