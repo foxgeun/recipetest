@@ -387,3 +387,104 @@ p {
     line-height: 0 !important;
     opacity: 0.7 ;
 }
+
+.D_goods_box {
+    margin: 40px auto 0;
+}
+
+
+.photoreview_tit2 {
+    border-bottom: 1px solid #222;
+    padding: 10px 0 15px 12px;
+}
+
+.photoreview_tit2_sort {
+    display: inline-block;
+}
+
+.photoreview_tit2_sort a {
+    display: inline-block;
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+.photoreview_tit2_sort a.active span {
+    color: #222;
+}
+
+.photoreview_tit2_sort a span {
+    background: url(//recipe1.ezmember.co.kr/img/icon_dot3.png?v.1) right 4px no-repeat;
+    background-size: 1px 14px;
+    line-height: 0;
+    padding: 0 12px;
+    color: #888;
+    font-size: 15px;
+}
+
+.photoreview_tit2_sort a:last-child span {
+    background: none;
+}
+
+.review_list li {
+    border-bottom: 1px solid #ebebeb;
+    padding: 30px 10px 40px;
+}
+
+.review_list_name {
+    font-size: 16px;
+    color: #000;
+    padding-bottom: 8px;
+}
+
+.goods2_info_price_rv {
+    vertical-align: middle;
+    margin-left: -3px;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.goods2_info_price_rv_star {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6.png?v.2) 1px center no-repeat;
+    background-size: 130px;
+    width: 125px;
+    text-indent: -9999px;
+    vertical-align: middle;
+}
+
+.goods2_info_price_rv_star_on {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6_on.png?v.2) 1px center no-repeat;
+    background-size: 130px;
+    height: 24px;
+    display: block;
+}
+
+.review_list_date {
+    color: #888;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.review_list_cont {
+    font-size: 16px;
+    padding-top: 18px;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.review_list_pic {
+    padding-top: 22px;
+}
+
+.review_list_pic a {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.review_list_pic img {
+    margin: 0;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+

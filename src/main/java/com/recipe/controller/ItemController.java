@@ -27,7 +27,7 @@ public class ItemController {
 	private final ItemService itemService;
 	
 //	상품페이지
-	@GetMapping(value= {"/item/total" , "/item/total/{page}"})
+	@GetMapping(value= {"item/total" , "item/total/{page}"})
 	public String Item(ItemSearchDto itemSearchDto , @PathVariable("page") Optional<Integer> page ,
 			Model model) {
 		

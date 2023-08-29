@@ -101,7 +101,7 @@
             <li><a href="#page-qna" id="tab-qna" onclick="clickTab('qna');" class="link">문의<p>(20)</p></a></li>
         </ul>
         <div class="D_goods_info">
-        <div class="info_cont detail" id="goodsDetailInfo" style="padding-bottom:100px; height:2500px;">
+        <div class="info_cont detail" id="goodsDetailInfo" style="padding-bottom:100px; height:1000px;">
             <div class="detail_explain_box">
                 <div class="image-manual">
 					                   
@@ -120,9 +120,37 @@
                 <a href="javascript:ezhld_detail_more();" class="down" id="toggleLink">상세정보 더보기</a>
             </div>
         </div>
-        <div id="page-review" style="height: 40px;"></div>
     </div>
     </div>
+        
+        <div class="D_goods_box" id="D_goodsReview_box" style="display:block;padding-bottom: 90px;">
+                <div class="photoreview_tit2">
+                    <div class="photoreview_tit2_sort">
+                        <a href="javascript:viewReviewSort('best');" id="sortBest" class="active"><span>베스트순</span></a>
+                        <a href="javascript:viewReviewSort('date');" id="sortDate"><span>최신순</span></a>
+                    </div>
+                </div>
+    
+                <!--div class="box_tit">
+                    <b><a name="ezhld_reviews">쇼핑후기</a></b><small>24</small>
+                    <div class="rmn_tab">
+                        <a href="javascript:viewReviewSort('best');" id="sortBest" class="active">베스트순</a><a href="javascript:viewReviewSort('date');" id="sortDate">최신순</a>
+                    </div>
+                </div-->
+                <div class="detail_board_box js_board_goodsreview_view" data-bdid="goodsreview" style="">
+                    <div class="item_list" id="ezhld_reviews_list"><ul class="review_list"><li><div class="review_list_top"><div class="review_list_name">쿠쿠맘</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.27</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/c23adac57fabc79c725"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/4d45d3c0f3d3a2e1393"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/adfe50bcf4602967971"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/e345081c50dd1c8f168"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/c9a9fb216c75fad4291"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/4a84d2ce36f97d56213"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/ad59ec774e827141122"></a></div><div class="review_list_cont">의자 아래 먼지며 머리카락이며 쌓여 있었는데 손으로 일일이 닦는 게 힘들었는데 의자 아래까지 돌려가며 닦아주어서 정말 정말 신기했어요. 저희 집 15평인데 작아도 정말 알차게 청소를 해 주네요. 망설이지 마시고 주문하세요!!!</div><div id="photoMore_205857" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">으니주니빠</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.04.29</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,203214,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/goods/1000035715/review/thumb/1646aa972fcbadb4728"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,203214,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/goods/1000035715/review/thumb/53788970265d9d7e456"></a></div><div class="review_list_cont">청소기 자체에 대해서는 매우 만족하고 가성비 좋습니다.
+청소 잘합니다. 맵 빨리 설정되며 물걸리 좋습니다.
+다만 충전기선 등은 피하지 못하고 먹고 ㅎㅎ 사용설명서가 꼼꼼히 작성되지 못한 아쉬움이 있습니다.</div><div id="photoMore_203214" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">gmon****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.08.01</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,207414,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230801_93/1690878813796n7x4S_JPEG/image.jpg?type=w640"></a></div><div class="review_list_cont">손세척안하고혼자걸레세척까지되는점이편해요~!
+걸레는 여러개 개별구매하고싶어요~</div><div id="photoMore_207414" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">kty9****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.26</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205794,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230626_126/1687756006173atOjR_JPEG/20230626_101509.jpg?type=w640"></a></div><div class="review_list_cont">역시 삶의질을 올려주는 삼신기중에 원탑이네요! 신경안써도 되고 너무좋아요!</div><div id="photoMore_205794" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">dame****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.04</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,204781,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230604_130/1685832334086TM0m1_JPEG/1685832320122.jpg?type=w640"></a></div><div class="review_list_cont">크기가 큰 만큼 좋네요 ㅎㅎ 먼지스테이션만 있던 로봇청소기에서 바꿨어요 마니파세요</div><div id="photoMore_204781" class="photoMore" style="display:none;z-index:0"></div></li></ul><div class="review_list_more js_board_goodsreview_more"><a data-next-page="2" data-review-sort="best" class="ezhld_more_btn">더보기<b>5</b><span>/</span>24</a></div><div data-review-totalcnt="24" class="review_total_cnt"></div></div>
+                </div>
+                <!--div class="item_list_head" style="margin: 18px 0px; padding-bottom: 4px; " align="center">
+                    <div class="item_list_write_box" style="width:30%;border-bottom: 0;">
+                        <a href="javascript:gd_open_write_popup('goodsreview', '1000035715')" class="detail_write_btn" style="display:none;"><img src="https://recipe1.ezmember.co.kr/img/mobile/icon_write.png" width="25">후기 작성</a>
+                    </div>
+                </div-->
+            </div>
+        
+        
         
     </div>
 	
@@ -177,18 +205,29 @@
 		  });
 		});
 	
-	function ezhld_detail_more() {
-	    var goodsDetailInfo = document.getElementById("goodsDetailInfo");
-	    var toggleLink = document.getElementById("toggleLink");
-	    
-	    if (goodsDetailInfo.style.height === "2500px") {
-	        goodsDetailInfo.style.height = ""; // 기본값으로 변경
-	        toggleLink.textContent = "상세정보 더보기"; // 텍스트 변경
-	    } else {
-	        goodsDetailInfo.style.height = "2500px"; // 높이 변경
-	        toggleLink.textContent = "상세정보 접기"; // 텍스트 변경
-	    }
-	}
+function ezhld_detail_more() {
+  var toggleLink = document.getElementById("toggleLink");
+  var goodsDetailInfo = document.getElementById("goodsDetailInfo");
+  
+  var targetPosition = document.getElementById("goods_tab").offsetTop;
+
+  if (goodsDetailInfo.style.overflow === "visible") {
+    // 현재 상태가 '더보기' 상태일 때
+    toggleLink.innerText = "상세정보 더보기";
+    goodsDetailInfo.style.height = "1000px";
+    goodsDetailInfo.style.overflow = "hidden";
+      window.scrollTo({
+    top: targetPosition,
+    behavior: "smooth" // 부드러운 스크롤 효과 적용
+  });
+    
+  } else {
+    // 현재 상태가 '덥기' 상태일 때
+    toggleLink.innerText = "상세정보 덥기";
+    goodsDetailInfo.style.height = "100%";
+    goodsDetailInfo.style.overflow = "visible";
+  }
+}
 	</script>
 
 
