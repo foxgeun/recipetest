@@ -26,7 +26,7 @@ public class RecipeNewDto {
 
 	private String level;
 	
-	private String category;
+	private String categorys;
 
 	private String imageUrl;
 
