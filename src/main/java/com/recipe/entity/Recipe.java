@@ -57,7 +57,11 @@ public class Recipe extends BaseTimeEntity {
     
     private String imageUrl; // 메인이미지 (이미지 URL 필드 추가) 
     
+    
+    @Column(length = 1000)
     private String description;
+    
+    private String category;
     
     @Enumerated(EnumType.STRING)
 	private CategoryEnum categoryEnum;

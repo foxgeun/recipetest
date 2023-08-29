@@ -1,6 +1,5 @@
 package com.recipe.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -10,39 +9,36 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+
 import com.recipe.handler.LoginSuccessHandler;
 import com.recipe.oauth.PrincipalOauth2UserService;
 
-import lombok.RequiredArgsConstructor;
 
-
-
-
-
-
-@RequiredArgsConstructor
+@Configuration
 @EnableWebSecurity //spring security filterChain이 자동으로 포함되게 한다
 public class SecurityConfig {
 	
-	@Autowired
-	@Lazy
-	private PrincipalOauth2UserService principalOauth2UserService;
+	private final PrincipalOauth2UserService principalOauth2UserService;
 
+	@Lazy
 	public SecurityConfig(PrincipalOauth2UserService principalOauth2UserService) {
 	    this.principalOauth2UserService = principalOauth2UserService;
 	}
-	@Autowired
-	private LoginSuccessHandler loginSuccessHandler;
 	
 	@Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
 
+	@Bean
+    public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    }
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http,  MvcRequestMatcher.Builder mvc ) throws Exception {
@@ -60,10 +56,10 @@ public class SecurityConfig {
 				) 
 		.oauth2Login(oauth2 -> oauth2 
 				.loginPage("/members/login")
-				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-				.userService(principalOauth2UserService))
-				.successHandler(loginSuccessHandler)
+				.successHandler(oauth2AuthenticationSuccessHandler())
 				.failureUrl("/members/login/error")
+				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+						.userService(principalOauth2UserService))
 				)
 		.formLogin(formLogin -> formLogin //2. 로그인에 관련된 설정
 				.loginPage("/members/login") //로그인 페이지 URL 설정
