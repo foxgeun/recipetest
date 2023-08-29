@@ -50,7 +50,7 @@ public class Recipe {
     private String imgName; //이미지 이름
     
     @Enumerated(EnumType.STRING) //레시피타입별 카테고리
-	private CategoryEnum categorys;
+	private CategoryEnum categoryType;
     
     @Enumerated(EnumType.STRING) //레시피 등록,임시저장
     private WritingStatus writingStatus;
