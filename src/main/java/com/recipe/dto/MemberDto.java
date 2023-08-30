@@ -48,4 +48,6 @@ public class MemberDto {
 	private String oriImgName; //원본이미지 이름
 	
 	private String imgName; //바뀐 사진이름(보안을위해)
+	
+	private String name;
 }

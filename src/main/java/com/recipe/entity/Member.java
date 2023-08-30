@@ -43,10 +43,8 @@ public class Member extends BaseEntity {
 	@Column(unique = true) //중복된 값이 들어올 수 없다
 	private String email;
 	
-	@Column(nullable = false)
-	private String password;
+	private String password; //소셜 멤버 패스워드는 null값을 받아서 @Column(nullable = false)제거
 	
-	@Column(nullable = false)
 	private String nickname;
 	
 	@Column(nullable = false)

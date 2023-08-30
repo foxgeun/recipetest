@@ -50,7 +50,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	    	            //name password 추가
 	    	            //dto에 provide 등 추가
 	    	            socialMemberDto.setEmail(email);
-	    	            socialMemberDto.setPassword(password);
+	    	            //socialMemberDto.setPassword(password);
 //	    	            socialMemberDto.setPasswordConfirm(password);
 	    	            socialMemberDto.setProvider(provider);
 	    	            socialMemberDto.setProviderId(providerId);
@@ -66,8 +66,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	    	            	String redirectUrl = "/members/snsMember?email=" + URLEncoder.encode(socialMemberDto.getEmail(), "UTF-8") 
 	    	            	+ "&provider=" + URLEncoder.encode(socialMemberDto.getProvider(), "UTF-8" )
 	    	            	+ "&providerId=" + URLEncoder.encode(socialMemberDto.getProviderId(), "UTF-8")
-	    	            	+ "&name=" + URLEncoder.encode(socialMemberDto.getName(), "UTF-8")
-	    	            	+ "&password=" + URLEncoder.encode(socialMemberDto.getPassword(), "UTF-8");
+	    	            	+ "&name=" + URLEncoder.encode(socialMemberDto.getName(), "UTF-8");
+	    	            	//+ "&password=" + URLEncoder.encode(socialMemberDto.getPassword(), "UTF-8");
 	    	            			
 	    	            	response.sendRedirect(redirectUrl);
 	    	            } else {

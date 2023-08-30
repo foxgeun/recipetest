@@ -201,6 +201,7 @@ p{
 				<input type="file" class="in" id="profileImgFile" name="imgUrl" accept="image/*">
 			</div>
 			<input type="hidden" th:field="*{introduce}">
+			<input type="hidden" th:field="*{name}">
 		<button type="submit" id="btn" class="in" disabled>가입하기</button>
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		</form>

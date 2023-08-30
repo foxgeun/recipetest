@@ -3,6 +3,9 @@ package com.recipe.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.WritingStatus;
 import com.recipe.dto.RecipeNewDto;
+import com.recipe.oauth.PrincipalDetails;
 import com.recipe.service.RecipeService;
 
 import jakarta.validation.Valid;
@@ -23,20 +27,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecipeController {
 
-	
 	private final RecipeService recipeService;
-	//레시피 등록화면
+
+	// 레시피 등록화면
 	@GetMapping(value = "/recipe/new")
-	public String recipe( Model model ) {
-		
+	public String recipe(Model model) {
+
 		RecipeNewDto recipeNewDto = new RecipeNewDto();
-		
-		model.addAttribute("recipeNewDto" , recipeNewDto);
-		
+
+		model.addAttribute("recipeNewDto", recipeNewDto);
+
 		return "recipe/new";
 	}
-	
-	//레시피 등록기능
+
+	// 레시피 등록기능
 	@PostMapping(value = "/recipe/new")
 	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
@@ -45,7 +49,7 @@ public class RecipeController {
 			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
 			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile,
 			@RequestParam("categoryType") String categoryTypeString,
-			@RequestParam("writingStatus")String writingStatus,
+			@RequestParam("writingStatus")String writingStatus, Authentication authentication,
 			Principal principal) {
 		
 		CategoryEnum categoryType = CategoryEnum.fromString(categoryTypeString);
@@ -77,6 +81,7 @@ public class RecipeController {
 		System.out.println(recipeOrderImgFile.size());
 		System.out.println(recipeOrderContentList.size());
 		
+		 
 		try { 
 			recipeService.saveRecipe(recipeNewDto, recipeImgFile , RecipeingreMaterialList, 
 					RecipeingreNameList , recipeOrderContentList , recipeOrderImgFile ,principal );
@@ -85,9 +90,8 @@ public class RecipeController {
 		}
 		
 		
+		
 		return "redirect:/";
 	}
-	
-	
-	
+
 }

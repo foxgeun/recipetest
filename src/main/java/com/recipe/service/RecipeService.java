@@ -3,6 +3,7 @@ package com.recipe.service;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
@@ -12,6 +13,7 @@ import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeIngre;
 import com.recipe.entity.RecipeOrder;
+import com.recipe.oauth.PrincipalDetails;
 import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
@@ -35,16 +37,22 @@ public class RecipeService {
 	
 	private final MemberRepository memberRepository;
 	
+	
 	private String recipeImgLocation = "C:/recipe/memberRecipe";
 	
 	public Long saveRecipe(RecipeNewDto recipeNewDto, MultipartFile recipeImgFile,
 			List<String> RecipeingreMaterialList , List<String>RecipeingreNameList,
-			List<String>recipeOrderContentList, List<MultipartFile>recipeOrderImgFile, Principal principal ) throws Exception {
-		
+			List<String>recipeOrderContentList, List<MultipartFile>recipeOrderImgFile, Principal principal) throws Exception {
 		//로그인된 사용자의 이메일 가져옴
 		String email = principal.getName();
+		Member member;
 		
-		Member member = memberRepository.findByEmail(email);
+		if(email.contains("@")) {
+			
+			member = memberRepository.findByEmail(email);
+		} else {
+		    member = memberRepository.findByname(email);
+		}
 		
 		Recipe recipe = recipeNewDto.createRecipe();
 		recipe.setMember(member);

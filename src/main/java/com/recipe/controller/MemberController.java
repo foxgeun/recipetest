@@ -61,7 +61,7 @@ public class MemberController {
 	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("provider") String provider, 
 			@RequestParam("providerId") String providerId, 
 			@RequestParam("name") String name,
-			@RequestParam("password") String password,Model model ) {
+			Model model ) {
 		SocialMemberDto socialMemberDto = new SocialMemberDto();
 		
 				
@@ -79,7 +79,7 @@ public class MemberController {
 		
 		System.out.println("aaaaaaaaa111=" + socialMemberDto.getEmail());
 		System.out.println("aaaaaaaaa222=" + socialMemberDto.getName());
-		System.out.println("패스워드" + socialMemberDto.getPassword());
+		//System.out.println("패스워드" + socialMemberDto.getPassword());
 		
 		return "member/snsMemberForm";
 	}
