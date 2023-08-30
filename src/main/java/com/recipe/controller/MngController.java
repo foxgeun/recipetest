@@ -52,13 +52,14 @@ public class MngController {
 	public String recipeMng(RecipeSearchDto recipeSearchDto, @PathVariable("page") Optional<Integer> page,
 			Model model) {
 
-		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
 
 		Page<RecipeDto> recipeDtoList = recipeService.getAdminRecipePage(recipeSearchDto, pageable);
 
 		model.addAttribute("recipes", recipeDtoList);
 		model.addAttribute("recipeSearchDto", recipeSearchDto);
 		model.addAttribute("maxPage", 5);
+		model.addAttribute("recipeSearchDto" , recipeSearchDto);
 
 		return "mng/recipeMng";
 	}

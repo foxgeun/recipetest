@@ -76,14 +76,13 @@ public class RecipeListRepositoryCustomImpl implements RecipeListRepositoryCusto
 				.fetch();
 
 		Long total = queryFactory
-				.select(r.id.countDistinct())
+				.select(Wildcard.count)
 				.from(r)
 				.join(r.member , m)
 				.leftJoin(c).on(r.id.eq(c.recipe.id))
 				.where(searchByLike(recipeSearchDto.getSearchBy(),
 						recipeSearchDto.getSearchQuery()))
-				.groupBy(r.id, r.title, r.description, r.member.nickname, r.imageUrl)
-				.fetchFirst();
+				.fetchOne();
 		
 		if (total == null) {
 		    total = 0L; // 검색 결과가 없을 때 0으로 초기화

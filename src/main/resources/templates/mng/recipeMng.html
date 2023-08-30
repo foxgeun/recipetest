@@ -6,28 +6,27 @@
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
-<title>Contact Form | Gentelella Alela! by Colorlib</title>
-
-<!-- Bootstrap -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link href="/css/font-awesome.min.css" rel="stylesheet">
-<!-- NProgress -->
-<link href="/css/nprogress.css" rel="stylesheet">
-
-<!-- Datatables -->
-
-<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<link href="/css/buttons.bootstrap.min.css" rel="stylesheet">
-<link href="/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-<link href="/css/responsive.bootstrap.min.css" rel="stylesheet">
-<link href="/css/scroller.bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom Theme Style -->
-<link href="/css/custom.min.css" rel="stylesheet">
 </head>
 
 <th:block layout:fragment="css">
+	<!-- Bootstrap -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="/css/nprogress.css" rel="stylesheet">
+
+	<!-- Datatables -->
+
+	<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/buttons.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/responsive.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="/css/custom.min.css" rel="stylesheet">
+
 	<style>
 </style>
 </th:block>
@@ -287,6 +286,8 @@
 							</form>
 						</div>
 
+						<input type="hidden" th:value="${searchBy}" id="searchBy">
+						<input type="hidden" th:value="${searchQuery}" id="searchQuery">
 						<div class="clearfix"></div>
 
 						<div class="row">
@@ -382,13 +383,15 @@
 									aria-live="polite">Showing 1 to 10 of 57 entries</div>
 							</div>
 							<div class="col-sm-7">
+								<input class="dd" th:value="${recipes.totalPages}"
+									style="display: none">
 								<div
 									th:with="start=${(recipes.number/maxPage)*maxPage + 1}
 			                 ,end=(${(recipes.totalPages == 0) ? 1 : (start + (maxPage - 1) < recipes.totalPages ? start + (maxPage - 1) : recipes.totalPages)})"
 									class="dataTables_paginate paging_simple_numbers"
 									id="datatable_paginate">
-									<ul class="pagination">
-										<li class="paginate_button previous disabled"
+									<ul class="pagination ">
+										<li class="paginate_button previous"
 											th:classappend="${recipes.first}?'disabled'"
 											id="datatable_previous"><a
 											th:onclick="'javascript:page(' + ${recipes.number - 1} +')'"
@@ -470,12 +473,18 @@
 
 		//페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다
 		function page(page) {
-			var searchBy = $("#searchBy").val();
-			var searchQuery = $("#searchQuery").val();
+			var input = $(".dd").val();
+			input = input - 1
+			if (page >= 0 && page <= input) {
+				var searchBy = $("#searchBy").val();
+				var searchQuery = $("#searchQuery").val();
 
-			//주소 이동
-			location.href = "/admin/recipeMng/" + page + "?searchBy="
-					+ searchBy + "&searchQuery=" + searchQuery;
+				//주소 이동
+				location.href = "/admin/recipeMng/" + page
+
+				+ "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
+			}
+
 		}
 
 		//삭제하기

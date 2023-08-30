@@ -381,6 +381,63 @@
 
 
 						</div>
+
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="dataTables_info" id="datatable_info" role="status"
+									aria-live="polite">Showing 1 to 10 of 57 entries</div>
+							</div>
+							<div class="col-sm-7">
+								<input class="dd" th:value="${comments.totalPages}"
+									style="display: none">
+								<div
+									th:with="start=${(comments.number/maxPage)*maxPage + 1}
+			                 ,end=(${(comments.totalPages == 0) ? 1 : (start + (maxPage - 1) < comments.totalPages ? start + (maxPage - 1) : comments.totalPages)})"
+									class="dataTables_paginate paging_simple_numbers"
+									id="datatable_paginate">
+									<ul class="pagination ">
+										<li class="paginate_button previous"
+											th:classappend="${comments.first}?'disabled'"
+											id="datatable_previous"><a
+											th:onclick="'javascript:page(' + ${comments.number - 1} +')'"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0">이전</a></li>
+
+										<li class="paginate_button active"
+											th:each="page: ${#numbers.sequence(start, end)}"
+											th:classappend="${comments.number eq page-1}?'active':''"><a
+											aria-controls="datatable" data-dt-idx="1" tabindex="0"
+											th:inline="text"
+											th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a></li>
+
+										<li class="paginate_button next" id="datatable_next"
+											th:classappend="${comments.last}?'disabled'"><a
+											th:onclick="'javascript:page(' + ${comments.number + 1} +')'"
+											aria-controls="datatable" data-dt-idx="7" tabindex="0">다음</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</div>
 				</div>
 				<!-- /page content -->
@@ -424,12 +481,16 @@
 
 		//페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다
 		function page(page) {
-			var searchBy = $("#searchBy").val();
-			var searchQuery = $("#searchQuery").val();
+			var input = $(".dd").val();
+			input = input - 1
+			if (page >= 0 && page <= input) {
+				var searchBy = $("#searchBy").val();
+				var searchQuery = $("#searchQuery").val();
 
-			//주소 이동
-			location.href = "/admin/commentMng/" + page + "?searchBy="
-					+ searchBy + "&searchQuery=" + searchQuery;
+				//주소 이동
+				location.href = "/admin/commentMng/" + page + "?searchBy="
+						+ searchBy + "&searchQuery=" + searchQuery;
+			}
 		}
 	</script>
 </th:block>
