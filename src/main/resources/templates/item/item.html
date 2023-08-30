@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<div layout:fragment="content">
+
+	<th:block layout:fragment="css">
+
+		<link rel="stylesheet" href="/css/itemCategory.css">
+
+	</th:block>
+	
+	<div class="site-section mt-5 mb-5">
+	<div class="container">
+		
+			<div class="search_form pb-3">
+		<th:block th:object="${itemSearchDto}">
+					 <input type="text" class="form-control form_search"
+						th:field="*{searchQuery}" placeholder="검색어를 입력해주세요">
+					<button id="searchBtn" type="submit" class="form_search_bt">검색</button>
+		</th:block>
+				</div>
+			<div class="category_form">
+				<a onclick="javascript:dynamicSearch1('')">전체</a>
+				<a onclick="javascript:dynamicSearch1('푸드')">푸드</a>
+				<a onclick="javascript:dynamicSearch1('키친')">키친</a>
+				<a onclick="javascript:dynamicSearch1('리빙')">리빙</a>
+				<a onclick="javascript:dynamicSearch1('가전')">가전</a>
+				
+				
+			</div>
+	
+	
+		<div class="thmb_list02 pt60">
+		<div class="search_sort">
+			<p>검색결과 <strong></strong>건 조회</p>
+			<ul class="sort_util">
+				<li class="active" ><a onclick="javascript:dynamicSearch2('order')">최신순</a></li>
+				<li class="active" ><a onclick="javascript:dynamicSearch2('reviewCount')">리뷰많은순</a></li>
+				<li class="active" ><a onclick="javascript:dynamicSearch2('reviewAvg')">평점순</a></li>
+			</ul>
+			  
+		</div>
+			<div class="list_box">
+		<div class="list_area">
+			
+			
+			<th:block th:each="item , status:${itemList}">
+			<div class="item">
+				<div class="thmb">
+					<a th:href="'/item/' + ${item.id}"><div class="img">
+					<div class="scale">
+					<img th:src="${item.imgUrl}" >
+					<span class="item-ranking"></span>
+					</div>
+					</div>
+						
+					</a>
+				</div>
+				<div class="info">
+					<p class="name">[[${item.itemNm}]]</p>
+
+					<div class="price_info"> <span class="discount">[[${item.oriprice}]]</span> 
+					<div class="sales_price"> 
+					<p>[[${item.price}]]</p><br>
+					<span></span>
+					<p class="ori_price"></p>  
+					</div>
+					  </div>
+					<div class="info_title ellip "> <p>평점 : </p>  </div>
+							 
+				</div>
+			</div>
+			</th:block>
+			
+			
+		</div>
+<!-- 			<div class="book_page">
+						<nav
+							th:with="start=${(category.number/maxPage)*maxPage + 1}
+			                 ,end=(${(category.totalPages == 0) ? 1 : (start + (maxPage - 1) < category.totalPages ? start + (maxPage - 1) : category.totalPages)})"
+							aria-label="Page navigation example">
+							<ul class="pagination d-flex justify-content-center">
+
+								<li class="page-item" th:classappend="${category.first}?'disabled'">
+									<a class="page-link"
+									th:onclick="'javascript:page(' + ${category.number - 1} +')'"><<</a>
+								</li>
+
+								<li class="page-item"
+									th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${category.number eq page-1}?'active':''"><a
+									class="page-link" th:inline="text"
+									th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
+								</li>
+
+								<li class="page-item" th:classappend="${category.last}?'disabled'">
+									<a class="page-link"
+									th:onclick="'javascript:page(' + ${category.number + 1} +')'">>></a>
+								</li>
+							</ul>
+						</nav>
+					</div> -->
+		</div>
+		</div>
+    	
+	</div>
+</div>
+	
+	  <input type="hidden" th:value="${itemSearchDto.itemCategoryEnum}" id="itemCategoryEnum"> 
+	  <input type="hidden" th:value="${itemSearchDto.type}" id="type"> 
+	
+</div>
+
+
+
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+	
+	$(document).ready(function() {
+		
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+			
+	 });
+	
+	
+	 function dynamicSearch1(itemCategoryEnum){
+		
+		var type = $("#type").val();
+		var searchBy = $("#searchBy").val();
+		var searchQuery = $("#searchQuery").val();
+
+		//주소 이동
+		location.href = "/item/" + 0 + "?type=" + type 
+				+ "&itemCategoryEnum=" + itemCategoryEnum 
+				+ "&searchBy=" + searchBy
+				+ "&searchQuery=" + searchQuery + "";
+		
+	}
+	
+	function dynamicSearch2(type){
+		
+		
+		
+		var itemCategoryEnum = $("#itemCategoryEnum").val();
+		var searchBy = $("#searchBy").val();
+		var searchQuery = $("#searchQuery").val();
+
+		//주소 이동
+		location.href = "/category/" + 0 + "?type=" + type 
+				+ "&itemCategoryEnum=" + itemCategoryEnum 
+				+ "&searchBy=" + searchBy
+				+ "&searchQuery=" + searchQuery + "";
+		
+	}
+	
+	
+	function page(page) {
+		//입력한 값을 전부 가지고 온다.
+		
+		var itemCategoryEnum = $("#itemCategoryEnum").val();
+		var type = $("#type").val();
+		var searchBy = $("#searchBy").val();
+		var searchQuery = $("#searchQuery").val();
+
+		//주소 이동
+		location.href = "/category/" + page + "?type=" + type 
+				+ "&itemCategoryEnum=" + itemCategoryEnum 
+				+ "&searchBy=" + searchBy
+				+ "&searchQuery=" + searchQuery + "";
+	} 
+		
+	</script>
+	</th:block>
+
+
+</html>

@@ -13,29 +13,25 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name="review")
 @Getter
 @Setter
 @ToString
-public class Review {
-
+@Entity
+@Table(name="item_detail_img")
+public class ItemDetailImg {
+	
 	@Id
-	@Column(name="review_id")
+	@Column(name="item_detal_img_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private double rating;
+	private String imgUrl;
 	
-	private String content;
+	private String imgName;
 	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipe_id")
-	
-	private Recipe recipe;
+	private String imgOriName;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@JoinColumn(name = "item_id")
+	private Item item;
 }

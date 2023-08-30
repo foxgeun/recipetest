@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.recipe.entity.Item;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeIngre;
 import com.recipe.entity.RecipeOrder;
+import com.recipe.repository.ItemRepository;
 import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
 import com.recipe.repository.RecipeRepository;
@@ -40,6 +42,8 @@ public class RecipeController {
 	private final RecipeRepository recipeRepository;
 	private final RecipeOrderRepository recipeOrderRepository;
 	private final RecipeIngreRepository recipeIngreRepository;
+	private final ItemRepository itemRepository;
+	
 	
 	@GetMapping(value = "/recipe/{Id}")
 	public String recipe(Model model, @PathVariable("Id") Long Id) {
@@ -90,8 +94,8 @@ public class RecipeController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/crawl")
-	public String crawlAndDisplayRecipes() {
+	@GetMapping("/crawlRecipe")
+	public String crawlRecipes() {
 
 
 	    
@@ -280,6 +284,58 @@ public class RecipeController {
 	    
 
 	    return "index";
+	}
+	
+	
+	@GetMapping("/crawlStore")
+	public String crawlStore() {
+	
+		 System.setProperty("webdriver.edge.driver", "C:\\Users\\EZEN-36\\Downloads\\edgedriver_win64\\msedgedriver.exe");
+		    WebDriver driver = new EdgeDriver();
+	    	
+	    	driver.get("https://wtable.co.kr/products?category_id=2");
+		
+	    	 List<WebElement> iHkfkzElements = driver.findElements(By.cssSelector(".iHkfkz"));
+	 	    
+	 	    for (WebElement iHkfkzElement : iHkfkzElements) {
+	 	    	
+	 	    	
+	 	    	Item item = new Item();
+	 	    	
+	 	    	WebElement imgElements = iHkfkzElement.findElement(By.cssSelector("img"));
+	 	        String imgValue = imgElements.getAttribute("src");
+	 	        System.out.println(imgValue);
+	 	    	
+	 	    	WebElement nameElements = iHkfkzElement.findElement(By.cssSelector(".name"));
+	 	        String nameValue = nameElements.getText();
+	 	        System.out.println(nameValue);
+	 	        
+	 	        try {
+		 	        WebElement oripriceElements = iHkfkzElement.findElement(By.cssSelector(".origin_price"));
+		 	        String oripriceValue = oripriceElements.getText();
+		 	       item.setOriprice(oripriceValue);				
+				} catch (Exception e) {
+					 e.printStackTrace();
+				}
+	 	        
+
+	 	        
+	 	        
+	 	        
+	 	    	WebElement priceElements = iHkfkzElement.findElement(By.cssSelector(".price_info"));
+	 	        String priceValue = priceElements.getText();
+	 	        System.out.println(priceValue);
+	 	        
+	 	       item.setImgUrl(imgValue);
+	 	       item.setItemNm(nameValue);
+	 	       item.setPrice(priceValue);
+	 	       itemRepository.save(item);
+	 	        
+	 	        
+	 	        
+	 	        
+	 	    }
+		return "index";
 	}
 	
 }

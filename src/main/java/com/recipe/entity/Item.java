@@ -32,7 +32,11 @@ public class Item extends BaseEntity {
 	
 	private String itemSubNm; // 상품 간단소개이름
 	
-	private int price; // 가격
+	private String imgUrl; //사진
+	
+	private String oriprice;
+	
+	private String price; // 가격
 	
 	private int stockNumber; //재고
 	
@@ -43,9 +47,6 @@ public class Item extends BaseEntity {
 	
 	@Enumerated(EnumType.STRING) //상품상태 sell , sold_out
 	private ItemSellStatus itemSellStatus;
-	
-	
-	
 	
 	
 }

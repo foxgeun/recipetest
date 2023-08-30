@@ -1,0 +1,489 @@
+@charset "UTF-8";
+
+.s_view_pic {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.s_view_pic_zoom img {
+    width: 600px;
+    height: auto;
+}
+
+.s_view_pic_thumb {
+    width: 600px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.item_photo_slide {
+    position: relative;
+    margin: 20px 0 0 0;
+}
+
+.s_view_pic_thumb_arrow {
+    display: inline-block;
+    width: 35px;
+}
+
+.item_photo_slide .slick_goods_prev, .item_photo_slide .slick_goods_next {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    padding: 10px;
+    z-index: 150;
+}
+
+.s_view_info {
+    display: inline-block;
+    margin: 0 0 0 55px;
+    width: 440px;
+    vertical-align: top;
+}
+
+.btn_layer {
+    position: relative;
+    display: inline-block;
+}
+
+.s_view_info h3 {
+    position: relative;
+    margin-top: 5px;
+}
+
+
+.s_view_info h3 p {
+    font-size: 30px;
+    color: #000;
+    word-break: break-all;
+    font-weight: normal;
+    line-height: 1.4;
+    letter-spacing: -0.04em;
+}
+
+.s_view_info .sub_info {
+    font-size: 16px;
+    color: #888;
+    line-height: 1.6;
+    margin-top: -6px;
+    letter-spacing: -0.04em;
+}
+
+.s_view_info .price_box {
+    padding: 0 0 12px;
+    margin-top: 40px;
+    position: relative;
+}
+
+.s_view_info .price_box .dc {
+    font-size: 35px;
+    color: #ff5e5e;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: inline-block;
+    margin-right: 12px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+.s_view_info .price_box .price {
+    font-size: 35px;
+    color: #000;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.s_view_info .price_box .dc small {
+    color: #ff5e5e;
+    font-size: 35px;
+    font-weight: 400;
+}
+
+.s_view_info .price_box .price small {
+    color: #000;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Noto Sans KR';
+}
+
+.s_view_info .price_box .del {
+    font-size: 18px;
+    color: #333;
+    line-height: 1;
+    display: block;
+    margin: 2px 0 10px;
+    text-decoration: line-through;
+    font-family: 'Montserrat';
+}
+
+.info_price_rv_star {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6.png?v.2) 1px center no-repeat;
+    background-size: 94px;
+    width: 91px;
+    text-indent: -9999px;
+    vertical-align: 0;
+}
+
+.info_price_rv_star_on {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6_on.png?v.2) 1px center no-repeat;
+    background-size: 94px;
+    display: block;
+}
+
+.info_price_rv {
+    vertical-align: 0;
+    margin: 18px 0 0 -1px;
+    font-size: 14px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.price_box_info_btn {
+    position: absolute;
+    top: 2px;
+    right: 28px;
+}
+
+.price_box_info_btn a {
+    padding: 8px 6px;
+}
+
+.price_box_info_btn .info_btn_wish img, .price_box_info_btn .info_btn_share img {
+    width: 28px;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.info_delivery_area {
+    border-top: 1px solid #f1f1f1;
+    margin-top: 14px;
+}
+
+.s_view_info .info_delivery {
+    margin: 0 0 2px;
+    padding: 13px 15px;
+}
+
+.info_delivery {
+    margin: 0 -15px;
+    padding: 14px 14px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 15px;
+}
+
+.s_view_info .info_delivery dt {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: top;
+    color: #666;
+    line-height: 1.8;
+    font-weight: normal;
+}
+
+.info_delivery dt {
+    display: inline-block;
+    color: #333;
+    width: 80px;
+    font-weight: bold;
+}
+
+.info_delivery dt img {
+    margin: -3px 5px 0 0;
+    width: 22px;
+    vertical-align: middle;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.s_view_info .info_delivery dd {
+    display: inline-block;
+    vertical-align: top;
+    color: #666;
+    line-height: 1.8;
+}
+
+.info_delivery {
+    margin: 0 -15px;
+    padding: 14px 14px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 15px;
+}
+
+.info_delivery dd b {
+    color: #222;
+}
+
+.color_point1 {
+    color: #4bc1bc!important;
+}
+
+
+.info_delivery dd span {
+    color: #666;
+    letter-spacing: -0.02em;
+}
+
+.btn_go_box {
+    padding: 24px 0 8px;
+    display: table;
+    width: 100%;
+}
+
+.btn_go_box .btn_go_cart {
+    background: #fff;
+    color: #46ae4f;
+    border: 1px solid #46ae4f;
+}
+
+.btn_go_box button {
+    display: table-cell;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 19px;
+    line-height: 1;
+    padding: 18px 0 19px;
+    margin-right: 1%;
+}
+
+.btn_go_box button:last-child {
+    margin-right: 0;
+}
+
+.btn_go_box .btn_go_order {
+    background: #46ae4f;
+    border: 1px solid #46ae4f;
+    color: #fff;
+}
+
+.D_goods_box {
+    margin: 40px auto 0;
+}
+
+#goods_tab {
+    overflow: hidden;
+}
+
+.goods_tab {
+    border-bottom: 1px solid #ebebeb;
+    border-top: 2px solid #000;
+    display: table;
+    padding: 0 2px;
+    background: #fff;
+}
+
+.goods_tab li {
+    display: table-cell;
+    width: 1%;
+    text-align: center;
+}
+.goods_tab li a.active {
+    color: #46ae4f;
+    border-bottom: 2px solid #46ae4f;
+    font-weight: 600;
+}
+
+.goods_tab li a {
+    color: #222;
+    display: inline-block;
+    padding: 22px 16px 0;
+    height: 66px;
+    vertical-align: top;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.goods_tab li a p {
+    color: #888;
+    font-weight: 300;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+}
+
+.D_goods_info .info_cont.detail {
+    overflow: hidden;
+    position: relative;
+}
+
+.D_goods_info .info_cont {
+    padding: 12px 10px 16px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.D_goods_info .info_cont img {
+    max-width: 100%;
+}
+
+.D_goods_info .detail_more {
+    background: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 0 15px;
+}
+
+.D_goods_info .detail_more a {
+    display: block;
+    background: #46ae4f;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin: 0 auto;
+    font-size: 20px;
+    width: 680px;
+}
+
+.slick-slider {
+	width: 600px !important;
+    height: auto !important;
+    display: inline-block !important;
+	
+}
+
+.slick-prev {
+	z-index:50;
+    left: 25px !important;
+}
+
+.slick-next {
+	z-index:50;
+	right: 25px !important;
+}	
+.slick-next:before {
+    content: '>' !important;
+}
+
+.slick-prev:before {
+    content: '<' !important;
+}
+
+.slick-next {
+    right: 5% !important;
+    z-index: 9;
+}
+
+.slick-prev {
+	left: 1% !important;
+    z-index: 9;
+}
+
+.slick-prev:before, .slick-next:before {
+	font-weight:200 !important;
+    font-size: 65px !important;
+    color: #e4e4e4!important;
+    line-height: 0 !important;
+    opacity: 0.7 ;
+}
+
+.D_goods_box {
+    margin: 40px auto 0;
+}
+
+
+.photoreview_tit2 {
+    border-bottom: 1px solid #222;
+    padding: 10px 0 15px 12px;
+}
+
+.photoreview_tit2_sort {
+    display: inline-block;
+}
+
+.photoreview_tit2_sort a {
+    display: inline-block;
+    padding: 8px 0;
+    font-size: 16px;
+}
+
+.photoreview_tit2_sort a.active span {
+    color: #222;
+}
+
+.photoreview_tit2_sort a span {
+    background: url(//recipe1.ezmember.co.kr/img/icon_dot3.png?v.1) right 4px no-repeat;
+    background-size: 1px 14px;
+    line-height: 0;
+    padding: 0 12px;
+    color: #888;
+    font-size: 15px;
+}
+
+.photoreview_tit2_sort a:last-child span {
+    background: none;
+}
+
+.review_list li {
+    border-bottom: 1px solid #ebebeb;
+    padding: 30px 10px 40px;
+}
+
+.review_list_name {
+    font-size: 16px;
+    color: #000;
+    padding-bottom: 8px;
+}
+
+.goods2_info_price_rv {
+    vertical-align: middle;
+    margin-left: -3px;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.goods2_info_price_rv_star {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6.png?v.2) 1px center no-repeat;
+    background-size: 130px;
+    width: 125px;
+    text-indent: -9999px;
+    vertical-align: middle;
+}
+
+.goods2_info_price_rv_star_on {
+    background: url(//recipe1.ezmember.co.kr/img/mobile/icon_star6_on.png?v.2) 1px center no-repeat;
+    background-size: 130px;
+    height: 24px;
+    display: block;
+}
+
+.review_list_date {
+    color: #888;
+    font-size: 14px;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.review_list_cont {
+    font-size: 16px;
+    padding-top: 18px;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.review_list_pic {
+    padding-top: 22px;
+}
+
+.review_list_pic a {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.review_list_pic img {
+    margin: 0;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
