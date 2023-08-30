@@ -460,7 +460,7 @@ width: 65px;
 				</div>
 				<div class="pictureMain">
 					<label for="picture" class="picture">요리메인사진</label>
-					<input type="file" class="in upload-hidden"  name="recipeImgFile" id="recipeImgFile" accept="image/*"> 
+					<input type="file" class="in upload-hidden"  img th:src="@{${recipeNewDto.imageUrl}}" accept="image/*"> 
 				</div>
 				<div class="categoryMain">
 					<label th:for="level" class="category">난이도</label>
@@ -506,9 +506,9 @@ width: 65px;
 				</div>
 				<div class="ingredientsMain">
 					<label for="ingredients" class="ingredients">재료 추가</label>
-					<div id="box">
-			           <input type="text" class="in3" placeholder="ex ) 재료"  id="RecipeingreName" name="RecipeingreName"> 
-			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" id="RecipeingreMaterial" name="RecipeingreMaterial"> 
+					<div id="box" th:each="recipeIngre : ${recipeNewDto.recipeIngreDtoList}" >
+			           	<input type="text" class="in3" placeholder="ex ) 재료이름"   th:value="${recipeIngre.ingreName}"> 
+			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" th:value="${recipeIngre.ingreMaterial}"> 
 			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
 			        </div> 
 				</div>
@@ -523,18 +523,6 @@ width: 65px;
 						</div>
 			        </div> 
 				</div>
-				<!-- id값이 for값으로 영향이 간다 -->
-				
-				<!-- 이미지 업로드  -->
-				
-			<!--<div class="pictureRecipe">
-					<label for="ingredients" class="ingredients">조리 이미지</label>
-					<div id='image_preview'>
-					    <input type='file' id='btnAtt' multiple='multiple' accept="image/*"/>
-					    <div id='att_zone'
-					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭해주세요'></div>
-					  </div>
-				</div> -->
 				<div class="newbtnMain">
 					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">등록</button>
 					<button type="submit"  name="writingStatus" id="newbtn2" class="newbtns" value="DRAFT" onclick="return confirmDraft()">임시저장</button>
@@ -547,6 +535,12 @@ width: 65px;
 <th:block layout:fragment="script">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:inline="javascript">
+	//에러메세지
+	var errorMessage = [[${errorMessage}]];
+	if(errorMessage != null){
+    	alert(errorMessage);
+	} 
+	
 	//레시피 등록함수
 	function confirmPublish() {
 		//모든값이 입력되었는지 확인

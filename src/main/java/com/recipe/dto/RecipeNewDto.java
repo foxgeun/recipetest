@@ -40,10 +40,10 @@ public class RecipeNewDto {
 	
 	
 //	재료 정보 저장
-	List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
+	private List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
 	
 //	조리 순서 저장
-	List<RecipeOrderDto> recipeOrderDtoList = new ArrayList<>();
+	private List<RecipeOrderDto> recipeOrderDtoList = new ArrayList<>();
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	

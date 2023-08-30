@@ -45,8 +45,8 @@ public class RecipeController {
 	@PostMapping(value = "/recipe/new")
 	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
-			@RequestParam("RecipeingreName") List<String> RecipeingreMaterialList ,
-			@RequestParam("RecipeingreMaterial") List<String> RecipeingreNameList ,
+			@RequestParam("RecipeingreName") List<String> RecipeingreNameList ,
+			@RequestParam("RecipeingreMaterial") List<String> RecipeingreMaterialList,
 			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
 			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile,
 			@RequestParam("categoryType") String categoryTypeString,
@@ -98,6 +98,24 @@ public class RecipeController {
 		//레시피 수정화면
 		@GetMapping(value = "/recipe/modify/{recipeId}")
 		public String recipeDtl(@PathVariable("recipeId") Long recipeId, Model model){	
+			
+			
+			try {
+				RecipeNewDto recipeNewDto = recipeService.getRecipeDtl(recipeId);
+				model.addAttribute("recipeNewDto" , recipeNewDto);
+				
+				//System.out.println(recipeNewDto.getRecipeIngreDtoList().get(0).getIngreMaterial());
+				//System.out.println(recipeNewDto.getRecipeOrderDtoList().get(0).getImgName());
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				model.addAttribute("errorMessage", "레시피 정보를 가져오는중 에러가 발생했습니다");
+				model.addAttribute("recipeNewDto", new RecipeNewDto());
+				
+				return "/";
+			}
+			
 			
 			
 			return "recipe/modify";

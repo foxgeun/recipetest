@@ -1,6 +1,7 @@
 package com.recipe.service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,17 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.recipe.dto.RecipeIngreDto;
 import com.recipe.dto.RecipeNewDto;
+import com.recipe.dto.RecipeOrderDto;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeIngre;
 import com.recipe.entity.RecipeOrder;
-import com.recipe.oauth.PrincipalDetails;
 import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
 import com.recipe.repository.RecipeRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -108,10 +111,42 @@ public class RecipeService {
 		}
 	
 	//레시피 수정을 위해 정보 가져오기
-	/*@Transactional(readOnly = true)
+	@Transactional(readOnly = true)
 	public RecipeNewDto getRecipeDtl(Long recipeId) {
 		
-	}*/
+		List<RecipeIngre> recipeIngreList = recipeIngreRepository.findByRecipeId(recipeId);
+		
+		List<RecipeOrder> recipeOrderList = recipeOrderRepository.findByRecipeId(recipeId);
+		
+		List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
+		
+		List<RecipeOrderDto> recipeOrderDtoList = new ArrayList<>();
+		
+		//반복문으로 재료정보 담기
+		for(RecipeIngre recipeIngre : recipeIngreList) {
+			RecipeIngreDto recipeIngreDto = RecipeIngreDto.of(recipeIngre);
+			
+			recipeIngreDtoList.add(recipeIngreDto);
+		}
+		
+		//반복문으로 레시피 조리설명이랑이미지 담기
+		for(RecipeOrder recipeOrder : recipeOrderList) {
+			RecipeOrderDto recipeOrderDto = RecipeOrderDto.of(recipeOrder);
+			
+			recipeOrderDtoList.add(recipeOrderDto);
+		}
+		
+		Recipe recipe = recipeRepository.findById(recipeId)
+								.orElseThrow(EntityNotFoundException::new);
+		
+		RecipeNewDto recipeNewDto = RecipeNewDto.of(recipe);
+		
+		recipeNewDto.setRecipeIngreDtoList(recipeIngreDtoList);
+		
+		recipeNewDto.setRecipeOrderDtoList(recipeOrderDtoList);
+		
+		return recipeNewDto;
+	}
 	
 }
 
