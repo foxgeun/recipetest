@@ -2,239 +2,449 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 <div layout:fragment="content">
 
 	<th:block layout:fragment="css">
 
 		<link rel="stylesheet" href="/css/itemDetail.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-		
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+
 	</th:block>
-	
-	
-	
-<div class="site-section mt-5 mb-5 mt-5">
-	<div class="container">
-	<div class="banner_slider slider-wrap ">
-		<th:block th:each="img , status:${imgList}">
-		<div class="">
-                <div class="s_view_pic_zoom">
-                <img th:src="${img.imgUrl}" width="1000" height="1000" th:alt="${item.itemNm}" 
-                th:title="${item.itemNm}" class="middle">
-                </div>
-            </div>
-		</th:block>
-            </div>
-		<div class="s_view_info btn_layer">
-                <h3>
-                    <p>[[${item.itemNm}]]</p>
-                </h3>
 
 
 
-                <div id="lySns" class="layer_area" style="display: none">
-                    <div class="ly_wrap sns_layer">
-                        <div class="ly_cont">
-                            <div class="sns_list">
-                                <div class="ly_share_noti" style="display: none"><span>수익금 적립 불가 상품입니다.</span></div>
-                                <ul>
-                                    <li><a href="javascript:;" id="shareKakaoLinkBtn" data-sns="kakaolink"><img src="//recipe1.ezmember.co.kr/img/img_share_k.png" alt="카카오톡 공유"><br><span>카카오톡</span></a></li>
-                                    <li><a href="javascript:;" id="shareFacebookBtn" data-width="750" data-height="300" data-sns="facebook" class="btn-social-popup"><img src="//recipe1.ezmember.co.kr/img/img_share_f.png" alt="페이스북 공유"><br><span>페이스북</span></a></li>
-                                    <li><a href="javascript:;" id="shareTwitterBtn" data-width="500" data-height="250" data-sns="twitter" class="btn-social-popup"><img src="//recipe1.ezmember.co.kr/img/img_share_t.png" alt="트위터 공유"><br><span>트위터</span></a></li>
-                                    <li><a href="javascript:;" id="shareKakaoStoryBtn" data-sns="kakaostory"><img src="//recipe1.ezmember.co.kr/img/img_share_ks.png" alt="카카오스토리 공유"><br><span>카카오스토리</span></a></li>
-                                    <li><a href="javascript:;" id="shareCopyBtn" data-sns="" class="gd_clipboard" data-clipboard-text="" title="상품주소"><img src="//recipe1.ezmember.co.kr/img/img_share_l.png" alt="링크복사"><br><span>링크복사</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <a href="#lySns" class="ly_close"><img src="http://recipe1.ezmember.co.kr/img/mobile/2022/icon_close2.png" alt="닫기" width="26px"></a>
-                    </div>
-                </div>
+	<div class="site-section mt-5 mb-5 mt-5">
+		<div class="container">
+			<div class="banner_slider slider-wrap ">
+				<th:block th:each="img , status:${imgList}">
+					<div class="">
+						<div class="s_view_pic_zoom">
+							<img th:src="${img.imgUrl}" width="1000" height="1000"
+								th:alt="${item.itemNm}" th:title="${item.itemNm}" class="middle">
+						</div>
+					</div>
+				</th:block>
+			</div>
+			<div class="s_view_info btn_layer">
+				<h3>
+					<p>[[${item.itemNm}]]</p>
+				</h3>
+
+
+
+				<div id="lySns" class="layer_area" style="display: none">
+					<div class="ly_wrap sns_layer">
+						<div class="ly_cont">
+							<div class="sns_list">
+								<div class="ly_share_noti" style="display: none">
+									<span>수익금 적립 불가 상품입니다.</span>
+								</div>
+								<ul>
+									<li><a href="javascript:;" id="shareKakaoLinkBtn"
+										data-sns="kakaolink"><img
+											src="//recipe1.ezmember.co.kr/img/img_share_k.png"
+											alt="카카오톡 공유"><br> <span>카카오톡</span></a></li>
+									<li><a href="javascript:;" id="shareFacebookBtn"
+										data-width="750" data-height="300" data-sns="facebook"
+										class="btn-social-popup"><img
+											src="//recipe1.ezmember.co.kr/img/img_share_f.png"
+											alt="페이스북 공유"><br> <span>페이스북</span></a></li>
+									<li><a href="javascript:;" id="shareTwitterBtn"
+										data-width="500" data-height="250" data-sns="twitter"
+										class="btn-social-popup"><img
+											src="//recipe1.ezmember.co.kr/img/img_share_t.png"
+											alt="트위터 공유"><br> <span>트위터</span></a></li>
+									<li><a href="javascript:;" id="shareKakaoStoryBtn"
+										data-sns="kakaostory"><img
+											src="//recipe1.ezmember.co.kr/img/img_share_ks.png"
+											alt="카카오스토리 공유"><br> <span>카카오스토리</span></a></li>
+									<li><a href="javascript:;" id="shareCopyBtn" data-sns=""
+										class="gd_clipboard" data-clipboard-text="" title="상품주소"><img
+											src="//recipe1.ezmember.co.kr/img/img_share_l.png" alt="링크복사"><br>
+											<span>링크복사</span></a></li>
+								</ul>
+							</div>
+						</div>
+						<a href="#lySns" class="ly_close"><img
+							src="http://recipe1.ezmember.co.kr/img/mobile/2022/icon_close2.png"
+							alt="닫기" width="26px"></a>
+					</div>
+				</div>
 
 
 
 
-                <div class="sub_info">[[${item.itemSubNm}]]</div>
-                <div class="price_box">
-                        <p class="dc">[[${item.sale}]]<small>%</small></p>
-                        <p class="price">[[${#numbers.formatInteger(item.price - (item.price * item.sale / 100), 0, 'COMMA')}]]<small id="won" style="">원</small></p><p class="del">[[${#numbers.formatInteger(item.price, 0, 'COMMA')}]]원</p>
-                    <div class="info_price_rv">
-                        <div class="info_price_rv_star" style="display: inline-block;cursor:pointer;"><span class="info_price_rv_star_on" style="width:90%;">리뷰별점</span></div>
-                        <span class="info_price_rv_pt" style="cursor:pointer;">[[${item.retingAvg}]]</span>
-                        <span class="info_price_rv_ea" style="cursor:pointer;">([[${item.reviewCount}]])</span>
-                    </div>
-                    <div class="price_box_info_btn">
-                        <div style="position: relative; display: inline-block;">
-                            <a href="javascript:;" class="info_btn_share"><img src="//recipe1.ezmember.co.kr/img/mobile/icon_share10.png" alt="공유"></a>
-                        </div>
-                    </div>
-                   
-                    <div class="info_delivery_area">
-                        <dl class="info_delivery">
-                            <dt><img src="//recipe1.ezmember.co.kr/img/mobile/icon_delivery3.png" alt="배송아이콘">배송</dt>
-                            <dd>
-                                무료배송
-                                </dd>
-                                </dl>
-                                </div>
-                                <dl class="info_delivery">
-                                    <dt><img src="//recipe1.ezmember.co.kr/img/mobile/icon_point.png" alt="구매아이콘">적립</dt>
-                                    <dd><b class="color_point1">4,295원</b> 적립<span> (모든 회원 구매액의 0.5% 적립)</span></dd>
-                                </dl>
-                    
-                    <div class="price_total" style="padding-top:0;">
-                            <div class="btn_go_box">
-                                <button type="button" id="cartBtn" class="btn_go_cart" style="width: 39%;">장바구니</button>
-                                <button type="button" class="btn_go_order" style="width: 60%;">바로구매</button>
-                            </div>
-                 
-                    </div>
-                </div>
-        </div>
-        
-        <div class="D_goods_box">
-        <ul id="goods_tab" class="goods_tab">
-            <li><a href="#page-detail" id="tab-detail" onclick="clickTab('detail');" class="link active">상세정보</a></li>
-            <li><a href="#page-review" id="tab-review" onclick="clickTab('review');" class="link">후기<p>(24)</p></a></li>
-            <li><a href="#page-etc" id="tab-etc" onclick="clickTab('etc');" class="link">배송환불</a></li>
-            <li><a href="#page-qna" id="tab-qna" onclick="clickTab('qna');" class="link">문의<p>(20)</p></a></li>
-        </ul>
-        <div class="D_goods_info">
-        <div class="info_cont detail" id="goodsDetailInfo" style="padding-bottom:100px; height:1000px;">
-            <div class="detail_explain_box">
-                <div class="image-manual">
-					                   
-                </div>
-                <div class="txt-manual">
-                    <div align="center" style="text-align: center;">
-                    <th:block th:each="detail , status:${imgDetailList}">
-						<img th:src="${detail.imgUrl}" alt="">
-					
-					</th:block> 
-                    </div>
-                </div>
-            </div>
-            <!-- //detail_explain_box -->
-            <div class="detail_more">
-                <a href="javascript:ezhld_detail_more();" class="down" id="toggleLink">상세정보 더보기</a>
-            </div>
-        </div>
-    </div>
-    </div>
-        
-        <div class="D_goods_box" id="D_goodsReview_box" style="display:block;padding-bottom: 90px;">
-                <div class="photoreview_tit2">
-                    <div class="photoreview_tit2_sort">
-                        <a href="javascript:viewReviewSort('best');" id="sortBest" class="active"><span>베스트순</span></a>
-                        <a href="javascript:viewReviewSort('date');" id="sortDate"><span>최신순</span></a>
-                    </div>
-                </div>
-    
-                <!--div class="box_tit">
+				<div class="sub_info">[[${item.itemSubNm}]]</div>
+				<div class="price_box">
+					<p class="dc">
+						[[${item.sale}]]<small>%</small>
+					</p>
+					<p class="price">
+						[[${#numbers.formatInteger(item.price - (item.price * item.sale /
+						100), 0, 'COMMA')}]]<small id="won" style="">원</small>
+					</p>
+					<p class="del">[[${#numbers.formatInteger(item.price, 0,
+						'COMMA')}]]원</p>
+					<div class="info_price_rv">
+						<div class="info_price_rv_star"
+							style="display: inline-block; cursor: pointer;">
+							<span class="info_price_rv_star_on" style="width: 90%;">리뷰별점</span>
+						</div>
+						<span class="info_price_rv_pt" style="cursor: pointer;">[[${item.retingAvg}]]</span>
+						<span class="info_price_rv_ea" style="cursor: pointer;">([[${item.reviewCount}]])</span>
+					</div>
+					<div class="price_box_info_btn">
+						<div style="position: relative; display: inline-block;">
+							<a href="javascript:;" class="info_btn_share"><img
+								src="//recipe1.ezmember.co.kr/img/mobile/icon_share10.png"
+								alt="공유"></a>
+						</div>
+					</div>
+
+					<div class="info_delivery_area">
+						<dl class="info_delivery">
+							<dt>
+								<img
+									src="//recipe1.ezmember.co.kr/img/mobile/icon_delivery3.png"
+									alt="배송아이콘">배송
+							</dt>
+							<dd>무료배송</dd>
+						</dl>
+					</div>
+					<dl class="info_delivery">
+						<dt>
+							<img src="//recipe1.ezmember.co.kr/img/mobile/icon_point.png"
+								alt="구매아이콘">적립
+						</dt>
+						<dd>
+							<b class="color_point1">4,295원</b> 적립<span> (모든 회원 구매액의
+								0.5% 적립)</span>
+						</dd>
+					</dl>
+
+					<div class="price_total" style="padding-top: 0;">
+						<div class="btn_go_box">
+							<button type="button" id="cartBtn" class="btn_go_cart"
+								style="width: 39%;">장바구니</button>
+							<button type="button" class="btn_go_order" style="width: 60%;">바로구매</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="D_goods_box">
+				<ul id="goods_tab" class="goods_tab">
+					<li><a href="#page-detail" id="tab-detail"
+						onclick="clickTab('detail');" class="link active">상세정보</a></li>
+					<li><a href="#page-review" id="tab-review"
+						onclick="clickTab('review');" class="link">후기
+							<p>(24)</p>
+					</a></li>
+					<li><a href="#page-etc" id="tab-etc"
+						onclick="clickTab('etc');" class="link">배송환불</a></li>
+					<li><a href="#page-qna" id="tab-qna"
+						onclick="clickTab('qna');" class="link">문의
+							<p>(20)</p>
+					</a></li>
+				</ul>
+				<div class="D_goods_info">
+					<div class="info_cont detail" id="goodsDetailInfo"
+						style="padding-bottom: 100px; height: 1000px;">
+						<div class="detail_explain_box">
+							<div class="image-manual"></div>
+							<div class="txt-manual">
+								<div align="center" style="text-align: center;">
+									<th:block th:each="detail , status:${imgDetailList}">
+										<img th:src="${detail.imgUrl}" alt="">
+
+									</th:block>
+								</div>
+							</div>
+						</div>
+						<!-- //detail_explain_box -->
+						<div class="detail_more">
+							<a href="javascript:ezhld_detail_more();" class="down"
+								id="toggleLink">상세정보 더보기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="D_goods_box" id="D_goodsReview_box"
+				style="display: block; padding-bottom: 90px;">
+				<div class="photoreview_tit2">
+					<div class="photoreview_tit2_sort">
+						<a href="javascript:viewReviewSort('best');" id="sortBest"
+							class="active"><span>베스트순</span></a> <a
+							href="javascript:viewReviewSort('date');" id="sortDate"><span>최신순</span></a>
+					</div>
+				</div>
+
+				<!--div class="box_tit">
                     <b><a name="ezhld_reviews">쇼핑후기</a></b><small>24</small>
                     <div class="rmn_tab">
                         <a href="javascript:viewReviewSort('best');" id="sortBest" class="active">베스트순</a><a href="javascript:viewReviewSort('date');" id="sortDate">최신순</a>
                     </div>
                 </div-->
-                <div class="detail_board_box js_board_goodsreview_view" data-bdid="goodsreview" style="">
-                    <div class="item_list" id="ezhld_reviews_list"><ul class="review_list"><li><div class="review_list_top"><div class="review_list_name">쿠쿠맘</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.27</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/c23adac57fabc79c725"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/4d45d3c0f3d3a2e1393"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/adfe50bcf4602967971"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/e345081c50dd1c8f168"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/c9a9fb216c75fad4291"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/4a84d2ce36f97d56213"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205857,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/order/2929591/review/thumb/ad59ec774e827141122"></a></div><div class="review_list_cont">의자 아래 먼지며 머리카락이며 쌓여 있었는데 손으로 일일이 닦는 게 힘들었는데 의자 아래까지 돌려가며 닦아주어서 정말 정말 신기했어요. 저희 집 15평인데 작아도 정말 알차게 청소를 해 주네요. 망설이지 마시고 주문하세요!!!</div><div id="photoMore_205857" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">으니주니빠</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.04.29</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,203214,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/goods/1000035715/review/thumb/1646aa972fcbadb4728"></a><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,203214,20)" class="btn_open_layer"><img src="https://godomall.speedycdn.net/80274c85de7606020be963ac556612a4/goods/1000035715/review/thumb/53788970265d9d7e456"></a></div><div class="review_list_cont">청소기 자체에 대해서는 매우 만족하고 가성비 좋습니다.
-청소 잘합니다. 맵 빨리 설정되며 물걸리 좋습니다.
-다만 충전기선 등은 피하지 못하고 먹고 ㅎㅎ 사용설명서가 꼼꼼히 작성되지 못한 아쉬움이 있습니다.</div><div id="photoMore_203214" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">gmon****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.08.01</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,207414,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230801_93/1690878813796n7x4S_JPEG/image.jpg?type=w640"></a></div><div class="review_list_cont">손세척안하고혼자걸레세척까지되는점이편해요~!
-걸레는 여러개 개별구매하고싶어요~</div><div id="photoMore_207414" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">kty9****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.26</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,205794,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230626_126/1687756006173atOjR_JPEG/20230626_101509.jpg?type=w640"></a></div><div class="review_list_cont">역시 삶의질을 올려주는 삼신기중에 원탑이네요! 신경안써도 되고 너무좋아요!</div><div id="photoMore_205794" class="photoMore" style="display:none;z-index:0"></div></li><li><div class="review_list_top"><div class="review_list_name">dame****</div><div class="goods2_info_price_rv"><div class="goods2_info_price_rv_star" style="display: inline-block;"><span class="goods2_info_price_rv_star_on" style="width:100%;">&nbsp;</span></div></div><span class="review_list_date">2023.06.04</span></div><div class="review_list_pic"><a href="#PhotoReviewZoom" onclick="javascript:ezhld_photoReview_compilation(1000035715,204781,20)" class="btn_open_layer"><img src="https://phinf.pstatic.net/checkout.phinf/20230604_130/1685832334086TM0m1_JPEG/1685832320122.jpg?type=w640"></a></div><div class="review_list_cont">크기가 큰 만큼 좋네요 ㅎㅎ 먼지스테이션만 있던 로봇청소기에서 바꿨어요 마니파세요</div><div id="photoMore_204781" class="photoMore" style="display:none;z-index:0"></div></li></ul><div class="review_list_more js_board_goodsreview_more"><a data-next-page="2" data-review-sort="best" class="ezhld_more_btn">더보기<b>5</b><span>/</span>24</a></div><div data-review-totalcnt="24" class="review_total_cnt"></div></div>
-                </div>
-                <!--div class="item_list_head" style="margin: 18px 0px; padding-bottom: 4px; " align="center">
+				<div class="detail_board_box js_board_goodsreview_view"
+					data-bdid="goodsreview" style="">
+					<div class="item_list" id="ezhld_reviews_list">
+						<ul class="review_list">
+
+							<th:block th:each="review , status:${itemReviewList}">
+
+								<li><div class="review_list_top">
+										<div class="review_list_name">[[${review.nickname}]]</div>
+										<div class="goods2_info_price_rv">
+											<div class="goods2_info_price_rv_star"
+												style="display: inline-block;">
+												<span class="goods2_info_price_rv_star_on"
+													style="width: 100%;">&nbsp;</span>
+											</div>
+										</div>
+										<span class="review_list_date"
+											th:text="${#temporals.format(review.regTime, 'yyyy.MM.dd')}"></span>
+									</div>
+									<div class="review_list_pic">
+										<!-- 리뷰 이미지 -->
+									</div>
+									<div class="review_list_cont">[[${review.content}]]</div>
+									<div class="comment_box">
+									<div class="comment_store cFormTriger">
+										<div class="mb-2 admin_box"> <div class="admin_name_box">관리자 </div> <div class="admin_name"> skyjangking@naver.com </div>  </div>
+										<div class="mb-2 admin_box"> <div class="admin_name_box">답변 </div> <textarea class="answer_box" placeholder="답변을 입력해주세요" id="answer_content"></textarea> </div>
+										 <div class="comment_area_btn plain-btn btn active" id="answer" onclick="answerOk()">답변등록
+										</div> 
+									</div>
+									</div>
+									<input type="hidden" th:value="${review.id}" id="reviewId" >
+									</li>
+							</th:block>
+						</ul>
+
+						<div class="book_page pt-3 pb-3">
+							<nav
+								th:with="start=${(itemReviewList.number/maxPage)*maxPage + 1}
+			                 ,end=(${(itemReviewList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemReviewList.totalPages ? start + (maxPage - 1) : itemReviewList.totalPages)})"
+								aria-label="Page navigation example">
+								<ul class="pagination d-flex justify-content-center">
+
+									<li class="page-item"
+										th:classappend="${itemReviewList.first}?'disabled'"><a
+										class="page-link"
+										th:onclick="'javascript:page(' + ${itemReviewList.number - 1} +')'"><<</a>
+									</li>
+
+									<li class="page-item"
+										th:each="page: ${#numbers.sequence(start, end)}"
+										th:classappend="${itemReviewList.number eq page-1}?'active':''"><a
+										class="page-link" th:inline="text"
+										th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
+									</li>
+
+									<li class="page-item"
+										th:classappend="${itemReviewList.last}?'disabled'"><a
+										class="page-link"
+										th:onclick="'javascript:page(' + ${itemReviewList.number + 1} +')'">>></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+
+
+					</div>
+				</div>
+				<!--div class="item_list_head" style="margin: 18px 0px; padding-bottom: 4px; " align="center">
                     <div class="item_list_write_box" style="width:30%;border-bottom: 0;">
                         <a href="javascript:gd_open_write_popup('goodsreview', '1000035715')" class="detail_write_btn" style="display:none;"><img src="https://recipe1.ezmember.co.kr/img/mobile/icon_write.png" width="25">후기 작성</a>
                     </div>
                 </div-->
-            </div>
-        
-        
-        
-    </div>
-	
+			</div>
+			<input type="hidden" th:value="${itemId}" id="itemId">
+
+
+
+		</div>
+
 	</div>
 </div>
-	
-	
+
 
 
 <th:block layout:fragment="script">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 	<script>
-	$(document).ready(function(){
-		  $('.banner_slider').slick({    
-		    infinite: true ,      // 무한반복
-		     slidesToShow: 1,     // 보여지는 슬라이드 개수
-		     slidesToScroll: 1,   // 넘어가는 슬라이드 개수
-		     dots: false           // 점 네비게이션 표시
-		    // arrows: false,        화살표 표시
-		    // fade:true             페이드 효과
-		    // autoplay: true,       자동스크롤
-		    // autoplaySpeed: 4000   자동스크롤 속도
-		    /* 반응형
-		    responsive: [
-		      {
-		        breakpoint: 1024,
-		        settings: {
-		          slidesToShow: 3,
-		          slidesToScroll: 3,
-		          infinite: true,
-		          dots: true
-		        }
-		      },
-		      {
-		        breakpoint: 600,
-		        settings: {
-		          slidesToShow: 2,
-		          slidesToScroll: 2
-		        }
-		      },
-		      {
-		        breakpoint: 480,
-		        settings: {
-		          slidesToShow: 1,
-		          slidesToScroll: 1
-		        }
-		      }
-		    ]
-		    */
-		  });
-		});
 	
-function ezhld_detail_more() {
-  var toggleLink = document.getElementById("toggleLink");
-  var goodsDetailInfo = document.getElementById("goodsDetailInfo");
-  
-  var targetPosition = document.getElementById("goods_tab").offsetTop;
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+		$(document).ready(function() {
+			$('.banner_slider').slick({
+				infinite : true, // 무한반복
+				slidesToShow : 1, // 보여지는 슬라이드 개수
+				slidesToScroll : 1, // 넘어가는 슬라이드 개수
+				dots : false
+			// 점 네비게이션 표시
+			// arrows: false,        화살표 표시
+			// fade:true             페이드 효과
+			// autoplay: true,       자동스크롤
+			// autoplaySpeed: 4000   자동스크롤 속도
+			/* 반응형
+			responsive: [
+			  {
+			    breakpoint: 1024,
+			    settings: {
+			      slidesToShow: 3,
+			      slidesToScroll: 3,
+			      infinite: true,
+			      dots: true
+			    }
+			  },
+			  {
+			    breakpoint: 600,
+			    settings: {
+			      slidesToShow: 2,
+			      slidesToScroll: 2
+			    }
+			  },
+			  {
+			    breakpoint: 480,
+			    settings: {
+			      slidesToShow: 1,
+			      slidesToScroll: 1
+			    }
+			  }
+			]
+			 */
+			});
+		});
 
-  if (goodsDetailInfo.style.overflow === "visible") {
-    // 현재 상태가 '더보기' 상태일 때
-    toggleLink.innerText = "상세정보 더보기";
-    goodsDetailInfo.style.height = "1000px";
-    goodsDetailInfo.style.overflow = "hidden";
-      window.scrollTo({
-    top: targetPosition,
-    behavior: "smooth" // 부드러운 스크롤 효과 적용
-  });
-    
-  } else {
-    // 현재 상태가 '덥기' 상태일 때
-    toggleLink.innerText = "상세정보 덥기";
-    goodsDetailInfo.style.height = "100%";
-    goodsDetailInfo.style.overflow = "visible";
-  }
-}
+		function ezhld_detail_more() {
+			var toggleLink = document.getElementById("toggleLink");
+			var goodsDetailInfo = document.getElementById("goodsDetailInfo");
+
+			var targetPosition = document.getElementById("goods_tab").offsetTop;
+
+			if (goodsDetailInfo.style.overflow === "visible") {
+				// 현재 상태가 '더보기' 상태일 때
+				toggleLink.innerText = "상세정보 더보기";
+				goodsDetailInfo.style.height = "1000px";
+				goodsDetailInfo.style.overflow = "hidden";
+				window.scrollTo({
+					top : targetPosition,
+					behavior : "smooth" // 부드러운 스크롤 효과 적용
+				});
+
+			} else {
+				// 현재 상태가 '덥기' 상태일 때
+				toggleLink.innerText = "상세정보 덥기";
+				goodsDetailInfo.style.height = "100%";
+				goodsDetailInfo.style.overflow = "visible";
+			}
+		}
+		
+		function answerOk(){
+			const currentDate = new Date();
+
+			// 원하는 포맷으로 날짜 포맷팅 함수
+			function formatCurrentDate(date) {
+			    const year = date.getFullYear();
+			    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+			    const day = date.getDate().toString().padStart(2, '0');
+			    const hours = date.getHours().toString().padStart(2, '0');
+			    const minutes = date.getMinutes().toString().padStart(2, '0');
+			    const seconds = date.getSeconds().toString().padStart(2, '0');
+			    
+			    return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+			}
+
+			// 포맷팅된 현재 시간을 가져옴
+			const formattedCurrentDate = formatCurrentDate(currentDate);
+			
+			if(confirm("등록시간 : " + formattedCurrentDate + 
+					"\n" + "답변 등록하시겠습니까?")){
+				
+				var url = "/answer";
+				
+				
+				var paramData = {
+						content : $("#answer_content").val(), //item의 id
+						id: $("#reviewId").val() //수량
+				}
+				
+				var param = JSON.stringify(paramData);
+				
+				$.ajax({
+					url : url, //request URL
+					type : "POST", //전송방식
+					contentType : "application/json",
+					data : param, //서버에 전송할 데이터
+					beforeSend : function(xhr) {
+						//데이터를 전송하기전에 헤더에 csrf 값을 설정
+						xhr.setRequestHeader(header, token);
+					},
+					dataType : "json",
+					cache : false,
+					success : function(result, status) {
+						alert("답변등록 완료 되었습니다.");
+						//location.href = '/';
+					},
+					error : function(jqXHR, status, error) {
+						if (jqXHR.status == '401') {
+							alert('관리자로그인 후 이용해주세요.');
+						//	location.href = '/';
+						} else {
+							//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
+							alert(jqXHR.responseText); 
+						}
+					}
+				});
+				
+				
+				
+				
+				
+			}
+			
+			
+		}
+		
+		
 	</script>
 
 
 	<script th:inline="javascript">
-	
+		$(document).ready(function() {
+
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+
+		});
+
+		function page(page) {
+			//입력한 값을 전부 가지고 온다.
+			var itemId = $("#itemId").val();
+
+			//주소 이동
+			location.href = "/item/" + itemId + "?reviewPage=" + page;
+		}
 	</script>
-	</th:block>
+</th:block>
 
 
 </html>

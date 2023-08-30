@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
+import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.repository.ItemRepository;
 
@@ -32,6 +33,14 @@ public class ItemService {
 		Page<ItemCategoryDto> getItemCategoryList = itemRepository.getItemCategoryList(pageable , itemSearchDto);
 		return getItemCategoryList;
 	}
+	
+	
+	public Page<ItemReviewDto> getItemReviewList(Pageable pageable , Long itemId){
+		Page<ItemReviewDto> getItemReviewList = itemRepository.getItemReviewList(pageable, itemId);
+		return getItemReviewList;
+	}
+	
+	
 	
 
 }

@@ -15,11 +15,14 @@ import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
 import com.recipe.dto.ItemDetailImgDto;
 import com.recipe.dto.ItemImgDto;
+import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.entity.QItem;
 import com.recipe.entity.QItemDetailImg;
 import com.recipe.entity.QItemImg;
 import com.recipe.entity.QItemReview;
+import com.recipe.entity.QMember;
+import com.recipe.entity.QMemberImg;
 
 import jakarta.persistence.EntityManager;
 
@@ -32,7 +35,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 	}
 
 	
-	
+//	상품 모든정보 가져오기
 	@Override
 	public Page<ItemCategoryDto> getItemCategoryList(Pageable pageable , ItemSearchDto itemSearchDto) {
 		
@@ -78,7 +81,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 	}
 
 
-
+//  상품 상세정보 가져오기
 	@Override
 	public ItemDetailDto getItemDetailList(Long itemId) {
 		
@@ -138,6 +141,47 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 		itemDetail.setItemDetailImgDtoList(itemDetialImgDto);
 		
 		return itemDetail;
+	}
+
+
+//	상품리뷰 가져오기
+	@Override
+	public Page<ItemReviewDto> getItemReviewList(Pageable pageable , Long itemId ) {
+		
+		QItemReview ir = QItemReview.itemReview;
+		QMember m = QMember.member;
+		QMemberImg mi = QMemberImg.memberImg;
+		
+		List<ItemReviewDto> content = queryFactory
+									.select(
+											Projections.constructor(
+													ItemReviewDto.class,
+													ir.id,
+													ir.reting,
+													ir.content,
+													ir.regTime,
+													m.nickname,
+													mi.imgUrl
+													))	
+									.from(ir)
+									.join(m).on(ir.member.id.eq(m.id))
+									.leftJoin(mi).on(QMember.member.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
+									.where(ir.item.id.eq(itemId))
+									.offset(pageable.getOffset())
+								    .limit(pageable.getPageSize())
+									.fetch();
+		
+		Long total = queryFactory
+				 	.select(Wildcard.count)
+				 	.from(ir)
+					.join(m).on(ir.member.id.eq(m.id))
+					.leftJoin(mi).on(QMember.member.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
+					.where(ir.item.id.eq(itemId))
+					.fetchOne();
+		
+		
+		
+		return new PageImpl<>(content, pageable, total);
 	}
 	
 	

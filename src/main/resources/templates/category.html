@@ -96,7 +96,8 @@
 							aria-label="Page navigation example">
 							<ul class="pagination d-flex justify-content-center">
 
-								<li class="page-item" th:classappend="${category.first}?'disabled'">
+								<li class="page-item" 
+								th:classappend="${category.first}?'disabled'">
 									<a class="page-link"
 									th:onclick="'javascript:page(' + ${category.number - 1} +')'"><<</a>
 								</li>

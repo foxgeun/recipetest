@@ -427,7 +427,7 @@ p {
 
 .review_list li {
     border-bottom: 1px solid #ebebeb;
-    padding: 30px 10px 40px;
+    padding: 15px 10px 15px;
 }
 
 .review_list_name {
@@ -488,3 +488,83 @@ p {
     object-fit: cover;
 }
 
+.comment_store {
+    position: relative;
+    padding: 10px 15px 10px 15px;
+    background: #f3f3f3;
+    border: 1px solid #ddd;
+}
+
+.comment_area {
+    /* height: 32px; */
+   border: 1px solid #ddd;
+    background: #fff;
+}
+
+.comment_area_btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #b2b2b2;
+}
+
+.plain-btn {
+	cursor:pointer;
+    border: 1px solid #ddd !important;
+    padding: 9px !important;
+    font-weight: bold;
+    line-height: 12px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.plain-btn {
+    background: #fff;
+    color: #000;
+}
+
+.comment_box {
+	margin-top:10px; 
+}
+
+.admin_box {
+	display:flex;
+}
+
+.admin_name_box {
+	height:30px;
+	width: 42px;
+	justify-content:end;
+    display: flex;
+	padding: 9px 6px 9px 0;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.admin_name {
+	border: 1px solid #ddd !important;
+    padding: 9px !important;
+    font-weight: bold;
+    line-height: 12px;
+    font-size: 11px;
+    text-align: center;
+    background: #fff;
+    color: #000;
+    border-radius: 0.25rem;
+}
+
+.answer_box {
+	height:150px;
+	width: 100%;
+	padding: 9px !important;
+	font-size: 12px;
+	border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+}
+
+.plain-btn:hover {
+	background-color: #454545;
+	color:white;
+	border: 1px solid #454545;
+}
