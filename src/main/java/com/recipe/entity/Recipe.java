@@ -25,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Recipe {
+public class Recipe extends BaseEntity {
 	
 	
     @Id

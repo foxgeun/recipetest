@@ -21,6 +21,8 @@ import com.recipe.dto.MyPageDto;
 import com.recipe.entity.BookMark;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
+import com.recipe.repository.BookMarkRepository;
+import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.service.MyPageService;
 
@@ -32,6 +34,8 @@ public class myPageController {
 	
 	private final MyPageService myPageService;
 	private final MemberRepository memberRepository;
+	private final CommentRepository commentRepository;
+	private final BookMarkRepository bookmarkRepository;
 	
 	//마이페이지 보여주기
 	@GetMapping(value="/myPage/{id}")
@@ -44,8 +48,11 @@ public class myPageController {
 		List<MyPageDto> bookmarkList = myPageService.getBookmark(id);
 		
 		List<MyPageDto> myCommentList = myPageService.getMyComment(id);
+		
+		List<MyPageDto> reviewList = myPageService.getReview(id);
 
 		
+		model.addAttribute("reviewList" , reviewList);
 		model.addAttribute("myCommentList" , myCommentList);
 		model.addAttribute("bookmarkList" , bookmarkList);
 
@@ -98,6 +105,7 @@ public class myPageController {
 	//레시피목록 페이지 -> 삭제
 	@DeleteMapping("/myPage/deleteRecipe/{recipeId}")
 	public @ResponseBody ResponseEntity deleteRecipe(@PathVariable("recipeId") Long recipeId) {
+		
 		myPageService.deleteRecipe(recipeId);
 
 		return new ResponseEntity<Long>(recipeId, HttpStatus.OK);
@@ -123,9 +131,18 @@ public class myPageController {
 	//댓글목록 -> 댓글삭제
 	@DeleteMapping("myPage/deleteComment/{commentId}")
 	public @ResponseBody ResponseEntity deleteComment(@PathVariable("commentId")Long commentId) {
+		
 		myPageService.deleteComment(commentId);
 		
 		return new ResponseEntity<Long>(commentId, HttpStatus.OK);
+	}
+	
+	//후기목록 -> 후기삭제
+	@DeleteMapping("myPage/deleteReview/{reviewId}")
+	public @ResponseBody ResponseEntity deleteReview(@PathVariable("reviewId") Long reviewId) {
+		myPageService.deleteReview(reviewId);
+		return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
+		
 	}
 }
 	

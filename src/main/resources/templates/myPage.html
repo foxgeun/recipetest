@@ -308,7 +308,7 @@
 								</tr>
 
 								<tr class="" th:each="bookmark : ${bookmarkList}"
-									style="display: flex; align-items: center;">
+									style="display: flex; align-items: center; margin-bottom: 10px;">
 
 									<th class="col-7"
 										style="text-align: center; margin-left: 0; padding: 0;">
@@ -412,7 +412,7 @@
 								</tr>
 
 								<tr class="" th:each="comments : ${myCommentList}"
-									style="display: flex; align-items: center;">
+									style="display: flex; align-items: center; margin-bottom: 10px;">
 									<th class="col-1" style="text-align: center;"><p
 											th:text="${comments.comment.id}"></th>
 									<th class="col-7"
@@ -469,24 +469,91 @@
 					</div>
 				</div>
 
+
+<!--요리후기 목록  -->
 				<div id="reviews" class="content" style="display: none;">
-					<div
+<div
 						style="display: flex; flex-direction: row; justify-content: space-between; border-bottom: 1px solid #adb5bd;">
-						<div style="display: flex; align-items: center">
-							<a href="#"
-								class="list-group-item list-group-item-action list-group-item-light mypage-top"
-								style=""> 공개중</a> <a href="#"
-								class="list-group-item list-group-item-action list-group-item-light mypage-top"
-								style=""> 작성중</a>
-						</div>
+						<div style="display: flex; align-items: center"></div>
 						<div
-							style="display: flex; flex-direction: row; align-items: center">
+							style="display: flex; flex-direction: row; align-items: center; min-height: 49px;">
 							<div style="">
 								<a>최신순</a> <a>조회순</a> <a>스크랩순</a>
 							</div>
 						</div>
 					</div>
-					<div class="mypage-content" style="align-items: center;">
+					<div class="mypage-content" th:if="${!reviewList.isEmpty()}">
+						<div
+							style="display: flex; flex-direction: column; align-items: center;">
+							<p style="font-size: 28px; font-weight: 500;">| REVIEW |</p>
+							<p style="font-size: 15px; font-weight: 500;">레시피 후기 목록</p>
+						</div>
+
+						<table style="border-bottom: 1px solid #dee2e6; margin-top: 30px;">
+							<tbody style="display: flex; flex-direction: column;">
+								<tr
+									style="height: 45px; background-color: #f9fbf7; display: flex; align-items: center;">
+
+									<th class="col-7 recipeList-th" style="text-align: center;">레시피 후기</th>
+									<th class="col-2 recipeList-th" style="text-align: center;">별점</th>
+									<th class="col-2 recipeList-th" style="text-align: center;">작성일</th>
+									<th class="col-1 recipeList-th" style="text-align: center;">수정/삭제</th>
+								</tr>
+
+								<tr class="" th:each="review : ${reviewList}"
+									style="display: flex; align-items: center;margin-bottom: 10px;">
+
+									<th class="col-7"
+										style="text-align: center; margin-left: 0; padding: 0;">
+										<div
+											style="display: flex;flex-direction: row;align-items: flex-start;">
+
+											<img th:src="${review.recipeId.imageUrl}"
+												style="width: 150px; height: 145px;">
+											<div style="width: 100%;display: flex;flex-direction: column;margin-left: 20px;align-items: flex-start;margin-top: 8px;">
+												<p th:text="${review.recipeId.title} + '/' + ${review.recipeId.subTitle} + '(' + ${review.recipeId.member.nickname} + ')'"
+													style="font-size: 14px;font-weight: 600;margin-bottom: 0;color: #9d9d9d;"></p>
+
+												<p th:text="${review.review.content}"
+													style="font-size: 13px;font-weight: 600;margin-top: 13px;"></p>
+											</div>
+										</div>
+
+									</th>
+									<th class="col-2" style="text-align: center;">
+										<div class="starContainer"
+											style="display: flex; flex-direction: column; align-items: center;">
+
+											<input type="hidden" class="ratingValue" th:value="${review.review.reting}">
+
+										</div>
+									</th>
+									<th class="col-2"
+										style="display: flex; flex-direction: column; align-items: center;">
+										
+										<p th:text="${review.review.regTime}"
+											style="margin-top: 2px; margin-bottom: 25px; "></p>
+
+									</th>
+									<th class="col-1" style="text-align: center;">										<div
+											style="display: flex; flex-direction: column; align-items: center;">
+											<button type="submit"
+												style="width: 70px; height: 33px; display: flex; align-items: center; justify-content: center;"
+												class="btn btn-outline-danger">수정</button>
+											<button type="submit"
+												th:onclick="'deleteReview(' + ${review.review.id} + ')'"
+												style="width: 70px; height: 33px; display: flex; align-items: center; justify-content: center; margin-top: 4px;"
+												class="btn btn-outline-danger">삭제</button>
+										</div></th>
+
+								</tr>
+
+
+
+							</tbody>
+						</table>
+					</div>
+					<div class="mypage-content" style="align-items: center;" th:if="${reviewList.isEmpty()}">
 						<img class="mypage-content-logo" src="/img/test4.svg" />
 						<div
 							style="display: flex; flex-direction: column; align-items: center">

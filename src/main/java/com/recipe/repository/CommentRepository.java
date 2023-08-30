@@ -11,4 +11,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long>{
 	
 	@Query(value ="select * from comment where member_id = ?1" , nativeQuery = true)
 	List<Comment> getMyComment(Long id);
+	
 }

@@ -14,4 +14,5 @@ public interface BookMarkRepository extends JpaRepository<BookMark, Long> {
 	List<BookMark> getBookmarks(Long id);
 	
 	List<BookMark> findByIsDeleteTrue();
+
 }

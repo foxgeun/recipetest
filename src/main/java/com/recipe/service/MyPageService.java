@@ -20,11 +20,13 @@ import com.recipe.entity.Comment;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeOrder;
+import com.recipe.entity.Review;
 import com.recipe.repository.BookMarkRepository;
 import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeListRepository;
 import com.recipe.repository.RecipeRepository;
+import com.recipe.repository.ReviewRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,7 @@ public class MyPageService {
 	private final RecipeRepository recipeRepository;
 	private final BookMarkRepository bookMarkRepository;
 	private final CommentRepository commentRepository;
+	private final ReviewRepository reviewRepository;
 	
 	
 
@@ -227,7 +230,7 @@ public class MyPageService {
 	    bookMarkRepository.deleteAll(bookmarksToDelete);
 	}
 	
-	//내가쓴댓글목록 불러오기
+	//댓글목록 불러오기
 	@Transactional(readOnly = true)
 	public List<MyPageDto> getMyComment(Long id){
 
@@ -249,6 +252,29 @@ public class MyPageService {
 		Comment comment = commentRepository.findById(commentId)
 				.orElseThrow(EntityNotFoundException::new);
 		commentRepository.delete(comment);
+	}
+	
+	//리뷰후기불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getReview(Long id){
+		
+		List<Review> reviews = reviewRepository.getReview(id);
+		List<MyPageDto> reviewDtos = new ArrayList<>();
+		
+		for(Review review : reviews) {
+			Member member = review.getMember();
+			
+			MyPageDto reviewDto = new MyPageDto(member, review);
+			reviewDtos.add(reviewDto);
+		}
+		return reviewDtos;
+	}
+	
+	//후기삭제
+	public void deleteReview(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+										.orElseThrow(EntityNotFoundException::new);
+		reviewRepository.delete(review);
 	}
 }
 

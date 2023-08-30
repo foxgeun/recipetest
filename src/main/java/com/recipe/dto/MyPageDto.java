@@ -67,11 +67,19 @@ public class MyPageDto {
 	}
 
 	private Comment comment;
-	//내댓글
+	//댓글
 	public MyPageDto(Member member, Comment comment) {
 		this.member = member;
 		this.comment = comment;
 		this.recipeId = comment.getRecipe();
+	}
+	
+	private Review review;
+	//리뷰
+	public MyPageDto(Member member, Review review) {
+		this.member = member;
+		this.review = review;
+		this.recipeId = review.getRecipe();
 	}
 
 }

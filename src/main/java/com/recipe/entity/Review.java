@@ -1,5 +1,8 @@
 package com.recipe.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,7 +21,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Review {
+public class Review extends BaseEntity{
 
 	@Id
 	@Column(name="review_id")
@@ -32,6 +35,7 @@ public class Review {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Recipe recipe;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
