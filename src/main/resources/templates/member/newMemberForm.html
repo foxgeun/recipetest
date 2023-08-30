@@ -154,6 +154,7 @@ p{
 	<h2>회원가입</h2>
 	<div class="newForm">
 		<form role="joinform" id="joinform" action="/members/newMember" method="post" th:object="${memberDto}" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
+				<input type="hidden" th:field="*{id}"/>
 				<label for="email" class="email">이메일</label>
 				<div class="emailMain">
 					<input type="email" placeholder="이메일을 입력해주세요" class="in2" th:field="*{email}" >

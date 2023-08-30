@@ -31,6 +31,8 @@ public class MemberDto {
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
 	
+	private Long id;
+	
 	private String emailConfirm; //이메일로 받은 인증번호
 	
 	private String emailConfirm2; ////이메일로 받은 인증번호 확인용

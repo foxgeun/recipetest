@@ -439,11 +439,10 @@ width: 65px;
 </th:block>
 
 <div layout:fragment="content">
-		<div>
 		<div class="newRecipe">
 		<h3>레시피 등록</h3>
 			<form role="recipeform" action="/recipe/new" method="POST" enctype="multipart/form-data" th:object="${recipeNewDto}" >
-			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{id}"/>
 				<div class="recipeMain">
 					<label for="recipe" class="recipe">레시피 제목</label>
 					<input type="text" placeholder="레시피 제목을 입력해주세요" class="in" th:field="*{title}"> 
@@ -540,7 +539,6 @@ width: 65px;
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			</form>
 		</div>
-	</div>
 </div>
 
 <th:block layout:fragment="script">

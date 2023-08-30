@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
@@ -19,7 +20,6 @@ import com.recipe.repository.RecipeIngreRepository;
 import com.recipe.repository.RecipeOrderRepository;
 import com.recipe.repository.RecipeRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,6 +40,7 @@ public class RecipeService {
 	
 	private String recipeImgLocation = "C:/recipe/memberRecipe";
 	
+	//레시피 저장 메소드
 	public Long saveRecipe(RecipeNewDto recipeNewDto, MultipartFile recipeImgFile,
 			List<String> RecipeingreMaterialList , List<String>RecipeingreNameList,
 			List<String>recipeOrderContentList, List<MultipartFile>recipeOrderImgFile, Principal principal) throws Exception {
@@ -106,6 +107,11 @@ public class RecipeService {
 				return recipe.getId();
 		}
 	
+	//레시피 수정을 위해 정보 가져오기
+	/*@Transactional(readOnly = true)
+	public RecipeNewDto getRecipeDtl(Long recipeId) {
+		
+	}*/
 	
 }
 
