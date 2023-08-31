@@ -38,7 +38,6 @@ public class RecipeNewDto {
 	
 	private int count=0; //조회수
 	
-	
 //	재료 정보 저장
 	private List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
 	

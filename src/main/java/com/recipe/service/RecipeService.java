@@ -45,7 +45,7 @@ public class RecipeService {
 	
 	//레시피 저장 메소드
 	public Long saveRecipe(RecipeNewDto recipeNewDto, MultipartFile recipeImgFile,
-			List<String> RecipeingreMaterialList , List<String>RecipeingreNameList,
+			List<String> recipeingreMaterialList , List<String>recipeingreNameList,
 			List<String>recipeOrderContentList, List<MultipartFile>recipeOrderImgFile, Principal principal) throws Exception {
 		//로그인된 사용자의 이메일 가져옴
 		String email = principal.getName();
@@ -76,13 +76,13 @@ public class RecipeService {
 		}
 			
 		//레시피등록할때 넘긴 재료정보 가져오기 => 등록
-		for(int i=0; i<RecipeingreMaterialList.size(); i++) {
+		for(int i=0; i<recipeingreMaterialList.size(); i++) {
 			
 			RecipeIngre recipeIngre = new RecipeIngre();
 			
 			recipeIngre.setRecipe(recipe);
-			recipeIngre.setIngreMaterial(RecipeingreMaterialList.get(i));
-			recipeIngre.setIngreName(RecipeingreNameList.get(i));
+			recipeIngre.setIngreMaterial(recipeingreMaterialList.get(i));
+			recipeIngre.setIngreName(recipeingreNameList.get(i));
 			recipeIngreRepository.save(recipeIngre);
 		}
 			//레시피 조리순서 가져오기
@@ -91,7 +91,7 @@ public class RecipeService {
 				
 				recipeOrder.setRecipe(recipe);
 				recipeOrder.setContent(recipeOrderContentList.get(i));
-				recipeOrder.setOrder_number(i+1);
+				recipeOrder.setOrderNumber(i+1);
 				
 				String imgName2 = recipeOrderImgFile.get(i).getOriginalFilename();
 				String imgUrl2 = "";
@@ -148,5 +148,92 @@ public class RecipeService {
 		return recipeNewDto;
 	}
 	
+	//레시피 수정기능
+	public Long updateRecipe(RecipeNewDto recipeNewDto, MultipartFile recipeImgFile,
+			List<String> recipeingreMaterialList , List<String>recipeingreNameList,
+			List<String>recipeOrderContentList, List<MultipartFile>recipeOrderImgFile ) {
+		
+		Recipe recipe = recipeRepository.findById(recipeNewDto.getId())
+									.orElseThrow(EntityNotFoundException::new);
+		
+		
+		recipe.updateRecipe(recipeNewDto);
+		
+	    // 메인이미지 업로드 및 레시피 정보 갱신
+	    updateRecipeImage(recipe, recipeImgFile);
+	    
+	    // 재료 정보 업데이트
+	    updateRecipeIngredients(recipe, recipeingreMaterialList, recipeingreNameList);
+	    
+	    // 조리 순서 업데이트
+	    updateRecipeOrders(recipe, recipeOrderContentList, recipeOrderImgFile);
+		
+		return recipe.getId();
+		
+	}
+	
+	//레시피 등록 메인 이미지 업데이트
+	public void updateRecipeImage(Recipe recipe , MultipartFile recipeImgFile) {
+		String imgName = recipeImgFile.getOriginalFilename();
+		String imgUrl = "";
+		
+		if(!StringUtils.isEmpty(imgName)) {
+			try {
+				imgName = fileService.uploadFile(recipeImgLocation, imgName, recipeImgFile.getBytes());
+				imgUrl = "/img/recipe/" + imgName;
+				recipe.updateRecipeImg(imgUrl, imgName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	//재료 정보 업데이트
+	public void updateRecipeIngredients(Recipe recipe, List<String> recipeingreMaterialList,List<String> recipeingreNameList) {
+		List<RecipeIngre> recipeIngredients = recipeIngreRepository.findByRecipeId(recipe.getId());
+	    // 기존 재료 삭제
+	    recipeIngreRepository.deleteAll(recipeIngredients);
+	    
+	    // 새로운 재료 등록
+	    for (int i = 0; i < recipeingreMaterialList.size(); i++) {
+	        RecipeIngre recipeIngre = new RecipeIngre();
+	        recipeIngre.setRecipe(recipe);
+	        recipeIngre.setIngreMaterial(recipeingreMaterialList.get(i));
+	        recipeIngre.setIngreName(recipeingreNameList.get(i));
+	        
+	        recipeIngreRepository.save(recipeIngre);
+	    }
+	}
+	
+	
+	// 조리 순서 업데이트
+	private void updateRecipeOrders(Recipe recipe, List<String> recipeOrderContentList, List<MultipartFile> recipeOrderImgFile) {
+	    List<RecipeOrder> recipeOrders = recipeOrderRepository.findByRecipeId(recipe.getId());
+	    // 기존 조리 순서 삭제
+	    recipeOrderRepository.deleteAll(recipeOrders);
+	    
+	    // 새로운 조리 순서 등록
+	    for (int i = 0; i < recipeOrderContentList.size(); i++) {
+	        RecipeOrder recipeOrder = new RecipeOrder();
+	        recipeOrder.setRecipe(recipe);
+	        recipeOrder.setContent(recipeOrderContentList.get(i));
+	        recipeOrder.setOrderNumber(i + 1);
+
+	        String imgName = recipeOrderImgFile.get(i).getOriginalFilename();
+	        if (!StringUtils.isEmpty(imgName)) {
+	            try {
+	                imgName = fileService.uploadFile(recipeImgLocation, imgName, recipeOrderImgFile.get(i).getBytes());
+	                String imgUrl = "/img/recipe/" + imgName;
+	                
+	                recipeOrder.updateRecipeOrderImg(imgUrl, imgName);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+
+	        recipeOrderRepository.save(recipeOrder);
+	    }
+	}
 }
 

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class RecipeOrderDto {
 	private Long id;
 
-	private int order_number;
+	private int orderNumber;
 	
 	private String content;
 	

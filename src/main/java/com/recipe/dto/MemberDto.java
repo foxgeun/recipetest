@@ -1,6 +1,9 @@
 package com.recipe.dto;
 
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
+
+import com.recipe.entity.Member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -52,4 +55,10 @@ public class MemberDto {
 	private String imgName; //바뀐 사진이름(보안을위해)
 	
 	private String name;
+	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
+	public static MemberDto of(Member member) {
+		return modelMapper.map(member, MemberDto.class);
+	}
 }

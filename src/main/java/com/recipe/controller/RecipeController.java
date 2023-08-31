@@ -3,7 +3,6 @@ package com.recipe.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -45,13 +44,12 @@ public class RecipeController {
 	@PostMapping(value = "/recipe/new")
 	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
-			@RequestParam("RecipeingreName") List<String> RecipeingreNameList ,
-			@RequestParam("RecipeingreMaterial") List<String> RecipeingreMaterialList,
+			@RequestParam("recipeingreName") List<String> recipeingreNameList ,
+			@RequestParam("recipeingreMaterial") List<String> recipeingreMaterialList,
 			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
 			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile,
 			@RequestParam("categoryType") String categoryTypeString,
-			@RequestParam("writingStatus")String writingStatus, Authentication authentication,
-			Principal principal) {
+			@RequestParam("writingStatus")String writingStatus, Principal principal) {
 		
 		CategoryEnum categoryType = CategoryEnum.fromString(categoryTypeString);
 		recipeNewDto.setCategoryType(categoryType);
@@ -84,8 +82,8 @@ public class RecipeController {
 		
 		 
 		try { 
-			recipeService.saveRecipe(recipeNewDto, recipeImgFile , RecipeingreMaterialList, 
-					RecipeingreNameList , recipeOrderContentList , recipeOrderImgFile ,principal );
+			recipeService.saveRecipe(recipeNewDto, recipeImgFile , recipeingreMaterialList, 
+					recipeingreNameList , recipeOrderContentList , recipeOrderImgFile ,principal );
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
@@ -95,31 +93,64 @@ public class RecipeController {
 		return "redirect:/";
 	}
 	
-		//레시피 수정화면
-		@GetMapping(value = "/recipe/modify/{recipeId}")
-		public String recipeDtl(@PathVariable("recipeId") Long recipeId, Model model){	
+	//레시피 수정화면
+	@GetMapping(value = "/recipe/modify/{recipeId}")
+	public String recipeDtl(@PathVariable("recipeId") Long recipeId, Model model){	
+		
+		
+		try {
+			RecipeNewDto recipeNewDto = recipeService.getRecipeDtl(recipeId);
+			model.addAttribute("recipeNewDto" , recipeNewDto);
 			
+			//System.out.println(recipeNewDto.getRecipeIngreDtoList().get(0).getIngreMaterial());
+			//System.out.println(recipeNewDto.getRecipeOrderDtoList().get(0).getImgName());
 			
-			try {
-				RecipeNewDto recipeNewDto = recipeService.getRecipeDtl(recipeId);
-				model.addAttribute("recipeNewDto" , recipeNewDto);
-				
-				//System.out.println(recipeNewDto.getRecipeIngreDtoList().get(0).getIngreMaterial());
-				//System.out.println(recipeNewDto.getRecipeOrderDtoList().get(0).getImgName());
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-				
-				model.addAttribute("errorMessage", "레시피 정보를 가져오는중 에러가 발생했습니다");
-				model.addAttribute("recipeNewDto", new RecipeNewDto());
-				
-				return "/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			model.addAttribute("errorMessage", "레시피 정보를 가져오는중 에러가 발생했습니다");
+			model.addAttribute("recipeNewDto", new RecipeNewDto());
+			
+			return "main";
+		}
+		
+		
+		
+		return "recipe/modify";
+	}
+	
+	//레시피 수정기능
+	@PostMapping(value = "/recipe/modify/{recipeId}")
+	public String recipeUpdate(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
+			BindingResult bindingResult , Model model, 
+			@RequestParam("recipeingreName") List<String> recipeingreNameList ,
+			@RequestParam("recipeingreMaterial") List<String> recipeingreMaterialList,
+			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
+			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile,
+			@RequestParam("categoryType") String categoryTypeString,
+			@RequestParam("writingStatus")String writingStatus) {
+		
+			CategoryEnum categoryType = CategoryEnum.fromString(categoryTypeString);
+			recipeNewDto.setCategoryType(categoryType);
+			
+			WritingStatus status = WritingStatus.valueOf(writingStatus);
+	
+			if (status == WritingStatus.PUBLISHED) {
+				System.out.println("dasfsadf===" + status);
+				recipeNewDto.setWritingStatus(status);
+			} else if(status == WritingStatus.DRAFT) {
+				recipeNewDto.setWritingStatus(status);
 			}
 			
 			
-			
-			return "recipe/modify";
-		}
-		
-
+			try { 
+				recipeService.updateRecipe(recipeNewDto, recipeImgFile , recipeingreMaterialList, 
+						recipeingreNameList , recipeOrderContentList , recipeOrderImgFile);
+			} catch (Exception e) {			
+				e.printStackTrace();
+			}
+			return "redirect:/";
+	}
+	
+	
 }

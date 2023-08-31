@@ -159,6 +159,7 @@ h2{
 		margin-bottom: 5px;
 		font-size: 13px;
 		
+		
 }
 
 .btn:hover{
@@ -179,7 +180,7 @@ height: 70px;
 }
 
 .recipeTurn{
-	width: 430px;
+	width: 425px;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 5px;
@@ -193,6 +194,7 @@ height: 70px;
 	margin-left: 55px;
 	resize: none;
 	margin-bottom: 5px;
+	text-align: left !important;
 }
 
 .btn2{
@@ -204,7 +206,6 @@ width: 65px;
 		border-color: #dee2e6;
 		border-radius: 5px;
 		font-size: 13px;
-		margin-left: 7px;
 		margin-top: auto;
 		margin-bottom: auto;
 }
@@ -432,11 +433,39 @@ width: 65px;
 .ingredientText{
 	margin-bottom: auto;
 	margin-top: auto;
-	width: 155px;
+	width: 100px;
 }
 
 .newbtnMain{
 	text-align: center;
+}
+
+.ingredientsBtn{
+	width: 100px;
+}
+
+.ingredientTextBtn{
+	width: 100px;
+}
+
+.btn4{
+	width: 65px;
+	height: 55px;
+		cursor: pointer;
+		background-color: white;
+		border: 1px solid;
+		border-color: #dee2e6;
+		border-radius: 5px;
+		font-size: 13px;
+		position: relative; /* 위치를 상대적으로 설정 */
+    	top: 30px; /* Y축으로 20px 아래로 이동 */
+    	margin-left: 7px;
+}
+
+.btn4:hover{
+	background-color: var(--green-color);
+	border: 1px solid;
+	border-color: #dee2e6;
 }
 	</style>
 </th:block>
@@ -459,8 +488,8 @@ width: 65px;
 					<input type="text" placeholder="레시피 소개를 입력해주세요" class="recipeSub" th:field="*{intro}"> 
 				</div>
 				<div class="pictureMain">
-					<label for="picture" class="picture">요리메인사진</label>
-					<input type="file" class="in upload-hidden"  img th:src="@{${recipeNewDto.imageUrl}}" accept="image/*"> 
+					<label for="picture" class="picture">요리메인사진</label> <!-- //th:src="@{${recipeNewDto.imageUrl}}" -->
+					<input type="file" class="in upload-hidden" accept="image/*" name="recipeImgFile"> 
 				</div>
 				<div class="categoryMain">
 					<label th:for="level" class="category">난이도</label>
@@ -505,26 +534,39 @@ width: 65px;
 					</select>
 				</div>
 				<div class="ingredientsMain">
-					<label for="ingredients" class="ingredients">재료 추가</label>
-					<div id="box" th:each="recipeIngre : ${recipeNewDto.recipeIngreDtoList}" >
-			           	<input type="text" class="in3" placeholder="ex ) 재료이름"   th:value="${recipeIngre.ingreName}"> 
-			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" th:value="${recipeIngre.ingreMaterial}"> 
+					<div class="ingredientsBtn">
+						<label for="ingredients" class="ingredients">재료 추가</label>
 			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
+					</div>
+					<div>
+						<div id="box"  >
+				           	<div th:each="recipeIngre : ${recipeNewDto.recipeIngreDtoList}">
+					           	<input type="text" class="in3" placeholder="ex ) 재료이름"   th:value="${recipeIngre.ingreName}" name="recipeingreName"> 
+					            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" th:value="${recipeIngre.ingreMaterial}" name="recipeingreMaterial">
+					            <button class='btn' type='button' onclick='remove(this)'>삭제</button> 
+				           	</div>
+				        </div>
 			        </div> 
-				</div>
+			    </div>   
 				<div class="ingredientTextMain">
-					<label for="ingredientText" class="ingredientText">조리 설명</label>
-					<div id="box2">
-							<input type="file" class="recipeImg" id="recipeOrderImgFile" name="recipeOrderImgFile" accept="image/*">
-						<div class="box3">
-			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" id="recipeOrderContent" name="recipeOrderContent" >
-			            	</textarea>
-				            <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
-						</div>
-			        </div> 
+				    <div class="ingredientTextBtn">
+				        <label for="ingredientText" class="ingredientText">조리 설명</label>
+				        <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
+				    </div>
+				    <div id="box2">
+				        <div th:each="recipeOrder : ${recipeNewDto.recipeOrderDtoList}">
+				            <div class="recipeOrder">
+				                <input type="file" class="recipeImg" name="recipeOrderImgFile" accept="image/*">
+				                <div class="box3">
+				                    <textarea class="recipeTurn" name="recipeOrderContent" placeholder="ex ) 요리순서를 입력해주세요" th:text="${recipeOrder.content}"></textarea>
+				                    <button class='btn4' type='button' onclick='removeElement2(this)'>삭제</button>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
 				</div>
 				<div class="newbtnMain">
-					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">등록</button>
+					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">수정</button>
 					<button type="submit"  name="writingStatus" id="newbtn2" class="newbtns" value="DRAFT" onclick="return confirmDraft()">임시저장</button>
 				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -553,7 +595,7 @@ width: 65px;
 	        }
 	    }
 
-	    return confirm("레시피를 정말로 등록하시겠습니까?");
+	    return confirm("레시피를 정말로 수정하시겠습니까?");
 	}
 	
 	//임시저장 함수
@@ -564,13 +606,6 @@ width: 65px;
 		bindDomEvent();
 		bindDomEvent2();
 	});
-	
-	var selectElement = document.getElementById("category");
-
-	// 요소를 삭제합니다.
-	if (selectElement) {
-	    selectElement.parentNode.removeChild(selectElement);
-	}
 	
 	//이미지 확인
 	function bindDomEvent(){
@@ -605,6 +640,7 @@ width: 65px;
 	
 	
 	//재료칸 추가 js
+	
 	const add_textbox = () => {
 	    const box = document.getElementById("box");
 	    const newP = document.createElement('div');
@@ -615,37 +651,47 @@ width: 65px;
 	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
 	    box.appendChild(newP);
 	}
+	
+	// 재료추가삭제
 	const remove = (obj) => {
-	    document.getElementById('box').removeChild(obj.parentNode);
-	}
-	
-	
-	//조리이미지 설명과 이미지 추가 js
-	const add_textareabox = () => {
-	    const box2 = document.getElementById("box2");
-	    const newDiv = document.createElement('div');
+	    const box = document.getElementById('box');
 	    
-	    newDiv.innerHTML =
-	    	
-	    	"<div style='height: 145px;'>" +
-	    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
-	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"
-	    	+"</textarea>" +
-	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
-	    	"</div>"
-	    box2.appendChild(newDiv);
-	}
-	
-	//삭제
-	const remove2 = (obj) => {
-	    const newDiv = obj.closest('div'); // "삭제" 버튼의 가장 가까운 부모 div 요소를 찾습니다.
-	    
-	    if (newDiv) {
-	        newDiv.parentNode.removeChild(newDiv); // newDiv와 그 내용을 삭제합니다.
-	        console.log("요소 삭제");
+	    // 최소재료1개유지
+	    if (box.children.length > 1) {
+	        box.removeChild(obj.parentNode);
+	    } else {
+	        alert("최소 1개의 재료는 있어야 합니다.");
 	    }
 	}
 	
+	// 새로운 조리 설명 추가 js
+    const add_textareabox = () => {
+        const box2 = document.getElementById("box2");
+        const newDiv = document.createElement('div');
+        
+        newDiv.innerHTML =
+            "<div class='recipeOrder'>" +
+            "<input type='file' class='recipeImg' name='recipeOrderImgFile' accept='image/*'>" +
+            "<div class='box3'>" +
+            "<textarea class='recipeTurn' name='recipeOrderContent' placeholder='ex )step1 요리순서를 입력해주세요'></textarea>" +
+            "<button class='btn4' type='button' onclick='removeElement2(this)'>삭제</button>" +
+            "</div>" +
+            "</div>";
+        box2.appendChild(newDiv);
+    }
+
+    // 조리 설명 삭제
+    const removeElement2 = (button) => {
+    	const removeDiv = button.closest('.recipeOrder');
+        const recipeOrders = document.querySelectorAll('.recipeOrder');
+        
+        //최소1개
+        if (removeDiv && recipeOrders.length > 1) {
+            removeDiv.remove();
+        } else {
+            alert("최소 1개의 조리 설명이 있어야 합니다.");
+        }
+    }
 	</script>
 </th:block>
 

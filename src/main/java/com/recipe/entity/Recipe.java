@@ -2,6 +2,7 @@ package com.recipe.entity;
 
 import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.WritingStatus;
+import com.recipe.dto.RecipeNewDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,6 +62,17 @@ public class Recipe {
 	
 	@Column(length = 1000) // Adjust the length as needed
     private String description;
+	
+	public void updateRecipe(RecipeNewDto recipeNewDto) {
+		this.title = recipeNewDto.getTitle();
+		this.subTitle = recipeNewDto.getSubTitle();
+		this.intro = recipeNewDto.getIntro();
+		this.durTime = recipeNewDto.getDurTime();
+		this.level = recipeNewDto.getLevel();
+		this.imageUrl = recipeNewDto.getImageUrl();
+		this.categoryType = recipeNewDto.getCategoryType();
+		this.writingStatus = recipeNewDto.getWritingStatus();
+	}
 	
 
 	public void updateRecipeImg(String imageUrl , String imgName) {

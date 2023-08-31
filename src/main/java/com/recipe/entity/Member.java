@@ -177,4 +177,9 @@ public class Member extends BaseEntity {
 		return password;
 	} 
 	
+	public void updateProfileImg(String imgUrl, String imgName) {
+		this.imgUrl = imgUrl;
+		this.imgName = imgName;
+	}
+	
 }

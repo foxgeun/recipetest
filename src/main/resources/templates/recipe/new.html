@@ -191,6 +191,9 @@ height: 70px;
 	margin-bottom: 5px;
 }
 
+
+
+
 .btn2{
 width: 65px;
 	height: 55px;
@@ -504,8 +507,8 @@ width: 65px;
 				<div class="ingredientsMain">
 					<label for="ingredients" class="ingredients">재료 추가</label>
 					<div id="box">
-			           <input type="text" class="in3" placeholder="ex ) 재료이름"  id="RecipeingreName" name="RecipeingreName"> 
-			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" id="RecipeingreMaterial" name="RecipeingreMaterial"> 
+			           <input type="text" class="in3" placeholder="ex ) 재료이름"  id="recipeingreName" name="recipeingreName"> 
+			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" id="recipeingreMaterial" name="recipeingreMaterial"> 
 			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
 			        </div> 
 				</div>
@@ -514,24 +517,12 @@ width: 65px;
 					<div id="box2">
 							<input type="file" class="recipeImg" id="recipeOrderImgFile" name="recipeOrderImgFile" accept="image/*">
 						<div class="box3">
-			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" id="recipeOrderContent" name="recipeOrderContent" >
-			            	</textarea>
+			            	<textarea class="recipeTurn" placeholder="ex )step1 요리순서를 입력해주세요" id="recipeOrderContent" name="recipeOrderContent" ></textarea>
 				            <button class="btn2" type="button" onclick="add_textareabox()">추가</button>
 						</div>
 			        </div> 
 				</div>
 				<!-- id값이 for값으로 영향이 간다 -->
-				
-				<!-- 이미지 업로드  -->
-				
-			<!--<div class="pictureRecipe">
-					<label for="ingredients" class="ingredients">조리 이미지</label>
-					<div id='image_preview'>
-					    <input type='file' id='btnAtt' multiple='multiple' accept="image/*"/>
-					    <div id='att_zone'
-					      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭해주세요'></div>
-					  </div>
-				</div> -->
 				<div class="newbtnMain">
 					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">등록</button>
 					<button type="submit"  name="writingStatus" id="newbtn2" class="newbtns" value="DRAFT" onclick="return confirmDraft()">임시저장</button>
@@ -569,12 +560,12 @@ width: 65px;
 		bindDomEvent2();
 	});
 	
-	var selectElement = document.getElementById("category");
+	/* var selectElement = document.getElementById("category");
 
 	// 요소를 삭제합니다.
 	if (selectElement) {
 	    selectElement.parentNode.removeChild(selectElement);
-	}
+	} */
 	
 	//이미지 확인
 	function bindDomEvent(){
@@ -614,8 +605,8 @@ width: 65px;
 	    const newP = document.createElement('div');
 	
 	    newP.innerHTML = 
-	    	"<input class='in3' type='text' id='RecipeingreName' name='RecipeingreName'> " +
-	    	"<input class='in4' type='text' id='RecipeingreMaterial' name='RecipeingreMaterial'> " +
+	    	"<input class='in3' type='text' id='recipeingreName' name='recipeingreName'> " +
+	    	"<input class='in4' type='text' id='recipeingreMaterial' name='recipeingreMaterial'> " +
 	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
 	    box.appendChild(newP);
 	}
@@ -633,8 +624,7 @@ width: 65px;
 	    	
 	    	"<div style='height: 145px;'>" +
 	    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
-	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"
-	    	+"</textarea>" +
+	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"+"</textarea>" +
 	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
 	    	"</div>"
 	    box2.appendChild(newDiv);

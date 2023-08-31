@@ -153,7 +153,7 @@ p{
 <div layout:fragment="content">
 	<h2>회원가입</h2>
 	<div class="newForm">
-		<form role="joinform" id="joinform" action="/members/newMember" method="post" th:object="${memberDto}" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
+		<form role="joinform" id="joinform" action="/members/newMember" method="post" th:object="${memberDto}" enctype="multipart/form-data" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
 				<input type="hidden" th:field="*{id}"/>
 				<label for="email" class="email">이메일</label>
 				<div class="emailMain">
@@ -199,7 +199,7 @@ p{
 			</div>
 			<div>
 				<label for="profileImgMain" class="profileImgMain">프로필 이미지(프로필로 사용하실 이미지를 넣어주세요)</label>
-				<input type="file" class="in" id="profileImgFile" name="imgUrl" accept="image/*">
+				<input type="file" class="in" id="profileImgFile" name="profileImgFile" accept="image/*">
 			</div>
 			<input type="hidden" th:field="*{introduce}">
 			<input type="hidden" th:field="*{name}">
@@ -225,14 +225,15 @@ p{
     	
         var pw = $('#password').val();
         var pwck = $('#passwordConfirm').val();
-        var nicknames = $('#nickname').val();
+        var nickname = $('#nickname').val();
         var regexp = new RegExp("^010-\\d{4}-\\d{4}$");
         var phone = $('#phoneNumber').val();
         var emailConfirm2 = $('#emailConfirm2').val();
         var emailConfirm = $('#emailConfirm').val();
         console.log(emailConfirm2)
         
-        if (pw === pwck && pw != "" && regexp.test(phone) == true && emailConfirm2 != "" && emailConfirm == emailConfirm2) {
+        if (pw === pwck && pw != "" && regexp.test(phone) == true && emailConfirm2 != "" && emailConfirm == emailConfirm2
+        		&& nickname != null && nickname != "") {
         	alert("회원가입 완료")
         } else {
             alert("가입실패 인증을 다시 해주시거나.입력란을 확인해주세요");
@@ -319,7 +320,7 @@ p{
 	        }
 	    }
 	    
-	    
+	    //이메일저장
 		$(document).ready(function() {
 			var userInputId = getCookie("userInputId"); //쿠키값을가져온다
 			var setCookieYN = getCookie("setCookieYN"); //쿠기값(이메일)을 가져온다

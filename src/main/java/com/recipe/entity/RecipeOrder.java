@@ -27,7 +27,7 @@ public class RecipeOrder {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //아이디
 	
-	private int order_number; //순서번호
+	private int orderNumber; //조리순서번호
 	
 	private String content; //상세내용
 	
