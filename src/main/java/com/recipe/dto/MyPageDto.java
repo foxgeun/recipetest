@@ -1,5 +1,6 @@
 package com.recipe.dto;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,14 +73,21 @@ public class MyPageDto {
 		this.member = member;
 		this.comment = comment;
 		this.recipeId = comment.getRecipe();
+		
 	}
 	
 	private Review review;
+	private String regTime;
 	//리뷰
 	public MyPageDto(Member member, Review review) {
 		this.member = member;
 		this.review = review;
 		this.recipeId = review.getRecipe();
+	    if (review.getRegTime() != null) {
+	        this.regTime = review.getRegTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+	    } else {
+	        this.regTime = ""; // 또는 다른 값으로 표시하고 싶은 내용을 넣으세요
+	    }
 	}
 
 }

@@ -61,5 +61,4 @@ public class Recipe extends BaseEntity {
 	@JoinColumn(name = "recipeOrder_id")
 	private RecipeOrder recipeOrder;
 
-    // Getters and setters
 }

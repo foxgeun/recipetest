@@ -300,29 +300,26 @@ function deleteBookmark(bookmarkId, imgElement) {
 
 		});
 	}
-	
-	
-	// 별점 값을 가져옵니다. (예를 들어, 서버에서 전달된 값)
-var rating = document.querySelector('.ratingValue').value;
-console.log(rating);
-// 별점에 따라 이미지를 설정합니다.
-var starImageSrc = ""; // 초기화
-if (rating == 1) {
-    starImageSrc = "/img/5.png"; // 별 하나 이미지 경로
-} else if (rating == 2) {
-    starImageSrc = "/img/6.png"; // 별 두 개 이미지 경로
-}
-// ... 나머지 별점에 따른 이미지도 추가
-else if (rating == 3) {
-	starImageSrc = "/img/7.png";
-}else if (rating == 4) {
-	starImageSrc = "/img/8.png";
-}else{
-	starImageSrc = "/img/9.png";
+
+
+	      toggleReviews('myReviewList');
+function toggleReviews(contentId) {
+	        $('.mypage-top').removeClass('active');
+	    $('.my').addClass('active');
+    if (contentId === 'myReviewList') {
+        $('#myReviewList').show();
+        $('#receivedReviewList').hide();
+        $('.mypage-top').removeClass('active');
+	    $('.my').addClass('active');
+    } else if (contentId === 'receivedReviewList') {
+        $('#receivedReviewList').show();
+        $('#myReviewList').hide();
+        $('.mypage-top').removeClass('active');
+	    $('.you').addClass('active');
+    }
 }
 
-// 별 이미지를 DOM에 추가합니다.
-var starContainer = document.querySelector('.starContainer');
-var starImage = document.createElement('img');
-starImage.src = starImageSrc;
-starContainer.appendChild(starImage);
+
+
+
+

@@ -49,10 +49,12 @@ public class myPageController {
 		
 		List<MyPageDto> myCommentList = myPageService.getMyComment(id);
 		
-		List<MyPageDto> reviewList = myPageService.getReview(id);
+		List<MyPageDto> myReviewList = myPageService.getMyReview(id);
+		List<MyPageDto> receivedReviewList = myPageService.getReceivedReview(id);
 
 		
-		model.addAttribute("reviewList" , reviewList);
+		model.addAttribute("receivedReviewList" , receivedReviewList);
+		model.addAttribute("myReviewList" ,  myReviewList);
 		model.addAttribute("myCommentList" , myCommentList);
 		model.addAttribute("bookmarkList" , bookmarkList);
 

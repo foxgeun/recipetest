@@ -254,11 +254,26 @@ public class MyPageService {
 		commentRepository.delete(comment);
 	}
 	
-	//리뷰후기불러오기
+	//내후기불러오기
 	@Transactional(readOnly = true)
-	public List<MyPageDto> getReview(Long id){
+	public List<MyPageDto> getMyReview(Long id){
 		
-		List<Review> reviews = reviewRepository.getReview(id);
+		List<Review> reviews = reviewRepository.getMyReview(id);
+		List<MyPageDto> reviewDtos = new ArrayList<>();
+		
+		for(Review review : reviews) {
+			Member member = review.getMember();
+			
+			MyPageDto reviewDto = new MyPageDto(member, review);
+			reviewDtos.add(reviewDto);
+		}
+		return reviewDtos;
+	}
+	//받은후기불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getReceivedReview(Long id){
+		
+		List<Review> reviews = reviewRepository.getReceivedReview(id);
 		List<MyPageDto> reviewDtos = new ArrayList<>();
 		
 		for(Review review : reviews) {
