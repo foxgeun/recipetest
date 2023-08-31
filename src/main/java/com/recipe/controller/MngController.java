@@ -1,6 +1,5 @@
 package com.recipe.controller;
 
-import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -17,11 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.recipe.dto.CommentDto;
 import com.recipe.dto.MemberDto;
-import com.recipe.dto.QaDto;
+import com.recipe.dto.PostDto;
 import com.recipe.dto.RecipeDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.service.CommentService;
 import com.recipe.service.MemberService;
+import com.recipe.service.PostService;
 import com.recipe.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +33,7 @@ public class MngController {
 	private final MemberService memberService;
 	private final RecipeService recipeService;
 	private final CommentService commentService;
+	private final PostService postService;
 
 	// 회원관리 페이지
 	@GetMapping(value = { "/admin/memberMng", "/admin/memberMng/{page}" })
@@ -59,7 +60,6 @@ public class MngController {
 		model.addAttribute("recipes", recipeDtoList);
 		model.addAttribute("recipeSearchDto", recipeSearchDto);
 		model.addAttribute("maxPage", 5);
-		model.addAttribute("recipeSearchDto" , recipeSearchDto);
 
 		return "mng/recipeMng";
 	}
@@ -81,6 +81,18 @@ public class MngController {
 		model.addAttribute("maxPage", 5);
 
 		return "mng/commentMng";
+	}
+
+	// 문의내역 관리 페이지
+	@GetMapping(value = { "/admin/qaMng", "/admin/qaMng/{page}" })
+	public String qaMng(RecipeSearchDto recipeSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+		Page<PostDto> adminPosts = postService.getAdminPostListPage(recipeSearchDto, pageable);
+
+		model.addAttribute("adminPosts", adminPosts);
+		model.addAttribute("maxPage", 5);
+
+		return "mng/qaMng";
 	}
 
 }

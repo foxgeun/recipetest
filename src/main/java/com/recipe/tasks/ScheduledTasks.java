@@ -13,7 +13,7 @@ import com.recipe.service.RecipeListCrawlerService;
 public class ScheduledTasks {
 	
 	
-//	
+
 //    @Autowired
 //    private RecipeListCrawlerService crawlerListService;
 //    

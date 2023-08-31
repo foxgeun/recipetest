@@ -28,8 +28,9 @@ public class SecurityConfig {
 				// 모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
 				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"), mvc.pattern("/img/**"),
 						mvc.pattern("/image/**"), mvc.pattern("/fonts/**"))
-				.permitAll().requestMatchers(mvc.pattern("/**"), mvc.pattern("/recipe"), mvc.pattern("/admin/recipeMng/**")).permitAll()
-				.requestMatchers(mvc.pattern("/favicon.ico"), mvc.pattern("/error")).permitAll()
+				.permitAll()
+				.requestMatchers(mvc.pattern("/**"), mvc.pattern("/recipe"), mvc.pattern("/admin/**"))
+				.permitAll().requestMatchers(mvc.pattern("/favicon.ico"), mvc.pattern("/error"),  mvc.pattern("/post/**")).permitAll()
 				// 'admin'으로 시작하는 경로는 관리자만 접근가능하도록 설정
 				.requestMatchers(mvc.pattern("/admin")).hasRole("ADMIN")
 				// 그 외의 페이지는 모두 로그인(인증을 받아야 한다)
