@@ -22,7 +22,7 @@ import com.recipe.dto.ItemDetailImgDto;
 import com.recipe.dto.ItemImgDto;
 import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
-import com.recipe.dto.ReviewAnswerDto;
+import com.recipe.dto.ItemReviewAnswerDto;
 import com.recipe.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -51,8 +51,8 @@ public class ItemController {
 	}
 	
 //	상품 상세페이지
-	@GetMapping(value= {"/item/{ItemId}"  })
-	public String ItemDetail( @PathVariable("ItemId") Long itemId ,
+	@GetMapping(value= {"/item/{ItemId}" })
+	public  String ItemDetail( @PathVariable("ItemId") Long itemId ,
 			Optional<Integer> reviewPage, Model model) {
 		
 		ItemDetailDto item = itemService.getItemDetailList(itemId);
@@ -64,32 +64,41 @@ public class ItemController {
 		Pageable pageable = PageRequest.of(reviewPage.isPresent() ? reviewPage.get() : 0 , 8);
 		Page<ItemReviewDto> itemReviewList = itemService.getItemReviewList(pageable, itemId);
 		
-		for(ItemReviewDto r : itemReviewList) {
-			System.out.println("reviewId : " + r.getId());
-		}
-		
-		
 		model.addAttribute("item" , item);
 		model.addAttribute("imgList" , imgList);
 		model.addAttribute("imgDetailList" , imgDetailList);
 		model.addAttribute("itemReviewList" , itemReviewList);
 		model.addAttribute("maxPage" , 5);
 		model.addAttribute("itemId" , itemId);
+		model.addAttribute("reviewPage",reviewPage);
 		
 		return "itemDetail";
 	}
 	
-	@PostMapping(value="/answer")
-	public @ResponseBody ResponseEntity reviewAnswer(@RequestBody ReviewAnswerDto reviewAnswerDto ) {
+	@PostMapping(value="/answerReg")
+	public @ResponseBody String reviewAnswerReg(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
 		
-		System.out.println("id" + reviewAnswerDto.getId());
-		System.out.println("content" + reviewAnswerDto.getContent());
+		 itemService.itemReviewAnswerReg(itemReviewAnswerDto);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return "itemDetail :: #review_list";
 		
 	} 
 	
+	@PostMapping(value="/answerUpdate")
+	public @ResponseBody String reviewAnswerUpdate(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
+		
+		itemService.itemReviewAnswerUpdate(itemReviewAnswerDto);
+		
+		return "itemDetail :: #review_list";
+		
+	} 
 	
-	
-	
+	@PostMapping(value="/answerDelete")
+	public @ResponseBody String reviewAnswerDelete(@RequestBody Long id ) {
+		
+		itemService.itemReviewAnswerDelete(id);
+		
+		return "itemDetail :: #review_list";
+		
+	} 
 }

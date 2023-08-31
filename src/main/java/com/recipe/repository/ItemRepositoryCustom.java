@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
+import com.recipe.dto.ItemReviewAnswerDto;
 import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
 

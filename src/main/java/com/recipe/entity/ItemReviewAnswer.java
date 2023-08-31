@@ -17,10 +17,10 @@ import lombok.Setter;
 @Setter
 @ToString
 @Entity
-@Table(name="review_answer")
-public class ReviewAnswer {
+@Table(name="item_review_answer")
+public class ItemReviewAnswer extends BaseEntity {
 	@Id
-	@Column(name="review_answer_id")
+	@Column(name="item_review_answer_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -31,7 +31,7 @@ public class ReviewAnswer {
 	private Member member;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "review_id")
-	private Review review;
+	@JoinColumn(name = "item_review_id")
+	private ItemReview itemReview;
 	
 }

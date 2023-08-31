@@ -15,14 +15,17 @@ import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
 import com.recipe.dto.ItemDetailImgDto;
 import com.recipe.dto.ItemImgDto;
+import com.recipe.dto.ItemReviewAnswerDto;
 import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.entity.QItem;
 import com.recipe.entity.QItemDetailImg;
 import com.recipe.entity.QItemImg;
 import com.recipe.entity.QItemReview;
+import com.recipe.entity.QItemReviewAnswer;
 import com.recipe.entity.QMember;
 import com.recipe.entity.QMemberImg;
+import com.recipe.entity.QReview;
 
 import jakarta.persistence.EntityManager;
 
@@ -144,13 +147,14 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 	}
 
 
-//	상품리뷰 가져오기
+//	상품리뷰 / 리뷰 답변 가져오기
 	@Override
 	public Page<ItemReviewDto> getItemReviewList(Pageable pageable , Long itemId ) {
 		
 		QItemReview ir = QItemReview.itemReview;
 		QMember m = QMember.member;
 		QMemberImg mi = QMemberImg.memberImg;
+		QItemReviewAnswer a = QItemReviewAnswer.itemReviewAnswer;
 		
 		List<ItemReviewDto> content = queryFactory
 									.select(
@@ -161,11 +165,15 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 													ir.content,
 													ir.regTime,
 													m.nickname,
-													mi.imgUrl
+													mi.imgUrl,
+													a.id.as("answerId"),
+													a.content.as("answerContent"),
+													a.regTime.as("answerRegTime")
 													))	
 									.from(ir)
 									.join(m).on(ir.member.id.eq(m.id))
 									.leftJoin(mi).on(QMember.member.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
+									.leftJoin(a).on(QItemReview.itemReview.id.eq(a.itemReview.id))
 									.where(ir.item.id.eq(itemId))
 									.offset(pageable.getOffset())
 								    .limit(pageable.getPageSize())
@@ -183,7 +191,9 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 		
 		return new PageImpl<>(content, pageable, total);
 	}
-	
+
+
+
 	
 	
 	
