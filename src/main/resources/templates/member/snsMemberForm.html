@@ -150,7 +150,7 @@ p{
 	<h3>간편 로그인 회원 추가 정보 입력</h3>
 	<h6>회원가입을 완료하시면 간편로그인을 통해 이젠해먹자 사이트를 이용하실 수 있으십니다.</h6>
 	<div class="newForm">
-		<form role="joinform" id="joinform" action="/members/snsMember" method="post" th:object="${socialMemberDto}" > <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
+		<form role="joinform" id="joinform" action="/members/snsMember" method="post" th:object="${socialMemberDto}" enctype="multipart/form-data"> <!-- th:object="${memberDto}" dto필드값 이름 = field값 이름 -->
 			<!-- <div>
 				<label for="password" class="password">비밀번호</label>
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect Data</p>
@@ -175,12 +175,12 @@ p{
 			</div>
 			<div>
 				<label for="snsProfileImgMain" class="snsProfileImgMain">프로필 이미지(프로필로 사용하실 이미지를 넣어주세요)</label>
-				<input type="file" class="in" id="snsProfileImgFile" name="imgUrl" accept="image/*">
+				<input type="file" class="in" id="snsProfileImgFile" name="snsProfileImgFile" accept="image/*">
 			</div>
 		<button type="submit" id="btn" class="in">가입하기</button>
 		<input type="hidden" th:field="*{email}" th:value="${socialMemberDto.email}">
 	<!-- <input type="hidden"th:field="*{passwordConfirm}" th:value="${memberDto.passwordConfirm}"> -->
-		<!-- <input type="hidden"th:field="*{password}" th:value="${socialMemberDto.password}"> -->
+		<input type="hidden"th:field="*{password}" th:value="${socialMemberDto.password}">
 		<input type="hidden"th:field="*{provider}" th:value="${socialMemberDto.provider}">
 		<input type="hidden"th:field="*{providerId}" th:value="${socialMemberDto.providerId}">
 		<input type="hidden"th:field="*{name}" th:value="${socialMemberDto.name}">

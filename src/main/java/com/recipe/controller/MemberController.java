@@ -90,7 +90,7 @@ public class MemberController {
 	
 	//일반 회원가입 기능
 	@PostMapping(value = "/members/newMember")
-	public String newMemberForm(@RequestParam("profileImgFile") MultipartFile profileImgFile, @Valid MemberDto memberDto, BindingResult bindingResult, Model model , RedirectAttributes redirectAttributes) {
+	public String newMemberForm(@RequestParam("profileImgFile") MultipartFile profileImgFile, @Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
 		
 		//회원가입 에러처리
 		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2() == "") {
@@ -107,7 +107,6 @@ public class MemberController {
 			return "member/newMemberForm";
 		}
 		
-		String oriImgName = profileImgFile.getOriginalFilename();
 		String imgName = profileImgFile.getOriginalFilename();
 		String imgUrl = "";
 		
@@ -116,13 +115,11 @@ public class MemberController {
 	        try {
 	            // 프로필 이미지 파일을 저장
 	            String savedImgName = fileService.profileImgFile(profileImgLocation, imgName, profileImgFile.getBytes());
-	            System.out.println("savedImgName========" + savedImgName);
 	            imgUrl = "/img/profile/" + savedImgName;
-	            System.out.println("imgName====" + imgUrl);
 	            
+	            memberDto.setOriImgName(imgName);
 	            memberDto.setImgName(savedImgName);
 	            memberDto.setImgUrl(imgUrl);
-	            memberDto.setOriImgName(oriImgName);
 
 	            // 멤버생성 DB에저장
 	            Member member = Member.createMember(memberDto, passwordEncoder);
@@ -137,11 +134,10 @@ public class MemberController {
 			
 		} else {
 			
-			// oriImgName이 비어있거나 null일 때 처리 고양이 이미지 추가
+			// imgName이 비어있거나 null일 때 처리 고양이 이미지 추가
 		    imgName = "이젠해먹자.jpg"; 
 		    imgUrl = "/img/profile/" + imgName;
-		    System.out.println("기본값 name-----" + imgName);
-		    System.out.println("기본값 프로필 이미지===" + imgUrl);
+		    
 		    memberDto.setImgName(imgName);
 		    memberDto.setImgUrl(imgUrl);
 		    
@@ -157,63 +153,57 @@ public class MemberController {
 	
 	//sns 회원가입 기능
 	@PostMapping(value = "/members/snsMember")
-	public String snsMemberForm(@Valid SocialMemberDto socialMemberDto, BindingResult bindingResult, Model model) {
-		System.out.println("socialMemberDto.getImgUrl===" + socialMemberDto.getImgUrl());
+	public String snsMemberForm(@RequestParam("snsProfileImgFile") MultipartFile snsProfileImgFile ,@Valid SocialMemberDto socialMemberDto, BindingResult bindingResult, Model model) {
 		
 		if(socialMemberDto.getIntroduce() == null || socialMemberDto.getIntroduce() == "") {
 			socialMemberDto.setIntroduce("자기소개가 없습니다.");
-		}
-		
-		String oriImgName = socialMemberDto.getImgUrl();
-		socialMemberDto.setOriImgName(oriImgName);
-		
-		socialMemberDto.setOriImgName(oriImgName);
-		System.out.println("oriImgName====" +  oriImgName);
-		
-		String imgUrl = "";
-		String imgName = "";
-		
-		//프로필 사진처리
-		if(!StringUtils.isEmpty(oriImgName)) {
-			try {
-				imgName = fileService.profileImgFile(profileImgLocation, oriImgName ,oriImgName.getBytes());
-				System.out.println("imgName========" + imgName);
-				imgUrl = "/img/profile/" + imgName;
-				System.out.println("imgName====" + imgUrl);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			socialMemberDto.setImgName(imgName);
-			socialMemberDto.setImgUrl(imgUrl);
-			
-		} else {
-			
-			// oriImgName이 비어있거나 null일 때 처리 고양이 이미지 추가
-		    imgName = "이젠해먹자.jpg"; 
-		    imgUrl = "/img/profile/" + imgName;
-		    System.out.println("기본값 name-----" + imgName);
-		    System.out.println("기본값 프로필 이미지===" + imgUrl);
-		    socialMemberDto.setImgName(imgName);
-		    socialMemberDto.setImgUrl(imgUrl);
 		}
 		
 		//에러처리
 		if (bindingResult.hasErrors()) {
 			return "member/snsMemberForm";
 		}
+				
 		
-		try {
+		String imgName = snsProfileImgFile.getOriginalFilename();
+		String imgUrl = "";
+		
+		//프로필 사진처리
+		if(!StringUtils.isEmpty(imgName)) {
+			try {
+	            // 프로필 이미지 파일을 저장
+	            String savedImgName = fileService.profileImgFile(profileImgLocation, imgName, snsProfileImgFile.getBytes());
+	            imgUrl = "/img/profile/" + savedImgName;
+	            
+	            socialMemberDto.setOriImgName(imgName);
+	            socialMemberDto.setImgName(savedImgName);
+	            socialMemberDto.setImgUrl(imgUrl);
+
+	            // 멤버생성 DB에저장
+	            Member member = Member.createSnsMember(socialMemberDto);
+	            memberService.saveMember(member);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	         // 회원가입 실패시
+				model.addAttribute("errorMessage", e.getMessage());
+				return "member/newMemberForm";
+	        }
 			
-				Member member = Member.createSnsMember(socialMemberDto);
-				System.out.println("member.getname:" + member.getName() + "member.getnickname:" + member.getNickname() + "email:" + member.getEmail());
-				memberService.saveMember(member);
+		} else {
 			
-		} catch (IllegalStateException e) {
-			// 회원가입 실패시
-			model.addAttribute("errorMessage", e.getMessage());
-			return "member/snsMemberForm";
+			// oriImgName이 비어있거나 null일 때 처리 고양이 이미지 추가
+			imgName = "이젠해먹자.jpg"; 
+		    imgUrl = "/img/profile/" + imgName;
+		    
+		    socialMemberDto.setImgName(imgName);
+		    socialMemberDto.setImgUrl(imgUrl);
+		    
+		    // 멤버생성 DB에저장
+		    Member member = Member.createSnsMember(socialMemberDto);
+		    memberService.saveMember(member);
 		}
+		
 		// 회원가입 성공시
 		return "redirect:/";
 	}
