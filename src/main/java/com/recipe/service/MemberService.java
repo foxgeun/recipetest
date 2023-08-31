@@ -63,13 +63,4 @@ public class MemberService implements UserDetailsService{
 		return memberEmail;
 	}
 	
-	//@@@@@@@프로필사진확인 이건 안합치셔도됩니다@@@@@@@@@@
-	public MemberDto findProfile(Long memberId) {
-		Member member = memberRepository.findById(memberId)
-				.orElseThrow(EntityNotFoundException::new);
-		
-		MemberDto memberDto = MemberDto.of(member);
-		
-		return memberDto;
-	}
 }

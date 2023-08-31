@@ -271,16 +271,4 @@ public class MemberController {
 		
 	}
 	
-	//@@@@@@@프로필사진확인 이건 안합치셔도됩니다@@@@@@@@@@
-	@GetMapping(value ="members/profile/{memberId}")
-	public String memberprofile(@PathVariable("memberId") Long memberId, Model model) {
-		
-		MemberDto memberDto = memberService.findProfile(memberId);
-		model.addAttribute("memberDto" , memberDto);
-		
-		System.out.println(memberDto.getImgUrl());
-		
-		return "member/profile";
-		
-	}
 }
