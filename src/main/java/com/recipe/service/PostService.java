@@ -1,5 +1,6 @@
 package com.recipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -10,12 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.PostDto;
+import com.recipe.dto.PostImgDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.PostImg;
 import com.recipe.entity.Post;
-import com.recipe.entity.Post;
+import com.recipe.repository.PostImgRepository;
 import com.recipe.repository.PostRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
 
 	private final PostRepository postRepository;
+	private final PostImgRepository postImgRepository;
 	private final PostImgService postImgService;
 
 	// post 테이블에 게시글 등록(insert)
@@ -46,12 +50,37 @@ public class PostService {
 		return post.getId(); // 등록한 상품 id를 리턴
 	}
 
+	// 상품 가져오기
+	@Transactional(readOnly = true) // 트랙잰션 읽기 전용(변경감지 수해하지 않음) ->성능 향상
+	public PostDto getQaReply(Long postId) {
+		// 1.post_img 테이블의 이미지를 가져온다.
+		List<PostImg> postImgList = postImgRepository.findByPostIdOrderByIdAsc(postId);
+
+		// PostImg 엔티티 객체 -> PostImgDto로 변환
+		List<PostImgDto> postImgDtoList = new ArrayList<>();
+		for (PostImg postImg : postImgList) {
+			PostImgDto postImgDto = PostImgDto.of(postImg);
+			postImgDtoList.add(postImgDto);
+		}
+
+		// 2. post테이블에 있는데이터를 가져온다.
+		Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
+
+		// Post 엔티티 객체 -> dto로 변환
+		PostDto postDto = PostDto.of(post);
+
+		// 3.PostDto에 이미지 정보(postImgDtoList)를 넣어준다.
+		postDto.setPostImgDtoList(postImgDtoList);
+		return postDto;
+
+	}
+
 	@Transactional(readOnly = true)
 	public Page<PostDto> getAdminPostListPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		Page<PostDto> postPage = postRepository.getAdminPostListPage(recipeSearchDto, pageable);
 		return postPage;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Page<PostDto> getPostListPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		Page<PostDto> postPage = postRepository.getPostListPage(recipeSearchDto, pageable);

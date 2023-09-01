@@ -68,20 +68,26 @@ public class PostController {
 		return "post/qaList";
 	}
 
-	// 상품 수정페이지 보기
-//	@GetMapping(value = "/post/qa/{postId}")
-//	public String qaModifyForm(@PathVariable("postId") Long postId, Model model) {
-//
-//		try {
-//			PostDto postDto = itemService.getItemDtl(itemId);
-//			model.addAttribute("itemFormDto", itemFormDto);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("errorMessage", "상품정보를 가져올때 에러가 발생했브니다.");
-//			model.addAttribute("itemFormDto", new ItemFormDto());
-//			return "item/itemForm";
-//		}
-//
-//		return "item/itemModifyForm";
+	// 문의사항 수정 페이지 보기
+	@GetMapping(value = "/admin/qaReply/{postId}")
+	public String qaModifyForm(@PathVariable("postId") Long postId, Model model) {
+
+		try {
+			PostDto postDto = postService.getQaReply(postId);
+			model.addAttribute("postDto", postDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "정보를 가져올때 에러가 발생했습니다.");
+			model.addAttribute("postDto", new PostDto());
+			return "mng/qaMng";
+		}
+		return "mng/qaReply";
+	}
+
+	// 문의등록 페이지
+//	@GetMapping(value = "/admin/post/announcement")
+//	public String announcement(Model model) {
+//		model.addAttribute("postDto", new PostDto());
+//		return "post/announcement";
 //	}
 }

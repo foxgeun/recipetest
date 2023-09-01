@@ -61,10 +61,10 @@ public class PostDto {
 	}
 
 	// 게시물 이미지 정보를 저장
-	private List<PostDto> attFileDtoList = new ArrayList<>();
+	private List<PostImgDto> postImgDtoList = new ArrayList<>();
 
 	// 게시물 이미지 아이디들을 저장 -> 수정시에 이미지 아이디들을 담아둘 용도
-	private List<Long> attFileIds = new ArrayList<>();
+	private List<Long> postImgIds = new ArrayList<>();
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
