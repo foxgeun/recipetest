@@ -1,13 +1,13 @@
 package com.recipe.dto;
 
+import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.Length;
-import org.modelmapper.ModelMapper;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.recipe.entity.Member;
@@ -58,11 +58,9 @@ public class MemberDto {
 	private String oriImgName; //프로필이지미 원본이름
 	
 	private String imgName; //바뀐 이미지 이름
-	
+		
 	private String name;
 	
-	
-
 
 	private Long allCommentCount;
 
@@ -111,8 +109,8 @@ public class MemberDto {
 			memberDto.setNickname(memberDto.getEmail());
 		}
 		return memberDto;
-		
 	}
+
 
 
 	// 상품 이미지 정보를 저장

@@ -189,7 +189,7 @@ public class CrawlingController {
 	            	
 	            	 recipeOrder.setImgUrl(imageUrl);
 	            	 recipeOrder.setContent(desElement.getText());
-	            	 recipeOrder.setOrder_number(count);
+	            	 recipeOrder.setOrderNumber(count);
 	            	 recipeOrderRepository.save(recipeOrder);
 	            	
 	            	

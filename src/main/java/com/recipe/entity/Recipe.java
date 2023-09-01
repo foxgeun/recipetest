@@ -11,6 +11,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.WritingStatus;
+import com.recipe.dto.RecipeNewDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,25 +48,31 @@ public class Recipe extends BaseTimeEntity {
     
     private String subTitle; //부제목
     
-    private String intro; //레시피소개
-    
 
+    private String intro; //레시피소개
+
+    
     private String durTime; //소요시간
     
     private String level; //난이도
 
     
-    private int count; //조회수
-    
-    private String imageUrl; // 메인이미지 (이미지 URL 필드 추가) 
-
-    
     @Column(length = 1000)
     private String description;
     
+    private int count = 0; //조회수
+    
+    private String imageUrl; // 메인이미지 (이미지 URL필드 추가)
+    
+    private String imgName; //이미지 이름
+    
+    @Enumerated(EnumType.STRING) //레시피타입별 카테고리
+	private CategoryEnum categoryType;
+    
+    @Enumerated(EnumType.STRING) //레시피 등록,임시저장
+    private WritingStatus writingStatus;
+    
     private String category;
-
-    private String imgName; // 이미지 이름
 
     
     @Enumerated(EnumType.STRING)
@@ -73,6 +82,19 @@ public class Recipe extends BaseTimeEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
+	
+	public void updateRecipe(RecipeNewDto recipeNewDto) {
+		this.title = recipeNewDto.getTitle();
+		this.subTitle = recipeNewDto.getSubTitle();
+		this.intro = recipeNewDto.getIntro();
+		this.durTime = recipeNewDto.getDurTime();
+		this.level = recipeNewDto.getLevel();
+		this.imageUrl = recipeNewDto.getImageUrl();
+		this.categoryType = recipeNewDto.getCategoryType();
+		this.writingStatus = recipeNewDto.getWritingStatus();
+	}
+	
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipeOrder_id")
@@ -93,11 +115,8 @@ public class Recipe extends BaseTimeEntity {
     }
 
 
-	
 	public void updateRecipeImg(String imageUrl , String imgName) {
 		this.imageUrl = imageUrl;
 		this.imgName = imgName;
 	}
-	
-	
 }

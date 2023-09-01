@@ -19,9 +19,9 @@ public class RecipeIngreDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
+	//엔티티를 dto로 변환
 	public static RecipeIngreDto of(RecipeIngre recipeIngre) {
 		return modelMapper.map(recipeIngre, RecipeIngreDto.class);
 		
 	}
-	
 }

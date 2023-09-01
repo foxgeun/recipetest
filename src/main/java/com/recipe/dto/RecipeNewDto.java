@@ -9,6 +9,10 @@ import com.recipe.entity.Recipe;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.WritingStatus;
+import com.recipe.entity.Recipe;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,31 +20,35 @@ import lombok.Setter;
 @Setter
 public class RecipeNewDto {
 
+	
 	private Long id;
 	
-	private String title;
+	private String title; // 제목
 
-	private String subTitle;
+	private String subTitle; // 부제목
 	
-	private String intro;
+	private String intro; //레시피 소개
 
-	private String durTime;
+	private String durTime; //소요 시간
 
-	private String level;
+	private String level;//난이도
 	
-	private String category;
+	private CategoryEnum categoryType; //카테고리
 
-	private String imageUrl;
+	private String imageUrl; //메인이미지
 
-	private String serving;
+	private String serving; //몇인분
 	
-	private int count;
+	private WritingStatus writingStatus;
+	
+	private int count=0; //조회수
 	
 //	재료 정보 저장
-	List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
+	private List<RecipeIngreDto> recipeIngreDtoList = new ArrayList<>();
 	
 //	조리 순서 저장
-	List<RecipeOrderDto> recipeOrderDtoList = new ArrayList<>();
+	private List<RecipeOrderDto> recipeOrderDtoList = new ArrayList<>();
+
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
@@ -53,7 +61,7 @@ public class RecipeNewDto {
 	public static RecipeNewDto of(Recipe recipe) {
 		return modelMapper.map(recipe, RecipeNewDto.class);
 	}
-	
-	
 
+	
+	
 }

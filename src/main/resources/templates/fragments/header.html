@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<<<<<<< HEAD
 <header th:fragment="header">
 
 	<!--
@@ -94,4 +95,39 @@
 
 </header>
 
+=======
+    <div class="site-navbar bg-white py-2" th:fragment="header">
+        <header class="header-section">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="/img/logo.png" alt=""></a>
+            </div>
+            <div class="nav-menu">
+                <nav class="main-menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="about-me.html">About Me</a></li>
+                                <li><a href="categories.html">Categories</a></li>
+                                <li><a href="recipe.html">Recipe</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/members/login" sec:authorize="isAnonymous()">유저로그인</a></li>
+                        <li><a href="/recipe/new" sec:authorize="isAuthenticated()">레시피등록</a></li>
+                        <li><a href="/members/logout" sec:authorize="isAuthenticated()">로그아웃</a></li>
+                        <li><a href="/recipe/modify" sec:authorize="isAuthenticated()">레시피수정</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-right search-switch">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    </div>
+>>>>>>> fedbdf3b92dd5fa1d3c49f60043d710b7e093532
 </html>

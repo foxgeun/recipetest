@@ -2,6 +2,7 @@ package com.recipe.entity;
 
 
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class RecipeIngre {
 	
+	//레시피 재료 
 	@Id
 	@Column(name="ingredient_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,9 +35,11 @@ public class RecipeIngre {
 	private String ingreName; //재료 이름
 
 	private String ingreImg; //재료 이름
+	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
+	
 	
 }

@@ -86,7 +86,7 @@ public class RecipeCrawlerService {
             String ex = recipeOrderDiv.select(".enJPxd").text();
             RecipeOrder recipeOrder = new RecipeOrder();
             
-            recipeOrder.setOrder_number(count);
+            recipeOrder.setOrderNumber(count);
             
             recipeOrder.setImgUrl(imgSrc);
             recipeOrder.setContent(ex);

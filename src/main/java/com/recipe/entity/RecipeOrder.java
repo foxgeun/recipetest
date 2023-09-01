@@ -19,23 +19,25 @@ import lombok.ToString;
 @Setter
 public class RecipeOrder {
 	
+	//레시피 조리순서,이미지
+	
 	@Id
 	@Column(name="recipe_order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //아이디
 	
-	private int order_number; //순서번호
-	
 
+	private int orderNumber; //조리순서번호
 	
-	@Column(length = 1000) // Adjust the length as needed
-	private String content;
-
+	private String content; //상세내용
 	
-	private String imgUrl; //이미지 url
+	private String imgUrl; //이미지 Url
 	
-
 	private String ImgName; //이미지 이름 
+	
+	private String recipeImg; //크롤링
+	
+	private String recipes;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
@@ -49,4 +51,5 @@ public class RecipeOrder {
 	}
 	
 	
+
 }

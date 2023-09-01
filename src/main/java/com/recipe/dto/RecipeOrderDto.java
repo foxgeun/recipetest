@@ -10,10 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecipeOrderDto {
-	
 	private Long id;
 
 	private int order_number;
+	
 	
 	private String content;
 	
@@ -23,9 +23,9 @@ public class RecipeOrderDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
+	//엔티티를 dto로 변환
 	public static RecipeOrderDto of(RecipeOrder recipeOrder) {
 		return modelMapper.map(recipeOrder, RecipeOrderDto.class);
 		
 	}
-	
 }

@@ -22,7 +22,7 @@ import com.recipe.oauth.PrincipalOauth2UserService;
 @Configuration
 @EnableWebSecurity //spring security filterChain이 자동으로 포함되게 한다
 public class SecurityConfig {
-	
+
 	private final PrincipalOauth2UserService principalOauth2UserService;
 
 	@Lazy
@@ -31,32 +31,36 @@ public class SecurityConfig {
 	}
 	
 	@Bean
+    public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    }
+	@Bean
 	MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
 		return new MvcRequestMatcher.Builder(introspector);
 	}
 
-	@Bean
-    public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
-        return new LoginSuccessHandler();
-    }
 
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http,  MvcRequestMatcher.Builder mvc ) throws Exception {
 		//람다로 변경됨
 		   
-		http.authorizeHttpRequests(authorize -> authorize //1. 페이지 접근에 관한 설정
+		http
+		.authorizeHttpRequests(authorize -> authorize //1. 페이지 접근에 관한 설정
 				//모든 사용자가 로그인(인증) 없이 접근할 수 있도록 설정
 				.requestMatchers(mvc.pattern("/css/**"), mvc.pattern("/js/**"), mvc.pattern("/img/**"), mvc.pattern("/image/**"), mvc.pattern("/fonts/**")).permitAll()
-				.requestMatchers(mvc.pattern("/**"),mvc.pattern("/recipe/**"),mvc.pattern("/members/**"),mvc.pattern("/oauth/**")).permitAll()
-				.requestMatchers(mvc.pattern("/favicon.ico"), mvc.pattern("/error") , mvc.pattern("/test"), mvc.pattern("/test")).permitAll()
+				.requestMatchers(mvc.pattern("/**"),mvc.pattern("/members/**"),mvc.pattern("/oauth/**"),mvc.pattern("/findPw/**"),mvc.pattern("/recipe/**")).permitAll()
+				.requestMatchers(mvc.pattern("/favicon.ico"), mvc.pattern("/error") , mvc.pattern("/test"), mvc.pattern("/test"),mvc.pattern("/email/**")).permitAll()
 				//'admin'으로 시작하는 경로는 관리자만 접근가능하도록 설정
 				.requestMatchers(mvc.pattern("/admin/**")).hasRole("ADMIN")
 				//그 외의 페이지는 모두 로그인(인증을 받아야 한다)
 				.anyRequest().authenticated() 
-				) 
+				)
 		.oauth2Login(oauth2 -> oauth2 
 				.loginPage("/members/login")
+				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+				.userService(principalOauth2UserService))
+
 				.successHandler(oauth2AuthenticationSuccessHandler())
 				.failureUrl("/members/login/error")
 				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint

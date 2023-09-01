@@ -14,6 +14,11 @@
 	--green-color: #98FB98;
 }
 
+.fieldError {
+		color: #bd2130;
+		font-size: 13px;
+		}
+
 .loginForm {
 	margin: auto;
 	width: 500px;
@@ -43,7 +48,7 @@
 	outline: 1px solid var(--green-color);
 }
 
-#btn {
+#loginbtn {
 	background-color: #1BBC9B;
 	margin-bottom: 30px;
 	color: white;
@@ -63,7 +68,7 @@
 	font-size: 14px;
 }
 
-#btn:hover{
+#loginbtn:hover{
 	background-color: gold;
 }
 
@@ -81,7 +86,7 @@
 
 
 
-.id_save {
+.email_save {
 	margin-bottom: 15px;
 	text-align: left;
 }
@@ -120,24 +125,26 @@ p{
 		<form action="/members/login" method="post">
 			<input type="text" placeholder="이메일" class="in" id="email" name="email"> 
 			<input type="password" placeholder="비밀번호" class="in" id="password" name="password">
-			<div class="id_save">
-				<input type="checkbox" name="id_save" id="id_save" /> 이메일 기억
+			<div class="email_save">
+				<input type="checkbox" name="email_save" id="email_save" /> 이메일 기억
 			</div>
 		<p>간편 로그인</p>
 		<div class="sublogin">
-			<button type="button" id="kakaoLogin" class="kakaoLogin">
-				<img src="/img/kakao_login_medium_narrow.png" alt="">
-			</button>
+			<a href="/oauth2/authorization/kakao">
+				<button type="button" id="kakaoLogin" class="kakaoLogin">
+					<img src="/img/kakao_login_medium_narrow.png" alt="">
+				</button>
+			</a>
 			<a href="/oauth2/authorization/google">
 				<button type="button" id="googleLogin" class="googleLogin">
 					<img src="/img/btn_google_signin_light_normal_web.png" alt="">
 				</button>
 			</a>
 		</div>
-		<button type="submit" id="btn" class="">로그인</button>
+		<button type="submit" id="loginbtn" class="">로그인</button>
 		<div>
 			<a href="#none" class="in2" onclick="location.href='/members/agree'">회원가입</a> 
-			<a href="#none" class="in2" onclick="location.href='/members/findIDPW'">아이디/비밀번호찾기</a>
+			<a href="#none" class="in2" onclick="location.href='/members/findIDPW'">이메일/비밀번호찾기</a>
 		</div>
 		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		</form>
@@ -145,8 +152,40 @@ p{
 </div>
 
 <th:block layout:fragment="script">
+	<script type="text/javascript" th:src="@{/js/cookie.js}"></script>
 	<script th:inline="javascript">
+		var errorMessage = [[${loginErrorMsg}]];
 		
+		if(errorMessage != null) {
+			alert(errorMessage);
+		}
+		
+		//쿠키를 이용한 아이디 기억
+		$(document).ready(function() {
+			var userInputId = getCookie("userInputId"); //쿠키값(이메일주소)을가져온다
+			var setCookieYN = getCookie("setCookieYN"); //쿠기값(이메일 저장 여부)을 가져온다
+
+			if (setCookieYN == 'Y') { //이메일 저장여부가 y면
+				$("#email_save").prop("checked", true);  //이메일 저장 체크박스를 체크한다
+				$("#email").val(userInputId);  //이메일 input창에는 쿠키에서 가져온 이메일 주소를 넣는다
+			} else {
+				$("#email_save").prop("checked", false);
+			}
+
+			//로그인 버튼 클릭시 쿠키에 이메일, 이메일 저장여부 저장
+			$('#loginbtn').click(function() { 
+				if ($("#email_save").is(":checked")) { //이메일 저장에 체크가 되어있다면
+					var userInputId = $("#email").val(); //이메일 값을 가지고온다
+					//쿠키생성
+					setCookie("userInputId", userInputId, 60); //이메일 저장
+					setCookie("setCookieYN", "Y", 60); //이메일 저장여부 저장
+				} else {
+					//쿠기삭제
+					deleteCookie("userInputId"); 
+					deleteCookie("setCookieYN");
+				}
+			});
+		});
 	</script>
 </th:block>
 </html>
