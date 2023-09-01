@@ -1,6 +1,7 @@
 package com.recipe.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
 import com.recipe.dto.ItemDetailImgDto;
 import com.recipe.dto.ItemImgDto;
+import com.recipe.dto.ItemInqDto;
 import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.dto.ItemReviewAnswerDto;
@@ -75,30 +78,51 @@ public class ItemController {
 		return "itemDetail";
 	}
 	
+	@GetMapping("/popup/{ItemId}")
+	public String popup(@PathVariable("ItemId") Long itemId , Model model) {
+		
+		ItemDetailDto item = itemService.getItemDetailList(itemId);
+		
+		List<ItemImgDto> imgList =  item.getItemImgDtoList();
+		
+		model.addAttribute("item" , item);
+		model.addAttribute("imgList" , imgList);
+		model.addAttribute("itemId" , itemId);
+		
+		return "popup";
+	}
+	
+	@PostMapping(value="/inqReq")
+	public @ResponseBody ResponseEntity inqReq(@RequestBody ItemInqDto itemInqDto) {
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@PostMapping(value="/answerReg")
-	public @ResponseBody String reviewAnswerReg(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
+	public @ResponseBody ResponseEntity reviewAnswerReg(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
 		
 		 itemService.itemReviewAnswerReg(itemReviewAnswerDto);
 		
-		return "itemDetail :: #review_list";
+		return new ResponseEntity<>(HttpStatus.OK);
 		
 	} 
 	
 	@PostMapping(value="/answerUpdate")
-	public @ResponseBody String reviewAnswerUpdate(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
+	public @ResponseBody ResponseEntity reviewAnswerUpdate(@RequestBody ItemReviewAnswerDto itemReviewAnswerDto  ) {
 		
 		itemService.itemReviewAnswerUpdate(itemReviewAnswerDto);
 		
-		return "itemDetail :: #review_list";
+		return new ResponseEntity<>( HttpStatus.OK);
 		
 	} 
 	
-	@PostMapping(value="/answerDelete")
-	public @ResponseBody String reviewAnswerDelete(@RequestBody Long id ) {
-		
+	@DeleteMapping(value="/answerDelete")
+	public @ResponseBody ResponseEntity reviewAnswerDelete(@RequestBody Map<String, Object> requestBody) {
+		Long id = Long.parseLong(requestBody.get("id").toString());
+		System.out.println("dddddddd" + id);
 		itemService.itemReviewAnswerDelete(id);
 		
-		return "itemDetail :: #review_list";
+		return new ResponseEntity("성공입니다", HttpStatus.OK);
 		
 	} 
 }

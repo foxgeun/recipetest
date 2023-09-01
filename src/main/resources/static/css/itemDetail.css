@@ -838,5 +838,15 @@ td.feedback_writer {
     line-height: 18px;
 }
 
-.table td:hover {
+.box_btn_right {
+    text-align: right;
+    margin-top: 10px;
 }
+
+.box_btn_right p {
+    color: #b2b2b2;
+    display: inline-block;
+    line-height: 33px;
+    padding-right: 7px;
+}
+

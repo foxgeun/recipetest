@@ -21,7 +21,7 @@ public class MainController {
 	
 	private final MemberService memberService;
 	
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public String main(Model model) {
 		
 	    List<RecipeMainDto> mainBestList = recipeService.getRecipeBestList(); // best 레시피

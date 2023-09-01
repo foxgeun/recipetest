@@ -81,9 +81,9 @@ public class ItemService {
 //	리뷰삭제
 	public void itemReviewAnswerDelete(Long id) {
 		
-		Optional<ItemReviewAnswer> itemReviewAnswer = itemReviewAnswerRepository.findById(id);
+		ItemReviewAnswer itemReviewAnswer = itemReviewAnswerRepository.findById(id).orElseThrow();
 		
-		itemReviewAnswerRepository.delete(itemReviewAnswer.get());
+		itemReviewAnswerRepository.delete(itemReviewAnswer);
 	}
 	
 }
