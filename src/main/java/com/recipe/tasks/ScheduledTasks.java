@@ -12,6 +12,7 @@ import com.recipe.service.RecipeCrawlerService;
 public class ScheduledTasks {
 	
 	
+
 	
 	/*
 	 * @Autowired private RecipeListCrawlerService crawlerListService;
@@ -30,6 +31,7 @@ public class ScheduledTasks {
 	 * crawlerService.crawlAndSaveRecipes(); } catch (IOException e) { // 예외 처리 및 로그
 	 * 출력 e.printStackTrace(); } }
 	 */
+
 }
 
 

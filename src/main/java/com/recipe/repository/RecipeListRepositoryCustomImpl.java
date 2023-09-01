@@ -7,12 +7,18 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.recipe.dto.MemberSearchDto;
+import com.recipe.dto.RecipeDto;
+import com.recipe.dto.RecipeSearchDto;
+import com.recipe.dto.SearchWrapper;
+import com.recipe.entity.QComment;
 import com.recipe.entity.QMember;
 import com.recipe.entity.QRecipe;
+import com.recipe.entity.QReview;
 import com.recipe.entity.Recipe;
 
 import jakarta.persistence.EntityManager;
@@ -25,30 +31,62 @@ public class RecipeListRepositoryCustomImpl implements RecipeListRepositoryCusto
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	private BooleanExpression searchByLike(String searchBy, String searchQuery) {
-		if (StringUtils.equals("email", searchBy)) {
+	private BooleanExpression searchByLike(String searchBy , String searchQuery) {
+		QMember m = QMember.member;
+		QRecipe r = QRecipe.recipe;
+
+		if (StringUtils.equals("nickname", searchBy)) {
 			// 등록자로 검색시
-			return QMember.member.email.like("%" + searchQuery + "%"); // email like %검색어%
-		} else if (StringUtils.equals("nickName", searchBy)) {
-			return QMember.member.nickname.like("%" + searchQuery + "%"); // nickName like %검색어%
+			return m.nickname.like("%" + searchQuery + "%"); // nickname like %검색어%
+		} else if (StringUtils.equals("description", searchBy)) {
+			return r.description.like("%" + searchQuery + "%"); // description like %검색어%
 		}
 
 		return null; // 쿼리문을 실행하지 않는다.
 	}
 
 	@Override
-	public Page<Recipe> getAdminRecipePage(MemberSearchDto memberSearchDto, Pageable pageable) {
-		/*
-		 * select * from item where item_nm like %검색어% order by item_id desc;
-		 */
+	public Page<RecipeDto> getAdminRecipePage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+		QRecipe r = QRecipe.recipe;
+		QComment c = QComment.comment;
+		QMember m = QMember.member;
+		QReview rv = QReview.review;
 
-		List<Recipe> content = queryFactory.selectFrom(QRecipe.recipe)
-				.where(searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery()))
-				.orderBy(QRecipe.recipe.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+		List<RecipeDto> content = queryFactory
+				.select(
+						Projections.constructor(
+								RecipeDto.class, 
+								r.id,
+								r.title,
+								r.description,
+								r.member.nickname,
+								c.count().as("CommentCount"),
+								r.imageUrl,
+								rv.rating
+								))
+				.from(r)
+				.join(r.member , m)
+				.leftJoin(c).on(r.id.eq(c.recipe.id))
+				.leftJoin(rv).on(r.id.eq(rv.recipe.id))
+				.where(searchByLike(recipeSearchDto.getSearchBy(),
+						recipeSearchDto.getSearchQuery()))
+				.groupBy(r.id, r.title, r.description, r.member.nickname, r.imageUrl, rv.rating)
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetch();
 
-		long total = queryFactory.select(Wildcard.count).from(QMember.member).where(
-
-				searchByLike(memberSearchDto.getSearchBy(), memberSearchDto.getSearchQuery())).fetchOne();
+		Long total = queryFactory
+				.select(Wildcard.count)
+				.from(r)
+				.join(r.member , m)
+				.leftJoin(c).on(r.id.eq(c.recipe.id))
+				.where(searchByLike(recipeSearchDto.getSearchBy(),
+						recipeSearchDto.getSearchQuery()))
+				.fetchOne();
+		
+		if (total == null) {
+		    total = 0L; // 검색 결과가 없을 때 0으로 초기화
+		}
 
 		return new PageImpl<>(content, pageable, total);
 

@@ -2,201 +2,528 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-	crossorigin="anonymous"></script>
-
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap"
-	rel="stylesheet" />
-
-<!-- Css Styles -->
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-<link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
 
 <th:block layout:fragment="css">
+	<!-- Bootstrap -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="/css/nprogress.css" rel="stylesheet">
+
+	<!-- Datatables -->
+
+	<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/buttons.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/responsive.bootstrap.min.css" rel="stylesheet">
+	<link href="/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="/css/custom.min.css" rel="stylesheet">
+
 	<style>
-.ellipsis {
-	width: 300px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis; /* 말줄임 적용 */
-}
 </style>
 </th:block>
 
 <div layout:fragment="content" class="content">
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-
-
-	<!-- Hero Search Section Begin -->
-	<div class="hero-search set-bg" data-setbg="img/search-bg.jpg">
-		<div class="container">
-			<div class="filter-table">
-				<form action="#" class="filter-search" th:object="${commentDto}">
-					<input type="text" placeholder="Search recipe" />
-
-					<button type="submit">Search</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- Hero Search Section End -->
-
-	<!-- Contact Section Begin -->
-	<section class="contact-section spad">
-		<div class="container">
-			<div class="section-line">
-				<div class="movie-info-entity">
-					<div class="entity-poster" data-role="hover-wrap">
-						<div class="embed-responsive embed-responsive-poster">
-							<img class="embed-responsive-item" src="" alt="" />
+	<div class="nav-md">
+		<div class="container body">
+			<div class="main_container">
+				<div class="col-md-3 left_col">
+					<div class="left_col scroll-view">
+						<div class="navbar nav_title" style="border: 0;">
+							<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
+								<span>Gentelella Alela!</span></a>
 						</div>
-						<div class="d-over bg-theme-lighted collapse animated faster"
-							data-show-class="fadeIn show" data-hide-class="fadeOut show">
-							<div class="entity-play">
-								<a class="action-icon-theme action-icon-bordered rounded-circle"
-									href="https://www.youtube.com/watch?v=d96cjJhvlMA"
-									data-magnific-popup="iframe"> <span class="icon-content"><i
-										class="fas fa-play"></i></span>
+
+						<div class="clearfix"></div>
+
+						<!-- menu profile quick info -->
+						<div class="profile clearfix">
+							<div class="profile_pic">
+								<img src="images/img.jpg" alt="..."
+									class="img-circle profile_img">
+							</div>
+							<div class="profile_info">
+								<span>Welcome,</span>
+								<h2>John Doe</h2>
+							</div>
+						</div>
+						<!-- /menu profile quick info -->
+
+						<br />
+
+						<!-- sidebar menu -->
+						<div id="sidebar-menu"
+							class="main_menu_side hidden-print main_menu">
+							<div class="menu_section">
+								<h3>General</h3>
+								<ul class="nav side-menu">
+									<li><a><i class="fa fa-home"></i> Home <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="index.html">Dashboard</a></li>
+											<li><a href="index2.html">Dashboard2</a></li>
+											<li><a href="index3.html">Dashboard3</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-edit"></i> Forms <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="form.html">General Form</a></li>
+											<li><a href="form_advanced.html">Advanced Components</a></li>
+											<li><a href="form_validation.html">Form Validation</a></li>
+											<li><a href="form_wizards.html">Form Wizard</a></li>
+											<li><a href="form_upload.html">Form Upload</a></li>
+											<li><a href="form_buttons.html">Form Buttons</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-desktop"></i> UI Elements <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="general_elements.html">General Elements</a></li>
+											<li><a href="media_gallery.html">Media Gallery</a></li>
+											<li><a href="typography.html">Typography</a></li>
+											<li><a href="icons.html">Icons</a></li>
+											<li><a href="glyphicons.html">Glyphicons</a></li>
+											<li><a href="widgets.html">Widgets</a></li>
+											<li><a href="invoice.html">Invoice</a></li>
+											<li><a href="inbox.html">Inbox</a></li>
+											<li><a href="calendar.html">Calendar</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-table"></i> 회원관리 <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="/admin/memberMng">회원관리</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-table"></i> 레시피 관리 <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="/admin/recipeMng">레시피 관리</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-bar-chart-o"></i> Data
+											Presentation <span class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="chartjs.html">Chart JS</a></li>
+											<li><a href="chartjs2.html">Chart JS2</a></li>
+											<li><a href="morisjs.html">Moris JS</a></li>
+											<li><a href="echarts.html">ECharts</a></li>
+											<li><a href="other_charts.html">Other Charts</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-clone"></i>Layouts <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
+											<li><a href="fixed_footer.html">Fixed Footer</a></li>
+										</ul></li>
+								</ul>
+							</div>
+							<div class="menu_section">
+								<h3>Live On</h3>
+								<ul class="nav side-menu">
+									<li><a><i class="fa fa-bug"></i> Additional Pages <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="e_commerce.html">E-commerce</a></li>
+											<li><a href="projects.html">Projects</a></li>
+											<li><a href="project_detail.html">Project Detail</a></li>
+											<li><a href="contacts.html">Contacts</a></li>
+											<li><a href="profile.html">Profile</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-windows"></i> Extras <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="page_403.html">403 Error</a></li>
+											<li><a href="page_404.html">404 Error</a></li>
+											<li><a href="page_500.html">500 Error</a></li>
+											<li><a href="plain_page.html">Plain Page</a></li>
+											<li><a href="login.html">Login Page</a></li>
+											<li><a href="pricing_tables.html">Pricing Tables</a></li>
+										</ul></li>
+									<li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span
+											class="fa fa-chevron-down"></span></a>
+										<ul class="nav child_menu">
+											<li><a href="#level1_1">Level One</a>
+											<li><a>Level One<span class="fa fa-chevron-down"></span></a>
+												<ul class="nav child_menu">
+													<li class="sub_menu"><a href="level2.html">Level
+															Two</a></li>
+													<li><a href="#level2_1">Level Two</a></li>
+													<li><a href="#level2_2">Level Two</a></li>
+												</ul></li>
+											<li><a href="#level1_2">Level One</a></li>
+										</ul></li>
+									<li><a href="javascript:void(0)"><i
+											class="fa fa-laptop"></i> Landing Page <span
+											class="label label-success pull-right">Coming Soon</span></a></li>
+								</ul>
+							</div>
+
+						</div>
+						<!-- /sidebar menu -->
+
+						<!-- /menu footer buttons -->
+						<div class="sidebar-footer hidden-small">
+							<a data-toggle="tooltip" data-placement="top" title="Settings">
+								<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+							</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+								<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+							</a> <a data-toggle="tooltip" data-placement="top" title="Lock">
+								<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+							</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
+								href="login.html"> <span class="glyphicon glyphicon-off"
+								aria-hidden="true"></span>
+							</a>
+						</div>
+						<!-- /menu footer buttons -->
+					</div>
+				</div>
+
+				<!-- top navigation -->
+				<div class="top_nav">
+					<div class="nav_menu">
+						<div class="nav toggle">
+							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
+						</div>
+						<nav class="nav navbar-nav">
+							<ul class=" navbar-right">
+								<li class="nav-item dropdown open" style="padding-left: 15px;">
+									<a href="javascript:;" class="user-profile dropdown-toggle"
+									aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
+									aria-expanded="false"> <img src="images/img.jpg" alt="">John
+										Doe
 								</a>
+									<div class="dropdown-menu dropdown-usermenu pull-right"
+										aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="javascript:;"> Profile</a> <a
+											class="dropdown-item" href="javascript:;"> <span
+											class="badge bg-red pull-right">50%</span> <span>Settings</span>
+										</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
+											class="dropdown-item" href="login.html"><i
+											class="fa fa-sign-out pull-right"></i> Log Out</a>
+									</div>
+								</li>
+
+								<li role="presentation" class="nav-item dropdown open"><a
+									href="javascript:;" class="dropdown-toggle info-number"
+									id="navbarDropdown1" data-toggle="dropdown"
+									aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span
+										class="badge bg-green">6</span>
+								</a>
+									<ul class="dropdown-menu list-unstyled msg_list" role="menu"
+										aria-labelledby="navbarDropdown1">
+										<li class="nav-item"><a class="dropdown-item"> <span
+												class="image"><img src="images/img.jpg"
+													alt="Profile Image" /></span> <span> <span>John
+														Smith</span> <span class="time">3 mins ago</span>
+											</span> <span class="message"> Film festivals used to be
+													do-or-die moments for movie makers. They were where... </span>
+										</a></li>
+										<li class="nav-item"><a class="dropdown-item"> <span
+												class="image"><img src="images/img.jpg"
+													alt="Profile Image" /></span> <span> <span>John
+														Smith</span> <span class="time">3 mins ago</span>
+											</span> <span class="message"> Film festivals used to be
+													do-or-die moments for movie makers. They were where... </span>
+										</a></li>
+										<li class="nav-item"><a class="dropdown-item"> <span
+												class="image"><img src="images/img.jpg"
+													alt="Profile Image" /></span> <span> <span>John
+														Smith</span> <span class="time">3 mins ago</span>
+											</span> <span class="message"> Film festivals used to be
+													do-or-die moments for movie makers. They were where... </span>
+										</a></li>
+										<li class="nav-item"><a class="dropdown-item"> <span
+												class="image"><img src="images/img.jpg"
+													alt="Profile Image" /></span> <span> <span>John
+														Smith</span> <span class="time">3 mins ago</span>
+											</span> <span class="message"> Film festivals used to be
+													do-or-die moments for movie makers. They were where... </span>
+										</a></li>
+										<li class="nav-item">
+											<div class="text-center">
+												<a class="dropdown-item"> <strong>See All
+														Alerts</strong> <i class="fa fa-angle-right"></i>
+												</a>
+											</div>
+										</li>
+									</ul></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /top navigation -->
+
+				<!-- page content -->
+				<div class="right_col" role="main">
+					<div class="">
+						<div class="page-title">
+							<div class="title_left">
+								<h3>Contacts Design</h3>
+							</div>
+
+							<form action="#" class="filter-search"
+								th:object="${recipeSearchDto}">
+								<div class="title_right">
+									<div
+										class="col-md-5 col-sm-5  form-group pull-right top_search">
+										<div class="input-group">
+											<select th:field="*{searchBy}" class="form-control">
+												<option value="nickname">이름</option>
+												<option value="description">내용</option>
+											</select> <input type="text" class="form-control"
+												th:field="*{searchQuery}" placeholder="Search recipe">
+											<span class="input-group-btn">
+												<button id="searchBtn" class="btn btn-default" type="submit">Go!</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<input type="hidden" th:value="${searchBy}" id="searchBy">
+						<input type="hidden" th:value="${searchQuery}" id="searchQuery">
+						<div class="clearfix"></div>
+
+						<div class="row">
+							<div class="x_panel">
+								<div class="x_content">
+									<div class="col-md-12 col-sm-12  text-center">
+										<ul class="pagination pagination-split">
+											<li><a href="#">A</a></li>
+											<li><a href="#">B</a></li>
+											<li><a href="#">C</a></li>
+											<li><a href="#">D</a></li>
+											<li><a href="#">E</a></li>
+											<li>...</li>
+											<li><a href="#">W</a></li>
+											<li><a href="#">X</a></li>
+											<li><a href="#">Y</a></li>
+											<li><a href="#">Z</a></li>
+										</ul>
+									</div>
+
+									<div class="clearfix"></div>
+
+									<th:block th:each="recipe : ${recipes}">
+										<div class="col-md-4 col-sm-4  profile_details">
+											<div class="well profile_view">
+												<div class="col-sm-12">
+													<h4 class="brief">
+														<i>Digital Strategist</i>
+													</h4>
+													<div class="left col-md-7 col-sm-7">
+														<h2>[[${recipe.nickname}]]</h2>
+														<p>
+															<strong>제목: </strong> [[${recipe.title}]]
+														</p>
+														<ul class="list-unstyled">
+															<li><i class="fa fa-building"></i>
+																<p>
+																	<strong class="ellipsis">내용:
+																		[[${recipe.description}]]</strong>
+																</p></li>
+
+														</ul>
+													</div>
+													<div class="right col-md-5 col-sm-5 text-center">
+														<img th:src="${recipe.imageUrl}" alt=""
+															class="img-circle img-fluid">
+													</div>
+												</div>
+												<div class=" profile-bottom text-center">
+													<div class=" col-sm-6 emphasis">
+														<p class="ratings">
+															<a>[[${recipe.rating}]]</a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star"></span></a> <a href="#"><span
+																class="fa fa-star-o"></span></a>
+														</p>
+													</div>
+													<div class=" col-sm-6 emphasis">
+
+														<button type="button" th:value="${recipe.id}"
+															onclick="deleteRecipe(this.value)"
+															class="btn btn-primary btn-sm">
+															<i class="fa fa-user"> </i> 삭제
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</th:block>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="dataTables_info" id="datatable_info" role="status"
+									aria-live="polite">Showing 1 to 10 of 57 entries</div>
+							</div>
+							<div class="col-sm-7">
+								<input class="dd" th:value="${recipes.totalPages}"
+									style="display: none">
+								<div
+									th:with="start=${(recipes.number/maxPage)*maxPage + 1}
+			                 ,end=(${(recipes.totalPages == 0) ? 1 : (start + (maxPage - 1) < recipes.totalPages ? start + (maxPage - 1) : recipes.totalPages)})"
+									class="dataTables_paginate paging_simple_numbers"
+									id="datatable_paginate">
+									<ul class="pagination ">
+										<li class="paginate_button previous"
+											th:classappend="${recipes.first}?'disabled'"
+											id="datatable_previous"><a
+											th:onclick="'javascript:page(' + ${recipes.number - 1} +')'"
+											aria-controls="datatable" data-dt-idx="0" tabindex="0">이전</a></li>
+
+										<li class="paginate_button active"
+											th:each="page: ${#numbers.sequence(start, end)}"
+											th:classappend="${recipes.number eq page-1}?'active':''"><a
+											aria-controls="datatable" data-dt-idx="1" tabindex="0"
+											th:inline="text"
+											th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a></li>
+
+										<li class="paginate_button next" id="datatable_next"
+											th:classappend="${recipes.last}?'disabled'"><a
+											th:onclick="'javascript:page(' + ${recipes.number + 1} +')'"
+											aria-controls="datatable" data-dt-idx="7" tabindex="0">다음</a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<th:block th:each="recipe : ${recipes}">
-						<div class="card mb-3 border-3">
-							<div class="row g-0">
-								<div class="col-md-4">
-									<div style="max-width: 80%">
-										<img src="..." class="img-fluid rounded-start" alt="..." />
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div class="card-body">
-										<h5 class="card-title">이름:</h5>
-										<h5 class="card-title">제목: [[${recipe.title}]]</h5>
-										<h5 class="card-title ellipsis">내용:
-											[[${recipe.description}]]</h5>
-										<h5 class="card-title">댓글: </h5>
-										<h5 class="card-title">별점:</h5>
-										<p class="card-text"></p>
-										<p class="card-text">
-											<small class="text-muted">Last updated 3 mins ago</small>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</th:block>
 				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Contact Section End -->
+				<!-- /page content -->
 
-	<!-- Map Section Begin -->
-	<div class="map">
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26440.72384129847!2d-118.24906619231132!3d34.06719475913053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c659f50c318d%3A0xe2ffb80a9d3820ae!2sChinatown%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1570213740685!5m2!1sen!2sbd"
-			height="550" style="border: 0" allowfullscreen=""></iframe>
-		<div class="map-content set-bg" data-setbg="img/map-bg.png">
-			<div class="contact-addr">
-				col-md-6 <span>Main Road , No 25/11</span>
-				<ul>
-					<li>+34 556788 3221</li>
-					<li>contact@foodblog.com</li>
-				</ul>
+				<!-- footer content -->
+				<footer>
+					<div class="pull-right">
+						Gentelella - Bootstrap Admin Template by <a
+							href="https://colorlib.com">Colorlib</a>
+					</div>
+					<div class="clearfix"></div>
+				</footer>
+				<!-- /footer content -->
 			</div>
 		</div>
 	</div>
-	<!-- Map Section End -->
-
-	<!-- Similar Recipe Section Begin -->
-	<section class="similar-recipe spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="similar-item">
-						<a href="#"><img src="img/cat-feature/small-7.jpg" alt="" /></a>
-						<div class="similar-text">
-							<div class="cat-name">Vegan</div>
-							<h6>Italian Tiramisu with Coffe</h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="similar-item">
-						<a href="#"><img src="img/cat-feature/small-6.jpg" alt="" /></a>
-						<div class="similar-text">
-							<div class="cat-name">Vegan</div>
-							<h6>Dry Cookies with Corn</h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="similar-item">
-						<a href="#"><img src="img/cat-feature/small-5.jpg" alt="" /></a>
-						<div class="similar-text">
-							<div class="cat-name">Vegan</div>
-							<h6>Asparagus with Pork Loin and Vegetables</h6>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="similar-item">
-						<a href="#"><img src="img/cat-feature/small-4.jpg" alt="" /></a>
-						<div class="similar-text">
-							<div class="cat-name">Vegan</div>
-							<h6>Smoked Salmon mini Sandwiches with Onion</h6>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Similar Recipe Section End -->
-
-
-
-	<!-- Search model -->
-	<div class="search-model">
-		<div class="h-100 d-flex align-items-center justify-content-center">
-			<div class="search-close-switch">+</div>
-			<form class="search-model-form">
-				<input type="text" id="search-input" placeholder="Search here....." />
-			</form>
-		</div>
-	</div>
-
-	<nav class="navbar bg-body-tertiary">
-		<div class="container-fluid">
-			<form class="d-flex" role="search" style="align-items: center">
-				<h2
-					style="display: inline-block; width: 1000px; white-space: nowrap">
-					박수근님의 레시피</h2>
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search" />
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
-		</div>
-	</nav>
 </div>
 
+<th:block layout:fragment="script">
+	<!-- jQuery -->
+	<script src="/js/jquery.min.js"></script>
 
+	<!-- Bootstrap -->
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+	<!-- FastClick -->
+	<script src="/js/fastclick.js"></script>
+
+	<!-- NProgress -->
+	<script src="/js/nprogress.js"></script>
+
+	<!-- Datatables -->
+	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="/js/dataTables.bootstrap.min.js"></script>
+	<script src="/js/dataTables.buttons.min.js"></script>
+	<script src="/js/buttons.bootstrap.min.js"></script>
+	<script src="/js/buttons.flash.min.js"></script>
+	<script src="/js/buttons.html5.min.js"></script>
+	<script src="/js/buttons.print.min.js"></script>
+	<script src="/js/dataTables.fixedHeader.min.js"></script>
+	<script src="/js/dataTables.keyTable.min.js"></script>
+	<script src="/js/dataTables.responsive.min.js"></script>
+	<script src="/js/responsive.bootstrap.js"></script>
+	<script src="/js/dataTables.scroller.min.js"></script>
+	<script src="/js/jszip.min.js"></script>
+	<script src="/js/pdfmake.min.js"></script>
+	<script src="/js/vfs_fonts.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="/js/custom.min.js"></script>
+
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); //submit되는걸 방지
+				page(0);
+			});
+		});
+
+		//페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소이동시켜준다
+		function page(page) {
+			var input = $(".dd").val();
+			input = input - 1
+			if (page >= 0 && page <= input) {
+				var searchBy = $("#searchBy").val();
+				var searchQuery = $("#searchQuery").val();
+
+				//주소 이동
+				location.href = "/admin/recipeMng/" + page
+
+				+ "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
+			}
+
+		}
+
+		//삭제하기
+		function deleteRecipe(recipeId) {
+			const deleteConf = confirm("삭제하시겠습니까?");
+
+			if (!deleteConf)
+				return; //취소버튼 누르면
+
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			//request URL
+			var url = "/recipe/" + recipeId + "/delete";
+
+			$.ajax({
+				url : url, //request URL
+				type : "DELETE", //전송방식
+				contentType : "application/json",
+				beforeSend : function(xhr) {
+					//데이터를 전송하기 전에 헤더에 csrf 값을 설정
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					//주문취소 후에 해당 페이지로 이동시켜준다.
+					location.href = '/admin/recipeMng';
+				},
+				error : function(jqXHR, status, error) {
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요.');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseText);
+					}
+				}
+			});
+		}
+	</script>
+</th:block>
 </html>

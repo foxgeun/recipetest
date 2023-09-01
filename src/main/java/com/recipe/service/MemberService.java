@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.recipe.dto.MemberDto;
 import com.recipe.dto.MemberSearchDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.Member;
@@ -68,6 +69,7 @@ public class MemberService implements UserDetailsService{
 					.roles(member.getRole().toString())
 					.build();
 	}
+
 	
 	//휴대폰 번호로 가입 이메일 찾기
 	public String findEmail(String phoneNumber) {
@@ -89,6 +91,15 @@ public class MemberService implements UserDetailsService{
 		List<MemberMainDto> getMemberBestList = memberRepository.getMemberBestList();
 		return getMemberBestList;
 		
+	}
+
+	//
+	@Transactional(readOnly = true)
+	public Page<MemberDto> getAdminMemberPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
+		Page<MemberDto> memberPage = memberRepository.getAdminMemberPage(recipeSearchDto, pageable);
+		return memberPage;
+
+
 	}
 	
 	@Transactional(readOnly = true)

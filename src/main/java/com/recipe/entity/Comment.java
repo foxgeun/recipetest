@@ -14,24 +14,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="comment")
+@Table(name = "comment")
 @Getter
 @Setter
 @ToString
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
 	@Id
-	@Column(name="comment_id")
+	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String content;
-	
-	
+
+	private String commentContent;
+
+	private String writer;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;

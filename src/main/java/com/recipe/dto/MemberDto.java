@@ -1,7 +1,8 @@
 package com.recipe.dto;
 
 
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,7 @@ import lombok.Setter;
 public class MemberDto {
 	
 	private Long id;
-
-
+	
 	@NotEmpty(message = "이메일은 필수 입력 값입니다")
 	@Email(message = "이메일 형식으로 입력해주세요")
 	private String email;
@@ -39,6 +39,7 @@ public class MemberDto {
 	@NotEmpty
 	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
 	private String phoneNumber;
+
 	
 	private String emailConfirm; //이메일로 받은 인증번호
 	
@@ -61,13 +62,37 @@ public class MemberDto {
 	private String name;
 	
 	
+
+
+	private Long allCommentCount;
+
+	private Long allRecipeCount;
+
+	private String commentContent;
+
+	private LocalDateTime regTime; // 등록날짜
+
+	private String formattedRegTime; // 보기 좋은 형식으로 변환된 등록날짜
+
 	@QueryProjection
-	public MemberDto(Long id, String nickname, String email, String password, String phoneNumber) {
+	public MemberDto(Long id, String nickname, String email, String password, String phoneNumber, Long allCommentCount,
+			Long allRecipeCount, LocalDateTime regTime) {
+
 		this.id = id;
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
+		this.allCommentCount = allCommentCount;
+		this.allRecipeCount = allRecipeCount;
+
+		// 등록날짜를 보기 좋은 형식으로 변환하여 formattedRegTime에 저장
+		if (regTime != null) {
+			this.regTime = regTime;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			this.formattedRegTime = regTime.format(formatter);
+		}
+
 	}
 	
 	public MemberDto() {
@@ -102,8 +127,10 @@ public class MemberDto {
 
 	// entity -> dto로 바꿈
 	public static MemberDto of(Member member) {
+
 		return modelMapper.map(member, MemberDto.class);
 	}
+
 
 
 	
@@ -111,5 +138,4 @@ public class MemberDto {
 	
 	private String providerId;
 	
-
 }
