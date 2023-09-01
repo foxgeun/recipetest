@@ -18,8 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.MyPageDto;
+import com.recipe.entity.BookMark;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
+import com.recipe.repository.BookMarkRepository;
+import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.service.MyPageService;
 
@@ -31,17 +34,32 @@ public class myPageController {
 	
 	private final MyPageService myPageService;
 	private final MemberRepository memberRepository;
+	private final CommentRepository commentRepository;
+	private final BookMarkRepository bookmarkRepository;
 	
 	//마이페이지 보여주기
 	@GetMapping(value="/myPage/{id}")
 	public String myPage(@PathVariable("id") Long id,Model model) {
+		myPageService.deleteMarkedBookmarks();  // 여기서 삭제 로직을 호출
 		Member myPageDto = memberRepository.getfindmemberbyid(id);
 		
 		List<Recipe> recipeList =myPageService.getRecipeList(id);
+
+		List<MyPageDto> bookmarkList = myPageService.getBookmark(id);
 		
+		List<MyPageDto> myCommentList = myPageService.getMyComment(id);
 		
-		model.addAttribute("recipeList" , recipeList);
-		model.addAttribute("myPageDto",myPageDto);
+		List<MyPageDto> myReviewList = myPageService.getMyReview(id);
+		List<MyPageDto> receivedReviewList = myPageService.getReceivedReview(id);
+
+		
+		model.addAttribute("receivedReviewList" , receivedReviewList);
+		model.addAttribute("myReviewList" ,  myReviewList);
+		model.addAttribute("myCommentList" , myCommentList);
+		model.addAttribute("bookmarkList" , bookmarkList);
+
+		model.addAttribute("recipeList" , recipeList); //레시피목록
+		model.addAttribute("myPageDto",myPageDto); //회원정보
 
 
 	
@@ -74,7 +92,7 @@ public class myPageController {
 	}
 	
 	//회원탈퇴
-	@DeleteMapping("/myPage/delete/{memberId}")
+	@DeleteMapping("/myPage/deleteMember/{memberId}")
 	public @ResponseBody ResponseEntity deleteMember(@PathVariable("memberId") Long id, @Valid MyPageDto myPageDto) {
 			myPageService.deleteMember(id);
 			
@@ -82,13 +100,53 @@ public class myPageController {
 	}
 	
 	
-	//레시피목록 페이지 
-	@GetMapping("/submitRecipe/{id}")
-	public String submitRecipe(@PathVariable("id") Long id,Model model) {
-		Member myPageDto = memberRepository.getfindmemberbyid(id);
 
-		model.addAttribute("myPageDto",myPageDto);
-		return "/submitRecipe";
+	
+	//레시피목록 페이지 -> 수정
+	
+	//레시피목록 페이지 -> 삭제
+	@DeleteMapping("/myPage/deleteRecipe/{recipeId}")
+	public @ResponseBody ResponseEntity deleteRecipe(@PathVariable("recipeId") Long recipeId) {
+		
+		myPageService.deleteRecipe(recipeId);
+
+		return new ResponseEntity<Long>(recipeId, HttpStatus.OK);
 	}
 	
+	//찜목록 페이지 -> 찜삭제
+	@DeleteMapping("/myPage/deleteBookmark/{bookmarkId}")
+	public @ResponseBody ResponseEntity deleteBookmark(@PathVariable("bookmarkId") Long bookmarkId) {
+		myPageService.deleteBookmark(bookmarkId);
+
+		
+		return new ResponseEntity<Long>(bookmarkId, HttpStatus.OK);
+	}
+	//찜목록 페이지 -> 찜삭제취소
+	@PostMapping("/myPage/undeleteBookmark/{bookmarkId}")
+	public @ResponseBody ResponseEntity undeleteBookmark(@PathVariable("bookmarkId") Long bookmarkId) {
+		myPageService.undeleteBookmark(bookmarkId);
+		
+		return new ResponseEntity<Long>(bookmarkId, HttpStatus.OK);
+	}
+	
+	
+	//댓글목록 -> 댓글삭제
+	@DeleteMapping("myPage/deleteComment/{commentId}")
+	public @ResponseBody ResponseEntity deleteComment(@PathVariable("commentId")Long commentId) {
+		
+		myPageService.deleteComment(commentId);
+		
+		return new ResponseEntity<Long>(commentId, HttpStatus.OK);
+	}
+	
+	//후기목록 -> 후기삭제
+	@DeleteMapping("myPage/deleteReview/{reviewId}")
+	public @ResponseBody ResponseEntity deleteReview(@PathVariable("reviewId") Long reviewId) {
+		myPageService.deleteReview(reviewId);
+		return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
+		
+	}
 }
+	
+	
+

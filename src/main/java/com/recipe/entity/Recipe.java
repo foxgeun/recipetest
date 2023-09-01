@@ -15,6 +15,7 @@ import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.WritingStatus;
 import com.recipe.dto.RecipeNewDto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -99,7 +100,6 @@ public class Recipe extends BaseTimeEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipeOrder_id")
 	private RecipeOrder recipeOrder;
-
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngre> ingredients = new ArrayList<>();

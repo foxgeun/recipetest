@@ -1,12 +1,18 @@
 package com.recipe.dto;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+
+import com.recipe.entity.BookMark;
+import com.recipe.entity.Comment;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeOrder;
+import com.recipe.entity.Review;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,10 +48,43 @@ public class MyPageDto {
 	//레시피목록
 	private Recipe recipeId;
 	private RecipeOrder recipeOrderId;
-	private List<MyPageDto> recipeList = new ArrayList<>();
+
 	
-	public void addRecipe(MyPageDto recipeList) {
-		this.recipeList.add(recipeList);
+	//찜목록
+	private Member member;
+	
+	private BookMark bookmark;
+
+	//찜목록
+	public MyPageDto(Member member, Recipe recipe, BookMark bookmark) {
+		this.member = member;
+		this.recipeId = recipe;
+		this.bookmark = bookmark;
+
+		
+	}
+
+	private Comment comment;
+	//댓글
+	public MyPageDto(Member member, Comment comment) {
+		this.member = member;
+		this.comment = comment;
+		this.recipeId = comment.getRecipe();
+		
 	}
 	
+	private Review review;
+	private String regTime;
+	//리뷰
+	public MyPageDto(Member member, Review review) {
+		this.member = member;
+		this.review = review;
+		this.recipeId = review.getRecipe();
+	    if (review.getRegTime() != null) {
+	        this.regTime = review.getRegTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+	    } else {
+	        this.regTime = ""; // 또는 다른 값으로 표시하고 싶은 내용을 넣으세요
+	    }
+	}
+
 }

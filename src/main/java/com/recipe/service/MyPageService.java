@@ -2,6 +2,7 @@ package com.recipe.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,10 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.dto.MyPageDto;
+import com.recipe.entity.BookMark;
+import com.recipe.entity.Comment;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
+import com.recipe.entity.RecipeOrder;
+import com.recipe.entity.Review;
+import com.recipe.repository.BookMarkRepository;
+import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeRepository;
+import com.recipe.repository.ReviewRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +37,9 @@ public class MyPageService {
 	private final String imgLocation = "C:/recipe/";
 	private final MemberRepository memberRepository;
 	private final RecipeRepository recipeRepository;
+	private final BookMarkRepository bookMarkRepository;
+	private final CommentRepository commentRepository;
+	private final ReviewRepository reviewRepository;
 	
 	
 
@@ -165,10 +176,116 @@ public class MyPageService {
 	@Transactional(readOnly = true)
 	public List<Recipe> getRecipeList(Long id){
 		List<Recipe> recipes = recipeRepository.findRecipe(id);
+
 		
 		return recipes;
 
-
 	}
 	
+	//레시피 삭제
+	public void deleteRecipe(Long recipeId) {
+		Recipe recipe = recipeRepository.findById(recipeId)
+										  .orElseThrow(EntityNotFoundException::new);
+		
+		recipeRepository.delete(recipe);
+	}
+	//찜목록 불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getBookmark(Long id){
+		List<BookMark> bookmarks = bookMarkRepository.getBookmarks(id);
+		List<MyPageDto> bookmarkDtos = new ArrayList<>();
+		
+		for(BookMark bookmark : bookmarks) {
+			
+			Member member = bookmark.getMember();
+			Recipe recipe = bookmark.getRecipe();
+			
+			MyPageDto bookmarkDto = new MyPageDto(member , recipe, bookmark);
+			bookmarkDtos.add(bookmarkDto);
+		}
+		
+		return bookmarkDtos;
+	}
+	
+	//찜 삭제
+	public void deleteBookmark(Long bookmarkId) {
+		BookMark bookmark = bookMarkRepository.findById(bookmarkId)
+											  .orElseThrow(EntityNotFoundException::new);
+		bookmark.setIsDelete(true);
+		bookMarkRepository.save(bookmark); // 상태 변경 저장
+	}
+	//찜 삭제취소
+	public void undeleteBookmark(Long bookmarkId) {
+		BookMark bookmark = bookMarkRepository.findById(bookmarkId)
+				.orElseThrow(EntityNotFoundException::new);
+		bookmark.setIsDelete(false);
+		bookMarkRepository.save(bookmark); // 상태 변경 저장
+	}
+	public void deleteMarkedBookmarks() {
+	    List<BookMark> bookmarksToDelete = bookMarkRepository.findByIsDeleteTrue();
+	    bookMarkRepository.deleteAll(bookmarksToDelete);
+	}
+	
+	//댓글목록 불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getMyComment(Long id){
+
+		List<Comment> comments = commentRepository.getMyComment(id);
+		List<MyPageDto> commentDtos = new ArrayList<>();
+		
+		for(Comment comment : comments) {
+			
+			Member member = comment.getMember();
+
+			MyPageDto commentDto = new MyPageDto(member , comment);
+			commentDtos.add(commentDto);
+		}
+		
+		return commentDtos;
+	}
+	//댓글 삭제
+	public void deleteComment(Long commentId) {
+		Comment comment = commentRepository.findById(commentId)
+				.orElseThrow(EntityNotFoundException::new);
+		commentRepository.delete(comment);
+	}
+	
+	//내후기불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getMyReview(Long id){
+		
+		List<Review> reviews = reviewRepository.getMyReview(id);
+		List<MyPageDto> reviewDtos = new ArrayList<>();
+		
+		for(Review review : reviews) {
+			Member member = review.getMember();
+			
+			MyPageDto reviewDto = new MyPageDto(member, review);
+			reviewDtos.add(reviewDto);
+		}
+		return reviewDtos;
+	}
+	//받은후기불러오기
+	@Transactional(readOnly = true)
+	public List<MyPageDto> getReceivedReview(Long id){
+		
+		List<Review> reviews = reviewRepository.getReceivedReview(id);
+		List<MyPageDto> reviewDtos = new ArrayList<>();
+		
+		for(Review review : reviews) {
+			Member member = review.getMember();
+			
+			MyPageDto reviewDto = new MyPageDto(member, review);
+			reviewDtos.add(reviewDto);
+		}
+		return reviewDtos;
+	}
+	
+	//후기삭제
+	public void deleteReview(Long reviewId) {
+		Review review = reviewRepository.findById(reviewId)
+										.orElseThrow(EntityNotFoundException::new);
+		reviewRepository.delete(review);
+	}
 }
+

@@ -1,5 +1,9 @@
 package com.recipe.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,7 +34,12 @@ public class Comment extends BaseEntity {
 	private String writer;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	private String content;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "recipe_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Recipe recipe;
 
 	@ManyToOne(fetch = FetchType.LAZY)
