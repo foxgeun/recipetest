@@ -1,6 +1,11 @@
     // Initially show the '레시피' content
+    
+    $(document).ready(function() {
+    // 초기화 코드를 여기에 배치    
     showContent('recipe');
-        filterRecipes('PUBLISHED');
+    filterRecipes('PUBLISHED');
+});
+
 function showContent(contentId) {
     $('.content').hide();
     $('#' + contentId).show();
@@ -13,12 +18,18 @@ function showContent(contentId) {
         // 로컬 스토리지에서 선택한 카테고리의 상태를 가져옴
         var selectedTab = localStorage.getItem('selectedTab');
         filterRecipes(selectedTab);
-    }
+    } else if(contentId === 'reviews'){
+		        // 로컬 스토리지에서 선택한 카테고리의 상태를 가져옴
+        var selectedTab = localStorage.getItem('selectedTab');
+        toggleReviews(selectedTab);
+	}
 }
     
 	function filterRecipes(filterType) {
 	    // 모든 레시피 목록 숨기기
 	    $('.mypage-content .recipe1').hide();
+	    	        $('.mypage-top').removeClass('active');
+	        $('.mypage-top[data-menu="' + filterType + '"]').addClass('active');
 
 	    if (filterType === 'PUBLISHED') {
 	        // 공개중인 레시피만 보이도록 설정
@@ -302,24 +313,38 @@ function deleteBookmark(bookmarkId, imgElement) {
 	}
 
 
-	      toggleReviews('myReviewList');
+	toggleReviews('myReviewList');
 function toggleReviews(contentId) {
-	        $('.mypage-top').removeClass('active');
-	    $('.my').addClass('active');
+    $('.mypage-top').removeClass('active');
+    $('.my').addClass('active');
+
     if (contentId === 'myReviewList') {
-        $('#myReviewList').show();
-        $('#receivedReviewList').hide();
-        $('.mypage-top').removeClass('active');
-	    $('.my').addClass('active');
+        if ($('#myReviewList tbody .mytr').length > 0) {
+            $('#myReviewList').css('display', '');
+            $('#receivedReviewList').css('display', 'none');
+            $('#myReviewListIsEmpty').css('display', 'none');
+            $('#receivedReviewListIsEmpty').css('display', 'none');
+        } else {
+            $('#myReviewList').css('display', 'none');
+            $('#receivedReviewList').css('display', 'none');
+            $('#myReviewListIsEmpty').css('display', '');
+            $('#receivedReviewListIsEmpty').css('display', 'none');
+        }
     } else if (contentId === 'receivedReviewList') {
-        $('#receivedReviewList').show();
-        $('#myReviewList').hide();
+        if ($('#receivedReviewList tbody .receivedtr').length > 0) {
+            $('#receivedReviewList').css('display', '');
+            $('#myReviewList').css('display', 'none');
+            $('#receivedReviewListIsEmpty').css('display', 'none');
+            $('#myReviewListIsEmpty').css('display', 'none');
+        } else {
+            $('#receivedReviewList').css('display', 'none');
+            $('#myReviewList').css('display', 'none');
+            $('#receivedReviewListIsEmpty').css('display', '');
+            $('#myReviewListIsEmpty').css('display', 'none');
+        }
+
         $('.mypage-top').removeClass('active');
-	    $('.you').addClass('active');
+        $('.you').addClass('active');
+         localStorage.setItem('selectedTab', contentId);
     }
 }
-
-
-
-
-
