@@ -10,7 +10,7 @@ import com.recipe.entity.Item;
 
 import jakarta.transaction.Transactional;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
 	
 	@Transactional
 	@Query(value = "SELECT * FROM item ORDER BY RAND()", nativeQuery = true)

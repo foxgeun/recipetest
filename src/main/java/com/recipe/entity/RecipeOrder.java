@@ -42,4 +42,11 @@ public class RecipeOrder {
 	private Recipe recipe;
 
 	
+	
+	public void updateRecipeOrderImg(String imgUrl , String ImgName) {
+			this.imgUrl = imgUrl;
+			this.ImgName = ImgName;
+	}
+	
+	
 }

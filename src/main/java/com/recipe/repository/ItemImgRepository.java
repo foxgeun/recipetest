@@ -1,6 +1,7 @@
 package com.recipe.repository;
 
 
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,7 @@ public interface ItemImgRepository extends JpaRepository<ItemImg, Long>{
 	@Query(value = "select * from item_img where item_count = ?1", nativeQuery = true)
 	List<ItemImg> getItemImgByItemId(int id);
 	
+	
+	List<ItemImg> findByItemId(Long itemId);
+
 }

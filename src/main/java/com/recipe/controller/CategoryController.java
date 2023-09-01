@@ -38,6 +38,7 @@ public class CategoryController {
 	}
 	
 	
+
 	@GetMapping(value = {"/category/best" , "/category/best/{page}"})
 	public String categoryBest(RecipeSearchDto recipeSearchDto ,
 			@PathVariable("page") Optional<Integer> page , Model model) {
@@ -47,5 +48,8 @@ public class CategoryController {
 		
 		return "category/category";
 	}	
+
 }
+	
+	
 

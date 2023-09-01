@@ -262,19 +262,33 @@
     font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
     margin-right: 4px;
     font-weight: 550;
+<<<<<<< HEAD
     font-size: 16px;
     line-height: 29px;
     letter-spacing: -0.5px;
     color: grey;
     text-decoration: line-through;
+=======
+    font-size: 26px;
+    line-height: 29px;
+    letter-spacing: -0.5px;
+    color: rgb(246, 111, 88);
+>>>>>>> 85e47e43bcd684c746cc55a3feb17efbd19c56fe
 }
 
 .price_info {
     margin-top: 2px;
+<<<<<<< HEAD
 
     -webkit-box-align: center;
 
 
+=======
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+>>>>>>> 85e47e43bcd684c746cc55a3feb17efbd19c56fe
 }
 
 .sales_price p:nth-child(1) {
@@ -294,8 +308,17 @@
     font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
     margin: 7px 0px 3px;
     font-weight: 550;
+<<<<<<< HEAD
     font-size: 22px;
     line-height: 19px;
     letter-spacing: -0.5px;
     color: rgb(0, 0, 0);
 }
+=======
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.5px;
+    color: rgb(0, 0, 0);
+}
+
+>>>>>>> 85e47e43bcd684c746cc55a3feb17efbd19c56fe

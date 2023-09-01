@@ -69,10 +69,14 @@
 				<div class="thmb">
 					<a href="#"><div class="img">
 					<div class="scale">
+<<<<<<< HEAD
 
 					<img src="/img/장어덮밥.jpg" alt="레시피명">
 
 					<img src="/img/장어덮밥.jpg" th:alt="${recipe.title}">
+=======
+					<img th:src="${recipe.imageUrl}" th:alt="${recipe.title}">
+>>>>>>> 85e47e43bcd684c746cc55a3feb17efbd19c56fe
 					<span class="item-ranking">[[${status.index+1}]]</span>
 
 					<div class="back">
@@ -117,7 +121,8 @@
 							aria-label="Page navigation example">
 							<ul class="pagination d-flex justify-content-center">
 
-								<li class="page-item" th:classappend="${category.first}?'disabled'">
+								<li class="page-item" 
+								th:classappend="${category.first}?'disabled'">
 									<a class="page-link"
 									th:onclick="'javascript:page(' + ${category.number - 1} +')'"><<</a>
 								</li>

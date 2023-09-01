@@ -31,8 +31,9 @@ import com.recipe.repository.RecipeRepository;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.recipe.dto.RecipeNewDto;
+import com.recipe.service.RecipeService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ public class RecipeController {
 	private final RecipeOrderRepository recipeOrderRepository;
 	private final RecipeIngreRepository recipeIngreRepository;
 
+	private final RecipeService recipeService;
 	
 	
 	@GetMapping(value = "/recipe/{Id}")
@@ -78,21 +80,32 @@ public class RecipeController {
 
 	
 	@PostMapping(value = "/recipe/new")
-	public String recipeNew(@Valid RecipeNewDto recipeNewDto ,  
+	public String recipeNew(@RequestParam("recipeImgFile") MultipartFile recipeImgFile ,  @Valid RecipeNewDto recipeNewDto ,  
 			BindingResult bindingResult , Model model, 
-			@RequestParam("RecipeIngreList") List<Object> RecipeIngreList ,
-			@RequestParam("recipeOrderDtoList") List<Object> recipeOrderDtoList ) {
+			@RequestParam("RecipeingreName") List<String> RecipeingreMaterialList ,
+			@RequestParam("RecipeingreMaterial") List<String> RecipeingreNameList ,
+			@RequestParam("recipeOrderContent") List<String> recipeOrderContentList,
+			@RequestParam("recipeOrderImgFile") List<MultipartFile> recipeOrderImgFile //,Principal principal
+			) {
 			
-		for(Object d : RecipeIngreList) {
-			System.out.println("object1 = " + d);
+		
+//		String email = principal.getName();
+		
+		System.out.println("레시피 정보 1" + recipeNewDto.getTitle());
+		System.out.println("레시피 정보 1" + recipeNewDto.getIntro());
+		System.out.println("레시피 정보 1" + recipeNewDto.getSubTitle());
+		System.out.println("레시피 정보 1" + recipeNewDto.getLevel());
+		System.out.println("레시피 정보 1" + recipeNewDto.getCategory());
+		
+		System.out.println(recipeOrderImgFile.size());
+		System.out.println(recipeOrderContentList.size());
+		
+		try { 
+			recipeService.saveRecipe(recipeNewDto, recipeImgFile , RecipeingreMaterialList, 
+					RecipeingreNameList , recipeOrderContentList , recipeOrderImgFile   );
+		} catch (Exception e) {				//, email
+			e.printStackTrace();
 		}
-		
-		for(Object d : recipeOrderDtoList) {
-			System.out.println("object2 = " + d);
-		}
-		
-		
-		
 		
 		
 		return "redirect:/";

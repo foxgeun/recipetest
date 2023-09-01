@@ -12,6 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,21 +34,33 @@ public class Item extends BaseEntity {
 	
 	private String itemSubNm; // 상품 간단소개이름
 	
+
 	private String imgUrl; //사진
 	
 	private String oriprice;
 	
 	private String price; // 가격
+
 	
 	private int stockNumber; //재고
 	
 	private int sale; // 할인율
 	
 
+
 	private String Category; //카테고리
+
+	@Enumerated(EnumType.STRING)
+	private ItemCategoryEnum itemCategoryEnum; //카테고리
+
 	
 	@Enumerated(EnumType.STRING) //상품상태 sell , sold_out
 	private ItemSellStatus itemSellStatus;
 	
 	
+
+	
+	
 }
+
+

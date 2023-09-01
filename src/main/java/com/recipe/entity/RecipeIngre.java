@@ -19,10 +19,6 @@ public class RecipeIngre {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; //아이디
 	
-	private String ingreImg; //재료 이미지
-	
-	private String ingreImgName; //재료 이미지 사진
-	
 	private String ingreMaterial; //재료량
 	
 	@Column(length = 1000) // Adjust the length as needed
@@ -36,6 +32,7 @@ public class RecipeIngre {
 
 	private String ingreName; //재료 이름
 
+	private String ingreImg; //재료 이름
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")

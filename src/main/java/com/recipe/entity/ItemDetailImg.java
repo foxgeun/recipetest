@@ -27,6 +27,8 @@ public class ItemDetailImg {
 	
 	private int itemCount;
 	
+	
+
 	private String imgUrl;
 	
 	private String imgName;
@@ -36,4 +38,6 @@ public class ItemDetailImg {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
 	private Item item;
+
 }
+
