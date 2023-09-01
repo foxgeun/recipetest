@@ -21,5 +21,13 @@ public class ItemService {
 	public List<Item> getAllItemList(){
 		return itemRepository.getAllItemList();
 	}
+	
+	public Item getItemByItemId(int Id) {
+		return itemRepository.getItemByItemId(Id);
+	}
+	
+	public List<Item> getItemByCategoryEnum(String category){
+		return itemRepository.getItemByCategoryEnum(category);
+	}
 
 }

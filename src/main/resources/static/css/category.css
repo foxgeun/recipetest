@@ -228,6 +228,36 @@
     margin: 0 4px -2px 0;
     vertical-align: text-bottom;
 }
+  #topMenu {           
+                        height: 30px;
+                        width: 100%;
+    display: flex;
+    justify-content: center;
+                }
+                #topMenu ul li {                      
+                        list-style: none;         
+                        color: white;               
+                        background-color: #2d2d2d;  
+                        float: left;               
+                        line-height: 30px;         
+                        vertical-align: middle;    
+                        text-align: center;       
+                }
+                #topMenu .menuLink {                              
+                        text-decoration:none;                     
+                        color: white;                            
+                        display: block;                         
+                        width: 150px;                            
+                        font-size: 12px;                           
+                        font-weight: bold;                         
+                        font-family: "Trebuchet MS", Dotum, Arial; 
+                        height: 37px;
+    					line-height: 37px;
+                }
+                #topMenu .menuLink:hover {            
+                        color: red;                   
+                        background-color: #4d4d4d;   
+                }
 
 .item-ranking {
     position: absolute;
@@ -247,3 +277,4 @@
     vertical-align: middle;
 
 }
+

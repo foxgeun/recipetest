@@ -42,8 +42,8 @@ public class Item extends BaseEntity {
 	
 	private int sale; // 할인율
 	
-	@Enumerated(EnumType.STRING)
-	private ItemCategoryEnum itemCategoryEnum; //카테고리
+
+	private String Category; //카테고리
 	
 	@Enumerated(EnumType.STRING) //상품상태 sell , sold_out
 	private ItemSellStatus itemSellStatus;

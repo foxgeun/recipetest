@@ -18,7 +18,7 @@
 <div class="site-section mt-5 mb-5 mt-5">
 	<div class="container">
 	<div class="banner_slider slider-wrap ">
-		<th:block th:each="img , status:${imgList}">
+		<th:block th:each="img , status:${itemImgList}">
 		<div class="">
                 <div class="s_view_pic_zoom">
                 <img th:src="${img.imgUrl}" width="1000" height="1000" th:alt="${item.itemNm}" 
@@ -57,12 +57,12 @@
 
                 <div class="sub_info">[[${item.itemSubNm}]]</div>
                 <div class="price_box">
-                        <p class="dc">[[${item.sale}]]<small>%</small></p>
-                        <p class="price">[[${#numbers.formatInteger(item.price - (item.price * item.sale / 100), 0, 'COMMA')}]]<small id="won" style="">원</small></p><p class="del">[[${#numbers.formatInteger(item.price, 0, 'COMMA')}]]원</p>
+                       	<del class="oriprice">[[${item.oriprice}]]</del><br>
+                        <p class="price">[[${item.price}]]</p>
                     <div class="info_price_rv">
                         <div class="info_price_rv_star" style="display: inline-block;cursor:pointer;"><span class="info_price_rv_star_on" style="width:90%;">리뷰별점</span></div>
-                        <span class="info_price_rv_pt" style="cursor:pointer;">[[${item.retingAvg}]]</span>
-                        <span class="info_price_rv_ea" style="cursor:pointer;">([[${item.reviewCount}]])</span>
+                        <span class="info_price_rv_pt" style="cursor:pointer;"></span>
+                        <span class="info_price_rv_ea" style="cursor:pointer;">()</span>
                     </div>
                     <div class="price_box_info_btn">
                         <div style="position: relative; display: inline-block;">
@@ -227,6 +227,19 @@ function ezhld_detail_more() {
     goodsDetailInfo.style.height = "100%";
     goodsDetailInfo.style.overflow = "visible";
   }
+}
+
+window.onload = function() {
+    var pElements = document.querySelectorAll('.price'); // 'price' 클래스를 가진 모든 p 태그를 선택
+
+    pElements.forEach(function(p) {
+        var html = p.innerHTML;
+
+        // "%"와 그 앞의 모든 문자를 감싼 span 태그로 교체
+        html = html.replace(/(\d+)%/, '<span style="font-size: 24px; color: red;">$1%</span>');
+        
+        p.innerHTML = html;
+    });
 }
 	</script>
 

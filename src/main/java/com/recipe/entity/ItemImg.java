@@ -30,6 +30,8 @@ public class ItemImg {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private int itemCount;
+	
 	private String imgUrl;
 	
 	private String imgName;

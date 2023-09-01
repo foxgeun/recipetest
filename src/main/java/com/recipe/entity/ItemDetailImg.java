@@ -21,9 +21,11 @@ import lombok.ToString;
 public class ItemDetailImg {
 	
 	@Id
-	@Column(name="item_detal_img_id")
+	@Column(name="item_detail_img_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	private int itemCount;
 	
 	private String imgUrl;
 	

@@ -20,7 +20,6 @@ import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.ImgMainOk;
-import com.recipe.dto.QRecipeCategoryDto;
 import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.QBookMark;
@@ -181,6 +180,8 @@ private Tuple findBookmarkTuple(Long recipeId, List<Tuple> bookmarkResults) {
     }
     return null;
 }
+
+
 
 
 //

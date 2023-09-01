@@ -22,11 +22,15 @@
 		</th:block>
 				</div>
 			<div class="category_form">
-				<a onclick="javascript:dynamicSearch1('')">전체</a>
-				<a onclick="javascript:dynamicSearch1('푸드')">푸드</a>
+				<a href="/item/total">전체</a>
+				<a href="/item/total/푸드">푸드</a>
+				<a href="/item/total/키친">키친</a>
+				<a href="/item/total/리빙">리빙</a>
+				<a href="/item/total/가전">가전</a>
+<!-- 			<a onclick="javascript:dynamicSearch1('푸드')">푸드</a>
 				<a onclick="javascript:dynamicSearch1('키친')">키친</a>
 				<a onclick="javascript:dynamicSearch1('리빙')">리빙</a>
-				<a onclick="javascript:dynamicSearch1('가전')">가전</a>
+				<a onclick="javascript:dynamicSearch1('가전')">가전</a> -->
 				
 				
 			</div>
@@ -39,6 +43,7 @@
 				<li class="active" ><a onclick="javascript:dynamicSearch2('order')">최신순</a></li>
 				<li class="active" ><a onclick="javascript:dynamicSearch2('reviewCount')">리뷰많은순</a></li>
 				<li class="active" ><a onclick="javascript:dynamicSearch2('reviewAvg')">평점순</a></li>
+
 			</ul>
 			  
 		</div>
@@ -61,7 +66,7 @@
 				<div class="info">
 					<p class="name">[[${item.itemNm}]]</p>
 
-					<div class="price_info"> <span class="discount">[[${item.oriprice}]]</span> 
+					<div class="price_info"> <span class="discount" th:if="${item.oriprice != null}">[[${item.oriprice}]]</span> 
 					<div class="sales_price"> 
 					<p>[[${item.price}]]</p><br>
 					<span></span>
@@ -117,6 +122,19 @@
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
+	
+	
+	document.addEventListener('DOMContentLoaded', function() {
+	    var salesPriceElements = document.querySelectorAll('.sales_price p');
+	    
+	    salesPriceElements.forEach(function(element) {
+	        var content = element.innerHTML;
+
+	        // % 앞의 모든 글자와 % 자체를 빨간색으로 변경
+	        content = content.replace(/(.*%)/, '<span style="color:red;">$1</span>');
+	        element.innerHTML = content;
+	    });
+	});
 	
 	$(document).ready(function() {
 		
