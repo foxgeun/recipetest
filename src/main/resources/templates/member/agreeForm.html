@@ -191,7 +191,8 @@ h3{
               </div>
             </li>
           </ul>
-          <button type="submit" class="next-button" disabled id="submitButton" onclick="location.href='/members/newMember'" >확인</button> <!--onclick="location.href='/members/newMember'"  -->
+          <input type="hidden" name="checkedCount" id="checkedCountInput">
+          <button type="submit" class="next-button" disabled id="submitButton" onclick="location.href='/members/newMember'" >확인</button>
         </form>
       </div>
     </div>
@@ -199,117 +200,84 @@ h3{
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	/* $("#submitButton").click(function(){
-		alert($("#promotionOk").is(":checked"));
-	}); */
+		
 	
-	const form = document.querySelector(".form__wrap");
-	const checkAll = document.querySelector(".terms__check__all input");
-	const checkBoxes = document.querySelectorAll(".input__check input");
-	const submitButton = document.querySelector("button");
-
+	const form = document.querySelector(".form__wrap"); // 데이터 전송 form
+	const checkAll = document.querySelector(".terms__check__all input"); // 모두 동의 체크박스
+	const checkBoxes = document.querySelectorAll(".input__check input"); // 모두 동의 제외 체크박스
+	const submitButton = document.querySelector("button");  // 확인 버튼
+		
+	
 	const agreements = {
-	  termsOfService: false,
-	  privacyPolicy: false,
-	  allowPromotions: false
-	};
-
+			  termsOfService: false,
+			  privacyPolicy: false,
+			  allowPromotions: false,
+			};
+	
+	//새로고침시 서브밋막음
 	form.addEventListener("submit", (e) => e.preventDefault());
 
-	checkBoxes.forEach((item) => item.addEventListener("input", toggleCheckbox));
+	checkBoxes.forEach((item) => item.addEventListener('input', toggleCheckbox));
 
 	function toggleCheckbox(e) {
-	  const { checked, id } = e.target;
-	  agreements[id] = checked;
-	  this.parentNode.classList.toggle("active");
-	  checkAllStatus();
-	  toggleSubmitButton();
+		  const { checked, id } = e.target;  
+		  agreements[id] = checked;
+		  this.parentNode.classList.toggle('active');
+		  checkAllStatus();
+		  toggleSubmitButton();
 	}
-
+	//모든동의 체크박스 누르면 전부 동의
 	function checkAllStatus() {
-	  const { termsOfService, privacyPolicy, allowPromotions } = agreements;
-	  if (termsOfService && privacyPolicy && allowPromotions) {
-	    checkAll.checked = true;
-	  } else {
-	    checkAll.checked = false;
-	  }
-	}
-
+		  const { termsOfService, privacyPolicy, allowPromotions } = agreements;
+		  if (termsOfService && privacyPolicy && allowPromotions) {
+		    checkAll.checked = true;
+		  } else {
+		    checkAll.checked = false;
+		  }
+		}
+	
+	//모든동의 체크박스 누르면 버튼활성화
 	function toggleSubmitButton() {
 	  const { termsOfService, privacyPolicy , allowPromotions } = agreements;
+	  const checkedCount = $(checkBoxes).filter(':checked').length;
 	  if (termsOfService && privacyPolicy && allowPromotions) {
 	    submitButton.disabled = false;
 	  } else {
 	    submitButton.disabled = true;
 	  }
 	}
-
-	checkAll.addEventListener("click", (e) => {
-	  const { checked } = e.target;
-	  if (checked) {
-	    checkBoxes.forEach((item) => {
-	      item.checked = true;
-	      agreements[item.id] = true;
-	      item.parentNode.classList.add("active");
-	    });
+	
+	// '모두 동의' 체크박스가 체크가 되면 모든 체크박스의  체크를 하고, '모두 동의'
+	// 체크박스가 해제되면 모든 체크 박스의 체크상태를 해제
+	checkAll.addEventListener('click', (e) => {
+		  const { checked } = e.target;
+		  if (checked) {
+		    checkBoxes.forEach((item) => {
+		      item.checked = true;
+		      agreements[item.id] = true;
+		      item.parentNode.classList.add('active');
+		    });
+		  } else {
+		    checkBoxes.forEach((item) => {
+		      item.checked = false;
+		      agreements[item.id] = false;
+		      item.parentNode.classList.remove('active');
+		    });
+		  }
+		  toggleSubmitButton();
+		});
+	
+	
+	
+	// 필수동의 체크 여부를 확인한 뒤 버튼을 활성화 , 비활성화 동작 함수
+	/* function toggleSubmitButton() {
+	  const { termsOfService, privacyPolicy , allowPromotions } = agreements;
+	  if (termsOfService && privacyPolicy && allowPromotions) {
+	    submitButton.disabled = false;
 	  } else {
-	    checkBoxes.forEach((item) => {
-	      item.checked = false;
-	      agreements[item.id] = false;
-	      item.parentNode.classList.remove("active");
-	    });
+	    submitButton.disabled = true;
 	  }
-	  toggleSubmitButton();
-	});
-	
-	//체크박스 여부(동의)전송
-	/* $(document).ready(function () {
-	    // 동의 버튼 클릭 시
-	    $("#submitButton").click(function () {
-	    	var token = $("meta[name='_csrf']").attr("content");
-			var header = $("meta[name='_csrf_header']").attr("content");
-	        // 체크박스 상태 확인
-	        var allowPromotions = $("#allowPromotions").is(":checked");
-	        var a ;
-	        if(allowPromotions == true){
-	        	a = 'Y';
-	        	
-	        } else {
-	        	a = 'N';
-	        }
-	        
-	        var paramData = {
-	        		answer : a,
-	        }
-	        
-	        console.log(paramData);
-	        
-	        var param = JSON.stringify(paramData);
-	        
-	        // Ajax 요청
-	        $.ajax({
-	            type: "GET", // 또는 GET, 요청 방식 설정
-	            url: "/members/newMember", // 처리할 URL 설정
-	            data: paramData, //전송할 데이터
-	            beforeSend : function(xhr) { //데이터를 전송하기 전 헤더에 csrf값을 설정
-					xhr.setRequestHeader(header, token);
-				},
-	            dataType : "text",
-	            contentType : "application/json",
-	            cache : false,
-	            success: function (data) {
-	                // 요청 성공 시 처리
-	                alert("동의완료");
-	                location.href='/members/newMember';
-	            },
-	            error: function (data) {
-	                // 요청 실패 시 처리
-	                alert("에러");
-	            }
-	        }); 
-	    });
-	}); */
-	
+	} */
 		
 	</script>
 </th:block>

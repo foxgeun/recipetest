@@ -57,38 +57,17 @@ public class RecipeController {
 		WritingStatus status = WritingStatus.valueOf(writingStatus);
 
 		if (status == WritingStatus.PUBLISHED) {
-			System.out.println("dasfsadf===" + status);
 			recipeNewDto.setWritingStatus(status);
 		} else if(status == WritingStatus.DRAFT) {
 			recipeNewDto.setWritingStatus(status);
 		}
 		
-		
-		System.out.println("카테고리:::" + categoryType);
-		
-		System.out.println("임시저장여부===" + recipeNewDto.getWritingStatus());
-		
-		
-		//String email = principal.getName();
-		
-		System.out.println("타이틀==" + recipeNewDto.getTitle());
-		System.out.println("소개==" + recipeNewDto.getIntro());
-		System.out.println("부제목==" + recipeNewDto.getSubTitle());
-		System.out.println("난이도==" + recipeNewDto.getLevel());
-		System.out.println("카테고리==" + recipeNewDto.getCategoryType());
-		
-		System.out.println(recipeOrderImgFile.size());
-		System.out.println(recipeOrderContentList.size());
-		
-		 
 		try { 
 			recipeService.saveRecipe(recipeNewDto, recipeImgFile , recipeingreMaterialList, 
 					recipeingreNameList , recipeOrderContentList , recipeOrderImgFile ,principal );
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
-		
-		
 		
 		return "redirect:/";
 	}
@@ -101,9 +80,6 @@ public class RecipeController {
 		try {
 			RecipeNewDto recipeNewDto = recipeService.getRecipeDtl(recipeId);
 			model.addAttribute("recipeNewDto" , recipeNewDto);
-			
-			//System.out.println(recipeNewDto.getRecipeIngreDtoList().get(0).getIngreMaterial());
-			//System.out.println(recipeNewDto.getRecipeOrderDtoList().get(0).getImgName());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,7 +112,6 @@ public class RecipeController {
 			WritingStatus status = WritingStatus.valueOf(writingStatus);
 	
 			if (status == WritingStatus.PUBLISHED) {
-				System.out.println("dasfsadf===" + status);
 				recipeNewDto.setWritingStatus(status);
 			} else if(status == WritingStatus.DRAFT) {
 				recipeNewDto.setWritingStatus(status);

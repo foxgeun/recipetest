@@ -74,15 +74,6 @@ public class MemberController {
 		socialMemberDto.setName(name);
 	    
 		model.addAttribute("socialMemberDto", socialMemberDto);
-//		model.addAttribute("email", memberDto.getEmail());
-//		model.addAttribute("passwordConfirm", memberDto.getPasswordConfirm());
-//		model.addAttribute("provider", memberDto.getProvider());
-//		model.addAttribute("providerId", memberDto.getProviderId());
-//		model.addAttribute("password", memberDto.getPassword());
-		
-		System.out.println("aaaaaaaaa111=" + socialMemberDto.getEmail());
-		System.out.println("aaaaaaaaa222=" + socialMemberDto.getName());
-		//System.out.println("패스워드" + socialMemberDto.getPassword());
 		
 		return "member/snsMemberForm";
 	}
@@ -93,12 +84,12 @@ public class MemberController {
 	public String newMemberForm(@RequestParam("profileImgFile") MultipartFile profileImgFile, @Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
 		
 		//회원가입 에러처리
-		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2() == "") {
+		if (!memberDto.getPassword().equals(memberDto.getPasswordConfirm()) || memberDto.getEmailConfirm2().isEmpty()) {
 			return "member/newMemberForm";
 		}
 		
 		//자기소개 기본값 넣기
-		if (memberDto.getIntroduce() == null || memberDto.getIntroduce() == "") {
+		if (memberDto.getIntroduce() == null || memberDto.getIntroduce().isEmpty()) {
 			memberDto.setIntroduce("자기소개가 없습니다.");
 		}
 		
@@ -155,7 +146,8 @@ public class MemberController {
 	@PostMapping(value = "/members/snsMember")
 	public String snsMemberForm(@RequestParam("snsProfileImgFile") MultipartFile snsProfileImgFile ,@Valid SocialMemberDto socialMemberDto, BindingResult bindingResult, Model model) {
 		
-		if(socialMemberDto.getIntroduce() == null || socialMemberDto.getIntroduce() == "") {
+		//자기소개 기본값 넣기
+		if (socialMemberDto.getIntroduce() == null || socialMemberDto.getIntroduce().isEmpty()) {
 			socialMemberDto.setIntroduce("자기소개가 없습니다.");
 		}
 		
@@ -164,7 +156,6 @@ public class MemberController {
 			return "member/snsMemberForm";
 		}
 				
-		
 		String imgName = snsProfileImgFile.getOriginalFilename();
 		String imgUrl = "";
 		
@@ -261,11 +252,9 @@ public class MemberController {
 	public ResponseEntity<Map<String, String>> findEmail(@RequestBody MemberDto memberDto) {
 		
 		String memberEmail = memberService.findEmail(memberDto.getPhoneNumber());
-		System.out.println("memberEmail====" + memberEmail);
 		
 		Map<String, String> response = new HashMap<>();
 		response.put("memberEmail", memberEmail);
-		System.out.println("response====" + response);
 		
 		return ResponseEntity.ok(response);
 		

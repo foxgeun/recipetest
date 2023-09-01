@@ -30,22 +30,19 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
 			
-	    	   System.out.println("LoginSuccessHandler is called.");
+	    	   System.out.println("핸들러성공");
 
 	    	    if (authentication instanceof OAuth2AuthenticationToken) {
 	    	        OAuth2User oauthUser = ((OAuth2AuthenticationToken) authentication).getPrincipal();
-	    	        System.out.println("oauthUser===" + oauthUser);
 	    	        if (oauthUser instanceof PrincipalDetails) {
 	    	            PrincipalDetails userDetails = (PrincipalDetails) oauthUser;
 	    	            String email = userDetails.getEmail(); // Use getEmail from PrincipalDetails
-	    	            System.out.println("email====" + email);
 	    	            String password = userDetails.getPassword();
 	    	            String provider = userDetails.getProvider();
 	    	            String providerId = userDetails.getProviderId();
 	    	            String name = userDetails.getUsername();
 	    	            
 	    	            Member member = memberRepository.findByEmail(email);
-	    	            System.out.println("member====" + member);
 	    	            SocialMemberDto socialMemberDto = new SocialMemberDto();
 	    	            //name password 추가
 	    	            //dto에 provide 등 추가
@@ -56,10 +53,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	    	            socialMemberDto.setProviderId(providerId);
 	    	            socialMemberDto.setName(name);
 	                    
-	                    System.out.println("provider=====" + provider);
-	                    System.out.println("providerId=====" + providerId);
-	                    System.out.println("name=====" + name);
-	                    System.out.println("paswood======" + password);
 	    	            if (member == null) {
 	    	                // 간편 로그인 성공시 추가 정보를 받기위해
 	    	            	
