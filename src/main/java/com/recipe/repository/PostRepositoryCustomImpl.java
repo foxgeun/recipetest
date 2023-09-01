@@ -51,7 +51,8 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                         p.title,
                         p.content,
                         p.regTime,
-                        p.updateTime
+                        p.updateTime,
+                        p.postReplyStatus
                         
                 ))
                 .from(p)

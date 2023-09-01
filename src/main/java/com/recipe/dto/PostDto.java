@@ -8,6 +8,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.recipe.constant.PostReplyStatus;
 import com.recipe.entity.Post;
 
 import lombok.Getter;
@@ -36,13 +37,22 @@ public class PostDto {
 
 	private int count;
 
+	private PostReplyStatus postReplyStatus;
+
 	public PostDto() {
 		// 초기화 작업 등을 수행할 수 있습니다.
 	}
 
+	private boolean hasAnswer;
+
+	// 답변이 있는지 여부를 판단하여 hasAnswer 속성을 설정
+	public void setHasAnswer(boolean hasAnswer) {
+		this.hasAnswer = hasAnswer;
+	}
+
 	@QueryProjection
 	public PostDto(Long id, String nickname, String email, String title, String content, LocalDateTime regTime,
-			LocalDateTime updateTime) {
+			LocalDateTime updateTime, PostReplyStatus postReplyStatus) {
 		this.id = id;
 		this.nickname = nickname;
 		this.email = email;
@@ -50,6 +60,7 @@ public class PostDto {
 		this.content = content;
 		this.regTime = regTime;
 		this.updateTime = updateTime;
+		this.postReplyStatus = postReplyStatus;
 
 		// 등록날짜를 보기 좋은 형식으로 변환하여 formattedRegTime에 저장
 		if (regTime != null) {

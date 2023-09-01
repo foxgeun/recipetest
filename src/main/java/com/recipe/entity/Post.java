@@ -2,8 +2,12 @@ package com.recipe.entity;
 
 import java.time.LocalDateTime;
 
+import com.recipe.constant.PostReplyStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +40,9 @@ public class Post extends BaseEntity {
 	private LocalDateTime updateTime;
 
 	private int count;
+
+	@Enumerated(EnumType.STRING) // enum의 이름을 DB의 저장
+	private PostReplyStatus postReplyStatus; // 판매상태(Y, N) -> post_reply_status
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")

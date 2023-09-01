@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.recipe.constant.PostReplyStatus;
 import com.recipe.dto.PostDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.service.PostService;
@@ -59,11 +60,16 @@ public class PostController {
 	// 문의리스트 페이지
 	@GetMapping(value = { "/post/qaList", "/post/qaList/{page}" })
 	public String qaList(RecipeSearchDto recipeSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-		Page<PostDto> posts = postService.getPostListPage(recipeSearchDto, pageable);
+
+		Page<PostDto> posts = postService.getAdminPostListPage(recipeSearchDto, pageable);
+
+		PostReplyStatus status = PostReplyStatus.Y;
 
 		model.addAttribute("posts", posts);
 		model.addAttribute("maxPage", 5);
+		model.addAttribute("status", status);
 
 		return "post/qaList";
 	}
