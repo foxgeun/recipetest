@@ -112,10 +112,9 @@ h2{
 	border: 1px solid;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
-	margin-top: 5px;
 	height: 40px;
 	font-size: 14px;
-	margin-left: 50px;
+	margin: 5px 0px 5px 50px;
 }
 
 .ingredientsMain{
@@ -137,10 +136,9 @@ h2{
 	border: 1px solid;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
-	margin-top: 5px;
 	height: 40px;
 	font-size: 14px;
-	margin-left: 25px;
+	margin: 5px 0px 5px 25px;
 }
 
 
@@ -305,7 +303,7 @@ width: 65px;
 	border: 1px solid;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
-	margin-top: 10px;
+	margin-top: 20px;
 	height: 50px;
 	font-size: 14px;
 }
@@ -507,8 +505,8 @@ width: 65px;
 				<div class="ingredientsMain">
 					<label for="ingredients" class="ingredients">재료 추가</label>
 					<div id="box">
-			           <input type="text" class="in3" placeholder="ex ) 재료이름"  id="recipeingreName" name="recipeingreName"> 
-			            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" id="recipeingreMaterial" name="recipeingreMaterial"> 
+			           <input type="text" class="in3" placeholder="재료이름"  id="recipeingreName" name="recipeingreName"> 
+			            <input type="text" class="in4" placeholder="개수 또는 g(무게)" id="recipeingreMaterial" name="recipeingreMaterial"> 
 			            <button class="btn" type="button" onclick="add_textbox()">추가</button>
 			        </div> 
 				</div>
@@ -559,13 +557,6 @@ width: 65px;
 		bindDomEvent();
 		bindDomEvent2();
 	});
-	
-	/* var selectElement = document.getElementById("category");
-
-	// 요소를 삭제합니다.
-	if (selectElement) {
-	    selectElement.parentNode.removeChild(selectElement);
-	} */
 	
 	//이미지 확인
 	function bindDomEvent(){
@@ -626,7 +617,7 @@ width: 65px;
 	    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
 	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"+"</textarea>" +
 	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
-	    	"</div>"
+	    	"</div>" 
 	    box2.appendChild(newDiv);
 	}
 	

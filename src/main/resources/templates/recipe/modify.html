@@ -307,7 +307,7 @@ width: 65px;
 	border: 1px solid;
 	/* border-color: var(--green-color); */
 	border-color: #dee2e6;
-	margin-top: 10px;
+	margin-top: 20px;
 	height: 50px;
 	font-size: 14px;
 }
@@ -541,8 +541,8 @@ width: 65px;
 					<div>
 						<div id="box"  >
 				           	<div th:each="recipeIngre : ${recipeNewDto.recipeIngreDtoList}">
-					           	<input type="text" class="in3" placeholder="ex ) 재료이름"   th:value="${recipeIngre.ingreName}" name="recipeingreName"> 
-					            <input type="text" class="in4" placeholder="ex ) 개수 또는 g" th:value="${recipeIngre.ingreMaterial}" name="recipeingreMaterial">
+					           	<input type="text" class="in3" placeholder="재료이름"   th:value="${recipeIngre.ingreName}" name="recipeingreName"> 
+					            <input type="text" class="in4" placeholder="개수 또는 g(무게)" th:value="${recipeIngre.ingreMaterial}" name="recipeingreMaterial">
 					            <button class='btn' type='button' onclick='remove(this)'>삭제</button> 
 				           	</div>
 				        </div>
