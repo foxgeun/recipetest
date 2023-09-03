@@ -14,5 +14,8 @@ public interface BookMarkRepository extends JpaRepository<BookMark, Long> {
 	List<BookMark> getBookmarks(Long id);
 	
 	List<BookMark> findByIsDeleteTrue();
+	
+    // 특정 레시피 ID에 대한 북마크 수를 계산하는 메서드
+    int countByRecipeId(Long recipeId);
 
 }

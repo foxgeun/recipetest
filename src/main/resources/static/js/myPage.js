@@ -347,4 +347,66 @@ function toggleReviews(contentId) {
         $('.you').addClass('active');
          localStorage.setItem('selectedTab', contentId);
     }
+   
 }
+
+    // 현재 페이지 URL에서 id 추출
+    function extractIdFromUrl() {
+        const currentPageUrl = window.location.href;
+        const urlParts = currentPageUrl.split("/");
+        const idIndex = urlParts.indexOf("profile") + 1; // "profile" 다음 부분이 id
+
+        if (idIndex >= 0 && idIndex < urlParts.length) {
+            return urlParts[idIndex];
+        } else {
+            // id를 찾을 수 없는 경우 기본값 또는 오류 처리를 수행하세요
+            return null;
+        }
+    }
+
+    // 팔로우 버튼 클릭 시 실행할 함수
+    function followUser() {
+        const followerId = 1; // 팔로우를 수행하는 사용자 ID
+        const followingId = extractIdFromUrl(); // 현재 페이지 URL에서 추출한 ID
+
+        if (followingId) {
+            // 서버로 팔로우 요청 보내기
+            fetch(`/${followerId}/follow/${followingId}`, {
+                method: "POST",
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 팔로우 성공 시 팔로우 버튼을 숨기고 언팔로우 버튼을 표시
+                    document.getElementById("followBtn").style.display = "none";
+                    document.getElementById("unfollowBtn").style.display = "block";
+                } else {
+                    // 실패 시 오류 처리
+                    console.error("Failed to follow the user.");
+                }
+            });
+        } else {
+            // id를 찾을 수 없는 경우 오류 처리
+            console.error("User ID not found in the URL.");
+        }
+    }
+
+
+        function unfollowUser() {
+            // 언팔로우 버튼 클릭 시 서버로 언팔로우 요청 보내기
+            const followerId = 1; // 언팔로우를 수행하는 사용자 ID
+            const followingId = extractIdFromUrl(); // 현재 페이지 URL에서 추출한 ID
+
+            fetch(`/${followerId}/unfollow/${followingId}`, {
+                method: "POST",
+            })
+            .then(response => {
+                if (response.ok) {
+                    // 언팔로우 성공 시 언팔로우 버튼을 숨기고 팔로우 버튼을 표시
+                    document.getElementById("unfollowBtn").style.display = "none";
+                    document.getElementById("followBtn").style.display = "block";
+                } else {
+                    // 실패 시 오류 처리
+                    console.error("Failed to unfollow the user.");
+                }
+            });
+        }

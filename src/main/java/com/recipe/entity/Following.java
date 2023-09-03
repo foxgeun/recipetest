@@ -20,14 +20,24 @@ import lombok.ToString;
 @ToString
 public class Following {
 	
-	@Id
-	@Column(name="following_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+
 	
-	private String name;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+    @Id
+    @Column(name = "following_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member follower;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member following;
+
+    public Following() {}
+
+    public Following(Member follower, Member following) {
+        this.follower = follower;
+        this.following = following;
+    }
 }
