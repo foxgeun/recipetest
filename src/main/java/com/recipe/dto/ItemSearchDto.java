@@ -9,11 +9,13 @@ import lombok.Setter;
 @Setter
 public class ItemSearchDto {
 	
-	private ItemCategoryEnum itemCategoryEnum;
+	private String itemCategoryEnum;
 	
 	private String type;
 	
-	private String searchBy;
+	private int dataNum;
+	
+	private int pageNum;
 	
 	private String searchQuery = "";
 }

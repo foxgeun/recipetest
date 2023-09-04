@@ -9,6 +9,21 @@ select{
 	
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+dd {
+	margin: 0px;
+}
 
 img {
     max-width: 100%;
@@ -77,10 +92,13 @@ table {
 	color: #0D6EFD;
 }
 
-
+.btn:focus {
+	box-shadow: none;
+	border-color: #a38084;
+}
 
 .form-control:focus {
-	border: 1px solid  #0D6EFD;
+	border-color: #a38084;
 	box-shadow: none;
 }
 
@@ -239,3 +257,5 @@ table {
 	font-weight: 550 !important;
 	color: #595959;
 }
+
+
