@@ -50,13 +50,14 @@ public class ItemController {
 		
 		Page<ItemCategoryDto> category = itemService.getItemCategoryList(pageable , itemSearchDto);
 		
+		int currentPage = page.isPresent() ? page.get() : 0;
+		model.addAttribute("currentPage" , currentPage);
+		
+		System.out.println("currentPage" + currentPage);
+		
 		model.addAttribute("itemSearchDto" , itemSearchDto);
 		model.addAttribute("category",category);
 		model.addAttribute("maxPage" , 5);
-		model.addAttribute("maxPage" , 5);
-		model.addAttribute("maxPage" , 5);
-		
-		System.out.println("itemSearchDto en" + itemSearchDto.getItemCategoryEnum());
 		
 		
 		return "item";

@@ -407,6 +407,8 @@ ul.key2 li a {
 }
 
 .btn-lightgrey, .btn-lightgrey:visited {
+	cursor:pointer;
+	width: 48px;
     color: #495057 !important;
     background-color: #f2f2f2;
     border-color: #e5e5ed;
@@ -662,4 +664,8 @@ svg:not(:root) {
 
 .bt_hd {
 	display: none;
+}
+
+.menu-link {
+    transition: background-color 0.3s ease-in-out; /* 트랜지션 속성 추가 */
 }

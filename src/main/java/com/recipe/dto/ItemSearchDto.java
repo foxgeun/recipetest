@@ -15,7 +15,5 @@ public class ItemSearchDto {
 	
 	private int dataNum;
 	
-	private int pageNum;
-	
 	private String searchQuery = "";
 }
