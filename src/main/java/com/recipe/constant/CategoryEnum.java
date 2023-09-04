@@ -9,6 +9,6 @@ public enum CategoryEnum {
 	                return category;
 	            }
 	        }
-	        throw new IllegalArgumentException("No enum found with value: " + value);
+	        throw new IllegalArgumentException("에러");
 	    }
 }
