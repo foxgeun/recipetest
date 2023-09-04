@@ -1,6 +1,7 @@
 package com.recipe.entity;
 
 import com.recipe.constant.CategoryEnum;
+import com.recipe.constant.WritingStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,6 +50,9 @@ public class Recipe extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
 	private CategoryEnum categoryEnum;
     
+    @Enumerated(EnumType.STRING) //레시피 등록,임시저장
+    private WritingStatus writingStatus;
+    
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
 	private Member member;
@@ -59,6 +63,4 @@ public class Recipe extends BaseTimeEntity {
 		this.imgName = imgName;
 	}
 	
-	
-    // Getters and setters
 }

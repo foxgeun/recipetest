@@ -24,7 +24,6 @@ import com.recipe.dto.QRecipeCategoryDto;
 import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.QBookMark;
-import com.recipe.entity.QCategory;
 import com.recipe.entity.QMember;
 import com.recipe.entity.QMemberImg;
 import com.recipe.entity.QRecipe;
@@ -47,7 +46,6 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 		QReview rv = QReview.review;
 		QMember m = QMember.member;
 		QMemberImg mi = QMemberImg.memberImg;
-		QCategory c = QCategory.category;
 
 		List<Tuple> bookmarkResults = queryFactory
 		    .select(r.id, bm.recipe.id.count())
@@ -83,21 +81,20 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 		                m.nickname,
 		                mi.imgUrl,
 		                mi.imgMainOk,
-		                c.categoryEnum,
+		                r.categoryEnum,
 		                rv.recipe.count().as("reviewCount"),
 		                rv.reting.avg().coalesce(0.0).as("retingAvg")
 
 		        ))
 		        .from(r)
 		        .join(r.member , m)
-		        .join(c).on(r.id.eq(c.recipe.id))
 		        .leftJoin(mi).on(m.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
 		        .leftJoin(rv).on(r.id.eq(rv.recipe.id))
-		        .where( mainCategoryEq(recipeSearchDto.getMainCategory()),
-		        		searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
+		      //  .where( mainCategoryEq(recipeSearchDto.getMainCategory()),
+		      //  		searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
 		        .groupBy(r.id, r.count, r.durTime, r.imageUrl, r.level, r.subTitle, r.title,
-		                r.member.id, r.regTime, r.intro, m.nickname, mi.imgUrl, mi.imgMainOk,
-		                c.categoryEnum)
+		                r.member.id, r.regTime, r.intro, m.nickname, mi.imgUrl, mi.imgMainOk, r.categoryEnum
+		               )
 		        .orderBy(orderByType(recipeSearchDto.getType()))
 		        .offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
@@ -117,9 +114,8 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 		        .from(r)
 		        .join(r.member , m)
 		        .leftJoin(mi).on(m.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
-		        .join(c).on(r.id.eq(c.recipe.id))
-		        .where( mainCategoryEq(recipeSearchDto.getMainCategory()),
-		        		searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
+		        //.where( mainCategoryEq(recipeSearchDto.getMainCategory()),
+		        		//searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
 		        .fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
@@ -127,10 +123,12 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 
 	
 	
-	private BooleanExpression mainCategoryEq(CategoryEnum mainCategory) {
-		
-		return mainCategory == null ? null : QCategory.category.categoryEnum.eq(mainCategory);
-	}
+		/*
+		 * private BooleanExpression mainCategoryEq(CategoryEnum mainCategory) {
+		 * 
+		 * return mainCategory == null ? null :
+		 * QCategory.category.categoryEnum.eq(mainCategory); }
+		 */
 	
 
 	private OrderSpecifier<?> orderByType(String type) {

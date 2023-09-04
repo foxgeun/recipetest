@@ -160,6 +160,7 @@
 }
 
 .form_search {
+	font-size:15px;
     width: 340px;
     height: 38px;
     border-radius: 0px;
@@ -172,6 +173,7 @@
 .form_search::placeholder {
 	font-size: 15px;
 	font-weight: bold;
+	color:#959595;
 }
 
 .form_search_bt:not(:hover) {
@@ -667,5 +669,5 @@ svg:not(:root) {
 }
 
 .menu-link {
-    transition: background-color 0.3s ease-in-out; /* 트랜지션 속성 추가 */
+    transition: background-color 0.1s ease-in-out; /* 트랜지션 속성 추가 */
 }

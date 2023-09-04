@@ -1,5 +1,5 @@
 package com.recipe.constant;
 
 public enum CategoryEnum {
-	한식,중식,일식
+	메인요리,밑반찬,간식,간단요리,초대요리
 }
