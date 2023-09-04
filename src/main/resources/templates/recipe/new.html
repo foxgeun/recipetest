@@ -520,7 +520,6 @@ width: 65px;
 						</div>
 			        </div> 
 				</div>
-				<!-- id값이 for값으로 영향이 간다 -->
 				<div class="newbtnMain">
 					<button type="submit" name="writingStatus" id="newbtn1" class="newbtns" value="PUBLISHED" onclick="return confirmPublish()">등록</button>
 					<button type="submit"  name="writingStatus" id="newbtn2" class="newbtns" value="DRAFT" onclick="return confirmDraft()">임시저장</button>
@@ -531,105 +530,109 @@ width: 65px;
 </div>
 
 <th:block layout:fragment="script">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<script th:inline="javascript">
+		
+		//레시피 등록함수
+		function confirmPublish() {
+			//모든값이 입력되었는지 확인
+		    var elements = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
+			console.log(elements)
+		    for (var i = 0; i < elements.length-1; i++) {
+		    	 console.log(`Element ${i + 1}: ${elements[i].name}, Value: ${elements[i].value}`);
+		        if (elements[i].value === "") {  
+		            alert('모든 내용을 입력해주세요.');
+		            return false;  
+		        }
+		    }
 	
-	//레시피 등록함수
-	function confirmPublish() {
-		//모든값이 입력되었는지 확인
-	    var elements = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
-	    for (var i = 0; i < elements.length-1; i++) {
-	    	 console.log(`Element ${i + 1}: ${elements[i].name}, Value: ${elements[i].value}`);
-	        if (elements[i].value === "") {  
-	            alert('모든 내용을 입력해주세요.');
-	            return false;  
-	        }
+		    return confirm("레시피를 정말로 등록하시겠습니까?");
+		}
+		
+		//임시저장 함수
+		function confirmDraft() {
+		    return confirm("레시피를 임시저장 하시겠습니까?");
+		}
+		
+		$(document).ready(function(){
+			bindDomEvent();
+			bindDomEvent2();
+		});
+		
+		//이미지 확인
+		function bindDomEvent(){
+	        $(".recipeImg").on("change", function() {
+	            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+	            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+	            fileExt = fileExt.toLowerCase(); //소문자 변환
+	
+	            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+	                alert("이미지 파일만 등록이 가능합니다.");
+	                return;
+	            }
+	
+	            $(this).siblings(".recipeImg").html(fileName);
+	        });
 	    }
-
-	    return confirm("레시피를 정말로 등록하시겠습니까?");
-	}
+		//이미지 확인
+		function bindDomEvent2(){
+	        $(".upload-hidden").on("change", function() {
+	            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+	            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+	            fileExt = fileExt.toLowerCase(); //소문자 변환
 	
-	//임시저장 함수
-	function confirmDraft() {
-	    return confirm("레시피를 임시저장 하시겠습니까?");
-	}
-	$(document).ready(function(){
-		bindDomEvent();
-		bindDomEvent2();
-	});
+	            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+	                alert("이미지 파일만 등록이 가능합니다.");
+	                return;
+	            }
 	
-	//이미지 확인
-	function bindDomEvent(){
-        $(".recipeImg").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-            fileExt = fileExt.toLowerCase(); //소문자 변환
-
-            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-                alert("이미지 파일만 등록이 가능합니다.");
-                return;
-            }
-
-            $(this).siblings(".recipeImg").html(fileName);
-        });
-    }
-	//이미지 확인
-	function bindDomEvent2(){
-        $(".upload-hidden").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();  //이미지 파일명
-            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
-            fileExt = fileExt.toLowerCase(); //소문자 변환
-
-            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
-                alert("이미지 파일만 등록이 가능합니다.");
-                return;
-            }
-
-            $(this).siblings(".upload-hidden").html(fileName);
-        });
-    }
-	
-	
-	//재료칸 추가 js
-	const add_textbox = () => {
-	    const box = document.getElementById("box");
-	    const newP = document.createElement('div');
-	
-	    newP.innerHTML = 
-	    	"<input class='in3' type='text' id='recipeingreName' name='recipeingreName'> " +
-	    	"<input class='in4' type='text' id='recipeingreMaterial' name='recipeingreMaterial'> " +
-	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
-	    box.appendChild(newP);
-	}
-	const remove = (obj) => {
-	    document.getElementById('box').removeChild(obj.parentNode);
-	}
-	
-	
-	//조리이미지 설명과 이미지 추가 js
-	const add_textareabox = () => {
-	    const box2 = document.getElementById("box2");
-	    const newDiv = document.createElement('div');
-	    
-	    newDiv.innerHTML =
-	    	
-	    	"<div style='height: 145px;'>" +
-	    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
-	    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"+"</textarea>" +
-	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
-	    	"</div>" 
-	    box2.appendChild(newDiv);
-	}
-	
-	//삭제
-	const remove2 = (obj) => {
-	    const newDiv = obj.closest('div'); // "삭제" 버튼의 가장 가까운 부모 div 요소를 찾습니다.
-	    
-	    if (newDiv) {
-	        newDiv.parentNode.removeChild(newDiv); // newDiv와 그 내용을 삭제합니다.
-	        console.log("요소 삭제");
+	            $(this).siblings(".upload-hidden").html(fileName);
+	        });
 	    }
-	}
+		
+		
+		//재료칸 추가 js
+		const add_textbox = () => {
+		    const box = document.getElementById("box");
+		    const newP = document.createElement('div');
+		
+		    newP.innerHTML = 
+		    	"<input class='in3' type='text' id='recipeingreName' name='recipeingreName'> " +
+		    	"<input class='in4' type='text' id='recipeingreMaterial' name='recipeingreMaterial'> " +
+		    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
+		    box.appendChild(newP);
+		}
+		const remove = (obj) => {
+		    document.getElementById('box').removeChild(obj.parentNode);
+		}
+		
+		
+		//조리이미지 설명과 이미지 추가 js
+		const add_textareabox = () => {
+		    const box2 = document.getElementById("box2");
+		    const newDiv = document.createElement('div');
+		    
+		    newDiv.innerHTML =
+		    	
+		    	"<div style='height: 145px;'>" +
+		    	"<input type='file' class='recipeImg' id='recipeOrderImgFile' name='recipeOrderImgFile'>" +
+		    	"<textarea class='recipeTurn' id='recipeOrderContent' name='recipeOrderContent'>"+"</textarea>" +
+		    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
+		    	"</div>" 
+		    box2.appendChild(newDiv);
+		}
+		
+		//삭제
+		const remove2 = (obj) => {
+		    const newDiv = obj.closest('div'); // "삭제" 버튼의 가장 가까운 부모 div 요소를 찾습니다.
+		    
+		    if (newDiv) {
+		        newDiv.parentNode.removeChild(newDiv); // newDiv와 그 내용을 삭제합니다.
+		        console.log("요소 삭제");
+		    }
+		}
+		
+	
 	
 	</script>
 </th:block>
