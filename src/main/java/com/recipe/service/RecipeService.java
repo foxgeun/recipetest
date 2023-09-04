@@ -69,7 +69,7 @@ public class RecipeService {
 		if(!StringUtils.isEmpty(imgName)) {
 			imgName = fileService.uploadFile(recipeImgLocation, 
 					imgName, recipeImgFile.getBytes());
-			imgUrl = "/img/recipe/" + imgName;
+			imgUrl = "/img/memberRecipe/" + imgName;
 			
 			recipe.updateRecipeImg(imgUrl, imgName);
 			recipeRepository.save(recipe);
@@ -99,7 +99,7 @@ public class RecipeService {
 				//조리순서에 포함된 이미지 가져오기
 				if(!StringUtils.isEmpty(imgName2)) {
 					imgName2 = fileService.uploadFile(recipeImgLocation, imgName2, recipeOrderImgFile.get(i).getBytes());
-					imgUrl2 = "/img/recipe/" + imgName2;
+					imgUrl2 = "/img/memberRecipe/" + imgName2;
 					
 					recipeOrder.updateRecipeOrderImg(imgUrl2, imgName2);
 					recipeOrderRepository.save(recipeOrder);
@@ -180,7 +180,7 @@ public class RecipeService {
 		if(!StringUtils.isEmpty(imgName)) {
 			try {
 				imgName = fileService.uploadFile(recipeImgLocation, imgName, recipeImgFile.getBytes());
-				imgUrl = "/img/recipe/" + imgName;
+				imgUrl = "/img/memberRecipe/" + imgName;
 				recipe.updateRecipeImg(imgUrl, imgName);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -224,7 +224,7 @@ public class RecipeService {
 	        if (!StringUtils.isEmpty(imgName)) {
 	            try {
 	                imgName = fileService.uploadFile(recipeImgLocation, imgName, recipeOrderImgFile.get(i).getBytes());
-	                String imgUrl = "/img/recipe/" + imgName;
+	                String imgUrl = "/img/memberRecipe/" + imgName;
 	                
 	                recipeOrder.updateRecipeOrderImg(imgUrl, imgName);
 	            } catch (Exception e) {
