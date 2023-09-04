@@ -364,49 +364,26 @@ function toggleReviews(contentId) {
         }
     }
 
-    // 팔로우 버튼 클릭 시 실행할 함수
-    function followUser() {
-        const followerId = 1; // 팔로우를 수행하는 사용자 ID
-        const followingId = extractIdFromUrl(); // 현재 페이지 URL에서 추출한 ID
+$("#followImage").click(function() {
+    var followingId = $("#followingId").val();
 
-        if (followingId) {
-            // 서버로 팔로우 요청 보내기
-            fetch(`/${followerId}/follow/${followingId}`, {
-                method: "POST",
-            })
-            .then(response => {
-                if (response.ok) {
-                    // 팔로우 성공 시 팔로우 버튼을 숨기고 언팔로우 버튼을 표시
-                    document.getElementById("followBtn").style.display = "none";
-                    document.getElementById("unfollowBtn").style.display = "block";
-                } else {
-                    // 실패 시 오류 처리
-                    console.error("Failed to follow the user.");
-                }
-            });
-        } else {
-            // id를 찾을 수 없는 경우 오류 처리
-            console.error("User ID not found in the URL.");
+    var csrfToken = $('meta[name="_csrf"]').attr("content");
+    var csrfHeader = $('meta[name="_csrf_header"]').attr("content");
+
+    $.ajax({
+        url: '/follow/' + followingId,
+        method: 'POST',
+        contentType: 'application/json',
+        headers: {
+            [csrfHeader]: csrfToken
+        },
+        success: function(response) {
+            console.log(response);
+            alert('Followed successfully!');
+        },
+        error: function(error) {
+            console.error('Error:', error);
         }
-    }
-
-
-        function unfollowUser() {
-            // 언팔로우 버튼 클릭 시 서버로 언팔로우 요청 보내기
-            const followerId = 1; // 언팔로우를 수행하는 사용자 ID
-            const followingId = extractIdFromUrl(); // 현재 페이지 URL에서 추출한 ID
-
-            fetch(`/${followerId}/unfollow/${followingId}`, {
-                method: "POST",
-            })
-            .then(response => {
-                if (response.ok) {
-                    // 언팔로우 성공 시 언팔로우 버튼을 숨기고 팔로우 버튼을 표시
-                    document.getElementById("unfollowBtn").style.display = "none";
-                    document.getElementById("followBtn").style.display = "block";
-                } else {
-                    // 실패 시 오류 처리
-                    console.error("Failed to unfollow the user.");
-                }
-            });
-        }
+    });
+}); 
+        

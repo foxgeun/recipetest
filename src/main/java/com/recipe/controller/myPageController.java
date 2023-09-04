@@ -26,6 +26,7 @@ import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.service.MyPageService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 @Controller
@@ -169,20 +170,24 @@ public class myPageController {
 		
 	}
 	
-	//팔로잉
-	@PostMapping(value = "/{followerId}/follow/{followingId}")
-	public ResponseEntity<String> followMember(@PathVariable Long followerId, @PathVariable Long followingId) {
-		myPageService.FollowMember(followerId, followingId);
-		System.out.println(followerId);
-		return ResponseEntity.ok("Followed successfully.");
-	
-	}
-	//팔로잉
-	@PostMapping(value = "/{followerId}/unfollow/{followingId}")
-	public ResponseEntity<String> unfollowMember(@PathVariable Long followerId, @PathVariable Long followingId) {
-		myPageService.unFollowMember(followerId, followingId);
-		return ResponseEntity.ok("Unfollowed successfully.");
-		
+	@PostMapping(value = "/follow/{followingId}")
+	public ResponseEntity<String> followMember(@PathVariable Long followingId, Principal principal) {
+	    
+	    // 로그인한 사용자의 정보를 가져옵니다.
+	    // 여기서는 이메일을 사용자 ID로 가정합니다. 필요에 따라 다르게 구현할 수 있습니다.
+	    String followerEmail = principal.getName();
+	    Member follower = memberRepository.findByEmail(followerEmail).orElseThrow(() -> new EntityNotFoundException("Follower not found"));
+
+	    // 팔로우 대상 사용자의 정보를 가져옵니다.
+	    Member following = memberRepository.findById(followingId).orElseThrow(() -> new EntityNotFoundException("Following user not found"));
+	    followingId = following.getId();
+	    // 팔로우 기능을 실행합니다.
+	    // 이 부분은 실제 팔로우 로직에 따라 다르게 구현될 수 있습니다.
+	    myPageService.saveFollow(followingId, principal);
+
+	    System.out.println(followingId);
+	    System.out.println(principal);
+	    return ResponseEntity.ok("Followed successfully.");
 	}
 }
 	

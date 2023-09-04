@@ -3,6 +3,7 @@ package com.recipe.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,8 +18,7 @@ import com.recipe.dto.MemberDto;
 import com.recipe.dto.MyPageDto;
 import com.recipe.entity.BookMark;
 import com.recipe.entity.Comment;
-import com.recipe.entity.Follower;
-import com.recipe.entity.Following;
+import com.recipe.entity.Follow;
 import com.recipe.entity.Member;
 import com.recipe.entity.Recipe;
 import com.recipe.entity.RecipeOrder;
@@ -26,6 +26,7 @@ import com.recipe.entity.Review;
 import com.recipe.exception.MemberNotFoundException;
 import com.recipe.repository.BookMarkRepository;
 import com.recipe.repository.CommentRepository;
+import com.recipe.repository.FollowRepository;
 import com.recipe.repository.MemberRepository;
 import com.recipe.repository.RecipeListRepository;
 import com.recipe.repository.RecipeRepository;
@@ -47,6 +48,7 @@ public class MyPageService {
 	private final BookMarkRepository bookMarkRepository;
 	private final CommentRepository commentRepository;
 	private final ReviewRepository reviewRepository;
+	private final FollowRepository followRepository;
 	
 	
 
@@ -274,45 +276,7 @@ public class MyPageService {
 		commentRepository.delete(comment);
 	}
 	
-	//팔로잉
-	public void FollowMember (Long followerId, Long followingId) {
-	    Member follower = memberRepository.findById(followerId)
-	            .orElseThrow(() -> new MemberNotFoundException(followerId));
-	    Member following = memberRepository.findById(followingId)
-	            .orElseThrow(() -> new MemberNotFoundException(followingId));
 
-	    Following newFollowing = new Following(follower, following);
-	    
-	    follower.getFollowings().add(newFollowing);
-//	    following.getFollowers().add(newFollowing);
-	    System.out.println(follower);
-
-	    // 엔티티를 저장
-	    memberRepository.save(follower);
-	    memberRepository.save(following);
-	}
-	//언팔
-	public void unFollowMember (Long followerId, Long followingId) {
-		Member follower = memberRepository.findById(followingId)
-				.orElseThrow(() -> new MemberNotFoundException(followingId));
-		Member following = memberRepository.findById(followerId)
-				.orElseThrow(() -> new MemberNotFoundException(followerId));
-		
-		Following newFollowing = new Following();
-		Follower newFollower = new Follower();
-		
-		newFollowing.setId(follower.getId());
-		newFollower.setId(following.getId());
-		
-		follower.removeFollowing(newFollowing);
-		following.removeFollower(newFollower);
-		
-		System.out.println(follower + "followerrrrrr");
-		System.out.println(following + "following");
-		memberRepository.save(follower);
-		memberRepository.save(following);
-	}
-	
 	//내후기불러오기
 	@Transactional(readOnly = true)
 	public List<MyPageDto> getMyReview(Long id){
@@ -349,6 +313,20 @@ public class MyPageService {
 		Review review = reviewRepository.findById(reviewId)
 										.orElseThrow(EntityNotFoundException::new);
 		reviewRepository.delete(review);
+	}
+	
+	
+	
+	//팔로우
+	public void saveFollow(Long toMemberId, Principal fromMemberPrincipal) {
+		  Member toMember = memberRepository.findById(toMemberId).orElseThrow(EntityNotFoundException::new);
+		    Member fromMember = memberRepository.findByEmail(fromMemberPrincipal.getName()).orElseThrow(EntityNotFoundException::new);
+
+		    Follow follow = new Follow();
+		    follow.setToMember(toMember);
+		    follow.setFromMember(fromMember);
+
+		    followRepository.save(follow);
 	}
 }
 

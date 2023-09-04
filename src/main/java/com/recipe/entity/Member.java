@@ -78,66 +78,8 @@ public class Member extends BaseEntity {
 	
 	@Enumerated(EnumType.STRING)
 	private PromotionOk promotionOk;
-	
 
-    
-    // 멤버에 팔로워 추가
-    public void addFollower(Follower follower) {
-        followers.add(follower);
-        follower.setFollowing(this);
-    }
 
-    // 멤버에서 팔로워 제거
-    public void removeFollower(Follower follower) {
-        followers.remove(follower);
-        follower.setFollowing(null);
-    }
-
-    
-    // 멤버에 팔로잉 추가
-    public void addFollowing(Following following) {
-        followings.add(following);
-        following.setFollower(this);
-    }
-
-    // 멤버에서 팔로잉 제거
-    public void removeFollowing(Following following) {
-        followings.remove(following);
-        following.setFollower(null);
-    }
-	
-    // 다른 멤버를 팔로우하는 팔로워 목록
-    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Follower> followers = new ArrayList<>();
-
-    // 다른 멤버를 팔로잉하는 목록
-    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Following> followings = new ArrayList<>();
-
-    // 멤버가 팔로우하는 다른 멤버를 추가하는 메서드
-    public void followMember(Member memberToFollow) {
-        Following following = new Following(this, memberToFollow);
-        followings.add(following);
-        memberToFollow.addFollower(new Follower(memberToFollow, this));
-    }
-
-    // 멤버가 팔로우를 취소하는 메서드
-    public void unfollowMember(Member memberToUnfollow) {
-        Following following = getFollowing(memberToUnfollow);
-        if (following != null) {
-            followings.remove(following);
-            memberToUnfollow.removeFollower(new Follower(memberToUnfollow, this));
-        }
-    }
-    // 팔로잉 목록에서 특정 멤버 찾기
-    private Following getFollowing(Member memberToFind) {
-        for (Following following : followings) {
-            if (following.getFollowing().equals(memberToFind)) {
-                return following;
-            }
-        }
-        return null;
-    }
 	
 	//member 엔티티 수정
 	public void editMember(MyPageDto myPageDto) {

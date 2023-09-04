@@ -1,6 +1,7 @@
 package com.recipe.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>
 	
 	@Query(value = "select * from member where member_id = ?1", nativeQuery = true)
 	Member getfindmemberbyid(Long id);
+	
+	Optional<Member> findByEmail(String email);
 }

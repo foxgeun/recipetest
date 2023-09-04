@@ -1,5 +1,7 @@
 package com.recipe.entity;
 
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,31 +15,27 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name="following")
-@Getter
 @Setter
+@Getter
+@Entity
+@Table(name="follow")
 @ToString
-public class Following {
-	
+public class Follow extends BaseEntity{
+	@Id
+	@Column(name="follow_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	
-    @Id
-    @Column(name = "following_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	private Member toMember;
+	
+	
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member follower;
+    @JoinColumn(name = "from_member_id")
+    private Member fromMember;    //principal
+	
+	
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member following;
-
-    public Following() {}
-
-    public Following(Member follower, Member following) {
-        this.follower = follower;
-        this.following = following;
-    }
 }

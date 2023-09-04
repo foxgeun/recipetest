@@ -9,8 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.entity.BookMark;
 import com.recipe.entity.Comment;
-import com.recipe.entity.Follower;
-import com.recipe.entity.Following;
 import com.recipe.entity.Member;
 import com.recipe.entity.Post;
 import com.recipe.entity.Recipe;
@@ -89,5 +87,6 @@ public class MyPageDto {
 	        this.regTime = ""; // 또는 다른 값으로 표시하고 싶은 내용을 넣으세요
 	    }
 	}
-
+	
+	
 }
