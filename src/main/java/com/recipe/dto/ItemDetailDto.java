@@ -31,6 +31,8 @@ public class ItemDetailDto {
 	
 	private int sale;
 	
+	private int stockNumber;
+	
 	private double retingAvg;
 	
 	private Long reviewCount;
@@ -42,7 +44,7 @@ public class ItemDetailDto {
 	@QueryProjection
 	public ItemDetailDto (Long id ,String itemNm , String itemSubNm , 
 			int price , ItemSellStatus itemSellStatus , ItemCategoryEnum itemCategoryEnum  , 
-			int sale , double retingAvg , Long reviewCount) {
+			int sale ,int stockNumber , double retingAvg , Long reviewCount) {
 		this.id = id;
 		this.itemNm = itemNm;
 		this.itemSubNm = itemSubNm;
@@ -50,6 +52,7 @@ public class ItemDetailDto {
 		this.itemSellStatus = itemSellStatus;
 		this.itemCategoryEnum = itemCategoryEnum;
 		this.sale = sale;
+		this.stockNumber = stockNumber;
 		this.retingAvg = retingAvg;
 		this.reviewCount = reviewCount;
 	}
@@ -66,5 +69,4 @@ public class ItemDetailDto {
 		return modelMapper.map(item, ItemDetailDto.class);
 	}
 	
-
 }

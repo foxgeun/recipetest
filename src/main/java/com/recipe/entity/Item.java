@@ -40,7 +40,6 @@ public class Item extends BaseEntity {
 	private String oriprice;
 	
 	private String price; // 가격
-
 	
 	private int stockNumber; //재고
 	

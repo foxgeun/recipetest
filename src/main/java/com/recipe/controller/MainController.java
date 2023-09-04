@@ -26,8 +26,10 @@ public class MainController {
 	
 	private final MemberService memberService;
 	
+
 	@GetMapping(value = "/")
 	public String main(Model model, Authentication authentication) {
+
 		
 //		PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 //        Member member = principal.getMember();

@@ -3,8 +3,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 <head>
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <div layout:fragment="content">
 
@@ -33,9 +33,7 @@
 				</th:block>
 			</div>
 			<div class="s_view_info btn_layer">
-				<h3>
-					<p>[[${item.itemNm}]]</p>
-				</h3>
+					<div class="info_sub">[[${item.itemSubNm}]]</div>
 
 
 
@@ -81,25 +79,39 @@
 
 
 
-				<div class="sub_info">[[${item.itemSubNm}]]</div>
+				<div class="sub_info">[[${item.itemNm}]]</div>
 				<div class="price_box">
+					<th:block th:if="${item.sale != 0}">
+						
+					<p class="del">
+						[[${#numbers.formatInteger(item.price, 0,
+						'COMMA')}]]원</p>
 					<p class="dc">
 						[[${item.sale}]]<small>%</small>
 					</p>
 					<p class="price">
 						[[${#numbers.formatInteger(item.price - (item.price * item.sale /
-						100), 0, 'COMMA')}]]<small id="won" style="">원</small>
+						100), 0, 'COMMA')}]]<small id="won">원</small>
 					</p>
-					<p class="del">[[${#numbers.formatInteger(item.price, 0,
-						'COMMA')}]]원</p>
-					<div class="info_price_rv">
-						<div class="info_price_rv_star"
-							style="display: inline-block; cursor: pointer;">
-							<span class="info_price_rv_star_on" style="width: 90%;">리뷰별점</span>
-						</div>
-						<span class="info_price_rv_pt" style="cursor: pointer;">[[${item.retingAvg}]]</span>
-						<span class="info_price_rv_ea" style="cursor: pointer;">([[${item.reviewCount}]])</span>
-					</div>
+						
+					</th:block>
+					<th:block th:if="${item.sale == 0}">
+					<p class="price">
+						[[${#numbers.formatInteger(item.price - (item.price * item.sale /
+						100), 0, 'COMMA')}]]<small id="won">원</small>
+					</p>
+					</th:block>
+					
+					<div class="review-total__rating-wrap d-flex">
+                        <span class="review-total__rating">
+                         <span class="review-total__rating__unit">
+                                <span class="review-total__rating__active"
+                                 th:style="'width:' + (${item.retingAvg} * 20) + '%'"></span>
+                            </span>
+                        </span>
+                        <p class="review_count_1">[[${item.retingAvg}]]  <span class="reting_line">&nbsp;/&nbsp;</span> 
+                         <a class="review_count_2" onclick="clickTab('review');">리뷰 <th:block th:if="${itemReviewList.getTotalElements() != 0}"> [[${itemReviewList.getTotalElements()}]]개 </th:block>  보기</a>  </p>
+                </div>
 					<div class="price_box_info_btn">
 						<div style="position: relative; display: inline-block;">
 							<a href="javascript:;" class="info_btn_share"><img
@@ -111,23 +123,63 @@
 					<div class="info_delivery_area">
 						<dl class="info_delivery">
 							<dt>
-								<img
-									src="//recipe1.ezmember.co.kr/img/mobile/icon_delivery3.png"
-									alt="배송아이콘">배송
+								<img src="//recipe1.ezmember.co.kr/img/mobile/icon_delivery3.png" alt="배송아이콘">배송
 							</dt>
-							<dd>무료배송</dd>
+							<dd>
+								 <th:block th:if="${(item.price - (item.price * item.sale / 100)) < 40000}"> 40,000원 이상 무료배송 </th:block> 
+								 <th:block th:if="${(item.price - (item.price * item.sale / 100)) > 40000}"> 무료배송 </th:block> 
+								  </dd>
 						</dl>
 					</div>
-					<dl class="info_delivery">
-						<dt>
-							<img src="//recipe1.ezmember.co.kr/img/mobile/icon_point.png"
-								alt="구매아이콘">적립
-						</dt>
-						<dd>
-							<b class="color_point1">4,295원</b> 적립<span> (모든 회원 구매액의
-								0.5% 적립)</span>
-						</dd>
-					</dl>
+					
+					<div class="item_choice_list">
+                                <table class="option_display_area" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody id="option_display_item_0">
+                                        <tr class="check optionKey_0">
+                                            <td class="cart_prdt_name" colspan="2">
+                                                <div class="cart_tit_box">
+                                                    <strong class="cart_tit">
+                                                        <span>[[${item.itemNm}]]</span>
+                                                        <span id="option_text_display_0"></span>
+                                                    </strong>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="item_choice_price" colspan="2">
+                                              <span class="option_price_display_0"> [[${#numbers.formatInteger(item.price - (item.price * item.sale /
+						100), 0, 'COMMA')}]]<small id="won">원</small></span> 
+                                                <span class="count">
+                                                    <span class="goods_qty">
+                                                        <span>
+                                                            <button type="button" class="down goods_cnt" title="감소">감소</button>
+                                                            <input type="text" id="goodsCnt" name="goodsCnt" class="text goodsCnt_0" title="수량" value="1">
+                                                            <button type="button" class="up goods_cnt" title="증가">증가</button>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" height="10"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+									<input type="hidden" th:value="${item.price}" id="price" name="price">
+									<input type="hidden" th:value="${item.sale}" id="sale" name="sale">
+									<input type="hidden" th:value="${item.stockNumber}" id="stockNumber" name="stockNumber">
+                                <div class="total_price_division_line" style="border-top: 1px solid #f1f1f1; padding-top: 8px;">
+                                    <div class="end_price item_total_box" style="width: auto;">
+                                        <div class="price_total2">
+                                            총 상품금액
+                                            <span class="total_price" style="display : inline-block">[[${#numbers.formatInteger(item.price-(item.price * item.sale / 100),0,'COMMA')}]]<b>원</b>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- //item_tatal_box -->
+                                </div>
+                                <!-- //item_price_cont -->
+                            </div>
 
 					<div class="price_total" style="padding-top: 0;">
 						<div class="btn_go_box">
@@ -139,311 +191,315 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="D_goods_box">
+			
 				<ul id="goods_tab" class="goods_tab">
-					<li><a href="#page-detail" id="tab-detail"
+					<li><a id="tab-detail"
 						onclick="clickTab('detail');" class="link active">상세정보</a></li>
-					<li><a href="#page-review" id="tab-review"
-						onclick="clickTab('review');" class="link">후기
-							<p>(24)</p>
+					<li><a id="tab-review"
+						onclick="clickTab('review');" class="link">후기 ([[${itemReviewList.getTotalElements()}]])
 					</a></li>
-					<li><a href="#page-etc" id="tab-etc"
-						onclick="clickTab('etc');" class="link">배송환불</a></li>
-					<li><a href="#page-qna" id="tab-qna"
-						onclick="clickTab('qna');" class="link">문의
-							<p>(20)</p>
+					<li><a id="tab-qna"
+						onclick="clickTab('qna');" class="link">문의 ([[${itemInqList.getTotalElements()}]])
 					</a></li>
 				</ul>
+				
+			<div class="D_goods_box">
 				<div class="D_goods_info">
 					<div class="info_cont detail" id="goodsDetailInfo"
 						style="padding-bottom: 100px; height: 1000px;">
 						<div class="detail_explain_box">
-							<div class="image-manual"></div>
 							<div class="txt-manual">
 								<div align="center" style="text-align: center;">
 									<th:block th:each="detail , status:${imgDetailList}">
 										<img th:src="${detail.imgUrl}" alt="">
-
 									</th:block>
 								</div>
 							</div>
 						</div>
-						<!-- //detail_explain_box -->
 						<div class="detail_more">
 							<a href="javascript:ezhld_detail_more();" class="down"
-								id="toggleLink">상세정보 더보기</a>
+								id="toggleLink">상품정보 더보기</a>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div id="D_goodsReview_box"
+				style="display: block;">
+				<h3 class="title-box font-mss"><span class="korSub">등록된 리뷰 <strong>( 총 [[${itemReviewList.getTotalElements()}]]건 )</strong></span></h3>
 
-			<div class="D_goods_box" id="D_goodsReview_box"
-				style="display: block; padding-bottom: 90px;">
-				<div class="photoreview_tit2">
-					<div class="photoreview_tit2_sort">
-						<a href="javascript:viewReviewSort('best');" id="sortBest"
-							class="active"><span>베스트순</span></a> <a
-							href="javascript:viewReviewSort('date');" id="sortDate"><span>최신순</span></a>
-					</div>
-				</div>
-			
-				<div class="detail_board_box js_board_goodsreview_view"
-					data-bdid="goodsreview">
+				<div class="js_board_goodsreview_view">
 					<div class="item_list" id="ezhld_reviews_list">
-						<ul class="review_list" th:each="review , status:${itemReviewList}" id="review_list">
+						<ul class="review_list"
+							th:each="review , status:${itemReviewList}" id="review_list">
 
 
-								<li><div class="review_list_top">
-										<div class="review_list_name">[[${review.nickname}]]</div>
-										<div class="goods2_info_price_rv">
-											<div class="goods2_info_price_rv_star"
-												style="display: inline-block;">
-												<span class="goods2_info_price_rv_star_on"
-													style="width: 100%;">&nbsp;</span>
-											</div>
-										</div>
-										<span class="review_list_date"
-											th:text="${#temporals.format(review.regTime, 'yyyy.MM.dd')}"></span>
-									</div>
-									<div class="review_list_pic">
-										<!-- 리뷰 이미지 -->
-									</div>
-									<div class="review_list_cont">[[${review.content}]]</div>
-									<div class="comment_box">
-										
-									<div class="comment_recomment comment_wrap" th:if="${review.answerContent != null}" style="display: block;" >
-            <div class="recomment_right">
-                
-                <p class="recomment_profile">
-                    
-                        <span><b class="txt-info">이젠스토어 관리자  </b></span>
-                    <span class="recomment_date" th:text="${#temporals.format(review.answerRegTime, 'yyyy.MM.dd HH:mm:ss')}" ></span>
-                    <span class="admin_ch"  onclick="answerUpdate(this)" data-review-id="${review.id}">수정</span> <span class="admin_ch" th:attr="data-review-id=${review.answerId}" onclick="answerOk(this , 'delete')">삭제</span>
-                </p>
-                    <p class="recomment_txt">
-                            <span class="cmt_detail">안녕하세요. 이젠 스토어 고객센터입니다. 
-								<br><br>
-								[[${review.answerContent}]]
-								<br><br>
-								이용해주셔서 항상 감사합니다.
+							<li class="review_li"><div class="review_list_top">
+								<div class="review-profile">
+									
+                    <a href="#" class="review-profile__link">
+                        
+                        <img src="/img/free-icon-member-5867267.png" alt="프로필 이미지" class="review-profile__image">
+                    </a>
+                    <div class="review-profile__text-wrap">
+                        <div class="review-profile__text">
+                            <p class="review-profile__name">[[${review.nickname}]]</p>
+                            <p class="review-profile__date" th:text="${#temporals.format(review.regTime, 'yyyy.MM.dd')}"></p>
+                        </div>
+                        <div class="review-profile__information">
+                            <p class="review-profile__body_information">여기에 구매내역 적기</p>
+                        </div>
+                    </div>
+                </div>
+								<div class="review-list__rating-wrap">
+                        <span class="review-list__rating">
+                            <span class="review-list__rating__unit">
+                                
+                                
+                                <span class="review-list__rating__active"
+                                 th:style="'width:' + (${review.reting} * 20) + '%'"></span>
+                                
+                                
+                            </span>
+                        </span>
+                </div>
+								</div>
 								
-							</span>
-                    </p>
-            </div>
-        </div>
-        							<div class="comment_store cFormTriger" id="update_box" style="display: none;" >
-										
-										<div class="mb-2 admin_box"> <div class="admin_name_box">관리자 </div> <div class="admin_name"> skyjangking@naver.com </div>  </div>
-										<div class="mb-2 admin_box"> <div class="admin_name_box">답변 </div> 
-										<textarea class="answer_box" placeholder="답변을 입력해주세요" id="content" name="content">[[${review.answerContent}]]</textarea>
- 
-										</div>
-										<div class="admin_choice_box">
-										 <div class="plain-btn btn active" th:attr="data-review-id=${review.answerId}" onclick="answerOk(this , 'update')" >답변 수정
-										</div>
-										<div class="update_x" onclick="updateCancle(this)" data-review-id="${review.id}" >x
-										</div>  
+								<div class="review-content-photo " th:attr="data-review-id=${review.id}" >
+							
+                            <div class="review-content-photo__wrap">
+                                <ul class="review-content-photo__list" >
+                     				<th:block th:each="reviewImg , status:${itemReviewImgList}" th:if="${review.id == reviewImg.itemReviewId}" >
+											  
+                                        <li class="review-content-photo__item" th:style="'background-image: url(' + ${reviewImg.imgUrl} + ');'" th:attr="data-review-id=${review.id}">
+                                            <img th:src="${reviewImg.imgUrl}" alt="리뷰이미지">
+                                        </li>
+										 
+										 
+									 </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="review_list_cont">
+									<p> [[${review.content}]]
+									<span th:if="${review.answerContent == null}" 
+									class="reivew_reg_choice" onclick="reviewAnwerBoxOpen(this)" th:attr="data-review-id=${review.id}">답변 등록&nbsp;▼</span>
+									</p>   
+								</div>
+								<div class="comment_box">
+
+									<div class="comment_recomment comment_wrap"
+										th:if="${review.answerContent != null}"
+										style="display: block;">
+										<div class="recomment_right">
+
+											<p class="recomment_profile">
+
+												<span><b class="txt-info">이젠스토어 관리자 </b></span> <span
+													class="recomment_date"
+													th:text="${#temporals.format(review.answerRegTime, 'yyyy.MM.dd HH:mm:ss')}"></span>
+												<span class="admin_ch" onclick="answerUpdate(this)"
+													th:attr="data-review-id=${review.id}">수정</span> <span
+													class="admin_ch"
+													th:attr="data-answerId=${review.answerId}"
+													onclick="answerOk(this,'delete')">삭제</span>
+											</p>
+											<p class="recomment_txt">
+												<span class="cmt_detail">안녕하세요. 이젠 스토어 고객센터입니다. <br>
+													<br> [[${review.answerContent}]] <br> <br>
+													이용해주셔서 항상 감사합니다.
+
+												</span>
+											</p>
 										</div>
 									</div>
-        
-									<div class="comment_store cFormTriger" th:if="${review.answerContent == null}" >
-										
-										<div class="mb-2 admin_box"> <div class="admin_name_box">관리자 </div> <div class="admin_name"> skyjangking@naver.com </div>  </div>
-										<div class="mb-2 admin_box"> <div class="admin_name_box">답변 </div> 
-										<textarea class="answer_box" placeholder="답변을 입력해주세요"></textarea>
- 
+									<div class="comment_store cFormTriger" id="update_box"
+										style="display: none;">
+
+										<div class="admin_box">
 										</div>
-										 <div class="comment_area_btn plain-btn btn active" th:attr="data-review-id=${review.id}" onclick="answerOk(this , 'reg')">답변등록
-										</div> 
+										<div class="admin_box">
+											<textarea class="answer_box" placeholder="답변을 입력해주세요"
+												id="content" name="content">[[${review.answerContent}]]</textarea>
+
+										</div>
+											<div class="plain-btn btn comment_area_btn"
+												th:attr="data-answerId=${review.answerId}"
+												onclick="answerOk(this ,'update')">답변 수정</div>
+											<div class="update_x" onclick="updateCancle(this)"
+												data-review-id="${review.id}">x</div>
 									</div>
+
+									<div class="comment_store cFormTriger" id="reg_box" style="display: none; "
+										th:if="${review.answerContent == null}">
+
+										<div class="admin_box">
+										</div>
+										<div class="admin_box">
+											<textarea class="answer_box" placeholder="답변을 입력해주세요"></textarea>
+
+										</div>
+										<div class="comment_area_btn plain-btn btn active"
+											th:attr="data-review-id=${review.id}"
+											onclick="answerOk(this ,'reg')">답변등록</div>
 									</div>
-									<input type="hidden" th:value="${review.id}" id="reviewId" name="reviewId" >
-									</li>
+								</div> 
+								<input type="hidden" th:value="${review.id}" id="reviewId" name="reviewId">
+								</li>
 						</ul>
-
-						<div class="book_page pt-3 pb-3">
-							<nav
-								th:with="start=${(itemReviewList.number/maxPage)*maxPage + 1}
-			                 ,end=(${(itemReviewList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemReviewList.totalPages ? start + (maxPage - 1) : itemReviewList.totalPages)})"
-								aria-label="Page navigation example">
-								<ul class="pagination d-flex justify-content-center">
-
-									<li class="page-item"
-										th:classappend="${itemReviewList.first}?'disabled'"><a
-										class="page-link"
-										th:onclick="'javascript:page(' + ${itemReviewList.number - 1} +')'"><<</a>
-									</li>
-
-									<li class="page-item"
-										th:each="page: ${#numbers.sequence(start, end)}"
-										th:classappend="${itemReviewList.number eq page-1}?'active':''"><a
-										class="page-link" th:inline="text"
-										th:onclick="'javascript:page(' + ${page - 1} +')'">[[${page}]]</a>
-									</li>
-
-									<li class="page-item"
-										th:classappend="${itemReviewList.last}?'disabled'"><a
-										class="page-link"
-										th:onclick="'javascript:page(' + ${itemReviewList.number + 1} +')'">>></a>
-									</li>
-								</ul>
-							</nav>
-						</div>
+						<div class="style__PagingWrapper-b83qno-6 bYnXQa mt-3" 
+				th:with="start=${(itemReviewList.number/maxPage)*maxPage + 1}
+			    ,end=(${(itemReviewList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemReviewList.totalPages ? start + (maxPage - 1) : itemReviewList.totalPages)})">
+				
+							<button class="style__PagePrevButton-b83qno-8 loxVUo" th:classappend="${itemReviewList.first}?'disabled'">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
+									<path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+								</svg>
+							</button>
+							<ul>
+								<li offset="0" class="style__PageNumber-b83qno-7"
+								 th:each="page: ${#numbers.sequence(start, end)}"
+								 th:classappend="${itemReviewList.number eq page-1}?'hIVTuk':'iBHoeR'"
+								 th:onclick="'javascript:reviewPage(' + ${page - 1} +')'">
+								 <span>[[${page}]]</span>
+								 </li>
+							</ul>
+						      <button class="style__PageNextButton-b83qno-9 gCfLmH" th:classappend="${itemReviewList.last}?'disabled'">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
+							        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+					            </svg>
+							   </button>
+				</div>
+			
 
 
 					</div>
 				</div>
-				<!--div class="item_list_head" style="margin: 18px 0px; padding-bottom: 4px; " align="center">
-                    <div class="item_list_write_box" style="width:30%;border-bottom: 0;">
-                        <a href="javascript:gd_open_write_popup('goodsreview', '1000035715')" class="detail_write_btn" style="display:none;"><img src="https://recipe1.ezmember.co.kr/img/mobile/icon_write.png" width="25">후기 작성</a>
-                    </div>
-                </div-->
+
 			</div>
 			
-			<div class="site-section">
+			<!-- qna div-->
+			<div class="item-location-header">
+				<!-- qna 상품문의 헤더-->
+				<h3 class="title-box font-mss">Q &amp; A<span class="korSub">상품 문의 <strong>( 총 [[${itemInqList.getTotalElements()}]]건 )</strong></span></h3>
+				
+				<!--qna 테이블-->
+				<table class="table table-sm table-hover text-center">
+					<colgroup>
+						<col width="7%">
+						<col width="12%">
+						<col width="12%">
+						<col width="auto">
+						<col width="12%">
+						<col width="12%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">답변여부</th>
+							<th scope="col">구분</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col">등록일자</th>
+						</tr>
+					</thead>
+					
+					<th:block th:each="inq , status:${itemInqList}">
+						
+					<tbody class="inq-row" data-inq-id="${inq.id}">
+						<tr class="no_hover">
+							<td>1</td>
+							<td>[[${inq.answerOk}]]</td>
+							<td>[[${inq.itemInqEnum}]]</td>
+							<th:block th:if="${inq.itemInqBoardEnum.toString()} == '비밀글' ">
+							<td>비밀글입니다</td>
+							</th:block>
+							<th:block th:if="${inq.itemInqBoardEnum.toString()} == '공개글' ">
+							<td th:attr="data-inq-id=${inq.id}" onclick="info(this)" id="info">[[${inq.title}]]</td>
+							</th:block>
+							<td class="member-id-box">[[${inq.email}]]</td>
+							<td th:text="${#temporals.format(inq.regTime, 'yyyy.MM.dd')}"></td>
+						</tr>
+						<tr class="conect_detail_comment" id="info_box" style="display: none;">
+							<td colspan="6">
+								<p>[[${inq.content}]] 
+								<th:block th:if="${inq.AnswerOk.toString()} == '답변대기' ">
+								<span class="answer_reg_choice" th:attr="data-inq-id=${inq.id}" onclick="inqAnwerBoxOpen(this)">답변 등록&nbsp;▼</span> 
+								</th:block>	
+								</p> 
+							</td>
+						</tr>
+						<th:block th:if="${inq.AnswerOk.toString()} == '답변완료' ">
+							
+						<tr class="a5 conect_feedback_comment fb_1" id="inq_answer_box"
+							style="display: none">
+							<td class="feedback_comment" colspan="5">
+								<p>
+									안녕하세요 고객님, <br> [[${inq.answerContent}]] <br> 감사합니다.
+									<br><br>
+									<span class="admin_ch " onclick="inqAnswerUpdate(this)" th:attr="data-inq-id=${inq.id}">수정</span>
+									<span class="admin_ch ml-1 " onclick="inqOk(this , 'delete')" th:attr="data-inq-answerId=${inq.answerId}">삭제</span>
+								</p>
+							</td>
+							<td class="feedback_writer" th:text="${#temporals.format(inq.answerRegTime, 'yyyy.MM.dd')}"></td>
+						</tr>
+						<tr> <!---->
+							<td class="inq_answer_layout" colspan="6" style="display: none;">
+							<textarea class="inq_answer_reg_box" placeholder="답변을 입력해주세요" id="inq_answer_content"> [[${inq.answerContent}]]</textarea>
+							<div class="comment_area_btn plain-btn btn active" onclick="inqOk(this , 'update')" th:attr="data-inq-answerId=${inq.answerId}">답변수정</div>
+							<div class="update_x" onclick="inqAnswerUpdateCancle(this)" th:attr="data-inq-id=${inq.id}">x</div>
+							 </td>
+						</tr>
+							
+						</th:block>
+						<th:block th:if="${inq.AnswerOk.toString()} == '답변대기' ">
+						<tr>
+							<td class="inq_answer_layout" colspan="6" style="display: none;">
+							<textarea class="inq_answer_reg_box" placeholder="답변을 입력해주세요" id="inq_answer_content"></textarea>
+							<div class="comment_area_btn plain-btn btn active" onclick="inqOk(this , 'reg')" th:attr="data-inq-id=${inq.id}">답변등록</div>
+							 </td>
+						</tr>
+						</th:block>
+						
+					</tbody>
+						
+					</th:block>
 
-
-
-
-
-		<div class="container ">
-			<div class="row">
-				<section class="container">
-					<div class="item-location item-additional-info">
-						<div
-							class="item-location-header justify-content-start align-items-center mb-3">
-							<div class="item-location-content tab-content">
-
-
-								<div class="tab-pane fade show active" id="locs-1"
-									role="tabpanel" aria-labelledby="locs-1-tab">
-									<div class="table-container table-locations">
-										<table class="table table-sm table-hover text-center">
-											<colgroup>
-												<col width="7%">
-												<col width="12%">
-												<col width="12%">
-												<col width="auto">
-												<col width="12%">
-												<col width="12%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th scope="col">No.</th>
-													<th scope="col">답변여부</th>
-													<th scope="col">구분</th>
-													<th scope="col">제목</th>
-													<th scope="col">작성자</th>
-													<th scope="col">등록일자</th>
-												</tr>
-											</thead>
-												<tbody>
-													<tr>
-														<td>1</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-													<tr id="q5" class="conect_detail_comment" style="">
-                            <td colspan="6">
-                                                                <p>
-                                    하자있는상품을 받아서 반품신청을했는데 7일이 지나도 아무런 소식도없네요 빠른 처리부탁드립니다
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="a5 conect_feedback_comment fb_1" style="display: table-row;">
-                                <td class="feedback_comment" colspan="5">
-                                    <p>
-                                           안녕하세요 고객님,
-                                           <br><br>
-                                           감사합니다.
-
-                                    </p>
-                                </td>
-                                <td class="feedback_writer">
-                                    2023.08.24</td>
-                            </tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>2</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>3</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>4</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>5</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>6</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-													<tbody>
-													<tr>
-														<td>7</td>
-															<td>답변대기</td>
-															<td>배송문의</td>
-															<td>안녕하세요</td>
-														<td>sky***</td>
-														<td>2023.08.31</td>
-													</tr>
-												</tbody>
-												
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-				</section>
-
-
+				</table>
+				<!-- qna 등록 -->
+				<div class="box_btn_right">
+					<p>타 쇼핑몰 언급, 거래 글, 분쟁 유발, 허위 사실 유포는 금지됩니다.</p>
+					<a onclick="showPopup();" class="plain-btn btn pd10_btn">작성하기</a>
+				</div>
+				
+				<!-- qna 페이징 -->
+				<div class="style__PagingWrapper-b83qno-6 bYnXQa" 
+				th:with="start=${(itemInqList.number/maxPage)*maxPage + 1}
+			    ,end=(${(itemInqList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemInqList.totalPages ? start + (maxPage - 1) : itemInqList.totalPages)})">
+				
+							<button class="style__PagePrevButton-b83qno-8 loxVUo" th:classappend="${itemInqList.first}?'disabled'">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
+									<path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+								</svg>
+							</button>
+							<ul>
+								<li offset="0" class="style__PageNumber-b83qno-7"
+								 th:each="page: ${#numbers.sequence(start, end)}"
+								 th:classappend="${itemInqList.number eq page-1}?'hIVTuk':'iBHoeR'"
+								 th:onclick="'javascript:inqPage(' + ${page - 1} +')'">
+								 <span>[[${page}]]</span>
+								 </li>
+							</ul>
+						      <button class="style__PageNextButton-b83qno-9 gCfLmH" th:classappend="${itemInqList.last}?'disabled'">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
+							        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
+					            </svg>
+							   </button>
+				</div>
+				
 
 			</div>
 
+<<<<<<< HEAD
 		</div>
 		<!--컨테이너-->
 		
@@ -452,6 +508,10 @@
 			
 			
 			
+=======
+
+
+>>>>>>> 53ee53a94a2d6b8650d5688e6f527256cf85a5f8
 			<input type="hidden" th:value="${itemId}" id="itemId">
 
 
@@ -471,11 +531,97 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 	<script>
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
 	
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ready(function(){
 	
-		$(document).ready(function() {
+	 $("#goodsCnt").on("input", function() {
+        var value = $(this).val();
+        var filteredValue = value.replace(/[^0-9]/g, "");  // 숫자가 아닌 것들은 모두 제거
+        $(this).val(filteredValue);
+    });
+	
+    // 가격 업데이트 함수
+    function updatePrice() {
+        var count = parseInt($("#goodsCnt").val());
+        var price = parseInt($("#price").val());
+        var sale = parseInt($("#sale").val());
+        var stockNumber = parseInt($("#stockNumber").val());
+        var salePrice = Math.floor(price - (price * sale / 100));
+        var newPrice = salePrice * count;
+        var formattedNewPrice = newPrice.toLocaleString();
+
+        $(".option_price_display_0").html(`${formattedNewPrice}<small id="won">원</small>`);
+        $(".total_price").html(`${formattedNewPrice}<b>원</b>`);
+    }
+
+    // 수량 증가 버튼 클릭 이벤트
+    $(".up").click(function() {
+        var count = parseInt($("#goodsCnt").val());
+        var stockNumber = parseInt($("#stockNumber").val());
+
+        if(count < stockNumber) {
+            $("#goodsCnt").val(count + 1);
+            updatePrice();
+        } else {
+            alert("현재 재고보다 많습니다");
+        }
+    });
+
+    // 수량 감소 버튼 클릭 이벤트
+    $(".down").click(function() {
+        var count = parseInt($("#goodsCnt").val());
+        if(count > 1) {
+            $("#goodsCnt").val(count - 1);
+            updatePrice();
+        }
+    });
+
+ $("#goodsCnt").on("input", function() {
+    var count = $(this).val(); // 문자열로 값을 가져옴
+    var stockNumber = parseInt($("#stockNumber").val());
+
+    if(count === "") { // 값이 비어있다면
+        $(this).val(1);
+        updatePrice();
+        return;
+    }
+
+    count = parseInt(count); // 문자열을 숫자로 변환
+
+    if(count > stockNumber) {
+        alert("현재 재고보다 많습니다");
+        $(this).val(1);  // 수량을 1로 설정
+    } else if (count < 1) {
+        $(this).val(1);  // 최소 수량은 1로 설정
+    }
+
+    updatePrice();  // 가격 업데이트
+});
+});
+	
+	
+	
+	
+	
+	
+	$(document).ready(function() {
+		
+		
+		
+    $(".review-content-photo__item").click(function() {
+        const reviewId = $(this).data("review-id");
+        const target = $(".review_list").find(`.review-content-photo[data-review-id='${reviewId}']`);
+        
+        target.toggleClass("review-contents--active");
+    });
+	
+	
+ 	
+			
+			bindScriptsToRows();
+			
 			$('.banner_slider').slick({
 				infinite : true, // 무한반복
 				slidesToShow : 1, // 보여지는 슬라이드 개수
@@ -516,226 +662,361 @@
 			});
 		});
 
-		function ezhld_detail_more() {
-			var toggleLink = document.getElementById("toggleLink");
-			var goodsDetailInfo = document.getElementById("goodsDetailInfo");
 
-			var targetPosition = document.getElementById("goods_tab").offsetTop;
+  
 
-			if (goodsDetailInfo.style.overflow === "visible") {
-				// 현재 상태가 '더보기' 상태일 때
-				toggleLink.innerText = "상세정보 더보기";
-				goodsDetailInfo.style.height = "1000px";
-				goodsDetailInfo.style.overflow = "hidden";
-				window.scrollTo({
-					top : targetPosition,
-					behavior : "smooth" // 부드러운 스크롤 효과 적용
-				});
-
-			} else {
-				// 현재 상태가 '덥기' 상태일 때
-				toggleLink.innerText = "상세정보 덥기";
-				goodsDetailInfo.style.height = "100%";
-				goodsDetailInfo.style.overflow = "visible";
-			}
-		}
-		
-		function answerOk(button , choice){
-			const currentDate = new Date();
-
-			// 원하는 포맷으로 날짜 포맷팅 함수
-			function formatCurrentDate(date) {
-			    const year = date.getFullYear();
-			    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-			    const day = date.getDate().toString().padStart(2, '0');
-			    const hours = date.getHours().toString().padStart(2, '0');
-			    const minutes = date.getMinutes().toString().padStart(2, '0');
-			    const seconds = date.getSeconds().toString().padStart(2, '0');
-			    
-			    return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
-			}
-			
-			// 포맷팅된 현재 시간을 가져옴
-			const formattedCurrentDate = formatCurrentDate(currentDate);
-			
-			//등록시
-			if(choice == 'reg'){
-				
-			 const reviewId = $(button).attr("data-review-id"); // 리뷰 ID 값 가져오기
-			 const content = $(button).closest(".comment_store").find(".answer_box").val();
-			 
-			 
-			if(confirm("답변 등록하시겠습니까?")){
-				
-				var url = "/answerReg";
-				
-				
-				 var paramData = {
-					  id : reviewId,
-            		  content: content
-        }
-				
-				var param = JSON.stringify(paramData);
-				
-				$.ajax({
-					url : url, //request URL
-					type : "POST", //전송방식
-					contentType : "application/json",
-					data : param, //서버에 전송할 데이터
-					beforeSend : function(xhr) {
-						//데이터를 전송하기전에 헤더에 csrf 값을 설정
-						xhr.setRequestHeader(header, token);
-					},
-					dataType : "json",
-					cache : false,
-					success : function(result, status) {
-						alert("등록시간 : " + formattedCurrentDate + 
-					"\n" + "등록 되었습니다.");
-						//location.href = '/';
-					},
-					error : function(jqXHR, status, error) {
-						if (jqXHR.status == '401') {
-							alert('관리자로그인 후 이용해주세요.');
-						//	location.href = '/';
-						} else {
-							//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
-							alert(jqXHR.responseText); 
-						}
-					}
-				});
-				
-				
-				
-				
-				
-			}
-			}
-			// 수정시
-				if(choice == 'update'){
-				
-			
-			 const reviewId = $(button).attr("data-review-id"); // 리뷰 ID 값 가져오기
-			 const content = $(button).closest(".comment_store").find(".answer_box").val();
-			 
-			 
-			if(confirm("답변 수정 하시겠습니까?")){
-				
-				var url = "/answerUpdate";
-				
-				
-				 var paramData = {
-					  id : reviewId,
-            		  content: content
-        }
-				
-				var param = JSON.stringify(paramData);
-				
-				$.ajax({
-					url : url, //request URL
-					type : "POST", //전송방식
-					contentType : "application/json",
-					data : param, //서버에 전송할 데이터
-					beforeSend : function(xhr) {
-						//데이터를 전송하기전에 헤더에 csrf 값을 설정
-						xhr.setRequestHeader(header, token);
-					},
-					dataType : "json",
-					cache : false,
-					success : function(result, status) {
-						alert("등록시간 : " + formattedCurrentDate + 
-					"\n" + "등록 되었습니다.");
-						//location.href = '/';
-					},
-					error : function(jqXHR, status, error) {
-						if (jqXHR.status == '401') {
-							alert('관리자로그인 후 이용해주세요.');
-						//	location.href = '/';
-						} else {
-							//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
-							alert(jqXHR.responseText); 
-						}
-					}
-				});
-				
-				
-				
-				
-				
-			}
-			}
-				// 삭제시
-				if(choice == 'delete'){
-				
-			
-			 const reviewId = $(button).attr("data-review-id"); // 리뷰 ID 값 가져오기
-			 
-			 
-			if(confirm("답변 삭제 하시겠습니까?")){
-				
-				var url = "/answerDelete";
-				
-				
-				 var paramData = reviewId
-        
-				
-				var param = JSON.stringify(paramData);
-				
-				$.ajax({
-					url : url, //request URL
-					type : "POST", //전송방식
-					contentType : "application/json",
-					data : param, //서버에 전송할 데이터
-					beforeSend : function(xhr) {
-						//데이터를 전송하기전에 헤더에 csrf 값을 설정
-						xhr.setRequestHeader(header, token);
-					},
-					dataType : "json",
-					cache : false,
-					success : function(result, status) {
-						alert("삭제 되었습니다.");
-						//location.href = '/';
-					},
-					error : function(jqXHR, status, error) {
-						if (jqXHR.status == '401') {
-							alert('관리자로그인 후 이용해주세요.');
-						//	location.href = '/';
-						} else {
-							//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
-							alert(jqXHR.responseText); 
-						}
-					}
-				})
-				
-				
-				
-				
-				
-			}
-			}
-			
-			
-		}
-		
-function answerUpdate(button) {
 	
-    const targetCommentRecomment = $(button).closest(".comment_box").find(".comment_recomment");
-    const targetUpdateBox =  $(button).closest(".comment_box").find("#update_box");
+		
+	function smoothScroll(target, duration) {
+    var targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    var startPosition = window.pageYOffset;
+    var distance = targetPosition - startPosition;
+    var startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        var timeElapsed = currentTime - startTime;
+        var run = ease(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    function ease(t, b, c, d) {
+        t /= d;
+        return -c * t * (t - 2) + b;
+    }
+
+    requestAnimationFrame(animation);
+}
+
+function ezhld_detail_more() {
+    var toggleLink = document.getElementById("toggleLink");
+    var goodsDetailInfo = document.getElementById("goodsDetailInfo");
+    var btnGoOrder = document.querySelector(".btn_go_order");
+
+    if (toggleLink.innerText === "상품정보 더보기") {
+        toggleLink.innerText = "상품정보 접기";
+        goodsDetailInfo.style.paddingBottom = "100px";
+        goodsDetailInfo.style.height = "100%";
+        goodsDetailInfo.style.overflow = "visible";
+    } else {
+        toggleLink.innerText = "상품정보 더보기";
+        goodsDetailInfo.style.paddingBottom = "100px";
+        goodsDetailInfo.style.height = "1000px";
+        goodsDetailInfo.style.overflow = "hidden";
+
+        if (btnGoOrder) {
+            smoothScroll(btnGoOrder, 500);  // 500ms duration
+        }
+    }
+}
+		
+	function clickTab(tabName) {
+    // 모든 'link active' 클래스를 제거
+    $('#tab-detail, #tab-review, #tab-qna').removeClass('active');
+
+    // 클릭된 탭에 따라 'link active' 클래스 추가
+    if (tabName === 'detail') {
+        $('#tab-detail').addClass('active');
+        $('html, body').animate({
+            scrollTop: $('.D_goods_info').offset().top
+        }, 500);
+    } else if (tabName === 'review') {
+        $('#tab-review').addClass('active');
+        $('html, body').animate({
+            scrollTop: $('#D_goodsReview_box').offset().top
+        }, 500);
+    } else if (tabName === 'qna') {
+        $('#tab-qna').addClass('active');
+        $('html, body').animate({
+            scrollTop: $('.item-location-header').offset().top
+        }, 500);
+    }
+}
+
+		function answerOk(button,choice) {
+			
+			var Id 
+			var content ; 
+			var url ;
+			var paramData ; 
+			var text;
+			
+			
+			//등록
+			if (choice == 'reg') { 
+			Id = $(button).attr("data-review-id");
+			content = $(button).closest(".comment_store").find(".answer_box").val();
+			url = "/answerReg";	
+			paramData = {id : Id, content : content};
+			text = '답변 등록 하시겠습니까?';
+			if (content.trim() === '') {
+       			 alert("답변 내용을 입력해주세요");
+      			  return; // 함수 종료
+   				 }
+			}
+			//수정
+				if (choice == 'update') { 
+			Id = $(button).attr("data-answerId");
+			content = $(button).closest(".comment_store").find(".answer_box").val();
+			url = "/answerUpdate";
+			paramData = {id : Id, content : content};
+			text = '답변 수정 하시겠습니까?';
+			if (content.trim() === '') {
+       			 alert("답변 내용을 입력해주세요");
+      			  return; // 함수 종료
+   				 }
+			}
+			//삭제
+				if (choice == 'delete') { 
+			Id = $(button).attr("data-answerId");
+			url = "/answerDelete";
+			paramData = {id : Id};
+			text = '답변 삭제 하시겠습니까?';
+			
+			}
+			
+				if (confirm(text)) {
+					
+					var param = JSON.stringify(paramData);
+					
+					$.ajax({
+						url : url, //request URL
+						type : "POST", //전송방식
+						contentType : "application/json",
+						data : param, //서버에 전송할 데이터
+						beforeSend : function(xhr) {
+							//데이터를 전송하기전에 헤더에 csrf 값을 설정
+							xhr.setRequestHeader(header, token);
+						},
+						dataType : "text",
+						cache : false,
+						success : function(result, status, jqXHR) {
+							 alert(jqXHR.responseText);
+							 window.location.reload(true); 
+							
+						},
+						error : function(jqXHR, status, error) {
+							if (jqXHR.status == '401') {
+								alert('관리자로그인 후 이용해주세요.');
+								//	location.href = '/';
+							} else {
+								//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
+								alert(jqXHR.responseText);
+							}
+						}
+					})
+
+				}
+			}
+			
+			
+			
+		function inqOk(button , choice) {
+			
+			var Id 
+			var content ; 
+			var url ;
+			var paramData ; 
+			var text;
+			
+			//등록
+			if (choice == 'reg') { 
+			Id = $(button).attr("data-inq-id");
+			content = $(button).closest(".inq-row").find("#inq_answer_content").val();
+			url = "/InqAnswerReg";	
+			paramData = {id : Id, content : content};
+			text = '답변 등록 하시겠습니까?';
+			if (content.trim() === '') {
+       			 alert("답변 내용을 입력해주세요");
+      			  return; // 함수 종료
+   				 }
+			}
+			//수정
+				if (choice == 'update') { 
+			Id = $(button).attr("data-inq-answerId");
+			content = $(button).closest(".inq-row").find("#inq_answer_content").val();
+			url = "/InqAnswerUpdate";	
+			paramData = {id : Id, content : content};
+			text = '답변 수정 하시겠습니까?';
+			if (content.trim() === '') {
+       			 alert("답변 내용을 입력해주세요");
+      			  return; // 함수 종료
+   				 }
+			}
+			//삭제
+				if (choice == 'delete') { 
+			Id = $(button).attr("data-inq-answerId");
+			url = "/InqAnswerDelelte";	
+			paramData = {id : Id};
+			text = '답변 삭제 하시겠습니까?';
+			
+			}
+			
+				if (confirm(text)) {
+					
+					var param = JSON.stringify(paramData);
+					
+					$.ajax({
+						url : url, //request URL
+						type : "POST", //전송방식
+						contentType : "application/json",
+						data : param, //서버에 전송할 데이터
+						beforeSend : function(xhr) {
+							//데이터를 전송하기전에 헤더에 csrf 값을 설정
+							xhr.setRequestHeader(header, token);
+						},
+						dataType : "text",
+						cache : false,
+						success : function(result, status, jqXHR) {
+							 alert(jqXHR.responseText);
+							 window.location.reload(true); 
+							
+						},
+						error : function(jqXHR, status, error) {
+							if (jqXHR.status == '401') {
+								alert('관리자로그인 후 이용해주세요.');
+								//	location.href = '/';
+							} else {
+								//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
+								alert(jqXHR.responseText);
+							}
+						}
+					})
+
+				}
+		}	
+			
+
+		function answerUpdate(button) {
+
+			const targetCommentRecomment = $(button).closest(".comment_box")
+					.find(".comment_recomment");
+			const targetUpdateBox = $(button).closest(".comment_box").find(
+					"#update_box");
+
+			targetCommentRecomment.fadeOut(80, function() {
+				targetUpdateBox.fadeIn(80);
+			});
+		}
+		function updateCancle(button) {
+
+			const targetCommentRecomment = $(button).closest(".comment_box")
+					.find(".comment_recomment");
+			const targetUpdateBox = $(button).closest(".comment_box").find(
+					"#update_box");
+
+			targetUpdateBox.fadeOut(80, function() {
+				targetCommentRecomment.fadeIn(80);
+			});
+		}
+		
+		function reviewAnwerBoxOpen(button){
+			const layBox = $(button).closest(".review_list").find("#reg_box");
+			const buttonText = $(button).closest(".review_list").find(".reivew_reg_choice");
+	
+    		 if (layBox.css("display") === "none") {
+        			layBox.css("display", "block");
+        			buttonText.text("답변 등록 ▲");
+   			 } else {
+       			 layBox.css("display", "none");
+       			 buttonText.text("답변 등록 ▼");
+   			 }
+		}
+		
+		
+		function showPopup() {
+			
+			var itemId = $("#itemId").val();
+			
+			url =  "/popup/" + itemId;
+			
+		    window.open( url , "popupWindow", "width=620, height=860, left=100, top=50"); 
+		}
+		
+function bindScriptsToRows() {
+    var rows = document.querySelectorAll(".inq-row");
+    rows.forEach(function(row) {
+        var inqId = row.getAttribute("data-inq-id");
+        var memberIDBox = row.querySelector(".member-id-box");
+        var infoBox = document.querySelector("#info_box");
+        hideMemberID(memberIDBox);
+    });
+}
+
+function hideMemberID(memberIDBox) {
+    if (memberIDBox) {
+        var originalValue = memberIDBox.innerText;
+        if (originalValue.length > 3) {
+            var hiddenValue = originalValue.substring(0, 3) + originalValue.substring(3).replace(/./g, '*');
+            if (hiddenValue.length > 8) {
+                hiddenValue = hiddenValue.substring(0, 8);
+            }
+            memberIDBox.innerText = hiddenValue;
+        }
+    }
+}
+
+function info(button){
+    const infoBox = $(button).closest(".inq-row").find("#info_box");
+    const inqAnswerBox = $(button).closest(".inq-row").find("#inq_answer_box");
+    const layBox = $(button).closest(".inq-row").find(".inq_answer_layout");
+    const buttonText = $(button).closest(".inq-row").find(".answer_reg_choice");
+
+    if (infoBox.css("display") === "none") {
+        infoBox.css("display", "table-row");
+        inqAnswerBox.css("display", "table-row");
+    } else {
+		layBox.css("display", "none");
+        infoBox.css("display", "none");
+        inqAnswerBox.css("display", "none");
+        buttonText.text("답변 등록 ▼");
+    }
+}
+
+function inqAnwerBoxOpen(button){
+	const layBox = $(button).closest(".inq-row").find(".inq_answer_layout");
+	const buttonText = $(button).closest(".inq-row").find(".answer_reg_choice");
+	
+     if (layBox.css("display") === "none") {
+        layBox.css("display", "table-cell");
+        buttonText.text("답변 등록 ▲");
+    } else {
+        layBox.css("display", "none");
+        buttonText.text("답변 등록 ▼");
+    }
     
-    targetCommentRecomment.fadeOut(80, function() {
-        targetUpdateBox.fadeIn(80);
-    });
-}
-	function updateCancle(button) {
-		
-    const targetCommentRecomment = $(button).closest(".comment_box").find(".comment_recomment");
-    const targetUpdateBox =  $(button).closest(".comment_box").find("#update_box");
-		
-     targetUpdateBox.fadeOut(80, function() {
-        targetCommentRecomment.fadeIn(80);
-    });
 }
 
+	function inqAnswerUpdate(button) {
 
+			const target = $(button).closest(".inq-row")
+					.find("#inq_answer_box");
+			const targetUpdateBox = $(button).closest(".inq-row").find(
+					".inq_answer_layout");
+			
+			  // target의 display를 none으로 설정
+ 		  target.css("display", "none");
+
+ 		 targetUpdateBox.css("display", "table-cell");
+			
+			
+	
+    }
+		
+	function inqAnswerUpdateCancle(button) {
+
+			const target = $(button).closest(".inq-row")
+					.find("#inq_answer_box");
+			const targetUpdateBox = $(button).closest(".inq-row").find(
+					".inq_answer_layout");
+			
+			  // target의 display를 none으로 설정
+ 		  	 targetUpdateBox.css("display", "none");
+
+ 			 target.css("display", "table-row");
+		}
+		
 	</script>
 
 
@@ -749,12 +1030,21 @@ function answerUpdate(button) {
 
 		});
 
-		function page(page) {
+		function reviewPage(page) {
 			//입력한 값을 전부 가지고 온다.
 			var itemId = $("#itemId").val();
 
 			//주소 이동
 			location.href = "/item/" + itemId + "?reviewPage=" + page;
+		}
+		
+		
+		function inqPage(page) {
+			//입력한 값을 전부 가지고 온다.
+			var itemId = $("#itemId").val();
+
+			//주소 이동
+			location.href = "/item/" + itemId + "?inqPage=" + page;
 		}
 	</script>
 </th:block>
