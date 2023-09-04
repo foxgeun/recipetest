@@ -12,100 +12,25 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 	</th:block>
 		
-		
-			배너 슬라이드 (예정)
+
 			
 			   <div class="banner_slider slider-wrap">
-          <div class="slider-items">
+          <div class="slider-items" th:each="sliderContent : ${sliderContent}">
         	<div class="main_box_in2" >
-			<img alt="배너이미지1" src="img/장어덮밥.jpg" class="main_img">
+			<img alt="배너이미지1" th:src="${sliderContent.imageUrl}" class="main_img">
 		</div>
 		<div class="main_box_in1">
-			<p class="banner_sub_title">보약이 따로 필요없는</p>
-			<p class="banner_title">장어덮밥</p>
+			<p class="banner_sub_title">[[${sliderContent.subTitle}]]</p>
+			<p class="banner_title">[[${sliderContent.title}]]</p>
 			<a href="#" class="banner_info">
 			레시피보기 >>
 			</a>
 		</div>	
 	          
          </div>
-             <div class="slider-items">
-          	<div class="main_box_in2">
-			<img alt="배너이미지1" src="img/배너이미지2.jpg" class="main_img">
-		</div>
-		<div class="main_box_in1">
-			<p class="banner_sub_title">부담스럽지 않은 면요리</p>
-			<p class="banner_title">김치쌀국수</p>
-			<a href="#" class="banner_info">
-			레시피보기 >>
-			</a>
-		</div>	
-         </div>
-             <div class="slider-items">
-          	<div class="main_box_in2">
-			<img alt="배너이미지1" src="img/배너이미지3.jpg" class="main_img">
-		</div>
-		<div class="main_box_in1">
-			<p class="banner_sub_title">허한 속을 든든하게</p>
-			<p class="banner_title">굴국밥</p>
-			<a href="#" class="banner_info">
-			레시피보기 >>
-			</a>
-		</div>	
-         </div>
           </div>
 			
 			
-		-->
-		
-		
-		
-		
-		
-		
-		
-	<div class="main_box pb-5">
-          <div class="banner_slider slider-wrap">
-          <div class="slider-items">
-        	<div class="main_box_in2" >
-			<img alt="배너이미지1" src="img/장어덮밥.jpg" class="main_img">
-		</div>
-		<div class="main_box_in1">
-			<p class="banner_sub_title">보약이 따로 필요없는</p>
-			<p class="banner_title">장어덮밥</p>
-			<a href="#" class="banner_info">
-			레시피보기 >>
-			</a>
-		</div>	
-	          
-         </div>
-             <div class="slider-items">
-          	<div class="main_box_in2">
-			<img alt="배너이미지1" src="img/배너이미지2.jpg" class="main_img">
-		</div>
-		<div class="main_box_in1">
-			<p class="banner_sub_title">부담스럽지 않은 면요리</p>
-			<p class="banner_title">김치쌀국수</p>
-			<a href="#" class="banner_info">
-			레시피보기 >>
-			</a>
-		</div>	
-         </div>
-             <div class="slider-items">
-          	<div class="main_box_in2">
-			<img alt="배너이미지1" src="img/배너이미지3.jpg" class="main_img">
-		</div>
-		<div class="main_box_in1">
-			<p class="banner_sub_title">허한 속을 든든하게</p>
-			<p class="banner_title">굴국밥</p>
-			<a href="#" class="banner_info">
-			레시피보기 >>
-			</a>
-		</div>	
-         </div>
-          </div>
-
-	</div>
 	
 	<div class="container">
 			<div class="best_recipe_box">
@@ -319,7 +244,7 @@
 				
 									<li class="ml_none">
 						<a href="recipe.php?id=view&amp;idx=1347">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
+							<div class="img_wrap"><img th:src="${recipe.imageUrl}" alt="" style="width:100%"></div>
 							<div class="text_box">
 								<p class="s_title">[[${recipe.subTitle}]]</p>
 								<p class="b_title" title="문어 장조림">[[${recipe.title}]] 조회수 : [[${recipe.count}]]</p>
@@ -353,28 +278,7 @@
 								</ul>
 			</div>
 		</div>
-		
-		<div class="best_box">
-			<h2 class="def_title">모든 레시피<a href="/" class="fr">더보기></a></h2>
-			<div class="rec_list">
-				
-				<ul class="clr d-flex">
-				<th:block th:each="recipe , status:${mainTotalList}">
-				
-									<li class="ml_none">
-						<a href="recipe.php?id=view&amp;idx=1347">
-							<div class="img_wrap"><img src="img/장어덮밥.jpg" alt="" style="width:100%"></div>
-							<div class="text_box">
-								<p class="s_title">[[${recipe.subTitle}]]</p>
-								<p class="b_title" title="문어 장조림">[[${recipe.durTime}]]</p>
-							</div>
-						</a>
-					</li>
-				
-				</th:block>
-								</ul>
-			</div>
-		</div>
+
 		
 			
 			

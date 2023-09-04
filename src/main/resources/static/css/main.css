@@ -16,11 +16,13 @@
 }
 
 .main_box_in2 {
-	background-color:black;
-	overflow: hidden;
-	margin: 0 auto;
-	width: 100%;
-	height: 600px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 100%;
+    height: 600px;
 }
 
 .main_box_in3 {
@@ -85,7 +87,7 @@
 }
 
 .main_img {
-	width: 100%;
+	width: 60%;
 	height: 100%;
 	object-fit: cover;
 	opacity: 0.7;
@@ -352,7 +354,7 @@
 }
 
 .rec_list li.ml_none {
-    margin-left: 0;
+   margin: 0 10px 0 10px;
 }
 
 .rec_list li a {

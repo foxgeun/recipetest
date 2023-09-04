@@ -139,6 +139,25 @@ public class RecipeController {
 				}
 				return "redirect:/";
 		}
+		
+		@GetMapping(value = "/recipe/{Id}")
+		public String recipe(Model model, @PathVariable("Id") Long Id) {
+			
+			Recipe recipeDetail = recipeRepository.getRecipeDetailByid(Id);
+			
+
+			
+			recipeRepository.setaddview(Id);
+			List<RecipeOrder> recipeOrderList = recipeOrderRepository.getRecipeOrderByid(Id);
+			List<RecipeIngre> recipeIngreList = recipeIngreRepository.getRecipeIngreByid(Id);
+			
+			
+			model.addAttribute("recipeIngreList" ,recipeIngreList);
+			model.addAttribute("recipeOrder", recipeOrderList);
+			model.addAttribute("recipeDetail",recipeDetail);
+			
+			return "recipes/recipe";
+		}
 	
 	
 }

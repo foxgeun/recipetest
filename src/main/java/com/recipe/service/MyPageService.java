@@ -2,15 +2,18 @@ package com.recipe.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.apache.groovy.parser.antlr4.util.StringUtils;
+import org.hibernate.proxy.EntityNotFoundDelegate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.recipe.dto.MemberDto;
 import com.recipe.dto.MyPageDto;
 import com.recipe.entity.BookMark;
 import com.recipe.entity.Comment;
@@ -21,6 +24,7 @@ import com.recipe.entity.Review;
 import com.recipe.repository.BookMarkRepository;
 import com.recipe.repository.CommentRepository;
 import com.recipe.repository.MemberRepository;
+import com.recipe.repository.RecipeListRepository;
 import com.recipe.repository.RecipeRepository;
 import com.recipe.repository.ReviewRepository;
 
@@ -172,7 +176,7 @@ public class MyPageService {
 	}
 	
 	
-	//레시피리스트
+	//마이페이지 레시피리스트
 	@Transactional(readOnly = true)
 	public List<Recipe> getRecipeList(Long id){
 		List<Recipe> recipes = recipeRepository.findRecipe(id);
@@ -181,7 +185,24 @@ public class MyPageService {
 		return recipes;
 
 	}
-	
+	//모든레시피리스트
+	@Transactional(readOnly = true)
+	public List<Recipe> getAllRecipeList(Long id){
+		List<Recipe> recipes = recipeRepository.findAllRecipe(id);
+		
+		
+		return recipes;
+		
+	}
+	//인기레시피리스트
+	@Transactional(readOnly = true)
+	public List<Recipe> getPopularRecipeList(Long id){
+		List<Recipe> recipes = recipeRepository.getPopularRecipe(id);
+		
+		
+		return recipes;
+		
+	}
 	//레시피 삭제
 	public void deleteRecipe(Long recipeId) {
 		Recipe recipe = recipeRepository.findById(recipeId)
@@ -250,6 +271,45 @@ public class MyPageService {
 		commentRepository.delete(comment);
 	}
 	
+//	//팔로잉
+//	public void FollowMember (Long followerId, Long followingId) {
+//	    Member follower = memberRepository.findById(followerId)
+//	            .orElseThrow(() -> new MemberNotFoundException(followerId));
+//	    Member following = memberRepository.findById(followingId)
+//	            .orElseThrow(() -> new MemberNotFoundException(followingId));
+//
+//	    Following newFollowing = new Following(follower, following);
+//	    
+//	    follower.getFollowings().add(newFollowing);
+////	    following.getFollowers().add(newFollowing);
+//	    System.out.println(follower);
+//
+//	    // 엔티티를 저장
+//	    memberRepository.save(follower);
+//	    memberRepository.save(following);
+//	}
+//	//언팔
+//	public void unFollowMember (Long followerId, Long followingId) {
+//		Member follower = memberRepository.findById(followingId)
+//				.orElseThrow(() -> new MemberNotFoundException(followingId));
+//		Member following = memberRepository.findById(followerId)
+//				.orElseThrow(() -> new MemberNotFoundException(followerId));
+//		
+//		Following newFollowing = new Following();
+//		Follower newFollower = new Follower();
+//		
+//		newFollowing.setId(follower.getId());
+//		newFollower.setId(following.getId());
+//		
+//		follower.removeFollowing(newFollowing);
+//		following.removeFollower(newFollower);
+//		
+//		System.out.println(follower + "followerrrrrr");
+//		System.out.println(following + "following");
+//		memberRepository.save(follower);
+//		memberRepository.save(following);
+//	}
+	
 	//내후기불러오기
 	@Transactional(readOnly = true)
 	public List<MyPageDto> getMyReview(Long id){
@@ -288,4 +348,3 @@ public class MyPageService {
 		reviewRepository.delete(review);
 	}
 }
-

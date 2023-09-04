@@ -50,14 +50,14 @@ public class myPageController {
 		List<MyPageDto> myCommentList = myPageService.getMyComment(id);
 		
 		List<MyPageDto> myReviewList = myPageService.getMyReview(id);
-		List<MyPageDto> receivedReviewList = myPageService.getReceivedReview(id);
-        for (Recipe recipe : recipeList) {
-            Long recipeId = recipe.getId();
-            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
-            recipe.setBookmarkCount(bookmarkCount);
-        }
+//		List<MyPageDto> receivedReviewList = myPageService.getReceivedReview(id);
+//        for (Recipe recipe : recipeList) {
+//            Long recipeId = recipe.getId();
+//            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
+//            recipe.setBookmarkCount(bookmarkCount);
+//        }
 		
-		model.addAttribute("receivedReviewList" , receivedReviewList);
+//		model.addAttribute("receivedReviewList" , receivedReviewList);
 		model.addAttribute("myReviewList" ,  myReviewList);
 		model.addAttribute("myCommentList" , myCommentList);
 		model.addAttribute("bookmarkList" , bookmarkList);
@@ -78,12 +78,12 @@ public class myPageController {
 		List<Recipe> allRecipeList =myPageService.getAllRecipeList(id);
 		List<Recipe> popularRecipeList =myPageService.getPopularRecipeList(id);
 		
-        for (Recipe recipe : allRecipeList) {
-            Long recipeId = recipe.getId();
-            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
-            recipe.setBookmarkCount(bookmarkCount);
-        }
-		model.addAttribute("myPageDto",myPageDto);//회원정보
+//        for (Recipe recipe : allRecipeList) {
+//            Long recipeId = recipe.getId();
+//            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
+//            recipe.setBookmarkCount(bookmarkCount);
+//        }
+//		model.addAttribute("myPageDto",myPageDto);//회원정보
 		model.addAttribute("allRecipeList" , allRecipeList); //레시피목록
 		model.addAttribute("popularRecipeList" , popularRecipeList); //레시피목록
 		return "profile";
@@ -169,19 +169,19 @@ public class myPageController {
 		
 	}
 	
-	//팔로잉
-	@PostMapping(value = "/{followerId}/follow/{followingId}")
-	public ResponseEntity<String> followMember(@PathVariable Long followerId, @PathVariable Long followingId) {
-		myPageService.FollowMember(followerId, followingId);
-		System.out.println(followerId);
-		return ResponseEntity.ok("Followed successfully.");
-	
-	}
-	//팔로잉
-	@PostMapping(value = "/{followerId}/unfollow/{followingId}")
-	public ResponseEntity<String> unfollowMember(@PathVariable Long followerId, @PathVariable Long followingId) {
-		myPageService.unFollowMember(followerId, followingId);
-		return ResponseEntity.ok("Unfollowed successfully.");
-		
-	}
+//	//팔로잉
+//	@PostMapping(value = "/{followerId}/follow/{followingId}")
+//	public ResponseEntity<String> followMember(@PathVariable Long followerId, @PathVariable Long followingId) {
+//		myPageService.FollowMember(followerId, followingId);
+//		System.out.println(followerId);
+//		return ResponseEntity.ok("Followed successfully.");
+//	
+//	}
+//	//팔로잉
+//	@PostMapping(value = "/{followerId}/unfollow/{followingId}")
+//	public ResponseEntity<String> unfollowMember(@PathVariable Long followerId, @PathVariable Long followingId) {
+//		myPageService.unFollowMember(followerId, followingId);
+//		return ResponseEntity.ok("Unfollowed successfully.");
+//		
+//	}
 }

@@ -66,6 +66,15 @@ public class RecipeService {
 	private String recipeImgLocation = "C:/recipe/memberRecipe";
 	
 	
+	public List<Recipe> getAllRecipeList(){
+		return recipeRepository.getAllRecipeList();
+	}
+	
+	
+	public List<Recipe> getRecipeListOrderByView(){
+		return recipeRepository.getRecipeListOrderByView();
+	}
+	
 	//레시피 저장 메소드
 		public Long saveRecipe(RecipeNewDto recipeNewDto, MultipartFile recipeImgFile,
 				List<String> recipeingreMaterialList , List<String>recipeingreNameList,
@@ -312,5 +321,11 @@ public class RecipeService {
 		        recipeOrderRepository.save(recipeOrder);
 		    }
 		}
+		
+		//메인 페이지 슬라이더
+		public List<Recipe> getRecipeMainContent() {
+			return recipeRepository.getRecipeMainContent();
+		}
+		
 }
 
