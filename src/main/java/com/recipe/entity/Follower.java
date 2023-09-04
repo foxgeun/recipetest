@@ -27,7 +27,18 @@ public class Follower {
 	
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member follower;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "following_id")
+    private Member following;
+
+    public Follower() {}
+
+    public Follower(Member follower, Member following) {
+        this.follower = follower;
+        this.following = following;
+    }
 }

@@ -96,11 +96,16 @@
 	<!-- Header End -->
 
 	<!-- Hero Search Section Begin -->
+
 	<div class="container"
 		style="border-radius: 20px; overflow: hidden; border: 7px solid #ffffff; position: relative;">
+
+	<div class=""
+		style="overflow: hidden; position: relative;">
+
 		<div
-			style="background-image: url(/img/search-bg.jpg); height: 250px; background-repeat: no-repeat; background-size: cover; background-position: top center; border-radius: 30px 30px 0 0;"
-			class="container">
+			style="background-image: url(/img/search-bg.jpg); height: 250px; background-repeat: no-repeat; background-size: cover; background-position: top center;"
+			class="">
 			<div class=""
 				style="display: flex; justify-content: flex-end; align-items: center; flex-direction: row; padding-top: 24px; margin-right: 30px;">
 				<div
@@ -126,12 +131,12 @@
 			</div>
 		</div>
 		<div
-			th:style="'position: absolute; left: 50%; bottom: 17%; transform: translateX(-50%); width: 180px; height: 180px; background-color: #ffffff; border-radius: 50%; border: 7px solid #e9ecef; background-image: url(' + ${myPageDto.imgUrl}  + '); background-size: cover; background-position: center;'"></div>
+			th:style="'position: absolute; left: 50%; bottom: 17%; transform: translateX(-50%); width: 160px; height: 160px; background-color: #ffffff; border-radius: 50%; border: 3px solid #e9ecef; background-image: url(' + ${myPageDto.imgUrl}  + '); background-size: cover; background-position: center;'"></div>
 		<div
-			style="height: 113px; background-color: #ffff; display: flex; justify-content: center; align-items: flex-end; border-radius: 0 0 30px 30px; border: 1px solid #adb5bd;"
-			class="container">
+			style="height: 113px; background-color: #ffff; display: flex; justify-content: center; align-items: flex-end; "
+			class="">
 			<div class="col-10"
-				style="display: flex; justify-content: center; align-items: center; flex-direction: column; top: 10px;">
+				style="display: flex; justify-content: center; align-items: center; flex-direction: column; top: 18px;">
 				<div style="">
 					<h4 th:text="${myPageDto.nickname}" style="font-weight: 700">짱구님</h4>
 				</div>
@@ -157,22 +162,40 @@
 					</div>
 					<div class="list-group list-group-light"
 						style="padding-bottom: 40px; border-bottom: 3px solid #959595 !important;">
-						<a onclick="showContent('recipe')"
+						<div><p>쇼핑</p>
+						<a 
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="recipe">
+							style="font-size: 14px; cursor: pointer" >
+							주문목록|배송정보</a>
+						<a 
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 14px; cursor: pointer" >
+							찜리스트</a>
+						<a 
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 14px; cursor: pointer">
+							포인트</a>
+						</div>
+						<div><p>레시피</p><a onclick="showContent('recipe')"
+							class="list-group-item list-group-item-action list-group-item-light mypage-list"
+							style="font-size: 14px; cursor: pointer" data-menu="recipe">
 							레시피</a> <a onclick="showContent('favorite')"
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="favorite">
+							style="font-size: 14px; cursor: pointer" data-menu="favorite">
 							찜한 레시피</a> <a onclick="showContent('comments')"
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="comments">
+							style="font-size: 14px; cursor: pointer" data-menu="comments">
 							댓글</a> <a onclick="showContent('reviews')"
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="reviews">
-							요리후기</a> <a onclick="showContent('edit')"
+							style="font-size: 14px; cursor: pointer" data-menu="reviews">
+							요리후기</a> </div>
+							<div>
+							<p>회원정보</p>
+							<a onclick="showContent('edit')"
 							class="list-group-item list-group-item-action list-group-item-light mypage-list"
-							style="font-size: 15px; cursor: pointer" data-menu="edit"> 회원
-							정보 수정</a>
+							style="font-size: 14px; cursor: pointer" data-menu="edit"> 회원
+							정보 수정</a></div>
+							
 					</div>
 				</div>
 			</div>
@@ -200,8 +223,17 @@
 							<p style="font-size: 28px; font-weight: 500;">| RECIPE |</p>
 							<p style="font-size: 15px; font-weight: 500;">레시피 목록</p>
 						</div>
+						<div style="
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 45px;
+">
+						<button type="submit"
+											style="width: 110px;height: 36px;display: flex;align-items: center;justify-content: center;margin-top: 4px;background-color: #808000bd;color: #fff;font-size: 14px;;border:none;"
+												class="btn btn-outline-danger">레시피등록</button>
+						</div>
 
-						<table style="border-bottom: 1px solid #dee2e6; margin-top: 30px;">
+						<table style="border-bottom: 1px solid #dee2e6; margin-top: 15px;">
 							<tbody>
 								<tr style="height: 45px; background-color: #f9fbf7;">
 
@@ -235,8 +267,10 @@
 										</div>
 
 									</th>
-									<th class="col-2" style="text-align: center;"></th>
-									<th class="col-1" style="text-align: center;"></th>
+									<th class="col-2" style="text-align: center;"><p th:text="${recipe.count}"></p></th>
+									<th class="col-1" style="text-align: center;">
+									<P th:text="${recipe.bookmarkCount}"></P>
+									</th>
 									<th class="col-2" style="text-align: center;">
 										<div
 											style="display: flex; flex-direction: column; align-items: center;">
@@ -270,7 +304,7 @@
 								공유하고 싶은 멋진 레시피를 올려 주세요.</p>
 							<br>
 							<button type="submit" class="btn btn-outline-danger"
-								style="width: 180px; height: 42px;">레시피 등록</button>
+								style="width: 110px;height: 36px;display: flex;align-items: center;justify-content: center;margin-top: 4px;background-color: #808000bd;color: #fff;font-size: 14px;">레시피 등록</button>
 						</div>
 
 					</div>
@@ -818,7 +852,7 @@ svg {
 							<div
 								style="display: flex; flex-direction: column; align-items: center; margin-top: 160px;">
 								<button type="submit" class="btn btn-outline-danger"
-									style="width: 180px; height: 42px;">회원정보 수정</button>
+									style="width: 168px;height: 43px;display: flex;align-items: center;justify-content: center;background-color: #808000bd;color: #fff;font-size: 16px;margin-bottom: 15px; border:none;">회원정보 수정</button>
 								<a th:value="${myPageDto.id}"
 									th:onclick="deleteMember([[${myPageDto.id}]])"
 									style="border-bottom: 1px solid; cursor: pointer;">회원탈퇴</a>

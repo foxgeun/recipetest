@@ -45,6 +45,8 @@ public class Recipe extends BaseEntity {
     
     private int count;
     
+    private int bookmarkCount;
+    
     @Enumerated(EnumType.STRING)
     private WritingStatus writingStatus ;
     
