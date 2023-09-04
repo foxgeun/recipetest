@@ -22,7 +22,7 @@ public class SocialMemberDto {
 	private String nickname;
 	
 	@NotEmpty
-	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
+	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요. 양식은 010-xxxx-xxxx 입니다.")
 	private String phoneNumber;
 	
 	private String name; //구글,카카오에서 주는 구글닉네임 

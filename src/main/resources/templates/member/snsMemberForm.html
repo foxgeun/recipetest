@@ -166,7 +166,7 @@ p{
 			<div>
 				<label for="phoneNum" class="phoneNum">휴대폰 번호</label>
 				<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="fieldError">Incorrect Data</p> 
-				<input type="tel" placeholder="휴대폰 입력 양식은 010-xxxx-xxxx 입니다" class="in" th:field="*{phoneNumber}">
+				<input type="tel" placeholder="(-)를 제외한 숫자만 입력해주세요" class="in" th:field="*{phoneNumber}" oninput="oninputPhone(this)">
 			</div>
 			<div>
 				<label for="nickname" class="nickname">닉네임</label>
@@ -193,6 +193,12 @@ p{
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		
+	 function oninputPhone(target) {
+	        target.value = target.value
+	            .replace(/[^0-9]/g, '')
+	            .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+	    }
+	
 		
 		$("#btn").click(function(){
 			var email = $("#email").val();

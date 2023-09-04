@@ -31,7 +31,7 @@ public class MemberDto {
 	private String nickname; //사이트용 닉네임
 	
 	@NotEmpty
-	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요.")
+	@Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "올바른 휴대폰 번호를 입력해주세요. 양식은 010-xxxx-xxxx 입니다.")
 	private String phoneNumber;
 	
 	private Long id;
