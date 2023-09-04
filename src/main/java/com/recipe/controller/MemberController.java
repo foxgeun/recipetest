@@ -60,12 +60,13 @@ public class MemberController {
 	}
 	
 	//sns 회원가입 화면
-		MemberDto memberDto = new MemberDto();
+	@GetMapping(value = "/members/snsMember")
 	public String snsMemberForm(@RequestParam("email") String email, @RequestParam("provider") String provider, 
 			@RequestParam("providerId") String providerId, 
 			@RequestParam("name") String name,
 			Model model ) {
 		SocialMemberDto socialMemberDto = new SocialMemberDto();
+		
 				
 		socialMemberDto.setEmail(email);
 		socialMemberDto.setProvider(provider);
@@ -197,6 +198,7 @@ public class MemberController {
 		// 회원가입 성공시
 		return "redirect:/";
 	}
+
 
 	// 로그인 실패
 	@GetMapping(value = "/members/login/error")

@@ -586,14 +586,14 @@ width: 65px;
 	//레시피 등록함수
 	function confirmPublish() {
 		//모든값이 입력되었는지 확인
-	    var elements = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
+/* 	    var elements = document.querySelectorAll('input:not([type="hidden"]), textarea, select');
 	    for (var i = 0; i < elements.length-1; i++) {
 	    	 console.log(`Element ${i + 1}: ${elements[i].name}, Value: ${elements[i].value}`);
 	        if (elements[i].value === "") {  
 	            alert('모든 내용을 입력해주세요.');
 	            return false;  
 	        }
-	    }
+	    } */
 
 	    return confirm("레시피를 정말로 수정하시겠습니까?");
 	}

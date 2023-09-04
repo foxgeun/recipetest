@@ -33,7 +33,6 @@ public class Comment extends BaseEntity {
 
 	private String writer;
 
-	@ManyToOne(fetch = FetchType.LAZY)
 	private String content;
 	
 	

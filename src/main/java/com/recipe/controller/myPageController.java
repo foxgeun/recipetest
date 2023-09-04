@@ -51,7 +51,11 @@ public class myPageController {
 		
 		List<MyPageDto> myReviewList = myPageService.getMyReview(id);
 		List<MyPageDto> receivedReviewList = myPageService.getReceivedReview(id);
-
+        for (Recipe recipe : recipeList) {
+            Long recipeId = recipe.getId();
+            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
+            recipe.setBookmarkCount(bookmarkCount);
+        }
 		
 		model.addAttribute("receivedReviewList" , receivedReviewList);
 		model.addAttribute("myReviewList" ,  myReviewList);
@@ -65,6 +69,24 @@ public class myPageController {
 	
 		return "myPage";
 		
+	}
+	
+	//프로필 보여주기
+	@GetMapping(value="/profile/{id}")
+	public String profile(@PathVariable("id")Long id,Model model) {
+		Member myPageDto = memberRepository.getfindmemberbyid(id);
+		List<Recipe> allRecipeList =myPageService.getAllRecipeList(id);
+		List<Recipe> popularRecipeList =myPageService.getPopularRecipeList(id);
+		
+        for (Recipe recipe : allRecipeList) {
+            Long recipeId = recipe.getId();
+            int bookmarkCount = bookmarkRepository.countByRecipeId(recipeId);
+            recipe.setBookmarkCount(bookmarkCount);
+        }
+		model.addAttribute("myPageDto",myPageDto);//회원정보
+		model.addAttribute("allRecipeList" , allRecipeList); //레시피목록
+		model.addAttribute("popularRecipeList" , popularRecipeList); //레시피목록
+		return "profile";
 	}
 	
 	
@@ -146,7 +168,20 @@ public class myPageController {
 		return new ResponseEntity<Long>(reviewId, HttpStatus.OK);
 		
 	}
+	
+	//팔로잉
+	@PostMapping(value = "/{followerId}/follow/{followingId}")
+	public ResponseEntity<String> followMember(@PathVariable Long followerId, @PathVariable Long followingId) {
+		myPageService.FollowMember(followerId, followingId);
+		System.out.println(followerId);
+		return ResponseEntity.ok("Followed successfully.");
+	
+	}
+	//팔로잉
+	@PostMapping(value = "/{followerId}/unfollow/{followingId}")
+	public ResponseEntity<String> unfollowMember(@PathVariable Long followerId, @PathVariable Long followingId) {
+		myPageService.unFollowMember(followerId, followingId);
+		return ResponseEntity.ok("Unfollowed successfully.");
+		
+	}
 }
-	
-	
-

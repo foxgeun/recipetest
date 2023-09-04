@@ -97,10 +97,6 @@ public class Recipe extends BaseTimeEntity {
 	
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "recipeOrder_id")
-	private RecipeOrder recipeOrder;
-
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngre> ingredients = new ArrayList<>();
 
@@ -119,4 +115,6 @@ public class Recipe extends BaseTimeEntity {
 		this.imageUrl = imageUrl;
 		this.imgName = imgName;
 	}
+	
+
 }

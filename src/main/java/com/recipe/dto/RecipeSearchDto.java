@@ -21,8 +21,13 @@ public class RecipeSearchDto {
 	
 
 	private String searchBy;
+	
+	
 	private String searchQuery = "";
+	
+	
 	private String sort;
+	
 
 	
 }
