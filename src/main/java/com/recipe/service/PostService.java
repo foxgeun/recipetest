@@ -2,6 +2,7 @@ package com.recipe.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,14 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.recipe.dto.MemberDto;
 import com.recipe.dto.PostDto;
 import com.recipe.dto.PostImgDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.PostImg;
+import com.recipe.entity.PostResponse;
 import com.recipe.entity.Post;
 import com.recipe.repository.PostImgRepository;
 import com.recipe.repository.PostRepository;
+import com.recipe.repository.PostResponseRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,7 @@ public class PostService {
 	private final PostRepository postRepository;
 	private final PostImgRepository postImgRepository;
 	private final PostImgService postImgService;
+	private final PostResponseRepository postResponseRepository;
 
 	// post 테이블에 게시글 등록(insert)
 	public Long savePost(PostDto postDto, List<MultipartFile> postImgFileList) throws Exception {
@@ -85,5 +88,20 @@ public class PostService {
 	public Page<PostDto> getPostListPage(RecipeSearchDto recipeSearchDto, Pageable pageable) {
 		Page<PostDto> postPage = postRepository.getPostListPage(recipeSearchDto, pageable);
 		return postPage;
+	}
+
+	// postResponse 테이블에 문의답변 등록(insert)
+	public void savePostResponse(Map<String, Object> requestBody) throws Exception {
+
+		Long id = Long.parseLong(requestBody.get("id").toString());
+		String content = requestBody.get("content").toString();
+
+		// 1. 답변 등록
+		PostResponse postResponse = new PostResponse(); // dto -> entity
+		Post post = postRepository.findById(id).orElseThrow();
+		postResponse.setPost(post);
+		postResponse.setContent(content);
+		postResponseRepository.save(postResponse); // insert(저장)
+
 	}
 }

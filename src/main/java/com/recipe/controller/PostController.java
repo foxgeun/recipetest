@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.recipe.constant.PostReplyStatus;
+import com.recipe.dto.PostAnswerDto;
 import com.recipe.dto.PostDto;
+import com.recipe.dto.PostResponseDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.service.PostService;
 
@@ -64,9 +66,11 @@ public class PostController {
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
 
 		Page<PostDto> posts = postService.getAdminPostListPage(recipeSearchDto, pageable);
-
 		PostReplyStatus status = PostReplyStatus.Y;
-
+		
+		PostAnswerDto postAnswerDto = new PostAnswerDto(); 
+		
+		model.addAttribute("postAnswerDto", postAnswerDto);
 		model.addAttribute("posts", posts);
 		model.addAttribute("maxPage", 5);
 		model.addAttribute("status", status);
@@ -90,10 +94,4 @@ public class PostController {
 		return "mng/qaReply";
 	}
 
-	// 문의등록 페이지
-//	@GetMapping(value = "/admin/post/announcement")
-//	public String announcement(Model model) {
-//		model.addAttribute("postDto", new PostDto());
-//		return "post/announcement";
-//	}
 }

@@ -1,5 +1,6 @@
 package com.recipe.controller;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -9,14 +10,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.recipe.dto.CommentDto;
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.PostDto;
+import com.recipe.dto.PostResponseDto;
 import com.recipe.dto.RecipeDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.service.CommentService;
@@ -24,6 +30,7 @@ import com.recipe.service.MemberService;
 import com.recipe.service.PostService;
 import com.recipe.service.RecipeService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -93,6 +100,26 @@ public class MngController {
 		model.addAttribute("maxPage", 5);
 
 		return "mng/qaMng";
+	}
+
+	// 문의답변 등록(insert)
+	@PostMapping(value = "/post/reg")
+	public @ResponseBody ResponseEntity qaListNew(@RequestBody Map<String, Object> requestBody, BindingResult bindingResult
+			) {
+
+	//	if (bindingResult.hasErrors()) {
+	//		return "post/qaList";
+	//	}
+		
+		try {
+			postService.savePostResponse(requestBody);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("문의 접수 되었습니다" , HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("문의 접수 되었습니다" , HttpStatus.OK);
+
 	}
 
 }
