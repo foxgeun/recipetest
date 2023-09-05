@@ -859,118 +859,87 @@ ol {
   Footer
 -----------------------*/
 
-.footer-section {
-	background: #EAEDF2;
-	padding-top: 70px;
+.footer-section{
+	background-color: #A0BF6B;
+	padding-bottom: 30px;
+	
 }
 
-.footer-section .fs-left {
-	margin-bottom: 31px;
+.footer {
+    height: 200px;
+    justify-content: center;
 }
 
-.footer-section .fs-left .logo {
-	margin-bottom: 34px;
+.f-ct {
+    height: 200px;
+    width: 700px;
+    margin: auto; 
 }
 
-.footer-section .fs-left .logo a {
-	display: inline-block;
+.fct-1 {
+    font-size: 16px;
+    text-align: center;
+    
 }
 
-.footer-section .fs-left p {
-	color: #7a818d;
+
+.fct-2 {
+    height: 180px;
+    
 }
 
-.footer-section .subscribe-form {
-	margin-bottom: 38px;
-	padding-top: 25px;
+.fct2-1 {
+    margin-top: 20px;
+
+
 }
 
-.footer-section .subscribe-form h3 {
-	color: #353535;
-	font-weight: 700;
-	margin-bottom: 20px;
+.fct2-1 div,a {
+    font-size: 16px;
+    text-align: center;
+
 }
 
-.footer-section .subscribe-form input {
-	width: calc(100% - 225px);
-	height: 64px;
-	border: 1px solid #fff;
-	display: inline-block;
-	margin-right: 15px;
-	padding-left: 34px;
-	padding-right: 10px;
-	font-size: 16px;
-	font-style: italic;
-	color: #353535;
+.fct22-i {
+    margin: 10px 270px 10px 270px;
+    display: flex;
+    justify-content: center;
+	
+
 }
 
-.footer-section .subscribe-form input::-webkit-input-placeholder {
-	color: #353535;
+.fct22-i a:nth-child(1)  {
+    background-image: url(/img/giticon.jpeg);
+    background-size: 100% 100%;
+    height: 30px;
+    width: 60px;
+    border-radius: 40%; 
+}
+.fct22i-under {
+    font-size: 14px;
+    color: white;
+    text-align: center;
+
 }
 
-.footer-section .subscribe-form input::-moz-placeholder {
-	color: #353535;
+.row{
+	justify-content: center;
+	
 }
 
-.footer-section .subscribe-form input:-ms-input-placeholder {
-	color: #353535;
+.github-icon {
+    background-image: url(/img/giticon.jpeg);
+    background-size: 100% 100%;
+    height: 30px;
+    width: 60px;
+    border-radius: 40%; 
+    display: inline-block; // 배경 이미지가 보이도록 설정
 }
 
-.footer-section .subscribe-form input::-ms-input-placeholder {
-	color: #353535;
+.container{
+	padding-top: 30px;
+	
 }
-
-.footer-section .subscribe-form input::placeholder {
-	color: #353535;
-}
-
-.footer-section .subscribe-form button {
-	border: 1px solid #FC0254;
-	background: #FC0254;
-	font-size: 18px;
-	font-weight: 700;
-	color: #fff;
-	padding: 17px 40px;
-	display: inline-block;
-	cursor: pointer;
-	min-width: 205px;
-}
-
-.footer-section .social-links a {
-	display: inline-block;
-	margin-right: 35px;
-	margin-bottom: 15px;
-}
-
-.footer-section .social-links a:hover i {
-	color: #0DB1F6;
-}
-
-.footer-section .social-links a i {
-	color: #B8C1D0;
-	font-size: 28px;
-	float: left;
-	margin-right: 22px;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.footer-section .social-links a span {
-	color: #fff;
-	float: left;
-	line-height: 27px;
-	font-size: 12px;
-	color: #8f8f8f;
-	text-transform: uppercase;
-}
-
-.footer-section .copyright-text {
-	font-size: 14px;
-	color: #b8c1d0;
-	padding-top: 50px;
-	padding-bottom: 8px;
-}
-
 /* ---------------------------------- Other Pages Styles --------------------------------*/
 
 /*---------------------
