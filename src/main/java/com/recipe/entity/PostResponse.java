@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PostResponse {
+public class PostResponse extends BaseEntity {
 	@Id
 	@Column(name = "post_response_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,6 @@ public class PostResponse {
 	private String content;
 
 	private LocalDateTime regTime;
-
 
 	@ManyToOne
 	@JoinColumn(name = "post_id")

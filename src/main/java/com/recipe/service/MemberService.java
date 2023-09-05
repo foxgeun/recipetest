@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.MemberDto;
-import com.recipe.dto.MemberSearchDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.Member;
 import com.recipe.repository.MemberRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -44,6 +44,17 @@ public class MemberService implements UserDetailsService {
 		Page<MemberDto> memberPage = memberRepository.getAdminMemberPage(recipeSearchDto, pageable);
 		return memberPage;
 
+	}
+
+	// 회원 삭제
+	public void deleteMember(Long memberId) {
+
+		// ★delete하기 전에 select를 한번 해준다
+		// ->영속성 컨텍스트에 엔티티를 저장한 후 변경 감지를 하도록 하기 위해
+		Member member = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+
+		// delete
+		memberRepository.delete(member);
 	}
 
 }

@@ -2,6 +2,9 @@ package com.recipe.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.recipe.constant.PostReplyStatus;
 
 import jakarta.persistence.Column;
@@ -46,5 +49,6 @@ public class Post extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 }

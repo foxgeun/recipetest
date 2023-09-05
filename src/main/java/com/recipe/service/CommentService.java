@@ -7,8 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.CommentDto;
 import com.recipe.dto.RecipeSearchDto;
+import com.recipe.entity.Comment;
+import com.recipe.entity.Member;
 import com.recipe.repository.CommentRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,6 +26,17 @@ public class CommentService {
 		Page<CommentDto> commentPage = commentRepository.getAdminCommentPage(recipeSearchDto, pageable);
 		return commentPage;
 
+	}
+
+	// 회원 삭제
+	public void deleteComment(Long commentId) {
+
+		// ★delete하기 전에 select를 한번 해준다
+		// ->영속성 컨텍스트에 엔티티를 저장한 후 변경 감지를 하도록 하기 위해
+		Comment comment = commentRepository.findById(commentId).orElseThrow(EntityNotFoundException::new);
+
+		// delete
+		commentRepository.delete(comment);
 	}
 
 }

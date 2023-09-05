@@ -31,9 +31,7 @@
 
 /* Template default CSS
 /*----------------------------------------*/
-
-html,
-body {
+html, body {
 	height: 100%;
 	font-family: "PT Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -41,12 +39,7 @@ body {
 	background: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	color: #353535;
 	font-weight: 400;
@@ -90,30 +83,23 @@ img {
 	max-width: 100%;
 }
 
-input:focus,
-select:focus,
-button:focus,
-textarea:focus {
+input:focus, select:focus, button:focus, textarea:focus {
 	outline: none;
 }
 
-a:hover,
-a:focus {
+a:hover, a:focus {
 	text-decoration: none;
 	outline: none;
 	color: #fff;
 }
 
-ul,
-ol {
+ul, ol {
 	padding: 0;
 	margin: 0;
 }
 
-[class^=flaticon-]:before,
-[class*=" flaticon-"]:before,
-[class^=flaticon-]:after,
-[class*=" flaticon-"]:after {
+[class^=flaticon-]:before, [class*=" flaticon-"]:before, [class^=flaticon-]:after,
+	[class*=" flaticon-"]:after {
 	font-family: Flaticon;
 	font-size: 91px;
 	font-style: normal;
@@ -122,7 +108,6 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
-
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -134,21 +119,13 @@ ol {
 	padding-bottom: 100px;
 }
 
-.text-white h1,
-.text-white h2,
-.text-white h3,
-.text-white h4,
-.text-white h5,
-.text-white h6,
-.text-white p,
-.text-white span,
-.text-white li,
-.text-white a {
+.text-white h1, .text-white h2, .text-white h3, .text-white h4,
+	.text-white h5, .text-white h6, .text-white p, .text-white span,
+	.text-white li, .text-white a {
 	color: #fff;
 }
 
 /* buttons */
-
 .primary-btn {
 	display: inline-block;
 	font-size: 20px;
@@ -173,7 +150,6 @@ ol {
 }
 
 /* Preloder */
-
 #preloder {
 	position: fixed;
 	width: 100%;
@@ -197,45 +173,101 @@ ol {
 	-webkit-animation: loader 0.8s linear infinite;
 }
 
-@keyframes loader {
-	0% {
-		-webkit-transform: rotate(0deg);
-		transform: rotate(0deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
-	50% {
-		-webkit-transform: rotate(180deg);
-		transform: rotate(180deg);
-		border: 4px solid #673ab7;
-		border-left-color: transparent;
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
+@
+keyframes loader { 0% {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+	border: 4px solid #f44336;
+	border-left-color: transparent;
 }
 
-@-webkit-keyframes loader {
-	0% {
-		-webkit-transform: rotate(0deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
-	50% {
-		-webkit-transform: rotate(180deg);
-		border: 4px solid #673ab7;
-		border-left-color: transparent;
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		border: 4px solid #f44336;
-		border-left-color: transparent;
-	}
+50
+%
+{
+-webkit-transform
+:
+rotate(
+180deg
+);
+transform
+:
+rotate(
+180deg
+);
+border
+:
+4px
+solid
+#673ab7;
+border-left-color
+:
+transparent;
+}
+100
+%
+{
+-webkit-transform
+:
+rotate(
+360deg
+);
+transform
+:
+rotate(
+360deg
+);
+border
+:
+4px
+solid
+#f44336;
+border-left-color
+:
+transparent;
+}
+}
+@
+-webkit-keyframes loader { 0% {
+	-webkit-transform: rotate(0deg);
+	border: 4px solid #f44336;
+	border-left-color: transparent;
 }
 
+50
+%
+{
+-webkit-transform
+:
+rotate(
+180deg
+);
+border
+:
+4px
+solid
+#673ab7;
+border-left-color
+:
+transparent;
+}
+100
+%
+{
+-webkit-transform
+:
+rotate(
+360deg
+);
+border
+:
+4px
+solid
+#f44336;
+border-left-color
+:
+transparent;
+}
+}
 .spacial-controls {
 	position: fixed;
 	width: 111px;
@@ -306,7 +338,6 @@ ol {
 /*---------------------
   Header
 -----------------------*/
-
 .header-section {
 	padding-top: 65px;
 	padding-bottom: 30px;
@@ -461,7 +492,6 @@ ol {
 /*---------------------
   Page Top Recipe
 -----------------------*/
-
 .page-top-recipe {
 	padding-bottom: 110px;
 }
@@ -566,7 +596,6 @@ ol {
 /*---------------------
   Top Recipe
 -----------------------*/
-
 .top-recipe {
 	background: #F8F9FB;
 	padding-bottom: 60px;
@@ -695,7 +724,6 @@ ol {
 /*---------------------
   Categories Filter
 -----------------------*/
-
 .categories-filter-section {
 	padding-bottom: 120px;
 }
@@ -788,7 +816,6 @@ ol {
 /*---------------------
   Feature Recipe
 -----------------------*/
-
 .feature-recipe {
 	position: relative;
 	background: #F8F9FB;
@@ -858,7 +885,6 @@ ol {
 /*---------------------
   Footer
 -----------------------*/
-
 .footer-section {
 	background: #EAEDF2;
 	padding-top: 70px;
@@ -976,7 +1002,6 @@ ol {
 /*---------------------
   Header Other Pages
 -----------------------*/
-
 .header-section-other {
 	height: 85px;
 	padding-top: 21px;
@@ -1131,7 +1156,6 @@ ol {
 /*---------------------
   Hero Search
 -----------------------*/
-
 .hero-search {
 	height: 252px;
 }
@@ -1156,7 +1180,8 @@ ol {
 	border: 1px solid #fff;
 }
 
-.hero-search .filter-table .filter-search input::-webkit-input-placeholder {
+.hero-search .filter-table .filter-search input::-webkit-input-placeholder
+	{
 	color: #353535;
 	font-style: italic;
 }
@@ -1219,7 +1244,6 @@ ol {
 /*---------------------
   Recipe Section
 -----------------------*/
-
 .recipe-item {
 	margin-bottom: 40px;
 }
@@ -1287,7 +1311,6 @@ ol {
 /*--------------------------
   Categories Feature Recipe
 --------------------------*/
-
 .categories-feature-recipe {
 	position: relative;
 	background: #F8F9FB;
@@ -1436,7 +1459,6 @@ ol {
 /*--------------------------
   Single Page Recipe
 --------------------------*/
-
 .single-page-recipe {
 	padding-bottom: 70px;
 }
@@ -1644,7 +1666,8 @@ ol {
 	padding-left: 38px;
 }
 
-.ingredients-item .ingredient-list .list-item .dressing-list ul li:after {
+.ingredients-item .ingredient-list .list-item .dressing-list ul li:after
+	{
 	position: absolute;
 	left: 0;
 	top: 14px;
@@ -1777,7 +1800,6 @@ ol {
 /*--------------------------
   Similar Recipe
 --------------------------*/
-
 .similar-recipe {
 	background: #353535;
 	padding-top: 135px;
@@ -1818,7 +1840,6 @@ ol {
 /*--------------------------
   Blog
 --------------------------*/
-
 .blog-section .blog-pic {
 	margin-bottom: 100px;
 	padding: 0 60px;
@@ -2027,7 +2048,6 @@ ol {
 /*--------------------------
   About Me
 --------------------------*/
-
 .about-left .about-title {
 	text-align: center;
 	padding-top: 55px;
@@ -2103,7 +2123,6 @@ ol {
 /*--------------------------
   Contact
 --------------------------*/
-
 .contact-form {
 	text-align: center;
 }
@@ -2194,7 +2213,6 @@ ol {
 /*--------------------------
   Map
 --------------------------*/
-
 .map {
 	height: 550px;
 	position: relative;
@@ -2242,7 +2260,6 @@ ol {
 }
 
 /* ----------------------- Responsive Media Styles ------------------------*/
-
 @media only screen and (min-width: 1550px) and (max-width: 1920px) {
 	.page-top-recipe .container {
 		max-width: 1470px;
@@ -2304,7 +2321,6 @@ ol {
 }
 
 /* Medium Device */
-
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.header-section .nav-menu .nav-right {
 		right: 90px;
@@ -2345,7 +2361,6 @@ ol {
 }
 
 /* Tablet Device */
-
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.header-section .nav-menu .nav-right {
 		right: 0;
@@ -2399,7 +2414,6 @@ ol {
 }
 
 /* Large Mobile */
-
 @media only screen and (max-width: 767px) {
 	.main-menu {
 		display: none;
@@ -2533,8 +2547,7 @@ ol {
 }
 
 /* Small Mobile */
-
-@media (max-width: 479px) {
+@media ( max-width : 479px) {
 	.top-recipe .section-title {
 		width: 235px;
 	}

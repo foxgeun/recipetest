@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.recipe.dto.CommentDto;
 import com.recipe.dto.MemberDto;
 import com.recipe.dto.PostDto;
-import com.recipe.dto.PostResponseDto;
 import com.recipe.dto.RecipeDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.service.CommentService;
@@ -30,7 +28,6 @@ import com.recipe.service.MemberService;
 import com.recipe.service.PostService;
 import com.recipe.service.RecipeService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -55,6 +52,13 @@ public class MngController {
 		return "mng/memberMng";
 	}
 
+	// 회원 삭제
+	@DeleteMapping("/member/{memberId}/delete")
+	public @ResponseBody ResponseEntity deleteMember(@PathVariable("memberId") Long memberId) {
+		memberService.deleteMember(memberId);
+		return new ResponseEntity<Long>(memberId, HttpStatus.OK);
+	}
+
 	// 멤버별 레시피 관리 페이지
 	@GetMapping(value = { "/admin/recipeMng", "/admin/recipeMng/{page}" })
 	public String recipeMng(RecipeSearchDto recipeSearchDto, @PathVariable("page") Optional<Integer> page,
@@ -71,6 +75,7 @@ public class MngController {
 		return "mng/recipeMng";
 	}
 
+	// 레시피 삭제
 	@DeleteMapping("/recipe/{recipeId}/delete")
 	public @ResponseBody ResponseEntity deleteRecipe(@PathVariable("recipeId") Long recipeId) {
 		recipeService.deleteRecipe(recipeId);
@@ -90,6 +95,13 @@ public class MngController {
 		return "mng/commentMng";
 	}
 
+	// 회원 삭제
+	@DeleteMapping("/comment/{commentId}/delete")
+	public @ResponseBody ResponseEntity deleteComment(@PathVariable("commentId") Long commentId) {
+		commentService.deleteComment(commentId);
+		return new ResponseEntity<Long>(commentId, HttpStatus.OK);
+	}
+
 	// 문의내역 관리 페이지
 	@GetMapping(value = { "/admin/qaMng", "/admin/qaMng/{page}" })
 	public String qaMng(RecipeSearchDto recipeSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
@@ -104,21 +116,17 @@ public class MngController {
 
 	// 문의답변 등록(insert)
 	@PostMapping(value = "/post/reg")
-	public @ResponseBody ResponseEntity qaListNew(@RequestBody Map<String, Object> requestBody, BindingResult bindingResult
-			) {
+	public @ResponseBody ResponseEntity qaListNew(@RequestBody Map<String, Object> requestBody,
+			BindingResult bindingResult) {
 
-	//	if (bindingResult.hasErrors()) {
-	//		return "post/qaList";
-	//	}
-		
 		try {
 			postService.savePostResponse(requestBody);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>("문의 접수 되었습니다" , HttpStatus.OK);
+			return new ResponseEntity<>("문의 접수 되었습니다", HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>("문의 접수 되었습니다" , HttpStatus.OK);
+		return new ResponseEntity<>("문의 접수 되었습니다", HttpStatus.OK);
 
 	}
 

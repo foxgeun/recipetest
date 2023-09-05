@@ -79,19 +79,19 @@ public class PostController {
 	}
 
 	// 문의사항 수정 페이지 보기
-	@GetMapping(value = "/admin/qaReply/{postId}")
+	@GetMapping(value = "/post/qaModify/{postId}")
 	public String qaModifyForm(@PathVariable("postId") Long postId, Model model) {
 
 		try {
-			PostDto postDto = postService.getQaReply(postId);
+			PostDto postDto = postService.getQaModify(postId);
 			model.addAttribute("postDto", postDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", "정보를 가져올때 에러가 발생했습니다.");
 			model.addAttribute("postDto", new PostDto());
-			return "mng/qaMng";
+			return "post/qaList";
 		}
-		return "mng/qaReply";
+		return "post/qaModify";
 	}
 
 }

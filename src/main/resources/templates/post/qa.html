@@ -32,7 +32,7 @@
 }
 
 .in {
-	width: 500px;
+	width: 700px;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 5px;
@@ -49,6 +49,7 @@
 
 .postMain {
 	display: flex;
+	justify-content: center;
 }
 
 .post {
@@ -85,6 +86,7 @@
 
 .pictureMain {
 	display: flex;
+	justify-content: center;
 }
 
 .picture {
@@ -440,17 +442,22 @@ h2 {
 
 .ingredientTextMain {
 	display: flex;
-	margin-right: 8px;
+	justify-content: center;
 }
 
 .ingredientText {
 	margin-bottom: auto;
 	margin-top: auto;
-	width: 155px;
+	width: 100px;
 }
 
 .newbtnMain {
 	text-align: center;
+}
+
+.qatitle {
+	display: flex;
+	justify-content: center;
 }
 </style>
 </th:block>
@@ -458,22 +465,13 @@ h2 {
 <div layout:fragment="content">
 	<div>
 		<div class="newpost">
-			<h3>문의 등록</h3>
+			<h3 class="qatitle">문의 등록</h3>
 			<form role="form" action="/post/qa" method="POST"
 				enctype="multipart/form-data" th:object="${postDto}" name="postForm">
 
 				<input type="hidden" th:field="*{id}" />
 
-				<div class="categoryMain">
-					<label for="
-" class="category">난이도</label> <select
-						class="form-select" aria-label="select example" field="">
-						<option value="" disabled selected>난이도 선택</option>
-						<option value="초급">초급</option>
-						<option value="중급">중급</option>
-						<option value="고급">고급</option>
-					</select>
-				</div>
+
 				<div class="postMain">
 					<label th:for="title" class="post">문의 제목</label> <input type="text"
 						placeholder="문의 제목을 입력해주세요" class="in" th:field="*{title}">
@@ -481,18 +479,17 @@ h2 {
 
 				<div class="ingredientTextMain">
 					<label th:for="content" class="ingredientText">문의 내용</label>
-				</div>
+					<div id="box2">
+						<div class="box3">
+							<textarea class="postTurn1" placeholder="문의내용을 입력해주세요"
+								id="postOrderContent" name="postOrderContent"
+								th:field="*{content}"></textarea>
 
-				<div id="box2">
-					<div class="box3">
-						<textarea class="postTurn1" placeholder="문의내용을 입력해주세요"
-							id="postOrderContent" name="postOrderContent"
-							th:field="*{content}"></textarea>
+						</div>
 
-						<button class="btn2" type="button" onclick="add_textareabox()">추가</button>
 					</div>
-
 				</div>
+
 
 				<div class="pictureMain" th:each="num: ${#numbers.sequence(1,5)}">
 					<label for="picture" class="picture" th:text="이미지 + ${num}"></label>
@@ -503,20 +500,7 @@ h2 {
 
 
 
-				<div class="ingredientTextMain">
-					<label for="ingredientText" class="ingredientText">답글 달기</label>
-					<div id="box2">
 
-						<div class="box3">
-							<textarea class="postTurn2" placeholder="ex )step1 요리순서를 입력해주세요"
-								id="postOrderContent" name="postOrderContent"></textarea>
-
-							<button class="btn2" type="button" onclick="add_textareabox()">추가</button>
-						</div>
-
-					</div>
-
-				</div>
 
 				<!-- id값이 for값으로 영향이 간다 -->
 
@@ -626,47 +610,11 @@ h2 {
     }
 	
 	
-	//재료칸 추가 js
-	const add_textbox = () => {
-	    const box = document.getElementById("box");
-	    const newP = document.createElement('div');
-	
-	    newP.innerHTML = 
-	    	"<input class='in3' type='text' id='postingreName' name='postingreName'> " +
-	    	"<input class='in4' type='text' id='postingreMaterial' name='postingreMaterial'> " +
-	    	"<button class='btn' type='button' onclick='remove(this)'>삭제</button>";
-	    box.appendChild(newP);
-	}
-	const remove = (obj) => {
-	    document.getElementById('box').removeChild(obj.parentNode);
-	}
+
 	
 	
-	//조리이미지 설명과 이미지 추가 js
-	const add_textareabox = () => {
-	    const box2 = document.getElementById("box2");
-	    const newDiv = document.createElement('div');
-	    
-	    newDiv.innerHTML =
-	    	
-	    	"<div style='height: 145px;'>" +
-	    	"<input type='file' class='postImg' id='postImgFile' name='postImgFile'>" +
-	    	"<textarea class='postTurn1' id='postOrderContent' name='postOrderContent'>"
-	    	+"</textarea>" +
-	    	"<button class='btn3' type='button' onclick='remove2(this)'>삭제</button>" +
-	    	"</div>"
-	    box2.appendChild(newDiv);
-	}
 	
-	//삭제
-	const remove2 = (obj) => {
-	    const newDiv = obj.closest('div'); // "삭제" 버튼의 가장 가까운 부모 div 요소를 찾습니다.
-	    
-	    if (newDiv) {
-	        newDiv.parentNode.removeChild(newDiv); // newDiv와 그 내용을 삭제합니다.
-	        console.log("요소 삭제");
-	    }
-	}
+	
 	
 	
 	</script>

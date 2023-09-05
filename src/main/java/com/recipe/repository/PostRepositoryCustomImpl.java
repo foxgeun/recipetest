@@ -26,12 +26,12 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
 		this.queryFactory = new JPAQueryFactory(em);
 	}
 
-	private BooleanExpression searchByLike(QPost p, String searchBy, String searchQuery) {
-		if (StringUtils.equals("title", searchBy)) {
+	private BooleanExpression searchByLike(QMember m, String searchBy, String searchQuery) {
+		if (StringUtils.equals("nickname", searchBy)) {
 			// 등록자로 검색시
-			return QPost.post.title.like("%" + searchQuery + "%"); // title like %검색어%
-		} else if (StringUtils.equals("content", searchBy)) {
-			return QPost.post.content.like("%" + searchQuery + "%"); // content like %검색어%
+			return QMember.member.nickname.like("%" + searchQuery + "%"); // title like %검색어%
+		} else if (StringUtils.equals("email", searchBy)) {
+			return QMember.member.email.like("%" + searchQuery + "%"); // content like %검색어%
 		}
 
 		return null; // 쿼리문을 실행하지 않는다.
@@ -57,7 +57,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 ))
                 .from(p)
                 .leftJoin(p.member, m)
-                .where(searchByLike(p, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
+                .where(searchByLike(m, recipeSearchDto.getSearchBy(), recipeSearchDto.getSearchQuery()))
                 .groupBy(p.id, p.title, p.content, p.regTime, m.nickname, m.email)
                 .orderBy(p.regTime.desc());
 

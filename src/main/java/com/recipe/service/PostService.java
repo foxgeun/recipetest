@@ -1,5 +1,6 @@
 package com.recipe.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class PostService {
 
 	// 상품 가져오기
 	@Transactional(readOnly = true) // 트랙잰션 읽기 전용(변경감지 수해하지 않음) ->성능 향상
-	public PostDto getQaReply(Long postId) {
+	public PostDto getQaModify(Long postId) {
 		// 1.post_img 테이블의 이미지를 가져온다.
 		List<PostImg> postImgList = postImgRepository.findByPostIdOrderByIdAsc(postId);
 
@@ -92,13 +93,14 @@ public class PostService {
 
 	// postResponse 테이블에 문의답변 등록(insert)
 	public void savePostResponse(Map<String, Object> requestBody) throws Exception {
-
+		LocalDateTime regTime = LocalDateTime.now();
 		Long id = Long.parseLong(requestBody.get("id").toString());
 		String content = requestBody.get("content").toString();
-
+System.out.println(id);
 		// 1. 답변 등록
 		PostResponse postResponse = new PostResponse(); // dto -> entity
 		Post post = postRepository.findById(id).orElseThrow();
+		postResponse.setRegTime(regTime);
 		postResponse.setPost(post);
 		postResponse.setContent(content);
 		postResponseRepository.save(postResponse); // insert(저장)
