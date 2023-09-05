@@ -160,21 +160,17 @@
 }
 
 .form_search {
+	  font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
 	font-size:15px;
-    width: 340px;
+    width: 440px;
     height: 38px;
     border-radius: 0px;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
-    border: 1px solid #b9b9b9;
     border-right: none;
 }
 
-.form_search::placeholder {
-	font-size: 15px;
-	font-weight: bold;
-	color:#959595;
-}
+
 
 .form_search_bt:not(:hover) {
     transition: 0.2s ease-out;
@@ -284,7 +280,8 @@
 
 .sales_price p:nth-child(1) {
    font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
-    font-size: 23px;
+   font-style: normal;
+    font-size: 20px;
     color: #000;
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -298,11 +295,13 @@
 }
 
 .sales_price span {
-	margin: 5px 0px 3px;
-	line-height: 1;
-    color: #000;
-    font-size: 14px;
+font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
+    margin: 8px 0px 3px;
     font-weight: 500;
+    font-size: 13px;
+    line-height: 19px;
+    letter-spacing: -0.5px;
+    color: rgb(0, 0, 0)
 }
 ul.key2 {
 	margin-bottom:25px;
@@ -320,6 +319,7 @@ ul.key2 li {
 }
 
 ul.key2 li a {
+	 font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
     display: inline-table;
     padding: 11px 21px 11px;
     color: #a38084 !important;
@@ -330,11 +330,6 @@ ul.key2 li a {
     line-height: 1;
 }
 
-.mt20 li.active a{
-	background: #515360;
-    color: #fff;
-    border: 1px solid #515360;
-}
 
 .mt20 li.active a:hover{
     color: #fff;
@@ -475,7 +470,7 @@ ul.key2 li a {
 
 .discount small {
     color: RGB(244, 74, 93);
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 550;
 }
 
@@ -520,9 +515,10 @@ ul.key2 li a {
 }
 
 .reting_line {
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
 	line-height: 1;
      color: rgb(131, 131, 131);
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
 }
 
@@ -670,4 +666,26 @@ svg:not(:root) {
 
 .menu-link {
     transition: background-color 0.1s ease-in-out; /* 트랜지션 속성 추가 */
+}
+
+.mt20 li.active a {
+    background:#a38084;
+    color: #fff !important;
+    border: 1px solid #a38084;
+}
+
+.mt20 li a:hover {
+	background:#a38084;
+    color: #fff !important;
+    border: 1px solid #a38084;
+}
+
+.item-count p {
+	font-size: 17px;
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
+}
+
+.item-count p strong{
+	font-size: 21px;
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
 }

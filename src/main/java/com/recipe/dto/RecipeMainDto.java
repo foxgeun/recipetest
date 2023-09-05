@@ -9,7 +9,7 @@ import lombok.Setter;
 
 public interface RecipeMainDto {
 	
-	String getId();
+	Long getId();
 	
 	String getTitle();
 	
@@ -19,8 +19,22 @@ public interface RecipeMainDto {
 	
 	String getDurTime();
 	
-    int getLevel();
+    String getLevel();
+    
+    String getImageUrl();
 	
     int getCount();
+    
+    String getNickname();
+    
+    String getImgUrl();
+    
+    Long getReviewCount();
+    
+    Long getBookCount();
+    
+    double getRetingAvg();
+    
+    Long getMemberId();
 	
 }

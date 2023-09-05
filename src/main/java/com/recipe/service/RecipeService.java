@@ -109,6 +109,12 @@ public class RecipeService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<RecipeMainDto> getRecipeHeaderBestList() {
+		List<RecipeMainDto> getRecipeHeaderBestList = recipeRepository.getRecipeHeaderBestList();
+		return getRecipeHeaderBestList; 
+	}
+	
+	@Transactional(readOnly = true)
 	public List<RecipeMainDto> getRecipeBestList() {
 		List<RecipeMainDto> getRecipeBestList = recipeRepository.getRecipeBestList();
 		return getRecipeBestList; 

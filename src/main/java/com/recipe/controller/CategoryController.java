@@ -25,11 +25,12 @@ public class CategoryController {
 	@GetMapping(value = {"/category" , "/category/{page}"})
 	public String category(RecipeSearchDto recipeSearchDto ,
 			@PathVariable("page") Optional<Integer> page , Model model) {
-		
+		int pageNm = (recipeSearchDto.getDataNum() == 0) ? 12 : recipeSearchDto.getDataNum();
 		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 12);
 		
 		Page<RecipeCategoryDto> category = recipeService.getRecipeCategoryReviewBestList(pageable, recipeSearchDto);
-		
+		int currentPage = page.isPresent() ? page.get() : 0;
+		model.addAttribute("currentPage" , currentPage);
 		
 		model.addAttribute("category" , category);
 		model.addAttribute("recipeSearchDto" , recipeSearchDto);

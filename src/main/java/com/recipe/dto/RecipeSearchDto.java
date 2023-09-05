@@ -13,6 +13,8 @@ public class RecipeSearchDto {
 	
 	private String type;
 	
+	private int dataNum;
+	
 	private String searchBy;
 	
 	private String searchQuery = "";

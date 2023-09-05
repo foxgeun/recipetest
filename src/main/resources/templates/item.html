@@ -46,7 +46,7 @@
 									<option value="reviewCount">리뷰많은순</option>
 									<option value="lowPrice">낮은가격순</option>
 									<option value="highPrice">높은가격순</option>
-								</select> <label class="sr-only" th:for="dataNumr">페이지당 출력 갯수 선택</label>
+								</select> <label class="sr-only" th:for="dataNum">페이지당 출력 갯수 선택</label>
 								<select class="form-control form-control-sm select-display"
 									th:field="*{dataNum}">
 									<option value="12" selected="">12</option>
@@ -98,7 +98,7 @@
 											</span>
 											</span>
 											<p class="review_count_1">
-												[[${item.retingAvg}]] <span class="reting_line">([[${item.reviewCount}]])</span>
+												[[${item.retingAvg}]]<span class="reting_line">([[${item.reviewCount}]])</span>
 											</p>
 										</div>
 
@@ -194,11 +194,7 @@
 		}
 		
 		
-		
-		$("#searchBtn").on("click", function(e) {
-			e.preventDefault(); //submit되는걸 방지
-			page(0);
-		});
+	
 		
  });
 	

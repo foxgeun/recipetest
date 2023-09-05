@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class ItemSearchDto {
 	
-	private String itemCategoryEnum;
+	private ItemCategoryEnum itemCategoryEnum;
 	
 	private String type;
 	

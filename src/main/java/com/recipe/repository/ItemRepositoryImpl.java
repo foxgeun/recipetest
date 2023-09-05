@@ -13,7 +13,9 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.ImgMainOk;
+import com.recipe.constant.ItemCategoryEnum;
 import com.recipe.dto.ItemCategoryDto;
 import com.recipe.dto.ItemDetailDto;
 import com.recipe.dto.ItemDetailImgDto;
@@ -78,6 +80,12 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 			return i.itemNm.like("%" + searchQuery + "%");
 	}
 	
+	private BooleanExpression mainCategoryEq(ItemCategoryEnum itemCategoryEnum) {
+		 QItem i = QItem.item;
+		  return itemCategoryEnum == null ? null : i.itemCategoryEnum.eq(itemCategoryEnum); 
+	  }
+		 
+	
 	
 	
 //	상품 모든정보 가져오기
@@ -109,7 +117,8 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 		        .from(i)
 		        .join(im).on(im.item.id.eq(i.id).and(im.imgMainOk.eq(ImgMainOk.Y))) 
 		        .leftJoin(ir).on(i.id.eq(ir.item.id))
-		        .where(searchByLike(itemSearchDto.getSearchQuery()))
+		        .where( mainCategoryEq(itemSearchDto.getItemCategoryEnum()),
+		        		searchByLike(itemSearchDto.getSearchQuery()))
 		        .groupBy(i.id, i.itemNm, i.itemSubNm, i.price, i.itemSellStatus, i.itemCategoryEnum,
 		                i.sale, im.imgUrl, i.regTime)
 		        .orderBy(orderByType(itemSearchDto.getType()))
@@ -122,7 +131,8 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom  {
 		        .from(i)
 		        .join(im).on(im.item.id.eq(i.id).and(im.imgMainOk.eq(ImgMainOk.Y)))
 		        .leftJoin(ir).on(i.id.eq(ir.item.id))
-		        .where(searchByLike(itemSearchDto.getSearchQuery()))
+		        .where( mainCategoryEq(itemSearchDto.getItemCategoryEnum()),
+		        		searchByLike(itemSearchDto.getSearchQuery()))
 		        .fetchOne();
 		    
 		    return new PageImpl<>(content, pageable, total);

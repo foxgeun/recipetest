@@ -9,18 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Coalesce;
-import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.recipe.constant.CategoryEnum;
 import com.recipe.constant.ImgMainOk;
-import com.recipe.dto.QRecipeCategoryDto;
+import com.recipe.constant.WritingStatus;
 import com.recipe.dto.RecipeCategoryDto;
 import com.recipe.dto.RecipeSearchDto;
 import com.recipe.entity.QBookMark;
@@ -54,16 +50,6 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 		    .groupBy(r.id)
 		    .fetch();
 		
-//		List<Tuple> reviewResults = queryFactory
-//			    .select(r.id, rv.reting.avg().coalesce(0.0), rv.recipe.count())
-//			    .from(r)
-//			    .leftJoin(rv).on(r.id.eq(rv.recipe.id))
-//			    .groupBy(r.id)
-//			    .fetch();
-//		
-		
-		
-		
 		List<RecipeCategoryDto> content = queryFactory
 		        .select(
 		        		Projections.constructor(
@@ -87,11 +73,12 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 
 		        ))
 		        .from(r)
-		        .join(r.member , m)
+		        .join(m).on(r.member.id.eq(m.id))
 		        .leftJoin(mi).on(m.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
 		        .leftJoin(rv).on(r.id.eq(rv.recipe.id))
-		      //  .where( mainCategoryEq(recipeSearchDto.getMainCategory()),
-		      //  		searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
+		        .where( r.writingStatus.eq(WritingStatus.PUBLISHED),
+		        		mainCategoryEq(recipeSearchDto.getMainCategory()),
+		        		searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
 		        .groupBy(r.id, r.count, r.durTime, r.imageUrl, r.level, r.subTitle, r.title,
 		                r.member.id, r.regTime, r.intro, m.nickname, mi.imgUrl, mi.imgMainOk, r.categoryEnum
 		               )
@@ -112,10 +99,11 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 		long total = queryFactory
 		        .select(Wildcard.count)
 		        .from(r)
-		        .join(r.member , m)
+		        .join(m).on(r.member.id.eq(m.id))
 		        .leftJoin(mi).on(m.id.eq(mi.member.id).and(mi.imgMainOk.eq(ImgMainOk.Y)))
-		        //.where( mainCategoryEq(recipeSearchDto.getMainCategory()),
-		        		//searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
+		        .where( r.writingStatus.eq(WritingStatus.PUBLISHED),
+		        		mainCategoryEq(recipeSearchDto.getMainCategory()),
+		        	    searchByLike(recipeSearchDto.getSearchBy() , recipeSearchDto.getSearchQuery()))
 		        .fetchOne();
 
 		return new PageImpl<>(content, pageable, total);
@@ -123,18 +111,17 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 
 	
 	
-		/*
-		 * private BooleanExpression mainCategoryEq(CategoryEnum mainCategory) {
-		 * 
-		 * return mainCategory == null ? null :
-		 * QCategory.category.categoryEnum.eq(mainCategory); }
-		 */
+		
+	private BooleanExpression mainCategoryEq(CategoryEnum mainCategory) {
+		QRecipe r = QRecipe.recipe;
+		  return mainCategory == null ? null : r.categoryEnum.eq(mainCategory); 
+	  }
+		 
 	
 
 	private OrderSpecifier<?> orderByType(String type) {
 	    QReview rv = QReview.review;
 	    QRecipe r = QRecipe.recipe;
-	    QBookMark bm = QBookMark.bookMark;
 	    
 	    
 	    if ("order".equals(type)) {
@@ -147,9 +134,6 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 	    else if ("reviewCount".equals(type)) {
 	    	System.out.println("rvc" +  rv.recipe.count().desc());
 	    	return rv.count().desc();
-	    }
-	    else if ("countBest".equals(type)) {
-	    	return r.count.desc();
 	    }
 	    else {
 	        return r.regTime.desc();
@@ -181,16 +165,7 @@ private Tuple findBookmarkTuple(Long recipeId, List<Tuple> bookmarkResults) {
 }
 
 
-//
-//private Tuple findReviewTuple(Long recipeId, List<Tuple> reviewResults) {
-//    for (Tuple tuple : reviewResults) {
-//        Long id = tuple.get(0, Long.class);
-//        if (id.equals(recipeId)) {
-//            return tuple;
-//        }
-//    }
-//    return null;
-//}
+
 
 
 }

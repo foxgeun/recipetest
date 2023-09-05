@@ -282,7 +282,8 @@
                         <div class="review_list_cont">
 									<p> [[${review.content}]]
 									<span th:if="${review.answerContent == null}" 
-									class="reivew_reg_choice" onclick="reviewAnwerBoxOpen(this)" th:attr="data-review-id=${review.id}">답변 등록&nbsp;▼</span>
+									class="reivew_reg_choice" sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+									onclick="reviewAnwerBoxOpen(this)" th:attr="data-review-id=${review.id}">답변 등록&nbsp;▼</span>
 									</p>   
 								</div>
 								<div class="comment_box">
@@ -298,8 +299,10 @@
 													class="recomment_date"
 													th:text="${#temporals.format(review.answerRegTime, 'yyyy.MM.dd HH:mm:ss')}"></span>
 												<span class="admin_ch" onclick="answerUpdate(this)"
+													sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
 													th:attr="data-review-id=${review.id}">수정</span> <span
 													class="admin_ch"
+													sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
 													th:attr="data-answerId=${review.answerId}"
 													onclick="answerOk(this,'delete')">삭제</span>
 											</p>
@@ -350,7 +353,9 @@
 				th:with="start=${(itemReviewList.number/maxPage)*maxPage + 1}
 			    ,end=(${(itemReviewList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemReviewList.totalPages ? start + (maxPage - 1) : itemReviewList.totalPages)})">
 				
-							<button class="style__PagePrevButton-b83qno-8 loxVUo" th:classappend="${itemReviewList.first}?'disabled'">
+							<button class="style__PagePrevButton-b83qno-8 loxVUo" 
+							 th:onclick="'javascript:reviewPage(' + ${itemReviewList.number - 1} +')'"
+							th:classappend="${itemReviewList.first}?'bt_hd'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
 									<path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
 								</svg>
@@ -363,7 +368,9 @@
 								 <span>[[${page}]]</span>
 								 </li>
 							</ul>
-						      <button class="style__PageNextButton-b83qno-9 gCfLmH" th:classappend="${itemReviewList.last}?'disabled'">
+						      <button class="style__PageNextButton-b83qno-9 gCfLmH" 
+						       th:onclick="'javascript:reviewPage(' + ${itemReviewList.number + 1} +')'"
+						      th:classappend="${itemReviewList.last}?'bt_hd'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
 							        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
 					            </svg>
@@ -423,7 +430,9 @@
 							<td colspan="6">
 								<p>[[${inq.content}]] 
 								<th:block th:if="${inq.AnswerOk.toString()} == '답변대기' ">
-								<span class="answer_reg_choice" th:attr="data-inq-id=${inq.id}" onclick="inqAnwerBoxOpen(this)">답변 등록&nbsp;▼</span> 
+								<span class="answer_reg_choice" 
+								sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+								th:attr="data-inq-id=${inq.id}" onclick="inqAnwerBoxOpen(this)">답변 등록&nbsp;▼</span> 
 								</th:block>	
 								</p> 
 							</td>
@@ -436,8 +445,12 @@
 								<p>
 									안녕하세요 고객님, <br> [[${inq.answerContent}]] <br> 감사합니다.
 									<br><br>
-									<span class="admin_ch " onclick="inqAnswerUpdate(this)" th:attr="data-inq-id=${inq.id}">수정</span>
-									<span class="admin_ch ml-1 " onclick="inqOk(this , 'delete')" th:attr="data-inq-answerId=${inq.answerId}">삭제</span>
+									<span class="admin_ch " 
+									sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+									onclick="inqAnswerUpdate(this)" th:attr="data-inq-id=${inq.id}">수정</span>
+									<span class="admin_ch ml-1 " 
+									sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+									onclick="inqOk(this , 'delete')" th:attr="data-inq-answerId=${inq.answerId}">삭제</span>
 								</p>
 							</td>
 							<td class="feedback_writer" th:text="${#temporals.format(inq.answerRegTime, 'yyyy.MM.dd')}"></td>
@@ -476,7 +489,9 @@
 				th:with="start=${(itemInqList.number/maxPage)*maxPage + 1}
 			    ,end=(${(itemInqList.totalPages == 0) ? 1 : (start + (maxPage - 1) < itemInqList.totalPages ? start + (maxPage - 1) : itemInqList.totalPages)})">
 				
-							<button class="style__PagePrevButton-b83qno-8 loxVUo" th:classappend="${itemInqList.first}?'disabled'">
+							<button class="style__PagePrevButton-b83qno-8 loxVUo" 
+							th:classappend="${itemInqList.first}?'bt_hd'"
+							th:onclick="'javascript:inqPage(' + ${itemInqList.number + 1} +')'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
 									<path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
 								</svg>
@@ -489,7 +504,9 @@
 								 <span>[[${page}]]</span>
 								 </li>
 							</ul>
-						      <button class="style__PageNextButton-b83qno-9 gCfLmH" th:classappend="${itemInqList.last}?'disabled'">
+						      <button class="style__PageNextButton-b83qno-9 gCfLmH"
+						       th:classappend="${itemInqList.last}?'bt_hd'"
+						       th:onclick="'javascript:inqPage(' + ${itemInqList.number + 1} +')'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 19 18">
 							        <path stroke="#000" d="m14.953 6.469-5.07 5.062L4.828 6.47"></path>
 					            </svg>
