@@ -90,7 +90,9 @@ public class ItemController {
 					itemReviewImgList.add(tt);
 				}
 			}
+			
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		model.addAttribute("item" , item);
@@ -101,6 +103,8 @@ public class ItemController {
 		model.addAttribute("itemReviewImgList" ,itemReviewImgList);
 		model.addAttribute("maxPage" , 5);
 		model.addAttribute("itemId" , itemId);
+		
+		System.out.println("page index:::" + itemInqList.getTotalElements());
 		
 		return "itemDetail";
 	}

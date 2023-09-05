@@ -23,6 +23,7 @@ public interface RecipeRepository extends JpaRepository<Recipe , Long>  ,  Recip
 			+ "recipe.intro intro , recipe.dur_time durTime , recipe.image_url imageUrl ,  "
 			+ "recipe.level level , recipe.count count "
 			+ "from recipe "
+			+ "where recipe.writing_status = 'PUBLISHED'"
 			+ "order by count desc, RAND() limit 4" 
 			, nativeQuery = true)
 	List<RecipeMainDto> getRecipeHeaderBestList();
@@ -48,6 +49,7 @@ public interface RecipeRepository extends JpaRepository<Recipe , Long>  ,  Recip
 			+ "  FROM member_img\r\n"
 			+ "  WHERE img_main_ok = 'Y'\r\n"
 			+ ") img ON m.member_id = img.member_id\r\n"
+			+ " where r.writing_status = 'PUBLISHED'"
 			+ "ORDER BY r.reg_time DESC limit 15"
 			, nativeQuery = true)
 	List<RecipeMainDto> getRecipeNewList();
@@ -76,24 +78,14 @@ public interface RecipeRepository extends JpaRepository<Recipe , Long>  ,  Recip
 			+ ") rv ON r.recipe_id = rv.recipe_id\r\n"
 			+ "JOIN member m ON r.member_id = m.member_id\r\n"
 			+ "LEFT JOIN member_img mi ON m.member_id = mi.member_id AND mi.img_main_ok = 'Y'\r\n"
+			+ " where r.writing_status = 'PUBLISHED'"
 			+ "ORDER BY rv_count DESC limit 10 "
 			, nativeQuery = true)
 	List<RecipeMainDto> getRecipeBestList();
 	
 	
 	
-	
-	
-	
 
-//	모든 레시피
-//	메인
-	@Query ( value = "select recipe.recipe_id id , recipe.title title , recipe.sub_title subTitle , "
-			+ "recipe.intro intro , recipe.dur_time durTime , "
-			+ "recipe.level level , recipe.count count "
-			+ "from recipe "
-			, nativeQuery = true)
-	List<RecipeMainDto> getRecipeTotalList();
 	
 ////	모든 레시피와 북마크수 (최근 등록순)
 ////	카테고리 페이지

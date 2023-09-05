@@ -168,15 +168,16 @@ table {
 }
 
 .ul_li {
-	width: 20%;
+	margin-right: 20px;
 }
 
 .nav-a {
-	color: #595959;
-	font-size:18px !important;
-	font-weight: bold !important;
-	display:flex;
-	justify-content:center;
+    font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto';
+    color: #595959;
+    font-size: 19px !important;
+    font-weight: 300px !important;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-a:hover {
@@ -213,10 +214,10 @@ table {
     margin: 0 auto;
 }
 .ezen_logo_box {
-	float: left;
-    overflow: hidden;
-    height: 50px;
-    width: 260px;
+	position: absolute;
+    float: left;
+    height: 79px;
+    width: 338px;
 }
 
 .logo_box {
@@ -236,6 +237,13 @@ table {
     object-fit: cover;
 }
 
+.d_logo {
+	height: 94px;
+    left: -3px;
+    top: -57px;
+    position: relative;
+}
+
 .ezen_logo {
 	width: 100%;
     height: 100%;
@@ -253,9 +261,107 @@ table {
 }
 
 .nav_member_category {
+	margin-top: 4px;
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
 	font-size: 15px !important;
 	font-weight: 550 !important;
 	color: #595959;
 }
 
+.b_ll {
+	border-right: 1px solid #ebebeb;
+    margin-right: 30px;
+}
 
+.d_simbol {
+    height: 93px;
+    top: -58px;
+    position: relative;
+}
+
+.p_box {
+	padding-top : 2.0rem;
+	padding-bottom : 2.0rem;
+}
+
+.footer_address {
+	font-size: 13px !important;
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
+}
+
+.footer_service {
+	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto' !important;
+}
+
+.footer-section{
+	background-color: #A0BF6B;
+}
+
+.footer {
+    height: 200px;
+    justify-content: center;
+}
+
+.f-ct {
+    margin: auto; 
+}
+
+.fct-1 {
+    font-size: 16px;
+    text-align: center;
+    
+}
+
+
+.fct2-1 {
+    margin-top: 20px;
+
+
+}
+
+.fct2-1 div,a {
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.fct22-i {
+    margin: 10px 270px 10px 270px;
+    display: flex;
+    justify-content: center;
+	
+
+}
+
+.fct22-i a:nth-child(1)  {
+    background-image: url(/img/giticon.jpeg);
+    background-size: 100% 100%;
+    height: 30px;
+    width: 60px;
+    border-radius: 40%; 
+}
+.fct22i-under {
+    font-size: 14px;
+    color: white;
+    text-align: center;
+
+}
+
+.row{
+	justify-content: center;
+	
+}
+
+.github-icon {
+    background-image: url(/img/giticon.jpeg);
+    background-size: 100% 100%;
+    height: 30px;
+    width: 60px;
+    border-radius: 40%; 
+    display: inline-block; 
+}
+
+.container_custom {
+	margin:0 auto;
+	width: 1140px;
+}

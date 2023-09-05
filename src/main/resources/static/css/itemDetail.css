@@ -426,7 +426,7 @@
 
 #goods_tab {
 	position: sticky;
-    top: 0;
+    top: -1px;
     z-index: 100;
 }
 
@@ -1436,4 +1436,39 @@ svg:not(:root) {
 
 .bt_hd {
     display: none;
+}
+
+.null_box {
+    margin-top: 15px;
+    border-bottom: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto';
+    color: #817f7f;
+    align-items: center;
+    /* background: gray; */
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.null_box2 {
+	font-size: 1rem;
+	margin-top: 15px;
+    font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto';
+    color: #817f7f;
+    align-items: center;
+    /* background: gray; */
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nh:hover {
+	background: white !important;
+}
+
+.nh td {
+	margin: 0;
 }

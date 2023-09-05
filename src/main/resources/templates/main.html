@@ -17,7 +17,7 @@
 	<div class="main_box pb-5">
 		<section class="RecipeListstyle__Section-sc-1s9b4ly-1 gIeeQD">
 			<div class="styles__Title-sc-1ui0xdi-3 rQShB"><h1>RECIPES FOR YOU</h1><h2>맞춤추천 레시피를 둘러보세요.</h2></div>
-			
+			<div class="h_line"></div>
 			<div class="RecipeListstyle__CardList-sc-1s9b4ly-2 bNkAnv">
 				<div class="RecipeListstyle__Card-sc-1s9b4ly-5 bHqDkK">
 					<a href="#">
@@ -144,15 +144,6 @@
 						<i class="fa-solid fa-star fa-xs" title="평점"></i>
 						<span class="RecipeItemstyle__SummaryText-sc-1gt7vz8-5 MiXMV">
 							[[${n_b.retingAvg}]]([[${n_b.reviewCount}]])</span>
-						<th:block th:if="${n_b.bookCount < 10}">
-						
-						<div class="RecipeItemstyle__Time-sc-1gt7vz8-6 kKXboO" title="북마크">
-						<i class="fa-solid fa-bookmark fa-xs hc"></i>
-						<span class="RecipeItemstyle__SummaryText-sc-1gt7vz8-5 MiXMV">
-							[[${n_b.bookCount}]]</span>
-					</div>
-						
-					</th:block>
 						<span class="count_s" title="조회수">조회수 : 5,000</span>
 
 					</div>
@@ -358,12 +349,13 @@ function more_recipe() {
 							
 						},
 						error : function(jqXHR, status, error) {
+							if (confirm(jqXHR.responseText)) {
+							    location.href = "/members/login";
+							}
 							if (jqXHR.status == '401') {
 								alert('관리자로그인 후 이용해주세요.');
 								//	location.href = '/';
 							} else {
-								//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다)
-								alert(jqXHR.responseText);
 							}
 						}
 					})

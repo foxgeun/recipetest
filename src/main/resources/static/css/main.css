@@ -6,7 +6,7 @@
 
 .main_box {
 	padding-bottom: 120px;
-	padding-top: 60px;
+	padding-top: 16px;
 	position: relative;
 }
 
@@ -292,18 +292,18 @@
 .slick-prev:before, .slick-next:before{
 	font-weight: 300;
   font-size:52px !important;
-  color: rgb(109 109 109)!important;
+  color: black !important;
   opacity: 0.7 ; 
 }
 /* 화살표 위치 변경 */
 .slick-prev{
   top: 30% !important;
-  left: -4% !important;
+  left: -5% !important;
   z-index: 9 ;
 }
 .slick-next{
   top: 29% !important;
-  right: -2% !important ;
+  right: -3% !important ;
   z-index: 9 ;  
 }
 
@@ -346,9 +346,9 @@
 
 .def_title .fr {
 	font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif";
-	letter-spacing: -0.5px;
+	letter-spacing: 0.5px;
     font-size: 14px;
-    color: #888;
+    color: black;
 }
 
 .fr {
@@ -629,7 +629,7 @@
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    padding: 80px 18px;
+    padding: 38px 18px;
 }
 
 .bNkAnv {
@@ -789,8 +789,7 @@ img, video {
 }
 
 .rQShB {
-	border-bottom: 1px solid #A0BF6B;
-    padding: 0px 20px 53px 20px;
+    padding: 0px 20px 42px 20px;
 }
 
 
@@ -849,9 +848,9 @@ img, video {
 
 .count_s {
 	font-size: 13px;
-	margin-top: 2px;
-	margin-left: 11px;
-	color: rgb(144, 144, 144);
+    margin-top: 4px;
+    margin-left: 11px;
+    color: rgb(12 12 12);
 }
 
 .best_recipe_box {
@@ -859,8 +858,8 @@ img, video {
 }
 
 .best_b1 {
-	background-color: #e0e9cf;
-	    padding: 50px;
+	background-color: #f2f7e8;
+	padding: 50px;
 }
 
 .best_b2 {
@@ -882,19 +881,20 @@ img, video {
 }
 
 .fa-xs {
-    font-size: 12px;
+    font-size: 18px;
     line-height: .08333em;
     vertical-align: 0.125em;
     color: #A0BF6B;
 }
 
 .MiXMV {
+    margin-top: 0px;
     margin-left: 4px;
-    color: rgb(158, 158, 158);
+    color: rgb(0 0 0);
     font-weight: normal;
     font-family: "Noto Sans KR", Helvetica, "Helvetica Neue", Arial, "sans-serif" , 'Roboto';
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
     letter-spacing: -0.5px;
 }
 
@@ -916,3 +916,11 @@ img, video {
 .follow:hover {
 	color: #F44A5D !important;
 }
+
+.h_line {
+    height: 3px;
+    background-color: #A0BF6B;
+    padding: 0px 42px;
+}
+
+

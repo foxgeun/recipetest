@@ -229,8 +229,13 @@
 
 				<div class="js_board_goodsreview_view">
 					<div class="item_list" id="ezhld_reviews_list">
-						<ul class="review_list"
-							th:each="review , status:${itemReviewList}" id="review_list">
+					
+					<div class="null_box" th:if="${itemReviewList.getTotalElements == 0}">
+						 등록된 리뷰가 없습니다
+					</div>
+					
+					
+						<ul class="review_list" th:each="review , status:${itemReviewList}" id="review_list">
 
 
 							<li class="review_li"><div class="review_list_top">
@@ -390,6 +395,7 @@
 				<h3 class="title-box font-mss">Q &amp; A<span class="korSub">상품 문의 <strong>( 총 [[${itemInqList.getTotalElements()}]]건 )</strong></span></h3>
 				
 				<!--qna 테이블-->
+				
 				<table class="table table-sm table-hover text-center">
 					<colgroup>
 						<col width="7%">
@@ -410,8 +416,14 @@
 						</tr>
 					</thead>
 					
+					<tbody th:if="${itemInqList.getTotalElements() == 0}">
+						<tr class="nh">
+							<td colspan="6"><div class="null_box2" th:if="${itemReviewList.getTotalElements == 0}">
+						 등록된 문의가 없습니다
+					</div></td>
+						</tr>
+					</tbody>
 					<th:block th:each="inq , status:${itemInqList}">
-						
 					<tbody class="inq-row" data-inq-id="${inq.id}">
 						<tr class="no_hover">
 							<td>1</td>

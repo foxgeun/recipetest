@@ -7,6 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.recipe.dto.MemberBestDto;
 import com.recipe.dto.MemberMainDto;
+import com.recipe.entity.Follow;
+import com.recipe.entity.Member;
+import com.recipe.repository.FollowRepository;
 import com.recipe.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 	
 	private final MemberRepository memberRepository;
+	
+	private final FollowRepository followRepository;
 	
 	@Transactional(readOnly = true)
 	public List<MemberMainDto> getMemberBestList() {
@@ -30,5 +35,31 @@ public class MemberService {
 		List<MemberBestDto> getRankMemberList = memberRepository.getRankMemberList();
 		return getRankMemberList;
 	}
+	
+	
+	
+	
+	public void followReg(Long id) {
+		
+		/*
+		 * String id5 = "5" ;
+		 * 
+		 * Long memberId = Long.parseLong(id5);
+		 * 
+		 * Member member = memberRepository.findById(memberId).orElseThrow();
+		 * 
+		 * Follow followTest =
+		 * followRepository.findByMemberIdAndToMember(member.getId(),memberId);
+		 * 
+		 * if(followTest == null) { Follow follow = new Follow();
+		 * follow.setMember(member); follow.setToMember(id);
+		 * followRepository.save(follow); System.out.println("저장되었습니다"); }
+		 * 
+		 * System.out.println("이미 팔로우 되있습니다");
+		 */
+		
+	}
+	
+	
 	
 }

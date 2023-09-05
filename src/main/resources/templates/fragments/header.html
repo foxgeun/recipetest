@@ -4,68 +4,48 @@
 
 <header th:fragment="header">
 
-	<!--
-		검색바 (예정)
-		
-		<form action="" method="post" name="searchform" class="form">
-				<input type="text" name="searchValue" class="form_label"
-					placeholder="통합검색" maxlength="20" /> <input type="button"
-					class="form_button" onclick="sendIt_search();" />
-			</form>
-		
-		
-	-->
- 
+	<nav
+		class="navbar navbar-expand-lg navbar-light header_nav_top p_box">
+		<div class="container d-flex align-items-end">
 
-	<nav class="navbar navbar-expand-lg navbar-light header_nav_top pt-4 pb-4">
-		<div
-			class="container d-flex align-items-center">
-			
-			<div class="col-4">
+			<div class="col-6">
+
+				<div class="ezen_logo_box d-flex">
+					<a class="d_simbol" href="/"> <img alt="로고심볼" src="/img/이젠 해먹자.svg"
+						class="ezen_logo">
+					</a>
+					<a href="/" class="d_logo"> <img alt="로고심볼" src="/img/이젠 해먹자 (1).svg"
+						class="ezen_logo">
+					</a>
+				</div>
+
+			</div>
+			<div class="col-6 d-flex justify-content-end">
+
+				<ul class="nav navbar-nav d-flex b_ll ">
+					<li class="nav-item ul_li"><a class="nav-a" href="/category">레시피</a>
+					</li>
+					<li class="nav-item ul_li"><a class="nav-a"
+						style="color: RGB(244, 74, 93);" href="/item/total">이젠스토어</a></li>
+				</ul>
 				
+					<div class="d-flex justify-content-end">
+				<a href="#" class="mr-2 nav_member_category" sec:authorize="isAnonymous()">로그인</a> 
+				<a href="#" class="mr-2 nav_member_category" sec:authorize="isAnonymous()">회원가입</a> 
+				<a href="#" class="mr-2 nav_member_category" sec:authorize="isAuthenticated()">로그아웃</a> 
+				<a href="#" class="nav_member_category" sec:authorize="isAuthenticated()">마이페이지</a>
+			</div>
 				
-			<div class="ezen_logo_box">
-			<a href="/">
-				<img alt="로고심볼" src="/img/이젠 해먹자 (1).svg" class="ezen_logo">
-			</a>
-			</div>
-			</div>
-		
-			<div class="col-4">
-		
-			
-			</div>
-			
-			<div  class="d-flex justify-content-end col-4">
-				<a href="/recipe" class="mr-2 nav_member_category">레시피 등록</a>
-				<a href="#" class="mr-2 nav_member_category">로그인</a>
-				<a href="#" class="mr-2 nav_member_category">회원가입</a>
-				<a href="#" class="nav_member_category">마이페이지</a>
 			</div>
 
+			
 
 		</div>
 	</nav>
 
 	<nav
-		class="navbar-expand-lg navbar-light d-none d-lg-block header_nav_bottom pb-3">
+		class="navbar-expand-lg navbar-light d-none d-lg-block header_nav_bottom ">
 		<div class="container text-light">
-
-			<div class="flex-fill">
-				<ul class="nav navbar-nav d-flex justify-content-center mx-lg-auto">
-					<li class="nav-item ul_li"><a class="nav-a" href="index.html">AI추천</a>
-					</li>
-					<li class="nav-item ul_li"><a class="nav-a" href="/rank">명예의전당</a>
-					</li>
-					<li class="nav-item  ul_li"><a class="nav-a" href="/category">카테고리</a>
-					</li>
-					<li class="nav-item  ul_li"><a class="nav-a" href="/item/total"
-						style="color: RGB(244, 74, 93);">이젠스토어</a></li>
-					<li class="nav-item  ul_li"><a class="nav-a" href="index.html">고객센터</a>
-					</li>
-
-				</ul>
-			</div>
 
 		</div>
 	</nav>

@@ -120,11 +120,6 @@ public class RecipeService {
 		return getRecipeBestList; 
 	}
 	
-	@Transactional(readOnly = true)
-	public List<RecipeMainDto> getRecipeTotalList() {
-		List<RecipeMainDto> getRecipeTotalList = recipeRepository.getRecipeTotalList();
-		return getRecipeTotalList; 
-	}
 	
 	@Transactional(readOnly = true)
 	public Page<RecipeCategoryDto> getRecipeCategoryReviewBestList(Pageable pageable , RecipeSearchDto recipeSearchDto) {
