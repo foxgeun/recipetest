@@ -37,6 +37,19 @@ public class MemberService {
 	}
 	
 	
+	public String login(String member , String role) {
+		
+		Member memberCk = memberRepository.findBynickname(member);
+		
+		if("USER".equals(memberCk.getRole())) {
+			role = "USER";
+		}else {
+			role = "ADMIN";
+		}
+		
+		return role;
+	}
+	
 	
 	
 	public void followReg(Long id) {

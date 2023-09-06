@@ -51,6 +51,9 @@ public class ItemService {
 	
 	private final ItemInqAnswerRepository itemInqAnswerRepository; 
 	
+	
+	
+	
 	@Transactional(readOnly = true)
 	public ItemDetailDto getItemDetailList(Long itemId) {
 		ItemDetailDto getItemDetailList = itemRepository.getItemDetailList(itemId);

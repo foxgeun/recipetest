@@ -1,5 +1,6 @@
 package com.recipe.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +35,7 @@ import com.recipe.dto.ItemReviewDto;
 import com.recipe.dto.ItemReviewImgDto;
 import com.recipe.dto.ItemSearchDto;
 import com.recipe.service.ItemService;
+import com.recipe.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +44,8 @@ import lombok.RequiredArgsConstructor;
 public class ItemController {
 	
 	private final ItemService itemService;
+	
+	private final MemberService memberService;
 	
 //	상품페이지
 	@RequestMapping(value= {"item/total", "item/total/{page}"}, method = {RequestMethod.GET, RequestMethod.POST})
@@ -111,12 +118,30 @@ public class ItemController {
 	
 //	상품문의 팝업창 
 	@GetMapping("/popup/{ItemId}")
-	public String popup(@PathVariable("ItemId") Long itemId , Model model) {
+	public String popup(@PathVariable("ItemId") Long itemId , Model model, Principal principal) {
+		String loginOk =  "로그인";
+		String member = null;
+		
+		if(!isAuthenticated()) {
+			 loginOk = "비로그인";
+		}
+		else {
+			member = principal.getName();
+			String role = null;
+			member = memberService.login(member,role);
+			model.addAttribute("member" , member);
+		}
+		
+		
+		
+		
+		
 		
 		ItemDetailDto item = itemService.getItemDetailList(itemId);
 		
 		List<ItemImgDto> imgList =  item.getItemImgDtoList();
 		
+		model.addAttribute("loginOk" , loginOk);
 		model.addAttribute("item" , item);
 		model.addAttribute("imgList" , imgList);
 		model.addAttribute("itemId" , itemId);
@@ -129,6 +154,12 @@ public class ItemController {
 	public @ResponseBody ResponseEntity inqReq(@RequestBody Map<String, Object> requestBody) {
 		
 		itemService.itemInqReg(requestBody);
+		
+       //현재 로그인 여부
+		if(!isAuthenticated()) {
+			return new ResponseEntity<String>("로그인이 필요한 기능입니다 \n 로그인 페이지로 이동하시겠습니까?" , HttpStatus.BAD_REQUEST);
+		}
+		
 		
 		
 		return new ResponseEntity<>("문의 접수 되었습니다" , HttpStatus.OK);
@@ -195,5 +226,16 @@ public class ItemController {
 		return new ResponseEntity<>("답변 삭제 되었습니다.",HttpStatus.OK);
 		
 	} 
+	
+	
+	private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+        return authentication.isAuthenticated();
+    }
+	
+	
 	
 }
