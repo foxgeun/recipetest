@@ -20,7 +20,7 @@ git branch // 현재 작업중인 브랜치 확인<div align="center">
 
 
 
-!(https://github.com/foxgeun/recipe/assets/121280503/d1c203f1-7002-420a-95aa-81a5971403b8)
+![메인로고](https://github.com/foxgeun/recipe/assets/121280503/d1c203f1-7002-420a-95aa-81a5971403b8)
 
 
 
