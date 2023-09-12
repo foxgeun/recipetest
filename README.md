@@ -1,8 +1,26 @@
-<div align="center">
+
+[**Html템플릿**](https://themewagon.com/themes/free-bootstrap-4-html5-food-blog-website-template-yummy/
+)
+
+
+  <h2>:two_women_holding_hands:git</h2>
+
+### 자신의 브랜치에만 push 합시다 (main에 하면 50만원)
+</div>
+
+##### 로컬 저장소(내 컴퓨터) 에서 브랜치 생성하는 법
+```git
+프로젝트 루트 폴더에서
+git branch {브랜치명} // 브랜치 생성
+git checkout {브랜치명} // 브랜치 이동
+```
+##### 개발한 브랜치를 push 하고 싶어요
+```git
+git branch // 현재 작업중인 브랜치 확인<div align="center">
 
 
 
-![MAIN로고](https://github.com/foxgeun/recipe/assets/121280503/d1c203f1-7002-420a-95aa-81a5971403b8)
+!(https://github.com/foxgeun/recipe/assets/121280503/d1c203f1-7002-420a-95aa-81a5971403b8)
 
 
 
@@ -66,24 +84,6 @@
 )
 
 
-[**Html템플릿**](https://themewagon.com/themes/free-bootstrap-4-html5-food-blog-website-template-yummy/
-)
-
-
-  <h2>:two_women_holding_hands:git</h2>
-
-### 자신의 브랜치에만 push 합시다 (main에 하면 50만원)
-</div>
-
-##### 로컬 저장소(내 컴퓨터) 에서 브랜치 생성하는 법
-```git
-프로젝트 루트 폴더에서
-git branch {브랜치명} // 브랜치 생성
-git checkout {브랜치명} // 브랜치 이동
-```
-##### 개발한 브랜치를 push 하고 싶어요
-```git
-git branch // 현재 작업중인 브랜치 확인
 
   develope
   main
